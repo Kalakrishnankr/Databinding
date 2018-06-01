@@ -10,7 +10,12 @@
 		<item name="android:textViewStyle">@style/TextViewStyle</item>
 	</style>
 
-	<style name="AppTheme.FullScreen">
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.FullScreen">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="android:windowFullscreen">true</item>
