@@ -7,7 +7,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
- * @author Samuel Robert <sam@spotsoon.com>
+ * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 30 Jan 2018 at 2:29 PM
  */
 class HeaderInterceptor(private val mApp: Application, private val mPref: Preference) : Interceptor {

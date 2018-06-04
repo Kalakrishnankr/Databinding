@@ -3,4 +3,7 @@
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_regular">14sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
+    <dimen name="thick">12dp</dimen>
+    <dimen name="narrow">8dp</dimen>
+    <dimen name="standard">16dp</dimen>
 </resources>

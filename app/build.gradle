@@ -26,6 +26,9 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -46,7 +49,8 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.1.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'android.arch.paging:runtime:1.0.0'
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha01'
+    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha01'
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0-alpha01"
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'android.arch.persistence.room:testing:1.1.0'
 

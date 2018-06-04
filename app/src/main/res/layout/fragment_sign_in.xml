@@ -2,15 +2,40 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <!--suppress AndroidUnknownAttribute -->
     <data class="SignInFragmentBinding">
 
+        <import type="androidx.navigation.Navigation" />
+
+        <import type="com.beachpartnerllc.beachpartner.user.auth.AuthState" />
+
+        <import type="com.beachpartnerllc.beachpartner.R" />
+
+        <variable
+            name="validate"
+            type="Boolean" />
+
+        <variable
+            name="vm"
+            type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:background="@drawable/art_volleyball_various_360dp">
+
+        <ImageView
+            android:id="@+id/logoIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@null"
+            android:src="@drawable/art_beach_various_86dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/bgView"
@@ -25,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/logoIV" />
 
         <TextView
             android:id="@+id/titleLabel"
@@ -41,22 +66,26 @@
             app:layout_constraintTop_toTopOf="@id/bgView" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/usernameTIL"
+            android:id="@+id/emailTIL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="36dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:layout_marginEnd="24dp"
             android:textColorHint="@color/grey_f6f6f6"
             app:layout_constraintEnd_toEndOf="@id/bgView"
+            app:error="@{validate &amp;&amp; !vm.auth.isEmailValid() ? @string/invalid_email : null}"
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toBottomOf="@id/titleLabel">
 
             <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/usernameET"
+                android:id="@+id/emailET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/user_name"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:text="@={vm.auth.email}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
                 tools:text="Jessica" />
@@ -68,10 +97,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textColorHint="@color/grey_f6f6f6"
-            app:layout_constraintEnd_toEndOf="@id/usernameTIL"
-            app:layout_constraintStart_toStartOf="@id/usernameTIL"
-            app:layout_constraintTop_toBottomOf="@id/usernameTIL"
+            android:enabled="@{vm.state != AuthState.LOADING}"
+            app:error="@{validate &amp;&amp; !vm.auth.isPasswordValid() ? @string/invalid_password : null}"
+            app:layout_constraintEnd_toEndOf="@id/emailTIL"
             app:passwordToggleEnabled="true"
+            app:layout_constraintStart_toStartOf="@id/emailTIL"
+            app:layout_constraintTop_toBottomOf="@id/emailTIL"
             app:passwordToggleTint="@color/colorAccent">
 
             <android.support.v7.widget.AppCompatEditText
@@ -82,6 +113,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
+                android:text="@={vm.auth.password}"
                 tools:text="jessica123" />
         </android.support.design.widget.TextInputLayout>
 
@@ -95,7 +127,10 @@
             android:background="@drawable/draw_rect_gradient_001443_2b3990"
             android:minHeight="32dp"
             android:text="@string/login"
+            android:alpha="@{validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid ? 1.0f : 0.5f}"
             android:textAllCaps="false"
+            android:enabled="@{validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid}"
+            android:onClick="@{()->vm.onSignIn()}"
             android:textColor="@color/grey_e4e4e4"
             app:layout_constraintEnd_toEndOf="@id/bgView"
             app:layout_constraintStart_toStartOf="@id/bgView"
@@ -127,6 +162,7 @@
             android:id="@+id/signUpLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_up)}"
             android:padding="16dp"
             android:text="@string/sign_up"
             android:textColor="#33408d"
@@ -139,8 +175,8 @@
             android:id="@+id/connectLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="16dp"
-            android:paddingRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:text="@string/connect_with"
             android:textColor="@color/blue_0b1d56"
             android:textSize="@dimen/text_size_small"

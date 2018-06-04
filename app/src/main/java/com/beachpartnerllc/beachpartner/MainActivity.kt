@@ -6,11 +6,11 @@ import com.beachpartnerllc.beachpartner.etc.common.startActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthActivity
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         startActivity<AuthActivity>()
+        finish()
     }
 }

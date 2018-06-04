@@ -11,4 +11,10 @@ import dagger.android.ContributesAndroidInjector
 interface AuthFragmentModule {
     @ContributesAndroidInjector
     fun contributeSignInFragment(): SignInFragment
+
+    @ContributesAndroidInjector
+    fun contributeSignUpFragment(): SignUpFragment
+
+    @ContributesAndroidInjector
+    fun contributeSignUp2Fragment(): SignUp2Fragment
 }
