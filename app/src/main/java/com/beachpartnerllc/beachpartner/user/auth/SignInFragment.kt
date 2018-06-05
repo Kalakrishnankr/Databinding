@@ -17,9 +17,8 @@ import io.reactivex.disposables.Disposable
 import timber.log.Timber
 import javax.inject.Inject
 
-class SignInFragment: BaseFragment() {
-    @Inject
-    lateinit var mFactory: ViewModelProvider.Factory
+class SignInFragment : BaseFragment() {
+    @Inject lateinit var mFactory: ViewModelProvider.Factory
     private lateinit var mBinding: SignInFragmentBinding
     private lateinit var mDisposable: Disposable
 
@@ -30,12 +29,13 @@ class SignInFragment: BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mBinding.vm = ViewModelProviders.of(activity!!, mFactory)[AuthViewModel::class.java]
-        mBinding.setLifecycleOwner(this)
+        val vm = ViewModelProviders.of(activity!!, mFactory)[AuthViewModel::class.java]
+        mBinding.vm = vm
+        mBinding.setLifecycleOwner(getViewLifeCycleOwner())
 
-        val email = RxTextView.afterTextChangeEvents(mBinding.emailET).skipInitialValue()
-        val password = RxTextView.afterTextChangeEvents(mBinding.passwordET).skipInitialValue()
-        mDisposable = Observable.combineLatest(listOf(email, password), { mBinding.validate = true })
+        val email = RxTextView.afterTextChangeEvents(mBinding.emailET).skip(vm.skipInitCount())
+        val password = RxTextView.afterTextChangeEvents(mBinding.passwordET).skip(vm.skipInitCount())
+        mDisposable = Observable.combineLatest(listOf(email, password), { vm.validate.value = true })
                 .doOnError { Timber.e(it) }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe()

@@ -11,10 +11,13 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(private val mRepo: AuthRepository) : ViewModel() {
     val auth = MutableLiveData<Auth>()
     val state = MutableLiveData<AuthState>()
+    val validate = MutableLiveData<Boolean>()
 
     fun onSignIn() {
         mRepo.signIn(auth.value!!, state)
     }
+
+    fun skipInitCount(): Long = if (validate.value == true) 0 else 1
 
     init {
         auth.value = Auth()

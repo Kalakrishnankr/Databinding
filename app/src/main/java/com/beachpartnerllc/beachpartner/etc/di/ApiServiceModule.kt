@@ -3,6 +3,7 @@ package com.beachpartnerllc.beachpartner.etc.di
 import android.app.Application
 import com.beachpartnerllc.beachpartner.etc.model.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.HeaderInterceptor
+import com.beachpartnerllc.beachpartner.etc.model.MockService
 import com.beachpartnerllc.beachpartner.etc.model.Preference
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -58,6 +59,6 @@ class ApiServiceModule {
                 .baseUrl(ApiService.URL_BASE)
                 .client(okHttpClient)
                 .build()
-                .create(ApiService::class.java)
+                .create(MockService::class.java)
     }
 }

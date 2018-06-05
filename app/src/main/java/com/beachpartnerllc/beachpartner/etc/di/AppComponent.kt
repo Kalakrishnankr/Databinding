@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.di
 
 import android.app.Application
 import com.beachpartnerllc.beachpartner.etc.App
+import com.beachpartnerllc.beachpartner.etc.model.ApiMockServiceModule
 
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +14,7 @@ import javax.inject.Singleton
     AndroidInjectionModule::class,
     ViewModelModule::class,
     ActivityModule::class,
-    ApiServiceModule::class,
+    ApiMockServiceModule::class,
     SharedPreferenceModule::class
 ])
 interface AppComponent {

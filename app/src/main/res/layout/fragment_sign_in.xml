@@ -13,10 +13,6 @@
         <import type="com.beachpartnerllc.beachpartner.R" />
 
         <variable
-            name="validate"
-            type="Boolean" />
-
-        <variable
             name="vm"
             type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel" />
     </data>
@@ -71,11 +67,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="36dp"
-            android:enabled="@{vm.state != AuthState.LOADING}"
             android:layout_marginEnd="24dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.validate &amp;&amp; !vm.auth.isEmailValid() ? @string/invalid_email : null}"
             app:layout_constraintEnd_toEndOf="@id/bgView"
-            app:error="@{validate &amp;&amp; !vm.auth.isEmailValid() ? @string/invalid_email : null}"
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toBottomOf="@id/titleLabel">
 
@@ -96,13 +92,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColorHint="@color/grey_f6f6f6"
             android:enabled="@{vm.state != AuthState.LOADING}"
-            app:error="@{validate &amp;&amp; !vm.auth.isPasswordValid() ? @string/invalid_password : null}"
+            android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.validate &amp;&amp; !vm.auth.isPasswordValid() ? @string/invalid_password : null}"
             app:layout_constraintEnd_toEndOf="@id/emailTIL"
-            app:passwordToggleEnabled="true"
             app:layout_constraintStart_toStartOf="@id/emailTIL"
             app:layout_constraintTop_toBottomOf="@id/emailTIL"
+            app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorAccent">
 
             <android.support.v7.widget.AppCompatEditText
@@ -111,9 +107,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:text="@={vm.auth.password}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
-                android:text="@={vm.auth.password}"
+                app:onOkInSoftKeyboard="@{() -> loginBtn.performClick()}"
                 tools:text="jessica123" />
         </android.support.design.widget.TextInputLayout>
 
@@ -124,17 +121,31 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="26dp"
+            android:alpha="@{vm.validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid ? 1.0f : 0.5f}"
             android:background="@drawable/draw_rect_gradient_001443_2b3990"
+            android:enabled="@{vm.validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid}"
             android:minHeight="32dp"
-            android:text="@string/login"
-            android:alpha="@{validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid ? 1.0f : 0.5f}"
-            android:textAllCaps="false"
-            android:enabled="@{validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid}"
             android:onClick="@{()->vm.onSignIn()}"
+            android:text="@string/login"
+            android:textAllCaps="false"
             android:textColor="@color/grey_e4e4e4"
             app:layout_constraintEnd_toEndOf="@id/bgView"
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toBottomOf="@id/passwordTIL" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loaderLIV"
+            style="@style/AVLoadingIndicatorView.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard"
+            android:layout_marginRight="@dimen/standard"
+            app:indicatorColor="@color/white"
+            app:indicatorName="BallPulseSyncIndicator"
+            app:isLoading="@{vm.state == AuthState.LOADING}"
+            app:layout_constraintBottom_toBottomOf="@id/loginBtn"
+            app:layout_constraintEnd_toEndOf="@id/loginBtn"
+            app:layout_constraintTop_toTopOf="@id/loginBtn" />
 
         <TextView
             android:id="@+id/forgotLabel"

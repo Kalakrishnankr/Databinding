@@ -19,10 +19,11 @@ class AuthRepository @Inject constructor(private val mApi: ApiService) : Reposit
         state.value = AuthState.LOADING
         mApi.signIn(auth).enqueue(object : Callback<Auth?> {
             override fun onFailure(call: Call<Auth?>?, t: Throwable?) {
-
+                state.value = AuthState.REQUEST_FAILED
             }
 
             override fun onResponse(call: Call<Auth?>?, response: Response<Auth?>?) {
+                state.value = AuthState.AUTHENTICATED
             }
         })
     }

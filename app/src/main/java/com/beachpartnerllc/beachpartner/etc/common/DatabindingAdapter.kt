@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.wang.avi.AVLoadingIndicatorView
 
+
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 04 Jun 2018 at 9:44 AM
@@ -24,7 +25,7 @@ fun setError(view: TextInputLayout, error: String?) {
 }
 
 @BindingAdapter("isLoading")
-fun setStateLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
+fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
     if (isLoading) view.smoothToShow()
     else view.smoothToHide()
 }
@@ -71,5 +72,27 @@ fun disableShiftMode(view: BottomNavigationView, disableShift: Boolean) {
         Log.e("BNVHelper", "Unable to get shift mode field", e)
     } catch (e: IllegalAccessException) {
         Log.e("BNVHelper", "Unable to change value of shift mode", e)
+    }
+}
+
+@BindingAdapter("onOkInSoftKeyboard")
+fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardListener?) {
+    if (listener == null) {
+        view.setOnEditorActionListener(null)
+    } else {
+        view.setOnEditorActionListener { _, _, event ->
+            if (event != null) {
+                // if shift key is down, then we want to insert the '\n' char in the TextView;
+                // otherwise, the default action is to send the message.
+                if (!event.isShiftPressed) {
+                    listener.onOkInSoftKeyboard()
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener false
+            }
+
+            listener.onOkInSoftKeyboard()
+            return@setOnEditorActionListener true
+        }
     }
 }
