@@ -10,8 +10,10 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.TextView
+import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
 import com.wang.avi.AVLoadingIndicatorView
 
 
@@ -83,16 +85,31 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
         view.setOnEditorActionListener { _, _, event ->
             if (event != null) {
                 // if shift key is down, then we want to insert the '\n' char in the TextView;
-                // otherwise, the default action is to send the message.
+                // otherwise, the default action is to invoke listener callback.
                 if (!event.isShiftPressed) {
                     listener.onOkInSoftKeyboard()
-                    return@setOnEditorActionListener true
+                    return@setOnEditorActionListener false
                 }
                 return@setOnEditorActionListener false
             }
 
             listener.onOkInSoftKeyboard()
-            return@setOnEditorActionListener true
+            return@setOnEditorActionListener false
+        }
+    }
+}
+
+@BindingAdapter("onDrawableEndClick")
+fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
+    if (listener != null) {
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                    listener.onDrawableEnd()
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
         }
     }
 }

@@ -31,11 +31,11 @@ class SignInFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         val vm = ViewModelProviders.of(activity!!, mFactory)[AuthViewModel::class.java]
         mBinding.vm = vm
-        mBinding.setLifecycleOwner(getViewLifeCycleOwner())
+        mBinding.setLifecycleOwner(viewLifecycleOwner)
 
-        val email = RxTextView.afterTextChangeEvents(mBinding.emailET).skip(vm.skipInitCount())
-        val password = RxTextView.afterTextChangeEvents(mBinding.passwordET).skip(vm.skipInitCount())
-        mDisposable = Observable.combineLatest(listOf(email, password), { vm.validate.value = true })
+        val email = RxTextView.afterTextChangeEvents(mBinding.emailET).skip(vm.signInSkipInitCount())
+        val password = RxTextView.afterTextChangeEvents(mBinding.passwordET).skip(vm.signInSkipInitCount())
+        mDisposable = Observable.combineLatest(listOf(email, password), { vm.signInValidate.value = true })
                 .doOnError { Timber.e(it) }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe()

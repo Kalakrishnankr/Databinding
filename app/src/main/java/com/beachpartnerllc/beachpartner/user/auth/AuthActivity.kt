@@ -10,8 +10,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity(), HasSupportFragmentInjector {
-    @Inject
-    lateinit var mInjector: DispatchingAndroidInjector<Fragment>
+    @Inject lateinit var mInjector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

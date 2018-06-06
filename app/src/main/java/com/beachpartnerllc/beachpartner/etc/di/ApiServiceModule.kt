@@ -3,9 +3,7 @@ package com.beachpartnerllc.beachpartner.etc.di
 import android.app.Application
 import com.beachpartnerllc.beachpartner.etc.model.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.HeaderInterceptor
-import com.beachpartnerllc.beachpartner.etc.model.MockService
 import com.beachpartnerllc.beachpartner.etc.model.Preference
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -18,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
- * @author Samuel Robert <sam@spotsoon.com>
+ * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 29 Nov 2017 at 11:29 AM
  */
 @Module
@@ -33,9 +31,7 @@ class ApiServiceModule {
     @Provides
     @Singleton
     fun gsonProvider(): Gson {
-        val gsonBuilder = GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        val gsonBuilder = GsonBuilder().setDateFormat("yyyy-MM-dd")
         return gsonBuilder.create()
     }
 
@@ -59,6 +55,6 @@ class ApiServiceModule {
                 .baseUrl(ApiService.URL_BASE)
                 .client(okHttpClient)
                 .build()
-                .create(MockService::class.java)
+                .create(ApiService::class.java)
     }
 }

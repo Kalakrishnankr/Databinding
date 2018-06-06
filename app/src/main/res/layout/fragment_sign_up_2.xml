@@ -9,6 +9,18 @@
         <import type="androidx.navigation.Navigation" />
 
         <import type="com.beachpartnerllc.beachpartner.R" />
+
+        <import type="com.beachpartnerllc.beachpartner.user.auth.AuthState" />
+
+        <import type="com.beachpartnerllc.beachpartner.etc.common.CompoundDrawableTouchListener" />
+
+        <variable
+            name="handler"
+            type="com.beachpartnerllc.beachpartner.user.auth.SignUp2Fragment" />
+
+        <variable
+            name="vm"
+            type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -49,7 +61,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="24dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isEmailValid() ? @string/invalid_email : null}"
             app:layout_constraintEnd_toEndOf="@id/bgView"
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toTopOf="@id/bgView">
@@ -60,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:text="@={vm.profile.email}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
                 tools:text="alicia@florricks.com" />
@@ -70,7 +85,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isMobileValid() ? @string/invalid_mobile : null}"
             app:layout_constraintEnd_toEndOf="@id/emailTIL"
             app:layout_constraintStart_toStartOf="@id/emailTIL"
             app:layout_constraintTop_toBottomOf="@id/emailTIL">
@@ -81,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/mobile_number"
                 android:inputType="phone"
+                android:text="@={vm.profile.mobile}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
                 tools:text="+21-84849596" />
@@ -91,7 +109,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isPasswordValid() ? @string/invalid_password : null}"
             app:layout_constraintEnd_toEndOf="@id/emailTIL"
             app:layout_constraintStart_toStartOf="@id/emailTIL"
             app:layout_constraintTop_toBottomOf="@id/mobileTIL"
@@ -104,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:text="@={vm.profile.password}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
                 tools:text="alicia@#florrick" />
@@ -114,7 +135,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isDobValid() ? @string/invalid_dob : null}"
             app:layout_constraintEnd_toEndOf="@id/emailTIL"
             app:layout_constraintStart_toStartOf="@id/emailTIL"
             app:layout_constraintTop_toBottomOf="@id/passwordTIL">
@@ -123,10 +146,18 @@
                 android:id="@+id/dobET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_date_range_blue_24dp"
+                android:drawableRight="@drawable/ic_date_range_blue_24dp"
                 android:hint="@string/date_of_birth"
                 android:inputType="date"
+                android:paddingStart="@dimen/thin"
+                android:paddingLeft="@dimen/thin"
+                android:paddingEnd="@dimen/thick"
+                android:paddingRight="@dimen/thick"
+                android:text="@={vm.profile.dob}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
+                app:onDrawableEndClick="@{()-> handler.onDobPicker()}"
                 tools:text="01/09/1973" />
         </android.support.design.widget.TextInputLayout>
 
@@ -137,8 +168,11 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="26dp"
+            android:alpha="@{vm.signUp2Validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.profile.valid2 ? 1.0f : 0.5f}"
             android:background="@drawable/draw_rect_gradient_001443_2b3990"
+            android:enabled="@{vm.signUp2Validate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.profile.valid2}"
             android:minHeight="32dp"
+            android:onClick="@{()->vm.signUp()}"
             android:text="@string/register"
             android:textAllCaps="false"
             android:textColor="@color/grey_e4e4e4"

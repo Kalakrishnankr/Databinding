@@ -1,25 +1,46 @@
 package com.beachpartnerllc.beachpartner.user.auth
 
+import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.beachpartnerllc.beachpartner.R
 import javax.inject.Inject
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 04 Jun 2018 at 2:44 PM
  */
-class AuthViewModel @Inject constructor(private val mRepo: AuthRepository) : ViewModel() {
+class AuthViewModel @Inject constructor(private val mRepo: AuthRepository, private val app: Application) : ViewModel() {
     val auth = MutableLiveData<Auth>()
+    val profile = MutableLiveData<Profile>()
     val state = MutableLiveData<AuthState>()
-    val validate = MutableLiveData<Boolean>()
+    val selectedStatePosition = MutableLiveData<Int>()
+
+    val signInValidate = MutableLiveData<Boolean>()
+    val signUpValidate = MutableLiveData<Boolean>()
+    val signUp2Validate = MutableLiveData<Boolean>()
 
     fun onSignIn() {
         mRepo.signIn(auth.value!!, state)
     }
 
-    fun skipInitCount(): Long = if (validate.value == true) 0 else 1
+    fun signInSkipInitCount(): Long = if (signInValidate.value == true) 0 else 1
+
+    fun signUpSkipInitCount(): Long = if (signUpValidate.value == true) 0 else 1
+
+    fun signUp2SkipInitCount(): Long = if (signUp2Validate.value == true) 0 else 1
+
+    fun signUp() {
+    }
+
+    fun setState(position: Int) {
+        val user = profile.value!!
+        user.state = app.resources.getStringArray(R.array.states)[position]
+        profile.value = user
+    }
 
     init {
         auth.value = Auth()
+        profile.value = Profile()
     }
 }

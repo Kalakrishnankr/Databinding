@@ -7,13 +7,22 @@
 
         <import type="androidx.navigation.Navigation" />
 
+        <import type="com.beachpartnerllc.beachpartner.user.auth.AuthState" />
+
         <import type="com.beachpartnerllc.beachpartner.R" />
+
+        <import type="android.widget.RadioButton" />
+
+        <variable
+            name="vm"
+            type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="@drawable/art_volleyball_various_360dp">
+        tools:background="@drawable/art_volleyball_various_360dp"
+        tools:context=".user.auth.AuthActivity">
 
         <ImageView
             android:id="@+id/logoIV"
@@ -48,7 +57,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="24dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.signUpValidate &amp;&amp; !vm.profile.isFirstNameValid() ? @string/invalid_name : null}"
             app:layout_constraintEnd_toEndOf="@id/bgView"
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toTopOf="@id/bgView">
@@ -59,6 +70,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName|textCapWords"
+                android:maxLength="25"
+                android:text="@={vm.profile.firstName}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
                 tools:text="Alicia" />
@@ -69,7 +82,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:textColorHint="@color/grey_f6f6f6"
+            app:error="@{vm.signUpValidate &amp;&amp; !vm.profile.isLastNameValid() ? @string/invalid_name : null}"
             app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
             app:layout_constraintStart_toStartOf="@id/firstNameTIL"
             app:layout_constraintTop_toBottomOf="@id/firstNameTIL">
@@ -80,19 +95,39 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name"
                 android:inputType="textPersonName|textCapWords"
+                android:maxLength="25"
+                android:text="@={vm.profile.lastName}"
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
+                app:onOkInSoftKeyboard="@{()->stateACS.performClick()}"
                 tools:text="Florrick" />
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/stateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/state"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="@id/stateACS"
+            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
+            app:layout_constraintTop_toTopOf="@id/stateACS" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/stateACS"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/medium"
+            android:layout_marginLeft="@dimen/medium"
+            android:layout_marginTop="@dimen/standard"
+            android:enabled="@{vm.state != AuthState.LOADING}"
+            android:entries="@array/states"
             android:textColorHint="@color/grey_f6f6f6"
-            app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
+            android:selectedItemPosition="@={vm.selectedStatePosition}"
+            app:layout_constraintEnd_toEndOf="@+id/firstNameTIL"
+            app:layout_constraintStart_toEndOf="@id/stateLabel"
             app:layout_constraintTop_toBottomOf="@id/lastNameTIL" />
 
         <TextView
@@ -101,24 +136,24 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/gender"
-            android:textColor="@color/blue_2f3e87"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="@id/genderRG"
             app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toBottomOf="@id/stateACS" />
+            app:layout_constraintTop_toTopOf="@id/genderRG" />
 
         <RadioGroup
             android:id="@+id/genderRG"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginRight="36dp"
+            android:layout_marginStart="@dimen/standard"
+            android:layout_marginLeft="@dimen/standard"
+            android:layout_marginTop="@dimen/standard"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toBottomOf="@id/genderLabel">
+            app:layout_constraintStart_toEndOf="@id/genderLabel"
+            app:layout_constraintTop_toBottomOf="@id/stateACS">
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/maleRB"
@@ -127,7 +162,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/sf_medium"
                 android:text="@string/male"
-                android:textColor="@color/blue_2f3e87"
+                android:checked="@{vm.profile.isMale()}"
+                android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -135,9 +171,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="@{vm.profile.isFemale()}"
                 android:fontFamily="@font/sf_medium"
                 android:text="@string/female"
-                android:textColor="@color/blue_2f3e87"
+                android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 
@@ -145,27 +182,24 @@
             android:id="@+id/userTypeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="4dp"
+            android:padding="@dimen/thin"
             android:text="@string/user_type"
-            android:textColor="@color/blue_2f3e87"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="@id/userTypeRG"
             app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toBottomOf="@id/genderRG" />
+            app:layout_constraintTop_toTopOf="@id/userTypeRG" />
 
         <RadioGroup
             android:id="@+id/userTypeRG"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginRight="36dp"
+            android:layout_marginTop="@dimen/standard"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toBottomOf="@id/userTypeLabel">
+            app:layout_constraintStart_toEndOf="@id/userTypeLabel"
+            app:layout_constraintTop_toBottomOf="@id/genderRG">
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/playerRB"
@@ -173,8 +207,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/sf_medium"
-                android:text="@string/player"
-                android:textColor="@color/blue_2f3e87"
+                android:text="@string/athlete"
+                android:checked="@{vm.profile.isAthlete()}"
+                android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -184,7 +219,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/sf_medium"
                 android:text="@string/coach"
-                android:textColor="@color/blue_2f3e87"
+                android:checked="@{vm.profile.isCoach()}"
+                android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 
@@ -195,9 +231,11 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="26dp"
+            android:alpha="@{vm.signUpValidate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.profile.valid ? 1.0f : 0.5f}"
             android:background="@drawable/draw_rect_gradient_001443_2b3990"
+            android:enabled="@{vm.signUpValidate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.profile.valid}"
             android:minHeight="32dp"
-            android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_proceed)}"
+            android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_proceed)}"
             android:text="@string/proceed"
             android:textAllCaps="false"
             android:textColor="@color/grey_e4e4e4"
@@ -210,6 +248,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:enabled="@{vm.state != AuthState.LOADING}"
             android:fontFamily="@font/sf_medium"
             android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
             android:padding="@dimen/narrow"
@@ -227,7 +266,7 @@
             android:id="@+id/bottomGuide"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="@dimen/medium"
             app:layout_constraintTop_toBottomOf="@id/loginLabel" />
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -14,7 +14,7 @@ import com.beachpartnerllc.beachpartner.etc.di.Injectable
  * @created on 31 May 2018 at 1:50 PM
  */
 abstract class BaseFragment: Fragment(), Injectable {
-    internal class ViewLifecycleOwner : LifecycleOwner {
+    class ViewLifecycleOwner : LifecycleOwner {
         private val lifecycleRegistry = LifecycleRegistry(this)
 
         override fun getLifecycle(): LifecycleRegistry {
@@ -22,15 +22,9 @@ abstract class BaseFragment: Fragment(), Injectable {
         }
     }
 
-    private var viewLifecycleOwner: ViewLifecycleOwner? = null
+    var viewLifecycleOwner: ViewLifecycleOwner? = null
+        private set
 
-    /**
-     * @return the Lifecycle owner of the current view hierarchy,
-     * or null if there is no current view hierarchy.
-     */
-    fun getViewLifeCycleOwner(): LifecycleOwner? {
-        return viewLifecycleOwner
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -8,6 +8,7 @@
 		<item name="android:windowBackground">@color/colorBackground</item>
 		<item name="buttonStyle">@style/ButtonStyle</item>
 		<item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
 	</style>
 
     <style name="AppTheme.NoActionBar">
@@ -33,5 +34,15 @@
 		<item name="android:includeFontPadding">false</item>
 		<item name="android:color">@color/grey_26999999</item>
 	</style>
+
+	<style name="DatePickerStyle">
+		<item name="android:datePickerMode">spinner</item>
+        <item name="android:calendarViewShown">true</item>
+    </style>
+
+    <style name="AlertDialogTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
 </resources>
