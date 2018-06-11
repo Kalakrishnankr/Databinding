@@ -20,9 +20,7 @@ class AuthViewModel @Inject constructor(private val mRepo: AuthRepository, priva
     val signUpValidate = MutableLiveData<Boolean>()
     val signUp2Validate = MutableLiveData<Boolean>()
 
-    fun onSignIn() {
-        mRepo.signIn(auth.value!!, state)
-    }
+    fun onSignIn() = mRepo.signIn(auth.value!!, state)
 
     fun signInSkipInitCount(): Long = if (signInValidate.value == true) 0 else 1
 
@@ -30,8 +28,7 @@ class AuthViewModel @Inject constructor(private val mRepo: AuthRepository, priva
 
     fun signUp2SkipInitCount(): Long = if (signUp2Validate.value == true) 0 else 1
 
-    fun signUp() {
-    }
+    fun signUp() = mRepo.register(profile.value!!, state)
 
     fun setState(position: Int) {
         val user = profile.value!!

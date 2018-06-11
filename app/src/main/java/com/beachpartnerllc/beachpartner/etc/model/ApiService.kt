@@ -1,6 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc.model
 
 import com.beachpartnerllc.beachpartner.user.auth.Auth
+import com.beachpartnerllc.beachpartner.user.auth.Profile
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -15,6 +16,10 @@ interface ApiService {
     @Headers(HEADER_NO_AUTH)
     @POST("authenticate")
     fun signIn(@Body auth: Auth): Call<Auth>
+
+    @Headers(HEADER_NO_AUTH)
+    @POST("/api/register")
+    fun register(@Body profile: Profile): Call<Any>
 
     companion object {
         const val URL_BASE = "https://beachpartner.com/api/"

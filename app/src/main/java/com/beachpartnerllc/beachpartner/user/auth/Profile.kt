@@ -4,6 +4,7 @@ import com.beachpartnerllc.beachpartner.etc.common.isEmail
 import com.beachpartnerllc.beachpartner.etc.common.isMobile
 import com.beachpartnerllc.beachpartner.etc.common.isName
 import com.beachpartnerllc.beachpartner.etc.common.isPassword
+import com.google.gson.annotations.SerializedName
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,15 +12,20 @@ import java.util.*
 data class Profile(
         var firstName: String? = null,
         var lastName: String? = null,
+
+        @SerializedName("location")
         var state: String? = null,
+
         var gender: String? = null,
         var userType: String? = null,
         var email: String? = null,
+
+        @SerializedName("phoneNumber")
         var mobile: String? = null,
+
         var password: String? = null,
         var dob: String? = null
 ) {
-    private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
     fun isFirstNameValid() = firstName.isName()
 
@@ -42,6 +48,7 @@ data class Profile(
     fun isPasswordValid() = password.isPassword()
 
     fun isDobValid() = try {
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
         sdf.isLenient = false
         sdf.parse(dob)
         true

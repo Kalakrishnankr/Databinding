@@ -124,8 +124,8 @@
             android:layout_marginTop="@dimen/standard"
             android:enabled="@{vm.state != AuthState.LOADING}"
             android:entries="@array/states"
-            android:textColorHint="@color/grey_f6f6f6"
             android:selectedItemPosition="@={vm.selectedStatePosition}"
+            android:textColorHint="@color/grey_f6f6f6"
             app:layout_constraintEnd_toEndOf="@+id/firstNameTIL"
             app:layout_constraintStart_toEndOf="@id/stateLabel"
             app:layout_constraintTop_toBottomOf="@id/lastNameTIL" />
@@ -160,9 +160,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="@{vm.profile.isMale()}"
                 android:fontFamily="@font/sf_medium"
                 android:text="@string/male"
-                android:checked="@{vm.profile.isMale()}"
                 android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
 
@@ -206,9 +206,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="@{vm.profile.isAthlete()}"
                 android:fontFamily="@font/sf_medium"
                 android:text="@string/athlete"
-                android:checked="@{vm.profile.isAthlete()}"
                 android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
 
@@ -217,9 +217,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="@{vm.profile.isCoach()}"
                 android:fontFamily="@font/sf_medium"
                 android:text="@string/coach"
-                android:checked="@{vm.profile.isCoach()}"
                 android:textColor="@color/selector_2f3e87_484848"
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
@@ -250,12 +250,12 @@
             android:layout_marginTop="8dp"
             android:enabled="@{vm.state != AuthState.LOADING}"
             android:fontFamily="@font/sf_medium"
-            android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
+            android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_global_signInFragment)}"
             android:padding="@dimen/narrow"
             android:text="@string/already_have_account_login"
             android:textColor="@color/grey_aee4e4e4"
             android:textSize="@dimen/text_size_small"
-            app:end="@{32}"
+            app:end="@{31}"
             app:foregroundColorSpan="@{@color/blue_ae12235b}"
             app:layout_constraintEnd_toEndOf="@id/proceedBtn"
             app:layout_constraintStart_toStartOf="@id/proceedBtn"
