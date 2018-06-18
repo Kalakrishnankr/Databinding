@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -36,6 +38,12 @@ inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: 
     val inflater = LayoutInflater.from(context)
     val view = inflater.inflate(res, this, false)
     return createHolder(view)
+}
+
+inline fun <reified T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
+    val inflater = LayoutInflater.from(context)
+    val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
+    return construct(binding)
 }
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/action_home"
+		android:icon="@drawable/ic_home_blue_21dp"
+		android:title=""
+		app:iconTint="@color/colorPrimary"/>
+
+	<item
+		android:id="@+id/action_connection"
+		android:icon="@drawable/ic_connection_grey_29dp"
+		android:title=""/>
+
+	<item
+		android:id="@+id/action_bp"
+		android:icon="@drawable/ic_bp_various_37dp"
+		android:title=""/>
+
+	<item
+		android:id="@+id/action_calendar"
+		android:icon="@drawable/ic_calendar_grey_20dp"
+		android:title=""/>
+
+	<item
+		android:id="@+id/action_chat"
+		android:icon="@drawable/ic_chat_grey_23dp"
+		android:title=""/>
+</menu>

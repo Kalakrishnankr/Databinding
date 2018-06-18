@@ -2,6 +2,8 @@ package com.beachpartnerllc.beachpartner.etc.di
 
 
 import com.beachpartnerllc.beachpartner.MainActivity
+import com.beachpartnerllc.beachpartner.home.HomeActivity
+import com.beachpartnerllc.beachpartner.home.HomeFragmentModule
 import com.beachpartnerllc.beachpartner.user.auth.AuthActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthFragmentModule
 import dagger.Module
@@ -18,4 +20,7 @@ interface ActivityModule {
 
     @ContributesAndroidInjector(modules = [AuthFragmentModule::class])
     fun contributeAuthActivity(): AuthActivity
+
+    @ContributesAndroidInjector(modules = [HomeFragmentModule::class])
+    fun contributeHomeActivity(): HomeActivity
 }

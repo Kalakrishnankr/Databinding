@@ -8,16 +8,7 @@
         android:id="@+id/mainActivity"
         android:name="com.beachpartnerllc.beachpartner.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main">
-        <action
-            android:id="@+id/action_auth"
-            app:destination="@id/authActivity" />
-    </activity>
-
-    <activity
-        android:id="@+id/authActivity"
-        android:name="com.beachpartnerllc.beachpartner.user.auth.AuthActivity"
-        android:label="activity_auth"
-        tools:layout="@layout/activity_auth" />
+	    tools:layout="@layout/activity_main"></activity>
+	<include app:graph="@navigation/auth_nav"/>
 
 </navigation>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="HomeActivityBinding">
+
+	</data>
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".home.HomeActivity">
+
+		<fragment
+			android:id="@+id/navFragment"
+			android:name="androidx.navigation.fragment.NavHostFragment"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:defaultNavHost="true"
+			app:layout_constraintBottom_toTopOf="@id/homeBNV"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:navGraph="@navigation/home_nav"/>
+
+		<android.support.design.widget.BottomNavigationView
+			android:id="@+id/homeBNV"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			app:disableShift="@{true}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:menu="@menu/bottom_navigation"/>
+
+	</android.support.constraint.ConstraintLayout>
+</layout>

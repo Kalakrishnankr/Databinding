@@ -57,7 +57,6 @@ fun setForegroundColorSpan(view: TextView, color: Int, start: Int = 0, end: Int 
 
 @BindingAdapter("disableShift")
 fun disableShiftMode(view: BottomNavigationView, disableShift: Boolean) {
-    if (!disableShift) return
     val menuView = view.getChildAt(0) as BottomNavigationMenuView
     try {
         val shiftingMode = menuView.javaClass.getDeclaredField("mShiftingMode")
@@ -67,7 +66,7 @@ fun disableShiftMode(view: BottomNavigationView, disableShift: Boolean) {
         for (i in 0 until menuView.childCount) {
             val item = menuView.getChildAt(i) as BottomNavigationItemView
 
-            item.setShiftingMode(false)
+            item.setShiftingMode(!disableShift)
             // set once again checked value, so view will be updated
 
             item.setChecked(item.itemData.isChecked)
@@ -114,4 +113,13 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
             return@setOnTouchListener false
         }
     }
+}
+
+@BindingAdapter("itemDecoration", "offset", requireAll = false)
+fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
+    val decorator: RecyclerView.ItemDecoration? = when (decoration) {
+        "ItemOffsetDecoration" -> ItemOffsetDecoration(view.context, offset)
+        else -> null
+    }
+    view.addItemDecoration(decorator)
 }

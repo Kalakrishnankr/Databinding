@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.beachpartnerllc.beachpartner.user.auth.SignInFragment"
-        android:label="SignInFragment"
+	    android:label="@string/login"
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_sign_up"
@@ -15,13 +15,13 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+	        app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.beachpartnerllc.beachpartner.user.auth.SignUpFragment"
-        android:label="SignUpFragment"
+	    android:label="@string/sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_proceed"
@@ -35,8 +35,8 @@
     <fragment
         android:id="@+id/signUp2Fragment"
         android:name="com.beachpartnerllc.beachpartner.user.auth.SignUp2Fragment"
-        android:label="SignUp2Fragment"
-        tools:layout="@layout/fragment_sign_up_2"></fragment>
+	    android:label="@string/sign_up"
+	    tools:layout="@layout/fragment_sign_up_2"/>
 
     <action
         android:id="@+id/action_global_signInFragment"
