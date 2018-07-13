@@ -15,6 +15,6 @@ class MockService(private val delegate: BehaviorDelegate<ApiService>) : ApiServi
     }
 
     override fun register(profile: Profile): Call<Any> {
-        TODO("Mock API not implemented")
+        return delegate.returningResponse(profile).register(profile)
     }
 }

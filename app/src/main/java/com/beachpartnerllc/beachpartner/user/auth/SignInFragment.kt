@@ -35,7 +35,7 @@ class SignInFragment : BaseFragment() {
 
         val email = RxTextView.afterTextChangeEvents(mBinding.emailET).skip(vm.signInSkipInitCount())
         val password = RxTextView.afterTextChangeEvents(mBinding.passwordET).skip(vm.signInSkipInitCount())
-        mDisposable = Observable.combineLatest(listOf(email, password), { vm.signInValidate.value = true })
+        mDisposable = Observable.combineLatest(listOf(email, password)) { vm.signInValidate.value = true }
                 .doOnError { Timber.e(it) }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe()

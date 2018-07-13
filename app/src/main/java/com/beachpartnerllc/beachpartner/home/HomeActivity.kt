@@ -2,19 +2,14 @@ package com.beachpartnerllc.beachpartner.home
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
 import com.beachpartnerllc.beachpartner.etc.common.BaseActivity
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
 
-class HomeActivity : BaseActivity(), HasSupportFragmentInjector {
-    @Inject lateinit var injector: DispatchingAndroidInjector<Fragment>
+class HomeActivity : BaseActivity() {
     private lateinit var binding: HomeActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +22,4 @@ class HomeActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
-
-    override fun supportFragmentInjector() = injector
 }

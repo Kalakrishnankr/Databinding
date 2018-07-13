@@ -1,5 +1,7 @@
-package com.beachpartnerllc.beachpartner.etc.model
+package com.beachpartnerllc.beachpartner.etc.di
 
+import com.beachpartnerllc.beachpartner.etc.model.ApiService
+import com.beachpartnerllc.beachpartner.etc.model.MockService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -26,8 +28,8 @@ class ApiMockServiceModule {
     @Singleton
     fun behaviorProvider(): NetworkBehavior {
         val behavior = NetworkBehavior.create()
-        behavior.setDelay(3000, TimeUnit.MILLISECONDS)
-        behavior.setVariancePercent(70)
+        behavior.setDelay(10, TimeUnit.SECONDS)
+        behavior.setVariancePercent(80)
         return behavior
     }
 

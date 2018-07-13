@@ -1,7 +1,5 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
-import android.support.v7.app.AppCompatActivity
-import com.beachpartnerllc.beachpartner.etc.di.Injectable
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity: AppCompatActivity(), Injectable {
-}
+abstract class BaseActivity : DaggerAppCompatActivity()
