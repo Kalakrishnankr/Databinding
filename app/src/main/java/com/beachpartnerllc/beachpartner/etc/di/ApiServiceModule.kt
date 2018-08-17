@@ -4,6 +4,7 @@ import android.app.Application
 import com.beachpartnerllc.beachpartner.etc.model.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.HeaderInterceptor
 import com.beachpartnerllc.beachpartner.etc.model.Preference
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -30,9 +31,11 @@ class ApiServiceModule {
 
     @Provides
     @Singleton
-    fun gsonProvider(): Gson {
-        val gsonBuilder = GsonBuilder().setDateFormat("yyyy-MM-dd")
-        return gsonBuilder.create()
+    fun serializerProvider(): Gson {
+	    return GsonBuilder()
+		    .setDateFormat("yyyy-MM-dd")
+		    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+		    .create()
     }
 
     @Provides
@@ -49,9 +52,9 @@ class ApiServiceModule {
 
     @Provides
     @Singleton
-    fun retrofitProvider(gson: Gson, okHttpClient: OkHttpClient): ApiService {
+    fun retrofitProvider(serializer: Gson, okHttpClient: OkHttpClient): ApiService {
         return Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
+	        .addConverterFactory(GsonConverterFactory.create(serializer))
                 .baseUrl(ApiService.URL_BASE)
                 .client(okHttpClient)
                 .build()

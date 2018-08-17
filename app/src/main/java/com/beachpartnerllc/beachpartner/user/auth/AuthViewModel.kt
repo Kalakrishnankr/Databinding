@@ -4,6 +4,9 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.R
+import com.beachpartnerllc.beachpartner.user.Gender
+import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.UserType
 import javax.inject.Inject
 
 /**
@@ -38,6 +41,7 @@ class AuthViewModel @Inject constructor(private val mRepo: AuthRepository, priva
 
     init {
         auth.value = Auth()
-        profile.value = Profile()
+        profile.value = Profile("Sam", "Rob", "Alabama", Gender.MALE, UserType.ATHLETE,
+            "sam@test.com", "9663379596", "samzionbhavan#158", "05/14/1994")
     }
 }

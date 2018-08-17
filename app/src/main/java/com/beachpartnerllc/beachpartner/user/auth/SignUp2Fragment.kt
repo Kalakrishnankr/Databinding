@@ -64,7 +64,7 @@ class SignUp2Fragment : BaseFragment() {
         dp.init(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH], null)
         val dialog = AlertDialog.Builder(context!!)
                 .setCustomTitle(layoutInflater.inflate(R.layout.dialog_title, null, false))
-                .setPositiveButton(R.string.okay) { _, _ -> mBinding.dobET.setText(getString(R.string.format_dob, dp.dayOfMonth, dp.month + 1, dp.year)) }
+            .setPositiveButton(R.string.okay) { _, _ -> mBinding.dobET.setText(getString(R.string.format_dob, dp.month + 1, dp.dayOfMonth, dp.year)) }
                 .setNegativeButton(R.string.cancel, null)
                 .create()
         dialog.setView(dp)

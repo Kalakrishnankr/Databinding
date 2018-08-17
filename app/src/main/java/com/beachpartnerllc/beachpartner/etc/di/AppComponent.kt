@@ -12,7 +12,7 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     ViewModelModule::class,
     ActivityModule::class,
-    ApiMockServiceModule::class,
+	ApiServiceModule::class,
     SharedPreferenceModule::class
 ])
 interface AppComponent {

@@ -1,7 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc.model
 
+import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.auth.Auth
-import com.beachpartnerllc.beachpartner.user.auth.Profile
 import retrofit2.Call
 import retrofit2.mock.BehaviorDelegate
 
