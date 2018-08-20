@@ -1,17 +1,17 @@
 package com.beachpartnerllc.beachpartner.user.auth
 
-import android.arch.lifecycle.ViewModelProvider
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SignUpFragment2Binding
-import com.beachpartnerllc.beachpartner.etc.common.BaseFragment
-import com.beachpartnerllc.beachpartner.etc.common.getViewModel
+import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
+import com.beachpartnerllc.beachpartner.etc.util.getViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

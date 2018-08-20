@@ -1,272 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <!--suppress AndroidUnknownAttribute -->
-    <data class="SignUpFragmentBinding">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="SignUpFragmentBinding">
 
-        <import type="androidx.navigation.Navigation" />
+		<import type="androidx.navigation.Navigation"/>
+		<import type="com.beachpartnerllc.beachpartner.R"/>
+		<import type="com.beachpartnerllc.beachpartner.user.Gender"/>
+		<import type="com.beachpartnerllc.beachpartner.user.UserType"/>
 
-        <import type="com.beachpartnerllc.beachpartner.user.auth.AuthState" />
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+	</data>
 
-        <import type="com.beachpartnerllc.beachpartner.R" />
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:background="@drawable/art_volleyball_various_360dp"
+		tools:context=".user.auth.AuthActivity">
 
-        <import type="android.widget.RadioButton" />
+		<ImageView
+			android:id="@+id/logoIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			android:contentDescription="@null"
+			android:src="@drawable/art_beach_various_86dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
 
-        <variable
-            name="vm"
-            type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel" />
-    </data>
+		<View
+			android:id="@+id/bgView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginStart="24dp"
+			android:layout_marginLeft="24dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginEnd="24dp"
+			android:layout_marginRight="24dp"
+			android:background="@drawable/draw_rect_e4e4e4_r13"
+			app:layout_constraintBottom_toBottomOf="@id/bottomGuide"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/logoIV"/>
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:background="@drawable/art_volleyball_various_360dp"
-        tools:context=".user.auth.AuthActivity">
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/firstNameTIL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="30dp"
+			android:layout_marginEnd="24dp"
+			android:enabled="@{!vm.loading}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:error="@{vm.nameError.getErrorResources()}"
+			app:layout_constraintEnd_toEndOf="@id/bgView"
+			app:layout_constraintStart_toStartOf="@id/bgView"
+			app:layout_constraintTop_toTopOf="@id/bgView">
 
-        <ImageView
-            android:id="@+id/logoIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:contentDescription="@null"
-            android:src="@drawable/art_beach_various_86dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/firstNameET"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/first_name"
+				android:inputType="textPersonName|textCapWords"
+				android:maxLength="@integer/max_length_name"
+				android:text="@={vm.profile.firstName}"
+				android:textColor="@color/blue_2f3e87"
+				android:textSize="@dimen/text_size_regular"
+				tools:text="Alicia"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:id="@+id/bgView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/draw_rect_e4e4e4_r13"
-            app:layout_constraintBottom_toBottomOf="@id/bottomGuide"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logoIV" />
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/lastNameTIL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:enabled="@{!vm.loading}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:error="@{vm.signUpValidate &amp;&amp; !vm.profile.isLastNameValid() ? @string/invalid_name : null}"
+			app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
+			app:layout_constraintStart_toStartOf="@id/firstNameTIL"
+			app:layout_constraintTop_toBottomOf="@id/firstNameTIL">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/firstNameTIL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="24dp"
-            android:enabled="@{vm.state != AuthState.LOADING}"
-            android:textColorHint="@color/grey_f6f6f6"
-            app:error="@{vm.signUpValidate &amp;&amp; !vm.profile.isFirstNameValid() ? @string/invalid_name : null}"
-            app:layout_constraintEnd_toEndOf="@id/bgView"
-            app:layout_constraintStart_toStartOf="@id/bgView"
-            app:layout_constraintTop_toTopOf="@id/bgView">
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/lastNameET"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/last_name"
+				android:inputType="textPersonName|textCapWords"
+				android:maxLength="@integer/max_length_name"
+				android:text="@={vm.profile.lastName}"
+				android:textColor="@color/blue_2f3e87"
+				android:textSize="@dimen/text_size_regular"
+				app:onOkInSoftKeyboard="@{()->stateACS.performClick()}"
+				tools:text="Florrick"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/firstNameET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/first_name"
-                android:inputType="textPersonName|textCapWords"
-                android:maxLength="25"
-                android:text="@={vm.profile.firstName}"
-                android:textColor="@color/blue_2f3e87"
-                android:textSize="@dimen/text_size_regular"
-                tools:text="Alicia" />
-        </android.support.design.widget.TextInputLayout>
+		<TextView
+			android:id="@+id/stateLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="4dp"
+			android:text="@string/state"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_size_small"
+			app:layout_constraintBottom_toBottomOf="@id/stateACS"
+			app:layout_constraintStart_toStartOf="@id/firstNameTIL"
+			app:layout_constraintTop_toTopOf="@id/stateACS"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/lastNameTIL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:enabled="@{vm.state != AuthState.LOADING}"
-            android:textColorHint="@color/grey_f6f6f6"
-            app:error="@{vm.signUpValidate &amp;&amp; !vm.profile.isLastNameValid() ? @string/invalid_name : null}"
-            app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toBottomOf="@id/firstNameTIL">
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/stateACS"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/medium"
+			android:layout_marginTop="@dimen/standard"
+			android:enabled="@{!vm.loading}"
+			android:selectedItemPosition="@={vm.selectedStatePosition}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:layout_constraintEnd_toEndOf="@+id/firstNameTIL"
+			app:layout_constraintStart_toEndOf="@id/stateLabel"
+			app:layout_constraintTop_toBottomOf="@id/lastNameTIL"
+			tools:entries="@array/states"/>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/lastNameET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/last_name"
-                android:inputType="textPersonName|textCapWords"
-                android:maxLength="25"
-                android:text="@={vm.profile.lastName}"
-                android:textColor="@color/blue_2f3e87"
-                android:textSize="@dimen/text_size_regular"
-                app:onOkInSoftKeyboard="@{()->stateACS.performClick()}"
-                tools:text="Florrick" />
-        </android.support.design.widget.TextInputLayout>
+		<TextView
+			android:id="@+id/genderLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="4dp"
+			android:text="@string/gender"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_size_small"
+			app:layout_constraintBottom_toBottomOf="@id/genderRG"
+			app:layout_constraintStart_toStartOf="@id/firstNameTIL"
+			app:layout_constraintTop_toTopOf="@id/genderRG"/>
 
-        <TextView
-            android:id="@+id/stateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@string/state"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toBottomOf="@id/stateACS"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toTopOf="@id/stateACS" />
+		<RadioGroup
+			android:id="@+id/genderRG"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/standard"
+			android:layout_marginTop="@dimen/standard"
+			android:enabled="@{!vm.loading}"
+			android:orientation="horizontal"
+			app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
+			app:layout_constraintStart_toEndOf="@id/genderLabel"
+			app:layout_constraintTop_toBottomOf="@id/stateACS">
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/stateACS"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium"
-            android:layout_marginLeft="@dimen/medium"
-            android:layout_marginTop="@dimen/standard"
-            android:enabled="@{vm.state != AuthState.LOADING}"
-            android:entries="@array/states"
-            android:selectedItemPosition="@={vm.selectedStatePosition}"
-            android:textColorHint="@color/grey_f6f6f6"
-            app:layout_constraintEnd_toEndOf="@+id/firstNameTIL"
-            app:layout_constraintStart_toEndOf="@id/stateLabel"
-            app:layout_constraintTop_toBottomOf="@id/lastNameTIL" />
+			<androidx.appcompat.widget.AppCompatRadioButton
+				android:id="@+id/maleRB"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="@{vm.profile.isMale()}"
+				android:fontFamily="@font/sf_medium"
+				android:tag="@{Gender.MALE}"
+				android:text="@string/male"
+				android:textColor="@color/selector_2f3e87_484848"
+				android:textSize="@dimen/text_size_small"/>
 
-        <TextView
-            android:id="@+id/genderLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@string/gender"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toBottomOf="@id/genderRG"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toTopOf="@id/genderRG" />
+			<androidx.appcompat.widget.AppCompatRadioButton
+				android:id="@+id/femaleRB"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="@{vm.profile.isFemale()}"
+				android:fontFamily="@font/sf_medium"
+				android:text="@string/female"
+				android:textColor="@color/selector_2f3e87_484848"
+				android:textSize="@dimen/text_size_small"/>
+		</RadioGroup>
 
-        <RadioGroup
-            android:id="@+id/genderRG"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard"
-            android:layout_marginLeft="@dimen/standard"
-            android:layout_marginTop="@dimen/standard"
-            android:enabled="@{vm.state != AuthState.LOADING}"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
-            app:layout_constraintStart_toEndOf="@id/genderLabel"
-            app:layout_constraintTop_toBottomOf="@id/stateACS">
+		<TextView
+			android:id="@+id/userTypeLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="@dimen/thin"
+			android:text="@string/user_type"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_size_small"
+			app:layout_constraintBottom_toBottomOf="@id/userTypeRG"
+			app:layout_constraintStart_toStartOf="@id/firstNameTIL"
+			app:layout_constraintTop_toTopOf="@id/userTypeRG"/>
 
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/maleRB"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="@{vm.profile.isMale()}"
-                android:fontFamily="@font/sf_medium"
-                android:text="@string/male"
-                android:textColor="@color/selector_2f3e87_484848"
-                android:textSize="@dimen/text_size_small" />
+		<RadioGroup
+			android:id="@+id/userTypeRG"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/standard"
+			android:enabled="@{!vm.loading}"
+			android:orientation="horizontal"
+			app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
+			app:layout_constraintStart_toEndOf="@id/userTypeLabel"
+			app:layout_constraintTop_toBottomOf="@id/genderRG">
 
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/femaleRB"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="@{vm.profile.isFemale()}"
-                android:fontFamily="@font/sf_medium"
-                android:text="@string/female"
-                android:textColor="@color/selector_2f3e87_484848"
-                android:textSize="@dimen/text_size_small" />
-        </RadioGroup>
+			<androidx.appcompat.widget.AppCompatRadioButton
+				android:id="@+id/playerRB"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="@{vm.profile.isAthlete()}"
+				android:fontFamily="@font/sf_medium"
+				android:tag="@{UserType.ATHLETE}"
+				android:text="@string/athlete"
+				android:textColor="@color/selector_2f3e87_484848"
+				android:textSize="@dimen/text_size_small"/>
 
-        <TextView
-            android:id="@+id/userTypeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/thin"
-            android:text="@string/user_type"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toBottomOf="@id/userTypeRG"
-            app:layout_constraintStart_toStartOf="@id/firstNameTIL"
-            app:layout_constraintTop_toTopOf="@id/userTypeRG" />
+			<androidx.appcompat.widget.AppCompatRadioButton
+				android:id="@+id/coachRB"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="@{vm.profile.isCoach()}"
+				android:fontFamily="@font/sf_medium"
+				android:tag="@{UserType.COACH}"
+				android:text="@string/coach"
+				android:textColor="@color/selector_2f3e87_484848"
+				android:textSize="@dimen/text_size_small"/>
+		</RadioGroup>
 
-        <RadioGroup
-            android:id="@+id/userTypeRG"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard"
-            android:enabled="@{vm.state != AuthState.LOADING}"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/firstNameTIL"
-            app:layout_constraintStart_toEndOf="@id/userTypeLabel"
-            app:layout_constraintTop_toBottomOf="@id/genderRG">
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/proceedBtn"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="26dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginEnd="26dp"
+			android:alpha="@{vm.signUpValidate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid ? 1.0f : 0.5f}"
+			android:background="@drawable/draw_rect_gradient_001443_2b3990"
+			android:enabled="@{vm.signUpValidate &amp;&amp; !vm.loading&amp;&amp; vm.profile.valid}"
+			android:minHeight="32dp"
+			android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_proceed)}"
+			android:text="@string/proceed"
+			android:textAllCaps="false"
+			android:textColor="@color/grey_e4e4e4"
+			app:layout_constraintEnd_toEndOf="@id/bgView"
+			app:layout_constraintStart_toStartOf="@id/bgView"
+			app:layout_constraintTop_toBottomOf="@id/userTypeRG"/>
 
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/playerRB"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="@{vm.profile.isAthlete()}"
-                android:fontFamily="@font/sf_medium"
-                android:text="@string/athlete"
-                android:textColor="@color/selector_2f3e87_484848"
-                android:textSize="@dimen/text_size_small" />
+		<TextView
+			android:id="@+id/loginLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:enabled="@{!vm.loading}"
+			android:fontFamily="@font/sf_medium"
+			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_global_signInFragment)}"
+			android:padding="@dimen/narrow"
+			android:text="@string/already_have_account_login"
+			android:textColor="@color/grey_aee4e4e4"
+			android:textSize="@dimen/text_size_small"
+			app:end="@{31}"
+			app:foregroundColorSpan="@{@color/blue_ae12235b}"
+			app:layout_constraintEnd_toEndOf="@id/proceedBtn"
+			app:layout_constraintStart_toStartOf="@id/proceedBtn"
+			app:layout_constraintTop_toBottomOf="@id/proceedBtn"
+			app:start="@{25}"/>
 
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/coachRB"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="@{vm.profile.isCoach()}"
-                android:fontFamily="@font/sf_medium"
-                android:text="@string/coach"
-                android:textColor="@color/selector_2f3e87_484848"
-                android:textSize="@dimen/text_size_small" />
-        </RadioGroup>
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/proceedBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="26dp"
-            android:alpha="@{vm.signUpValidate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.profile.valid ? 1.0f : 0.5f}"
-            android:background="@drawable/draw_rect_gradient_001443_2b3990"
-            android:enabled="@{vm.signUpValidate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.profile.valid}"
-            android:minHeight="32dp"
-            android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_proceed)}"
-            android:text="@string/proceed"
-            android:textAllCaps="false"
-            android:textColor="@color/grey_e4e4e4"
-            app:layout_constraintEnd_toEndOf="@id/bgView"
-            app:layout_constraintStart_toStartOf="@id/bgView"
-            app:layout_constraintTop_toBottomOf="@id/userTypeRG" />
-
-        <TextView
-            android:id="@+id/loginLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:enabled="@{vm.state != AuthState.LOADING}"
-            android:fontFamily="@font/sf_medium"
-            android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_global_signInFragment)}"
-            android:padding="@dimen/narrow"
-            android:text="@string/already_have_account_login"
-            android:textColor="@color/grey_aee4e4e4"
-            android:textSize="@dimen/text_size_small"
-            app:end="@{31}"
-            app:foregroundColorSpan="@{@color/blue_ae12235b}"
-            app:layout_constraintEnd_toEndOf="@id/proceedBtn"
-            app:layout_constraintStart_toStartOf="@id/proceedBtn"
-            app:layout_constraintTop_toBottomOf="@id/proceedBtn"
-            app:start="@{25}" />
-
-        <View
-            android:id="@+id/bottomGuide"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/medium"
-            app:layout_constraintTop_toBottomOf="@id/loginLabel" />
-    </android.support.constraint.ConstraintLayout>
+		<View
+			android:id="@+id/bottomGuide"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="@dimen/medium"
+			app:layout_constraintTop_toBottomOf="@id/loginLabel"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

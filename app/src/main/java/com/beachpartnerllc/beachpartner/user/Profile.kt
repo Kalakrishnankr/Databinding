@@ -1,9 +1,9 @@
 package com.beachpartnerllc.beachpartner.user
 
-import com.beachpartnerllc.beachpartner.etc.common.isEmail
-import com.beachpartnerllc.beachpartner.etc.common.isMobile
-import com.beachpartnerllc.beachpartner.etc.common.isName
-import com.beachpartnerllc.beachpartner.etc.common.isPassword
+import com.beachpartnerllc.beachpartner.etc.util.isEmail
+import com.beachpartnerllc.beachpartner.etc.util.isMobile
+import com.beachpartnerllc.beachpartner.etc.util.isName
+import com.beachpartnerllc.beachpartner.etc.util.isPassword
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

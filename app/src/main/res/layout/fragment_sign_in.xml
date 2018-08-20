@@ -17,7 +17,7 @@
             type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:background="@drawable/art_volleyball_various_360dp"
@@ -62,7 +62,7 @@
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toTopOf="@id/bgView" />
 
-        <android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTIL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="@id/bgView"
             app:layout_constraintTop_toBottomOf="@id/titleLabel">
 
-            <android.support.v7.widget.AppCompatEditText
+			<com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,9 +86,9 @@
                 android:textColor="@color/blue_2f3e87"
                 android:textSize="@dimen/text_size_regular"
                 tools:text="Jessica" />
-        </android.support.design.widget.TextInputLayout>
+		</com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTIL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorAccent">
 
-            <android.support.v7.widget.AppCompatEditText
+			<com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,9 +113,9 @@
                 android:textSize="@dimen/text_size_regular"
                 app:onOkInSoftKeyboard="@{() -> loginBtn.isEnabled() ? loginBtn.performClick() : emailET.requestFocus()}"
                 tools:text="jessica123" />
-        </android.support.design.widget.TextInputLayout>
+		</com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
+		<com.google.android.material.button.MaterialButton
             android:id="@+id/loginBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -216,5 +216,5 @@
             android:layout_marginTop="28dp"
             app:layout_constraintTop_toBottomOf="@id/facebookIV" />
 
-    </android.support.constraint.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,15 +1,15 @@
 package com.beachpartnerllc.beachpartner.home
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.AthleteHomeFragmentBinding
 import com.beachpartnerllc.beachpartner.databinding.AvatarItemBinding
-import com.beachpartnerllc.beachpartner.etc.common.BaseAdapter
-import com.beachpartnerllc.beachpartner.etc.common.BaseFragment
+import com.beachpartnerllc.beachpartner.etc.base.BaseAdapter
+import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>

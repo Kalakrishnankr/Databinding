@@ -6,7 +6,7 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.beachpartnerllc.beachpartner.MainActivity"
+	    android:name="com.beachpartnerllc.beachpartner.init.MainActivity"
         android:label="activity_main"
 	    tools:layout="@layout/activity_main"></activity>
 	<include app:graph="@navigation/auth_nav"/>

@@ -1,13 +1,12 @@
 package com.beachpartnerllc.beachpartner.home
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI.*
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
-import com.beachpartnerllc.beachpartner.etc.common.BaseActivity
+import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
 
 class HomeActivity : BaseActivity() {
     private lateinit var binding: HomeActivityBinding
@@ -17,8 +16,8 @@ class HomeActivity : BaseActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         val navController = findNavController(R.id.navFragment)
-        setupActionBarWithNavController(navController)
-        binding.homeBNV.setupWithNavController(navController)
+	    setupActionBarWithNavController(this, navController)
+	    setupWithNavController(binding.homeBNV, navController)
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
