@@ -9,22 +9,23 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class Profile(
-    var firstName: String? = null,
-    var lastName: String? = null,
-    var state: String? = null,
-    var gender: Gender? = null,
-    var userType: UserType? = null,
-    var email: String? = null,
-    var mobile: String? = null,
-    var password: String? = null,
-    var dob: String? = null
+	val userId: Int = -1,
+	var firstName: String? = null,
+	var lastName: String? = null,
+	var stateId: Int? = null,
+	var gender: Gender? = null,
+	var userType: UserType? = null,
+	var email: String? = null,
+	var mobile: String? = null,
+	var password: String? = null,
+	var dob: String? = null
 ) {
 
     fun isFirstNameValid() = firstName.isName()
 
     fun isLastNameValid() = lastName.isName()
-
-    fun isStateValid() = state != null
+    
+    fun isStateValid() = stateId != null
 
     fun isGenderValid() = gender != null
 

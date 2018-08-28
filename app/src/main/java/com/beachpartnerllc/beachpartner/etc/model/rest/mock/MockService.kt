@@ -3,6 +3,7 @@ package com.beachpartnerllc.beachpartner.etc.model.rest.mock
 import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
+import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.auth.Auth
 import com.beachpartnerllc.beachpartner.user.state.State
@@ -21,8 +22,8 @@ class MockService(private val delegate: BehaviorDelegate<ApiService>) : ApiServi
     override fun signIn(auth: Auth): Call<Auth> {
         return delegate.returningResponse(auth).signIn(auth)
     }
-
-    override fun register(profile: Profile): Call<Any> {
-        return delegate.returningResponse(profile).register(profile)
+	
+	override fun register(profile: Profile): Call<Resource<Profile>> {
+		return delegate.returningResponse(Resource.success(profile)).register(profile)
     }
 }

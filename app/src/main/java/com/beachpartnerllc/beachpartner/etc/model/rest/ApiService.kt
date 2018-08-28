@@ -21,11 +21,11 @@ interface ApiService {
     fun signIn(@Body auth: Auth): Call<Auth>
 
     @Headers(HEADER_NO_AUTH)
-    @POST("/user/register")
-    fun register(@Body profile: Profile): Call<Any>
+    @POST("user/register")
+    fun register(@Body profile: Profile): Call<Resource<Profile>>
 	
 	@Headers(HEADER_NO_AUTH)
-	@GET("/state/all")
+	@GET("states")
 	fun getStates(): LiveData<ApiResponse<List<State>>>
 	
 	companion object {

@@ -47,19 +47,23 @@ class AuthRepository @Inject constructor(
             }
         })
     }
-
-    fun register(profile: Profile, state: MutableLiveData<AuthState>) {
-        state.value = AuthState.LOADING
 	
-	    api.register(profile).enqueue(object : Callback<Any?> {
-            override fun onFailure(call: Call<Any?>?, t: Throwable?) {
-                httpRequestFailed(call, t)
-                state.value = AuthState.REQUEST_FAILED
-            }
-
-            override fun onResponse(call: Call<Any?>?, response: Response<Any?>?) {
-            }
+	fun register(profile: Profile): LiveData<Resource<Profile>> {
+		val state = MutableLiveData<Resource<Profile>>()
+		state.value = Resource.loading()
+		
+		api.register(profile).enqueue(object : Callback<Resource<Profile>?> {
+			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+				httpRequestFailed(call, t)
+				state.value = Resource.error()
+			}
+			
+			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+				state.value = response.body()
+			}
         })
+		
+		return state
     }
 	
 	

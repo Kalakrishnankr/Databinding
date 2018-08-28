@@ -45,4 +45,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+	<style name="LoadingIndicatorSmall" parent="AVLoadingIndicatorView.Small">
+		<item name="indicatorName">BallPulseSyncIndicator</item>
+	</style>
+	<style name="LoadingIndicatorSmall.Green">
+		<item name="indicatorColor">@color/colorAccent</item>
+	</style>
+
 </resources>

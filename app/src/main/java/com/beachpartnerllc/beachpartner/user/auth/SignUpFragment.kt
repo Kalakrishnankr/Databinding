@@ -43,7 +43,7 @@ class SignUpFragment : BaseFragment() {
 		binding.setLifecycleOwner(viewLifecycleOwner)
 		
 		vm.selectedStatePosition.observe(this, Observer {
-			it?.let { vm.setState(it) }
+			it?.let { vm.setStatePosition(it) }
 		})
 		
 		vm.getStates().observe(viewLifecycleOwner, Observer { it ->

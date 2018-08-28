@@ -15,10 +15,5 @@ interface ViewModelModule {
 	fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
 	
 	@Binds
-	@IntoMap
-	@ViewModelKey(InitViewModel::class)
-	fun bindzInitViewModel(viewModel: InitViewModel): ViewModel
-	
-	@Binds
 	fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }
