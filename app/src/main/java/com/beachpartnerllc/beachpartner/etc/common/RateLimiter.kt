@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.beachpartnerllc.beachpartner.etc.util
+package com.beachpartnerllc.beachpartner.etc.common
 
 import android.os.SystemClock
 import androidx.collection.ArrayMap

@@ -1,8 +1,8 @@
 package com.beachpartnerllc.beachpartner.user.auth
 
 import android.provider.Settings
-import com.beachpartnerllc.beachpartner.etc.util.isEmail
-import com.beachpartnerllc.beachpartner.etc.util.isPassword
+import com.beachpartnerllc.beachpartner.etc.common.isEmail
+import com.beachpartnerllc.beachpartner.etc.common.isPassword
 import com.google.gson.annotations.SerializedName
 
 /**

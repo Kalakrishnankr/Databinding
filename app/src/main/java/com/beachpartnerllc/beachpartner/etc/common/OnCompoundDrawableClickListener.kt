@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.etc.util
+package com.beachpartnerllc.beachpartner.etc.common
 
 interface OnCompoundDrawableClickListener {
     fun onDrawableEnd()

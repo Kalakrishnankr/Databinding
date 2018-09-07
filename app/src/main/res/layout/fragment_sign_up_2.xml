@@ -9,7 +9,7 @@
         <import type="androidx.navigation.Navigation" />
         <import type="com.beachpartnerllc.beachpartner.R" />
         <import type="com.beachpartnerllc.beachpartner.user.auth.AuthState" />
-        <import type="com.beachpartnerllc.beachpartner.etc.util.CompoundDrawableTouchListener"/>
+	    <import type="com.beachpartnerllc.beachpartner.etc.common.CompoundDrawableTouchListener"/>
 
         <variable name="handler" type="com.beachpartnerllc.beachpartner.user.auth.SignUp2Fragment"/>
         <variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>

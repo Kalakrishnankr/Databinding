@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.beachpartnerllc.beachpartner.etc.util.bind
+import com.beachpartnerllc.beachpartner.etc.common.bind
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>

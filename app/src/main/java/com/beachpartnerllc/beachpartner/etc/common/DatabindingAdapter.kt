@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.etc.util
+package com.beachpartnerllc.beachpartner.etc.common
 
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.beachpartnerllc.beachpartner.etc.util.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
 import timber.log.Timber
