@@ -1,0 +1,25 @@
+package com.beachpartnerllc.beachpartner.finder
+
+
+import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.*
+import com.beachpartnerllc.beachpartner.R
+import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
+import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
+
+class FinderActivity : BaseActivity() {
+	private lateinit var binding: HomeActivityBinding
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+		val navController = findNavController(R.id.navFragment)
+		setupActionBarWithNavController(this, navController)
+		setupWithNavController(binding.homeBNV, navController)
+	}
+	
+	override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
+}
