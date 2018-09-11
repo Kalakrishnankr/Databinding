@@ -14,8 +14,8 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SignUpFragmentBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
-import com.beachpartnerllc.beachpartner.user.Gender
-import com.beachpartnerllc.beachpartner.user.UserType
+import com.beachpartnerllc.beachpartner.user.userprofile.Gender
+import com.beachpartnerllc.beachpartner.user.userprofile.UserType
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable

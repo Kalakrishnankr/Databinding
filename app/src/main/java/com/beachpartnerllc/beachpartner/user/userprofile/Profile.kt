@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.user
+package com.beachpartnerllc.beachpartner.user.userprofile
 
 import com.beachpartnerllc.beachpartner.etc.common.isEmail
 import com.beachpartnerllc.beachpartner.etc.common.isMobile

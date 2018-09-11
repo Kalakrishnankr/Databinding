@@ -7,8 +7,8 @@
 
 		<import type="androidx.navigation.Navigation"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
-		<import type="com.beachpartnerllc.beachpartner.user.Gender"/>
-		<import type="com.beachpartnerllc.beachpartner.user.UserType"/>
+		<import type="com.beachpartnerllc.beachpartner.user.userprofile.Gender"/>
+		<import type="com.beachpartnerllc.beachpartner.user.userprofile.UserType"/>
 
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 	</data>
