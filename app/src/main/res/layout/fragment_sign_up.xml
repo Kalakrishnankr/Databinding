@@ -230,7 +230,6 @@
 			android:alpha="@{vm.signUpValidate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid ? 1.0f : 0.5f}"
 			android:background="@drawable/draw_rect_gradient_001443_2b3990"
 			android:enabled="@{vm.signUpValidate &amp;&amp; !vm.loading&amp;&amp; vm.profile.valid}"
-			android:minHeight="32dp"
 			android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_proceed)}"
 			android:text="@string/proceed"
 			android:textAllCaps="false"
@@ -238,6 +237,17 @@
 			app:layout_constraintEnd_toEndOf="@id/bgView"
 			app:layout_constraintStart_toStartOf="@id/bgView"
 			app:layout_constraintTop_toBottomOf="@id/userTypeRG"/>
+
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall.White"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/standard"
+			app:isLoading="@{vm.loading}"
+			app:layout_constraintBottom_toBottomOf="@id/proceedBtn"
+			app:layout_constraintEnd_toEndOf="@id/proceedBtn"
+			app:layout_constraintTop_toTopOf="@id/proceedBtn"/>
 
 		<TextView
 			android:id="@+id/loginLabel"

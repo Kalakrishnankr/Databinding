@@ -31,7 +31,27 @@ class AuthRepository @Inject constructor(
 	private val exec: AppExecutors,
 	app: Application) : BaseRepository(app) {
 	
-	private val invalidateTimer = RateLimiter<String>(30, TimeUnit.SECONDS)
+	private val invalidateTimer = RateLimiter<String>(30, TimeUnit.MINUTES)
+	
+	fun getStateList(): LiveData<Resource<List<State>>> {
+		return object : NetworkBoundResource<List<State>, List<State>>(exec) {
+			override fun saveCallResult(item: List<State>) {
+				db.stateDao().insertStates(item)
+			}
+			
+			override fun shouldFetch(data: List<State>?): Boolean {
+				return data == null || data.isEmpty() || invalidateTimer.shouldFetch(State::class.java.name)
+			}
+			
+			override fun loadFromDb(): LiveData<List<State>> {
+				return db.stateDao().getAllStates()
+			}
+			
+			override fun createCall(): LiveData<ApiResponse<List<State>>> {
+				return api.getStates()
+			}
+		}.asLiveData()
+	}
 	
 	fun signIn(auth: Auth, state: MutableLiveData<AuthState>) {
         state.value = AuthState.LOADING
@@ -67,23 +87,4 @@ class AuthRepository @Inject constructor(
     }
 	
 	
-	fun getStateList(): LiveData<Resource<List<State>>> {
-		return object : NetworkBoundResource<List<State>, List<State>>(exec) {
-			override fun saveCallResult(item: List<State>) {
-				db.stateDao().insertStates(item)
-			}
-			
-			override fun shouldFetch(data: List<State>?): Boolean {
-				return data == null || data.isEmpty() || invalidateTimer.shouldFetch(State::class.java.name)
-			}
-			
-			override fun loadFromDb(): LiveData<List<State>> {
-				return db.stateDao().getAllStates()
-			}
-			
-			override fun createCall(): LiveData<ApiResponse<List<State>>> {
-				return api.getStates()
-			}
-		}.asLiveData()
-	}
 }

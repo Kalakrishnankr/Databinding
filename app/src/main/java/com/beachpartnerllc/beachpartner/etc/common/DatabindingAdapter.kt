@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
-import timber.log.Timber
 
 
 /**
@@ -48,7 +47,6 @@ fun setNestedScrollingEnabled(view: RecyclerView, nestedScrollingEnabled: Boolea
 
 @BindingAdapter("foregroundColorSpan", "start", "end", requireAll = false)
 fun setForegroundColorSpan(view: TextView, color: Int, start: Int = 0, end: Int = view.text.length - 1) {
-    Timber.e("Text: %s", view.text)
     val spanBuilder = SpannableStringBuilder(view.text)
     spanBuilder.setSpan(ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     view.text = spanBuilder
