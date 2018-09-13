@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="SignInFragmentBinding">
+
 		<import type="androidx.navigation.Navigation"/>
-		<import type="com.beachpartnerllc.beachpartner.user.auth.AuthState"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
 
-		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+		<variable
+			name="vm"
+			type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+		<variable
+			name="handler"
+			type="com.beachpartnerllc.beachpartner.user.auth.SignInFragment"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +70,7 @@
 			android:layout_marginStart="24dp"
 			android:layout_marginTop="36dp"
 			android:layout_marginEnd="24dp"
-			android:enabled="@{vm.state != AuthState.LOADING}"
+			android:enabled="@{!vm.loading}"
 			android:textColorHint="@color/grey_f6f6f6"
 			app:error="@{vm.signInValidate &amp;&amp; !vm.auth.isEmailValid() ? @string/invalid_email : null}"
 			app:layout_constraintEnd_toEndOf="@id/bgView"
@@ -88,7 +94,7 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="4dp"
-			android:enabled="@{vm.state != AuthState.LOADING}"
+			android:enabled="@{!vm.loading}"
 			android:textColorHint="@color/grey_f6f6f6"
 			app:error="@{vm.signInValidate &amp;&amp; !vm.auth.isPasswordValid() ? @string/invalid_password : null}"
 			app:layout_constraintEnd_toEndOf="@id/emailTIL"
@@ -117,10 +123,9 @@
 			android:layout_marginStart="26dp"
 			android:layout_marginTop="24dp"
 			android:layout_marginEnd="26dp"
-			android:alpha="@{vm.signInValidate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid ? 1.0f : 0.5f}"
-			android:background="@drawable/draw_rect_gradient_001443_2b3990"
-			android:enabled="@{vm.signInValidate &amp;&amp; vm.state != AuthState.LOADING &amp;&amp; vm.auth.valid}"
-			android:onClick="@{()->vm.onSignIn()}"
+			android:alpha="@{vm.signInValidate &amp;&amp; !vm.loading &amp;&amp; vm.auth.valid ? 1.0f : 0.5f}"
+			android:enabled="@{vm.signInValidate &amp;&amp; !vm.loading &amp;&amp; vm.auth.valid}"
+			android:onClick="@{()->handler.onSignIn()}"
 			android:text="@string/login"
 			android:textAllCaps="false"
 			android:textColor="@color/grey_e4e4e4"
@@ -136,7 +141,7 @@
 			android:layout_marginEnd="@dimen/standard"
 			app:indicatorColor="@color/white"
 			app:indicatorName="BallPulseSyncIndicator"
-			app:isLoading="@{vm.state == AuthState.LOADING}"
+			app:isLoading="@{vm.loading}"
 			app:layout_constraintBottom_toBottomOf="@id/loginBtn"
 			app:layout_constraintEnd_toEndOf="@id/loginBtn"
 			app:layout_constraintTop_toTopOf="@id/loginBtn"/>

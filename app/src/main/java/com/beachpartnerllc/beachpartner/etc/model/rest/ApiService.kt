@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
 import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
@@ -18,11 +19,11 @@ import retrofit2.http.POST
 interface ApiService {
     @Headers(HEADER_NO_AUTH)
     @POST("authenticate")
-    fun signIn(@Body auth: Auth): Call<Auth>
+    fun signIn(@Body auth: Auth): Call<Resource<Session>>
 
     @Headers(HEADER_NO_AUTH)
     @POST("user/register")
-    fun register(@Body profile: Profile): Call<Resource<Profile>>
+    fun register(@Body profile: Profile): Call<Resource<Any>>
 	
 	@Headers(HEADER_NO_AUTH)
 	@GET("states")

@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
+import com.beachpartnerllc.beachpartner.user.Gender
 import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.Session
+import com.beachpartnerllc.beachpartner.user.UserType
 import com.beachpartnerllc.beachpartner.user.auth.Auth
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.google.gson.Gson
@@ -29,12 +32,15 @@ class MockService(
 		val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
 		return delegate.returningResponse(response).getStates()
 	}
-	
-	override fun signIn(auth: Auth): Call<Auth> {
-		return delegate.returningResponse(auth).signIn(auth)
+
+	override fun signIn(auth: Auth): Call<Resource<Session>> {
+		val profile = Profile(1, "Sam", "Rob", 1, Gender.MALE, UserType.ATHLETE,
+				"sam.rob@test.com", "9663379596", null, "1994-05-14")
+		val session = Session(profile, "test_session_id")
+		return delegate.returningResponse(Resource.success(session)).signIn(auth)
 	}
-	
-	override fun register(profile: Profile): Call<Resource<Profile>> {
+
+	override fun register(profile: Profile): Call<Resource<Any>> {
 		return delegate.returningResponse(Resource.success(profile)).register(profile)
 	}
 	

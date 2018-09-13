@@ -5,9 +5,8 @@ package com.beachpartnerllc.beachpartner.user.auth
  * @created on 04 Jun 2018 at 3:43 PM
  */
 enum class AuthState {
-    LOADING,
-
-    REQUEST_FAILED,
-
+    SIGN_IN,
+    UNVERIFIED,
+    REGISTERED,
     AUTHENTICATED
 }

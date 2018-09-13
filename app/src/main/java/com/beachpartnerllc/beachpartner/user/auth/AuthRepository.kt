@@ -4,19 +4,19 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beachpartnerllc.beachpartner.etc.base.BaseRepository
-import com.beachpartnerllc.beachpartner.etc.common.RateLimiter
 import com.beachpartnerllc.beachpartner.etc.exec.AppExecutors
 import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
+import com.beachpartnerllc.beachpartner.etc.model.pref.Preference
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.NetworkBoundResource
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,65 +26,75 @@ import javax.inject.Singleton
  */
 @Singleton
 class AuthRepository @Inject constructor(
-	private val api: ApiService,
-	private val db: AppDatabase,
-	private val exec: AppExecutors,
-	app: Application) : BaseRepository(app) {
-	
-	private val invalidateTimer = RateLimiter<String>(30, TimeUnit.MINUTES)
-	
-	fun getStateList(): LiveData<Resource<List<State>>> {
-		return object : NetworkBoundResource<List<State>, List<State>>(exec) {
-			override fun saveCallResult(item: List<State>) {
-				db.stateDao().insertStates(item)
-			}
-			
-			override fun shouldFetch(data: List<State>?): Boolean {
-				return data == null || data.isEmpty() || invalidateTimer.shouldFetch(State::class.java.name)
-			}
-			
-			override fun loadFromDb(): LiveData<List<State>> {
-				return db.stateDao().getAllStates()
-			}
-			
-			override fun createCall(): LiveData<ApiResponse<List<State>>> {
-				return api.getStates()
-			}
-		}.asLiveData()
-	}
-	
-	fun signIn(auth: Auth, state: MutableLiveData<AuthState>) {
-        state.value = AuthState.LOADING
-		
-		api.signIn(auth).enqueue(object : Callback<Auth?> {
-            override fun onFailure(call: Call<Auth?>?, t: Throwable?) {
-                httpRequestFailed(call, t)
-                state.value = AuthState.REQUEST_FAILED
+        private val api: ApiService,
+        private val db: AppDatabase,
+        private val pref: Preference,
+        private val exec: AppExecutors,
+        app: Application) : BaseRepository(app) {
+
+    // private val invalidateTimer = RateLimiter<String>(30, TimeUnit.MINUTES)
+
+    fun getStateList(): LiveData<Resource<List<State>>> {
+        return object : NetworkBoundResource<List<State>, List<State>>(exec) {
+            override fun saveCallResult(item: List<State>) {
+                db.stateDao().insertStates(item)
             }
 
-            override fun onResponse(call: Call<Auth?>?, response: Response<Auth?>?) {
-                state.value = AuthState.AUTHENTICATED
+            override fun shouldFetch(data: List<State>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun loadFromDb(): LiveData<List<State>> {
+                return db.stateDao().getAllStates()
+            }
+
+            override fun createCall(): LiveData<ApiResponse<List<State>>> {
+                return api.getStates()
+            }
+        }.asLiveData()
+    }
+
+    fun register(profile: Profile): LiveData<Resource<Profile>> {
+        val state = MutableLiveData<Resource<Profile>>()
+        state.value = Resource.loading()
+        api.register(profile).enqueue(object : Callback<Resource<Any>?> {
+            override fun onFailure(call: Call<Resource<Any>?>, t: Throwable) {
+                httpRequestFailed(call, t)
+                state.value = Resource.error()
+            }
+
+            override fun onResponse(call: Call<Resource<Any>?>, response: Response<Resource<Any>?>) {
+                when (response.code()) {
+                    HTTP_CREATED -> {
+                        state.value = Resource.success(profile)
+                    }
+                }
             }
         })
+
+        return state
     }
-	
-	fun register(profile: Profile): LiveData<Resource<Profile>> {
-		val state = MutableLiveData<Resource<Profile>>()
-		state.value = Resource.loading()
-		
-		api.register(profile).enqueue(object : Callback<Resource<Profile>?> {
-			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
-				httpRequestFailed(call, t)
-				state.value = Resource.error()
-			}
-			
-			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
-				state.value = response.body()
-			}
+
+    fun signIn(auth: Auth): LiveData<Resource<Profile>> {
+        val state = MutableLiveData<Resource<Profile>>()
+        state.value = Resource.loading()
+
+        api.signIn(auth).enqueue(object : Callback<Resource<Session>?> {
+            override fun onFailure(call: Call<Resource<Session>?>, t: Throwable) {
+                httpRequestFailed(call, t)
+                state.value = Resource.error()
+            }
+
+            override fun onResponse(call: Call<Resource<Session>?>, response: Response<Resource<Session>?>) {
+                when (response.code()) {
+                    HTTP_OK -> {
+                        pref.setSession(response.body()!!.data!!)
+                        state.value = Resource.success(response.body()!!.data!!.profile)
+                    }
+                }
+            }
         })
-		
-		return state
+
+        return state
     }
-	
-	
 }
