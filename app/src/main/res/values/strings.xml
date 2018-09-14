@@ -62,4 +62,6 @@
 	<string name="high_school_attended">High School Attended</string>
 	<string name="indoor_club_played_at">Indoor Club Played at</string>
 	<string name="sand_recruits_number">Sand Recruits Number</string>
+	<string name="college_beach">College (Beach)</string>
+	<string name="no_video_available">No Video available</string>
 </resources>

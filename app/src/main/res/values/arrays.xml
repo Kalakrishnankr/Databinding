@@ -52,4 +52,10 @@
         <item>Wisconsin</item>
         <item>Wyoming</item>
     </string-array>
+
+    <string-array name="profile_titles">
+        <item>Basic Information</item>
+        <item>More Information</item>
+    </string-array>
+
 </resources>

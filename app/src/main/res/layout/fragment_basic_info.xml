@@ -5,20 +5,21 @@
 	android:layout_width="match_parent" android:layout_height="match_parent"
 	tools:context=".user.userprofile.BasicInfoFragment">
 
-<View android:layout_width="match_parent" android:layout_height="0dp"
+	<View
+		android:layout_width="match_parent" android:layout_height="0dp"
 	app:layout_constraintStart_toStartOf="parent"
 	app:layout_constraintEnd_toEndOf="parent"
 	app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_marginLeft="@dimen/dimen_13dp"
+		android:layout_marginRight="@dimen/dimen_13dp"
 	android:background="@color/grey_efeff1"/>
 	<TextView
 		android:id="@+id/tv_fname_label"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:gravity="center_vertical"
 		android:text="@string/first_name"
-		android:textStyle="bold"
-		android:layout_marginLeft="@dimen/dimen_8dp"
-		app:layout_constraintBottom_toTopOf="@+id/tv_lname_label"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		app:layout_constraintEnd_toStartOf="@+id/edit_fname"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
@@ -31,28 +32,32 @@
 		android:enabled="false"
 		android:inputType="textCapWords"
 		android:maxLines="1"
-		android:paddingStart="5dp"
-		android:paddingLeft="5dp"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		android:text="Martin"
 		android:textColor="@color/blue_263588"
-		android:textSize="@dimen/text_size"
-		app:layout_constraintBottom_toTopOf="@+id/edit_lname"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toEndOf="@+id/tv_fname_label"
 		app:layout_constraintTop_toTopOf="parent"/>
+	<View
+		android:id="@+id/bound_fname"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_margin="@dimen/dimen_17"
+		android:background="@color/grey_A9A9A9"
+		app:layout_constraintTop_toBottomOf="@id/tv_fname_label"/>
 	<TextView
 		android:id="@+id/tv_lname_label"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:text="@string/last_name"
-		android:textStyle="bold"
-		android:layout_marginLeft="@dimen/dimen_8dp"
-		app:layout_constraintBottom_toTopOf="@+id/tv_gender_label"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		app:layout_constraintEnd_toStartOf="@+id/edit_lname"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/tv_fname_label"/>
+		app:layout_constraintTop_toBottomOf="@+id/bound_fname"/>
 	<EditText
 		android:id="@+id/edit_lname"
 		android:layout_width="0dp"
@@ -61,107 +66,130 @@
 		android:enabled="false"
 		android:inputType="textCapWords"
 		android:maxLines="1"
-		android:paddingStart="5dp"
-		android:paddingLeft="5dp"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		android:text="Luther King"
-		android:textSize="@dimen/text_size"
 		android:textColor="@color/blue_263588"
-		app:layout_constraintBottom_toTopOf="@+id/edit_gender"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/tv_lname_label" app:layout_constraintTop_toBottomOf="@+id/edit_fname"/>
+		app:layout_constraintStart_toEndOf="@+id/tv_lname_label"
+		app:layout_constraintTop_toBottomOf="@+id/bound_fname"/>
+	<View
+		android:id="@+id/bound_lname"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_margin="@dimen/dimen_17"
+		android:background="@color/grey_A9A9A9"
+		app:layout_constraintTop_toBottomOf="@id/tv_lname_label"/>
 	<TextView
 		android:id="@+id/tv_gender_label"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:text="@string/gender"
-		android:textStyle="bold"
-		android:layout_marginLeft="@dimen/dimen_8dp"
-		app:layout_constraintBottom_toTopOf="@+id/tv_dob_label"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		app:layout_constraintEnd_toStartOf="@+id/edit_gender"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/tv_lname_label"/>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/bound_lname"/>
 	<EditText
 		android:id="@+id/edit_gender"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:background="@android:color/transparent"
 		android:enabled="false"
-		android:focusable="false"
 		android:inputType="textCapWords"
-		android:paddingStart="5dp"
-		android:paddingLeft="5dp"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		android:text="Female"
-		android:textSize="@dimen/text_size"
 		android:textColor="@color/blue_263588"
-		app:layout_constraintBottom_toTopOf="@+id/edit_dob"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/tv_gender_label" app:layout_constraintTop_toBottomOf="@+id/edit_lname"/>
+		app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
+		app:layout_constraintTop_toBottomOf="@+id/bound_lname"/>
+	<View
+		android:id="@+id/bound_gender"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_margin="@dimen/dimen_17"
+		android:background="@color/grey_A9A9A9"
+		app:layout_constraintTop_toBottomOf="@id/tv_gender_label"/>
 	<TextView
 		android:id="@+id/tv_dob_label"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:text="@string/birth_date"
-		android:textStyle="bold"
-		android:layout_marginLeft="@dimen/dimen_8dp"
-		app:layout_constraintBottom_toTopOf="@+id/spinner_state_label"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		app:layout_constraintEnd_toStartOf="@+id/edit_dob"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/tv_gender_label"/>
+		app:layout_constraintTop_toBottomOf="@+id/bound_gender"/>
 	<EditText
 		android:id="@+id/edit_dob"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:background="@android:color/transparent"
 		android:enabled="false"
-		android:focusable="false"
 		android:inputType="textCapWords"
-		android:paddingStart="5dp"
-		android:paddingLeft="5dp"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		android:text="28-02-1994"
-		android:textSize="@dimen/text_size"
 		android:textColor="@color/blue_263588"
-		app:layout_constraintBottom_toTopOf="@+id/spinner_state"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/tv_dob_label" app:layout_constraintTop_toBottomOf="@+id/edit_gender"/>
+		app:layout_constraintStart_toEndOf="@+id/tv_dob_label"
+		app:layout_constraintTop_toBottomOf="@+id/bound_gender"/>
+	<View
+		android:id="@+id/bound_dob"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_margin="@dimen/dimen_17"
+		android:background="@color/grey_A9A9A9"
+		app:layout_constraintTop_toBottomOf="@id/tv_dob_label"/>
 	<TextView
 		android:id="@+id/spinner_state_label"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:text="@string/state"
-		android:textStyle="bold"
-		android:layout_marginLeft="@dimen/dimen_8dp"
-		app:layout_constraintBottom_toTopOf="@+id/tv_phone_label"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		app:layout_constraintEnd_toStartOf="@+id/spinner_state"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/tv_dob_label"/>
-	<Spinner
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/bound_dob"/>
+	<androidx.appcompat.widget.AppCompatSpinner
 		android:id="@+id/spinner_state"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:enabled="false"
-		android:paddingStart="5dp"
-		android:paddingLeft="5dp"
+		android:layout_margin="17dp"
+		android:entries="@array/states"
 		android:textColor="@color/blue_263588"
-		app:layout_constraintBottom_toTopOf="@+id/edit_phone"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/spinner_state_label" app:layout_constraintTop_toBottomOf="@+id/edit_dob">
-	</Spinner>
+		android:textSize="@dimen/text_size_16"
+		app:layout_constraintStart_toEndOf="@+id/spinner_state_label"
+		app:layout_constraintTop_toBottomOf="@+id/bound_dob">
+	</androidx.appcompat.widget.AppCompatSpinner>
+	<View
+		android:id="@+id/bound_state"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_margin="@dimen/dimen_17"
+		android:background="@color/grey_A9A9A9"
+		app:layout_constraintTop_toBottomOf="@id/spinner_state_label"/>
 	<TextView
 		android:id="@+id/tv_phone_label"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:text="@string/phone"
-		android:textStyle="bold"
-		android:layout_marginLeft="@dimen/dimen_8dp"
-		app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		app:layout_constraintEnd_toStartOf="@+id/edit_phone"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/spinner_state_label"/>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/bound_state"/>
 	<EditText
 		android:id="@+id/edit_phone"
 		android:layout_width="0dp"
@@ -170,15 +198,14 @@
 		android:enabled="false"
 		android:inputType="textCapWords"
 		android:maxLength="10"
-		android:paddingStart="5dp"
-		android:paddingLeft="5dp"
 		android:text="95822222321"
-		android:textSize="@dimen/text_size"
+		android:layout_margin="17dp"
+		android:textSize="@dimen/text_size_16"
 		android:textColor="@color/blue_263588"
-		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/tv_phone_label" app:layout_constraintTop_toBottomOf="@+id/spinner_state"/>
+		app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
+		app:layout_constraintTop_toBottomOf="@+id/bound_state"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
