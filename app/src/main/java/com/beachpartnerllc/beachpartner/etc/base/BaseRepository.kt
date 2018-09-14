@@ -22,7 +22,7 @@ abstract class BaseRepository(protected val app: Application) {
 	
 	fun <T> httpRequestFailed(call: Call<T>?, t: Throwable?) {
 		Timber.e(t)
-		if (!call!!.isExecuted) shortToast(R.string.no_internet_connection)
+		shortToast(R.string.no_internet_connection)
 	}
 	
 	

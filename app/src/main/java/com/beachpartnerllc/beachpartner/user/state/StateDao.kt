@@ -16,5 +16,5 @@ interface StateDao {
 	fun insertStates(crops: List<State>)
 	
 	@Query("SELECT * FROM state")
-	fun getAllStates(): LiveData<List<State>>
+    fun getStates(): LiveData<List<State>>
 }

@@ -15,7 +15,6 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         startActivity<AuthActivity>(isForResult = true, requestCode = RC_AUTH)
-        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

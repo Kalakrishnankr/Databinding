@@ -9,7 +9,6 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.mock.MockRetrofit
@@ -23,57 +22,47 @@ import javax.inject.Singleton
  */
 @Module
 class MockServiceModule {
-	@Provides
-	@Singleton
-	fun serializerProvider(): Gson {
-		return GsonBuilder()
-			.setDateFormat("yyyy-MM-dd")
-			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-			.create()
-	}
-	
-	@Provides
-	@Singleton
-	fun okHttpClientProvider(): OkHttpClient {
-		val logger = HttpLoggingInterceptor()
-		logger.level = HttpLoggingInterceptor.Level.BODY
-		return OkHttpClient.Builder()
-			.addInterceptor(logger)
-			.build()
-	}
-	
-	@Provides
-	@Singleton
-	fun provideRetrofit(serializer: Gson, client: OkHttpClient): Retrofit {
-		return Retrofit.Builder()
-			.baseUrl(ApiService.URL_BASE)
-			.addCallAdapterFactory(LiveDataCallAdapterFactory())
-			.addConverterFactory(GsonConverterFactory.create(serializer))
-			.client(client)
-			.build()
-	}
-	
-	@Provides
-	@Singleton
-	fun behaviorProvider(): NetworkBehavior {
-		val behavior = NetworkBehavior.create()
-		behavior.setDelay(1, TimeUnit.SECONDS)
-		behavior.setErrorPercent(30)
-		behavior.setVariancePercent(50)
-		return behavior
-	}
-	
-	@Provides
-	@Singleton
-	fun provideMockService(
-		retrofit: Retrofit,
-		behavior: NetworkBehavior,
-		serializer: Gson,
-		app: Application): ApiService {
-		val mock = MockRetrofit.Builder(retrofit)
-			.networkBehavior(behavior)
-			.build()
-		val delegate = mock.create(ApiService::class.java)
-		return MockService(delegate, serializer, app)
-	}
+    @Provides
+    @Singleton
+    fun serializerProvider(): Gson {
+        return GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(serializer: Gson): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl(ApiService.URL_BASE)
+                .client(OkHttpClient())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create(serializer))
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    fun behaviorProvider(): NetworkBehavior {
+        val behavior = NetworkBehavior.create()
+        behavior.setDelay(2, TimeUnit.SECONDS)
+        behavior.setErrorPercent(30)
+        behavior.setVariancePercent(95)
+        return behavior
+    }
+
+    @Provides
+    @Singleton
+    fun provideMockService(
+            retrofit: Retrofit,
+            behavior: NetworkBehavior,
+            serializer: Gson,
+            app: Application): ApiService {
+        val mock = MockRetrofit.Builder(retrofit)
+                .networkBehavior(behavior)
+                .build()
+        val delegate = mock.create(ApiService::class.java)
+        return MockService(delegate, serializer, app)
+    }
 }

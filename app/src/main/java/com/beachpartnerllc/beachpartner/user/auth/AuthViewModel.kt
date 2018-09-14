@@ -20,6 +20,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(private val repo: AuthRepository) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
+    val loginLoading = MutableLiveData<Boolean>()
     val auth = MutableLiveData<Auth>()
     val profile = MutableLiveData<Profile>()
 
@@ -34,7 +35,7 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     val signUp2Validate = MutableLiveData<Boolean>()
 
     fun signIn() = map(repo.signIn(auth.value!!)) {
-        loading.value = it.status == RequestState.LOADING
+        loginLoading.value = it.status == RequestState.LOADING
         if (it.isSuccess()) {
             state.value = AUTHENTICATED
         }

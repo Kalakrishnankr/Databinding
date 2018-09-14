@@ -6,7 +6,11 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.RequestState.*
  * @author Samuel Robert <sam@spotsoon.com>
  * @created on 28 Nov 2017 at 3:14 PM
  */
-class Resource<out T> private constructor(val status: RequestState?, val data: T?, val message: String?) {
+class Resource<out T> private constructor(
+        val status: RequestState,
+        val data: T?,
+        val message: String?,
+        val code: Int = 0) {
     companion object {
         fun <T> success(data: T? = null) = Resource(SUCCESS, data, null)
 
@@ -17,3 +21,5 @@ class Resource<out T> private constructor(val status: RequestState?, val data: T
         fun <T> cached(msg: String? = null, data: T?) = Resource(CACHED, data, null)
     }
 }
+
+inline fun <reified T> Resource<T>?.isSuccess(): Boolean = this != null && (status == SUCCESS || status == CACHED)
