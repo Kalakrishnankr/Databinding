@@ -1,49 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
+	android:layout_height="match_parent">
 
 	<com.yuyakaido.android.cardstackview.CardStackView
 		android:id="@+id/card_stack_view"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
+		android:layout_height="wrap_content"
+		android:background="@drawable/demo"
 		android:clipToPadding="false"
-		android:paddingLeft="2dp"
-		android:paddingRight="2dp"
 		app:elevationEnabled="false"
 		app:leftOverlay="@layout/overlay_left"
 		app:rightOverlay="@layout/overlay_right"
 		app:scaleDiff="0.03"
-		android:background="@drawable/high_fi"
 		app:stackFrom="top"
 		app:swipeDirection="freedom_no_bottom"
 		app:swipeEnabled="true"
 		app:swipeThreshold="0.75"
 		app:topOverlay="@layout/overlay_top"
 		app:translationDiff="8"
+		android:layout_marginBottom="90dp"
+		android:layout_marginLeft="25dp"
+		android:layout_marginRight="25dp"
+		app:layout_constraintBottom_toTopOf="@+id/view_btn_bg_one"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"/>
+		app:layout_constraintTop_toTopOf="parent"/>
+
 
 	<ProgressBar
 		android:id="@+id/cardProgress"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toBottomOf="@+id/card_stack_view"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/card_stack_view"/>
+
+	<View
+		android:id="@+id/buttonView"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_two"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
 		app:layout_constraintBottom_toBottomOf="parent"/>
 
 	<View
-		android:id="@+id/playView"
-		android:layout_width="50dp"
-		android:layout_height="wrap_content"
-		app:layout_constraintTop_toBottomOf="@+id/card_stack_view"
-		app:layout_constraintStart_toStartOf="parent"
+		android:id="@+id/view_btn_bg_one"
+		android:layout_width="174dp"
+		android:layout_height="42dp"
+		android:background="@drawable/rounded_rectangle"
 		app:layout_constraintEnd_toEndOf="parent"
-		android:rotation="90"
-		android:background="@drawable/rounded_rectangle"/>
+		app:layout_constraintStart_toStartOf="@id/buttonView"
+		app:layout_constraintBottom_toBottomOf="parent"/>
 
+	<View
+		android:id="@+id/view_btn_bg_two"
+		android:layout_width="65dp"
+		android:layout_height="50dp"
+		android:layout_marginBottom="12dp"
+		android:background="@drawable/shape_circle_bg"
+		app:layout_constraintBottom_toBottomOf="@+id/view_btn_bg_one"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintStart_toStartOf="parent"/>
+
+	<ImageView
+		android:id="@+id/imgv_hifi"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_two"
+		app:layout_constraintBottom_toBottomOf="@id/view_btn_bg_one"
+		android:src="@drawable/icon_hifi_finder"/>
+
+	<ImageView
+		android:id="@+id/imgv_undo"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_one"
+		app:layout_constraintLeft_toLeftOf="@+id/view_btn_bg_one"
+		app:layout_constraintRight_toLeftOf="@+id/view_btn_bg_two"
+		app:layout_constraintBottom_toBottomOf="@id/view_btn_bg_one"
+		android:src="@drawable/icon_undo_inactive"/>
+
+	<ImageView
+		android:id="@+id/imgv_location"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_one"
+		app:layout_constraintBottom_toBottomOf="@id/view_btn_bg_one"
+		app:layout_constraintRight_toRightOf="@+id/view_btn_bg_one"
+		app:layout_constraintLeft_toRightOf="@+id/view_btn_bg_two"
+		android:src="@drawable/icon_location"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

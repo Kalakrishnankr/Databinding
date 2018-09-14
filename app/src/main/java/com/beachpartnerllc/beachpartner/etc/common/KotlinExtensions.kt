@@ -47,6 +47,11 @@ inline fun <reified T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.
 }
 
 
+inline fun <reified R : ViewDataBinding> ViewGroup.bind(@LayoutRes resId: Int): R {
+    val inflater = LayoutInflater.from(context)
+    return DataBindingUtil.inflate(inflater, resId, this, false)
+}
+
 /********           System                   **************/
 inline fun <reified T : AppCompatActivity> Context.startActivity() {
     startActivity(Intent(this, T::class.java))

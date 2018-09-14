@@ -9,7 +9,7 @@ class AuthActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_finder)
+        setContentView(R.layout.activity_auth)
     }
 
     override fun onSupportNavigateUp() = findNavController(this, R.id.authNHF).navigateUp()

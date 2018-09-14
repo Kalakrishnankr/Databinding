@@ -41,7 +41,17 @@
 
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
-	<string name="finder_info_age">select the age limit you are looking for</string>
-	<string name="finder_info_location">Select the location in which you want to find a player</string>
+	<string name="finder_info_age">Select the age limit you are looking for.</string>
+	<string name="finder_info_location">Select the location in which you want to find a player.</string>
+	<string name="txt_search_age_limit">Age Limit</string>
+	<string name="string_min">Min</string>
+	<string name="string_max">Max</string>
+	<string name="string_show_me">Show me</string>
+	<string name="string_male">MALE</string>
+	<string name="string_female">FEMALE</string>
+	<string name="string_include_coaches">Include Coaches</string>
+	<string name="string_play_btn">Play</string>
+	<string name="string_top_finishes">Top Finishes in Last Year</string>
+	<string name="string_state">State</string>
 
 </resources>

@@ -27,10 +27,12 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     val state = MutableLiveData<AuthState>()
     val selectedStatePosition = MutableLiveData<Int>()
     private lateinit var stateList: List<State>
-
+    
     val signInValidate = MutableLiveData<Boolean>()
     val signUpValidate = MutableLiveData<Boolean>()
     val signUp2Validate = MutableLiveData<Boolean>()
+    
+    
     
     fun onSignIn() = repo.signIn(auth.value!!, state)
 
