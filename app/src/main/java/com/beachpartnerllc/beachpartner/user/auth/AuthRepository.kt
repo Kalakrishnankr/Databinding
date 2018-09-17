@@ -16,7 +16,6 @@ import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,7 +26,6 @@ import javax.inject.Singleton
 @Singleton
 class AuthRepository @Inject constructor(
         private val api: ApiService,
-        private val retrofit: Retrofit,
         private val db: AppDatabase,
         private val pref: Preference,
         private val exec: AppExecutors,
@@ -47,10 +45,7 @@ class AuthRepository @Inject constructor(
         val state = MutableLiveData<Resource<Profile>>()
         state.value = Resource.loading()
         api.register(profile).enqueue(object : Callback<Resource<Any>?> {
-            override fun onFailure(call: Call<Resource<Any>?>, t: Throwable) {
-                httpRequestFailed(call, t)
-                state.value = Resource.error()
-            }
+            override fun onFailure(call: Call<Resource<Any>?>, t: Throwable) = httpRequestFailed(call, t, state)
 
             override fun onResponse(call: Call<Resource<Any>?>, response: Response<Resource<Any>?>) {
                 if (response.isSuccessful) {
@@ -62,23 +57,19 @@ class AuthRepository @Inject constructor(
         return state
     }
 
-    fun signIn(auth: Auth): LiveData<Resource<Profile>> {
-        val state = MutableLiveData<Resource<Profile>>()
+    fun signIn(auth: Auth): LiveData<Resource<Session>> {
+        val state = MutableLiveData<Resource<Session>>()
         state.value = Resource.loading()
         api.signIn(auth).enqueue(object : Callback<Resource<Session>?> {
-            override fun onFailure(call: Call<Resource<Session>?>, t: Throwable) {
-                httpRequestFailed(call, t)
-                state.value = Resource.error()
-            }
+            override fun onFailure(call: Call<Resource<Session>?>, t: Throwable) = httpRequestFailed(call, t, state)
 
             override fun onResponse(call: Call<Resource<Session>?>, response: Response<Resource<Session>?>) {
-                when (response.code()) {
-                    HTTP_OK -> {
-                        pref.setSession(response.body()!!.data!!)
-                        state.value = Resource.success(response.body()!!.data!!.profile)
-                    }
-
-                    else -> state.value = Resource.error()
+                if (response.isSuccessful) {
+                    val body = response.body()!!
+                    if (body.code == HTTP_OK) pref.setSession(body.data!!)
+                    state.value = body
+                } else {
+                    state.value = Resource.error(response)
                 }
             }
         })

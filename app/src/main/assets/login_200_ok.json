@@ -13,5 +13,7 @@
     },
     "session_id": "test_session_key"
   },
-  "message": "logged in successfully"
+  "message": "logged in successfully",
+  "code": 201,
+  "status": "SUCCESS"
 }

@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.etc.base.BaseErrorEvent
-import com.beachpartnerllc.beachpartner.etc.model.rest.RequestState
+import com.beachpartnerllc.beachpartner.etc.common.SingleLiveEvent
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
+import com.beachpartnerllc.beachpartner.etc.model.rest.isError
+import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.auth.AuthState.*
@@ -33,11 +35,17 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     val signInValidate = MutableLiveData<Boolean>()
     val signUpValidate = MutableLiveData<Boolean>()
     val signUp2Validate = MutableLiveData<Boolean>()
+    val event = SingleLiveEvent<String>()
 
     fun signIn() = map(repo.signIn(auth.value!!)) {
-        loginLoading.value = it.status == RequestState.LOADING
-        if (it.isSuccess()) {
-            state.value = AUTHENTICATED
+        loginLoading.value = it.isLoading()
+        when {
+            it.isSuccess() -> {
+                event.value = it.message
+                state.value = AUTHENTICATED
+            }
+
+            it.isError() -> event.value = it.message
         }
     }!!
 
@@ -48,7 +56,7 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     fun signUp2SkipInitCount(): Long = if (signUp2Validate.value == true) 0 else 1
 
     fun register(): LiveData<Resource<Profile>> = map(repo.register(profile.value!!)) {
-        loading.value = it.status == RequestState.LOADING
+        loading.value = it.isLoading()
         if (it.isSuccess()) {
             state.value = REGISTERED
             autoSetEmail(it.data!!.email!!)
@@ -69,7 +77,7 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     }
 
     fun getStates() = map(repo.getStateList()) {
-        loading.value = it.status == RequestState.LOADING
+        loading.value = it.isLoading()
 
         if (it.isSuccess()) {
             stateList = it.data!!

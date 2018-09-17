@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import timber.log.Timber
 
 /**
@@ -19,13 +17,12 @@ abstract class BaseRepository(protected val app: Application) {
 	fun <T> loading(callback: MutableLiveData<Resource<T>>) {
 		callback.value = Resource.loading()
 	}
-	
-	fun <T> httpRequestFailed(call: Call<T>?, t: Throwable?) {
+
+	fun <C, T> httpRequestFailed(call: Call<C>?, t: Throwable?, callback: MutableLiveData<Resource<T>>) {
 		Timber.e(t)
-		shortToast(R.string.no_internet_connection)
+		callback.value = Resource.error(message = app.getString(R.string.no_internet_connection))
 	}
-	
-	
+
 	fun longToast(@StringRes res: Int) {
 		Toast.makeText(app, res, Toast.LENGTH_LONG).show()
 	}
@@ -41,8 +38,8 @@ abstract class BaseRepository(protected val app: Application) {
 	fun shortToast(msg: String) {
 		Toast.makeText(app, msg, Toast.LENGTH_SHORT).show()
 	}
-	
-	inner class ApiCallback<T>(private val callback: MutableLiveData<Resource<T>>) : Callback<T> {
+
+	/*inner class ApiCallback<T>(private val callback: MutableLiveData<Resource<T>>) : Callback<T> {
 		override fun onFailure(call: Call<T>?, t: Throwable?) {
 			httpRequestFailed(call, t)
 		}
@@ -58,7 +55,7 @@ abstract class BaseRepository(protected val app: Application) {
 				HTTP_OK -> callback.value = Resource.success(response.body())
 			}
 		}
-	}
+	}*/
 	
 	companion object {
 		const val HTTP_OK = 200

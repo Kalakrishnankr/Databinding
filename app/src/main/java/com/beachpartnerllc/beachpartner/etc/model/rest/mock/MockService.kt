@@ -11,14 +11,11 @@ import com.beachpartnerllc.beachpartner.user.auth.Auth
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import okhttp3.MediaType
-import okhttp3.Response
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.mock.BehaviorDelegate
-import retrofit2.mock.Calls
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.util.*
 
 /**
  * @author Samuel Robert <sam@spotsoon.com>
@@ -36,20 +33,21 @@ class MockService(
     }
 
     override fun signIn(auth: Auth): Call<Resource<Session>> {
-        val data = stringFromFile("login_200_ok.json")
+        val filePath = if ((0..1).random() == 0) "login_200_ok" else "login_422_invalid_credentials"
+        val data = stringFromFile(filePath)
         val response: Resource<Session> = serializer.fromJson(data, object : TypeToken<Resource<Session>>() {}.type)
-        return delegate.returning(Calls.response(response)).signIn(auth)
+        return delegate.returningResponse(response).signIn(auth)
     }
 
     override fun register(profile: Profile): Call<Resource<Any>> {
-        val response = Response.Builder()
+        /*val response = Response.Builder()
                 .code(201)
-                .body(ResponseBody.create(MediaType.parse("application/json"), profile.toString()))
-        return delegate.returningResponse(response).register(profile)
+                .body(ResponseBody.create(JSON, profile.toString()))*/
+        return delegate.returningResponse(null).register(profile)
     }
 
     private fun stringFromFile(filePath: String): String {
-        val stream = app.resources.assets.open(filePath)
+        val stream = app.resources.assets.open("$filePath.json")
         val reader = BufferedReader(InputStreamReader(stream))
         val line = reader.readLines().joinToString(separator = "\n")
         reader.close()
@@ -57,3 +55,5 @@ class MockService(
         return line
     }
 }
+
+fun IntRange.random() = Random().nextInt((endInclusive + 1) - start) + start

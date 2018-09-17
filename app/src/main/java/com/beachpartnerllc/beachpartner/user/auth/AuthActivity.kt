@@ -9,6 +9,8 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.user.auth.AuthState.*
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity() {
@@ -23,6 +25,9 @@ class AuthActivity : BaseActivity() {
 
         val vm: AuthViewModel = getViewModel(factory)
         vm.state.observe(this, Observer { authStateChanged(it) })
+        vm.event.observe(this, Observer {
+            Snackbar.make(parentCL, it, Snackbar.LENGTH_LONG).show()
+        })
     }
 
     private fun authStateChanged(state: AuthState) {
