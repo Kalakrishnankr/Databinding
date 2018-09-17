@@ -27,7 +27,7 @@ class MockService(
         private val app: Application) : ApiService {
 
     override fun getStates(): LiveData<ApiResponse<List<State>>> {
-        val data = stringFromFile("get_state.json")
+        val data = stringFromFile("get_state")
         val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
         return delegate.returningResponse(response).getStates()
     }

@@ -32,7 +32,10 @@ class AuthActivity : BaseActivity() {
 
     private fun authStateChanged(state: AuthState) {
         when (state) {
-            REGISTERED -> PostRegistrationFragment().show(supportFragmentManager, null)
+            REGISTERED -> {
+                authStateChanged(SIGN_IN)
+                PostRegistrationFragment().show(supportFragmentManager, null)
+            }
 
             SIGN_IN -> navController.navigate(R.id.action_sign_in)
 

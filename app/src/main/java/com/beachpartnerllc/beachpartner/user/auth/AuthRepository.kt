@@ -39,6 +39,10 @@ class AuthRepository @Inject constructor(
         override fun loadFromDb() = db.stateDao().getStates()
 
         override fun createCall() = api.getStates()
+
+        override fun onFetchFailed() {
+            createCall()
+        }
     }.asLiveData()
 
     fun register(profile: Profile): LiveData<Resource<Profile>> {
@@ -50,6 +54,8 @@ class AuthRepository @Inject constructor(
             override fun onResponse(call: Call<Resource<Any>?>, response: Response<Resource<Any>?>) {
                 if (response.isSuccessful) {
                     state.value = Resource.success(profile)
+                } else {
+                    state.value = Resource.error(response)
                 }
             }
         })

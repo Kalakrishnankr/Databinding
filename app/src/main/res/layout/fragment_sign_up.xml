@@ -54,7 +54,6 @@
 			android:layout_marginEnd="24dp"
 			android:enabled="@{!vm.loading}"
 			android:textColorHint="@color/grey_f6f6f6"
-			app:error="@{vm.nameError.getErrorResources()}"
 			app:layout_constraintEnd_toEndOf="@id/bgView"
 			app:layout_constraintStart_toStartOf="@id/bgView"
 			app:layout_constraintTop_toTopOf="@id/bgView">

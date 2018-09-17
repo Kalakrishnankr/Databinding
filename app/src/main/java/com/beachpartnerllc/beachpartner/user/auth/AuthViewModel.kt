@@ -1,12 +1,9 @@
 package com.beachpartnerllc.beachpartner.user.auth
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
-import com.beachpartnerllc.beachpartner.etc.base.BaseErrorEvent
 import com.beachpartnerllc.beachpartner.etc.common.SingleLiveEvent
-import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.etc.model.rest.isError
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
@@ -25,8 +22,6 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     val loginLoading = MutableLiveData<Boolean>()
     val auth = MutableLiveData<Auth>()
     val profile = MutableLiveData<Profile>()
-
-    val nameError = MutableLiveData<BaseErrorEvent>()
 
     val state = MutableLiveData<AuthState>()
     val selectedStatePosition = MutableLiveData<Int>()
@@ -49,20 +44,24 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
         }
     }!!
 
+    fun register() = map(repo.register(profile.value!!)) {
+        loading.value = it.isLoading()
+        when {
+            it.isSuccess() -> {
+                autoSetEmail(it.data!!.email!!)
+                state.value = REGISTERED
+                profile.value = Profile()
+            }
+
+            it.isError() -> event.value = it.message
+        }
+    }!!
+
     fun signInSkipInitCount(): Long = if (signInValidate.value == true) 0 else 1
 
     fun signUpSkipInitCount(): Long = if (signUpValidate.value == true) 0 else 1
 
     fun signUp2SkipInitCount(): Long = if (signUp2Validate.value == true) 0 else 1
-
-    fun register(): LiveData<Resource<Profile>> = map(repo.register(profile.value!!)) {
-        loading.value = it.isLoading()
-        if (it.isSuccess()) {
-            state.value = REGISTERED
-            autoSetEmail(it.data!!.email!!)
-        }
-        it
-    }!!
 
     private fun autoSetEmail(email: String) {
         val auth = auth.value!!
