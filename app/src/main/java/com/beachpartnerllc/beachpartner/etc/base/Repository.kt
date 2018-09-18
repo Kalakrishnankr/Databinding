@@ -13,7 +13,7 @@ import timber.log.Timber
  * @author Samuel Robert <sam@spotsoon.com>
  * @created on 09 Jun 2018 at 11:06 AM
  */
-abstract class BaseRepository(protected val app: Application) {
+abstract class Repository(protected val app: Application) {
 	fun <T> loading(callback: MutableLiveData<Resource<T>>) {
 		callback.value = Resource.loading()
 	}

@@ -16,9 +16,11 @@
 	<color name="white">#FFFFFF</color>
     <color name="blue_ae12235b">#ae12235b</color>
     <color name="grey_aee4e4e4">#aee4e4e4</color>
-    <color name="grey_484848">#484848</color>
-    <color name="black">#000000</color>
-	<color name="blue_443f58a1">#443f58a1</color>
+	<color name="black">#000000</color>
 	<color name="grey_333333">#333333</color>
 	<color name="blue_2b3a87">#2B3a87</color>
+	<color name="transparent_white">#AAFFFFFF</color>
+	<color name="grey_6d6e71">#6d6e71</color>
+	<color name="blue_233c92">#233c92</color>
+	<color name="grey_b5010101">#b5010101</color>
 </resources>

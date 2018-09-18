@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author Samuel Robert <sam@spotsoon.com>
@@ -25,46 +25,46 @@ import androidx.recyclerview.widget.RecyclerView
 
 /********         Arch Components         ***************/
 inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory, ofActivity: Boolean = true): T {
-	return if (ofActivity) ViewModelProviders.of(activity!!, factory)[T::class.java]
-	else ViewModelProviders.of(this, factory)[T::class.java]
+    return if (ofActivity) ViewModelProviders.of(activity!!, factory)[T::class.java]
+    else ViewModelProviders.of(this, factory)[T::class.java]
 }
 
 inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(factory: ViewModelProvider.Factory): T {
-	return ViewModelProviders.of(this, factory)[T::class.java]
+    return ViewModelProviders.of(this, factory)[T::class.java]
 }
 
 
 /********          View Components          **************/
 inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: (View) -> T, @LayoutRes res: Int): T {
-	val inflater = LayoutInflater.from(context)
-	val view = inflater.inflate(res, this, false)
-	return createHolder(view)
+    val inflater = LayoutInflater.from(context)
+    val view = inflater.inflate(res, this, false)
+    return createHolder(view)
 }
 
 inline fun <reified T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
-	val inflater = LayoutInflater.from(context)
-	val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
-	return construct(binding)
+    val inflater = LayoutInflater.from(context)
+    val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
+    return construct(binding)
 }
 
 inline fun <reified R : ViewDataBinding> ViewGroup.bind(@LayoutRes resId: Int): R {
-	val inflater = LayoutInflater.from(context)
-	return DataBindingUtil.inflate(inflater, resId, this, false)
+    val inflater = LayoutInflater.from(context)
+    return DataBindingUtil.inflate(inflater, resId, this, false)
 }
 
 inline fun <reified R : ViewDataBinding> LayoutInflater.bind(@LayoutRes layoutResId: Int, parent: ViewGroup?): R {
-	return DataBindingUtil.inflate(this, layoutResId, parent, false)
+    return DataBindingUtil.inflate(this, layoutResId, parent, false)
 }
 
 inline fun <reified T : AppCompatActivity> Activity.startActivity(
-		data: Bundle = Bundle(),
-		isForResult: Boolean = false,
-		requestCode: Int = 0
+        data: Bundle = Bundle(),
+        isForResult: Boolean = false,
+        requestCode: Int = 0
 ) {
-	val intent = Intent(this, T::class.java)
-	intent.putExtras(data)
-	if (isForResult) startActivityForResult(intent, requestCode)
-	else startActivity(intent)
+    val intent = Intent(this, T::class.java)
+    intent.putExtras(data)
+    if (isForResult) startActivityForResult(intent, requestCode)
+    else startActivity(intent)
 }
 
 /*******              String                 ***************/
@@ -77,3 +77,13 @@ fun String?.isPassword() = this != null && length > 7
 
 fun String?.isName() = this != null && this.matches("[a-zA-Z]+".toRegex())
 
+fun Date.truncateTime(): Date {
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    return formatter.parse(formatter.format(this))
+}
+
+inline fun <reified T> combine(vararg observables: LiveData<T>): MediatorLiveData<T> {
+    val mediator = MediatorLiveData<T>()
+    observables.forEach { mediator.addSource(it) { value -> mediator.value = value } }
+    return mediator
+}

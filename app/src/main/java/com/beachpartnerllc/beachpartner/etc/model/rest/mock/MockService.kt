@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
+import com.beachpartnerllc.beachpartner.event.Event
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -44,6 +45,12 @@ class MockService(
                 .code(201)
                 .body(ResponseBody.create(JSON, profile.toString()))*/
         return delegate.returningResponse(null).register(profile)
+    }
+
+    override fun getEvent(date: Date, limit: Int, index: Int): Call<Resource<List<Event>>> {
+        val data = stringFromFile("get_events")
+        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        return delegate.returningResponse(Resource.success(response)).getEvent(date, limit, index)
     }
 
     private fun stringFromFile(filePath: String): String {

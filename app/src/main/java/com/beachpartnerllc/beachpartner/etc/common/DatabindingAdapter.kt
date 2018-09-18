@@ -1,5 +1,6 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
+import android.annotation.SuppressLint
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -8,9 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.github.sundeepk.compactcalendarview.CompactCalendarView
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
+import java.util.*
 
 
 /**
@@ -97,6 +102,7 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
     }
 }
 
+@SuppressLint("ClickableViewAccessibility")
 @BindingAdapter("onDrawableEndClick")
 fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
     if (listener != null) {
@@ -118,5 +124,24 @@ fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
         "ItemOffsetDecoration" -> ItemOffsetDecoration(view.context, offset)
         else -> null
     }
-	view.addItemDecoration(decorator!!)
+    view.addItemDecoration(decorator!!)
+}
+
+@BindingAdapter("setupWithViewPager")
+fun setupWithViewPager(view: TabLayout, viewPager: ViewPager) {
+    view.setupWithViewPager(viewPager)
+}
+
+@BindingAdapter("compactCalendarUseThreeLetterAbbreviation")
+fun compactCalendarUseThreeLetterAbbreviation(view: CompactCalendarView, state: Boolean) {
+    view.setUseThreeLetterAbbreviation(state)
+}
+
+@BindingAdapter("compactCalendarListener")
+fun compactCalendarListener(view: CompactCalendarView, listener: DateListener) {
+    view.setListener(object : CompactCalendarView.CompactCalendarViewListener {
+        override fun onDayClick(dateClicked: Date) = listener.onDateChanged(dateClicked)
+
+        override fun onMonthScroll(firstDayOfNewMonth: Date) = listener.onDateChanged(firstDayOfNewMonth)
+    })
 }

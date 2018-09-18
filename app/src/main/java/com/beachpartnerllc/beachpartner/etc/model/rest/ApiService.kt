@@ -1,6 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
+import com.beachpartnerllc.beachpartner.event.Event
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -10,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import java.util.*
 
 
 /**
@@ -24,13 +26,16 @@ interface ApiService {
     @Headers(HEADER_NO_AUTH)
     @POST("user/register")
     fun register(@Body profile: Profile): Call<Resource<Any>>
-	
-	@Headers(HEADER_NO_AUTH)
-	@GET("states")
-	fun getStates(): LiveData<ApiResponse<List<State>>>
-	
-	companion object {
-	    const val URL_BASE = "http://10.0.2.2:5000/"
+
+    @Headers(HEADER_NO_AUTH)
+    @GET("states")
+    fun getStates(): LiveData<ApiResponse<List<State>>>
+
+    @GET("get_events")
+    fun getEvent(date: Date, limit: Int, index: Int = 0): Call<Resource<List<Event>>>
+
+    companion object {
+        const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"
         private const val HEADER_NO_AUTH = "$NO_AUTH: true"
     }

@@ -13,7 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.mock.MockRetrofit
 import retrofit2.mock.NetworkBehavior
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
@@ -46,9 +45,9 @@ class MockServiceModule {
     @Singleton
     fun behaviorProvider(): NetworkBehavior {
         val behavior = NetworkBehavior.create()
-        behavior.setDelay(3, TimeUnit.SECONDS)
+        /*behavior.setDelay(3, TimeUnit.SECONDS)
         behavior.setErrorPercent(30)
-        behavior.setVariancePercent(75)
+        behavior.setVariancePercent(75)*/
         return behavior
     }
 

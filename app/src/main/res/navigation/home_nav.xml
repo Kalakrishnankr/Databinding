@@ -22,4 +22,9 @@
 		android:name="com.beachpartnerllc.beachpartner.home.Home2Fragment"
 		android:label="@string/app_name"
 		tools:layout="@layout/fragment_home_2"/>
+
+	<fragment android:id="@+id/action_calendar"
+		android:name="com.beachpartnerllc.beachpartner.event.CalendarFragment"
+		android:label="Calendar"
+		tools:layout="@layout/fragment_calendar"/>
 </navigation>
