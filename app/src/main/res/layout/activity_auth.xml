@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/parentCL"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".user.auth.AuthActivity">
-
-	<ImageView
+<layout>
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="MainBinding">
+		<import type="com.beachpartnerllc.beachpartner.BuildConfig"/>
+	</data>
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/parentCL"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:contentDescription="@null"
-		android:scaleType="centerCrop"
-		app:srcCompat="@drawable/art_volleyball_various_360dp"/>
+		tools:context=".user.auth.AuthActivity">
 
-	<fragment
-		android:id="@+id/authNHF"
-		android:name="androidx.navigation.fragment.NavHostFragment"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		app:defaultNavHost="true"
-		app:navGraph="@navigation/auth_nav"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:contentDescription="@null"
+			android:scaleType="centerCrop"
+			app:srcCompat="@drawable/art_volleyball_various_360dp"/>
+
+		<fragment
+			android:id="@+id/authNHF"
+			android:name="androidx.navigation.fragment.NavHostFragment"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:defaultNavHost="true"
+			app:navGraph="@navigation/auth_nav"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|center_horizontal"
+			android:layout_marginBottom="@dimen/dimen_16dp"
+			android:text="@{BuildConfig.BUILT_ON}"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_12sp"
+			tools:text="Build Generated On: 16 July, 2018 @ 1:23 PM"/>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
