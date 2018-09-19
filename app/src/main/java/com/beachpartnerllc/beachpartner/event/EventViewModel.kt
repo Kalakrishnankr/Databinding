@@ -4,7 +4,7 @@ import android.text.format.DateFormat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
-import com.beachpartnerllc.beachpartner.etc.common.combine
+import com.beachpartnerllc.beachpartner.etc.common.zip
 import com.beachpartnerllc.beachpartner.etc.model.rest.RequestState
 import java.util.*
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
     val events = switchMap(repoResult) { it.pagedList }!!
     val networkState = switchMap(repoResult) { it.networkState }!!
     val refreshState = switchMap(repoResult) { it.refreshState }!!
-    val isLoading = map(combine(networkState, refreshState)) { it.status == RequestState.LOADING }!!
+    val isLoading = map(zip(networkState, refreshState)) { it.status == RequestState.LOADING }!!
     val selectedMonth = map(eventDate) { DateFormat.format("MMMM, yyyy", it).toString() }!!
 
     fun showEventsOf(date: Date): Boolean {

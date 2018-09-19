@@ -15,8 +15,10 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.navFragment)
-	    setupActionBarWithNavController(this, navController)
+        setupWithNavController(binding.toolbar, navController)
+        setupActionBarWithNavController(this, navController)
 	    setupWithNavController(binding.homeBNV, navController)
     }
 

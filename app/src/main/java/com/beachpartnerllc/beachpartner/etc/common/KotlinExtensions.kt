@@ -82,7 +82,7 @@ fun Date.truncateTime(): Date {
     return formatter.parse(formatter.format(this))
 }
 
-inline fun <reified T> combine(vararg observables: LiveData<T>): MediatorLiveData<T> {
+inline fun <reified T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
     val mediator = MediatorLiveData<T>()
     observables.forEach { mediator.addSource(it) { value -> mediator.value = value } }
     return mediator
