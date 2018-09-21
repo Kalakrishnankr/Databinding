@@ -7,4 +7,13 @@ import dagger.android.ContributesAndroidInjector
 interface HomeFragmentModule {
     @ContributesAndroidInjector
     fun contributeAthleteFragment(): AthleteHomeFragment
+    
+    @ContributesAndroidInjector
+    fun contributeBasicInfoFragment(): BasicInfoFragment
+    
+    @ContributesAndroidInjector
+    fun contributeMoreInfoFragment(): MoreInfoFragment
+    
+    @ContributesAndroidInjector
+    fun contributeAthleteProfileFragment(): AthleteProfileFragment
 }

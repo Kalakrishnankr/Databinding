@@ -64,4 +64,12 @@
 	<string name="sand_recruits_number">Sand Recruits Number</string>
 	<string name="college_beach">College (Beach)</string>
 	<string name="no_video_available">No Video available</string>
+	<string name="top_finishes">Top Finishes in Last Year</string>
+	<string name="no_video">No video available for this profile</string>
+	<string name="no_camera_permission">Permission for using camera is not allowed</string>
+	<string name="max_size_image">Please upload an image(max size: 4MB)</string>
+	<string name="max_size_video"><![CDATA[Please upload a video(max 30sec & 30MB)]]></string>
+	<string name="position">Position</string>
+	<string name="height">Height</string>
+	<string name="college_indoor">College (Indoor)</string>
 </resources>

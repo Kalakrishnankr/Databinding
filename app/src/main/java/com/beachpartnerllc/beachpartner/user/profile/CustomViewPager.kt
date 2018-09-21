@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.user.userprofile
+package com.beachpartnerllc.beachpartner.user.profile
 
 import android.content.Context
 import android.util.AttributeSet
