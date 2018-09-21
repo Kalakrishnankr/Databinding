@@ -1,7 +1,6 @@
 package com.beachpartnerllc.beachpartner.home
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.*
@@ -20,11 +19,6 @@ class HomeActivity : BaseActivity() {
 	    setupActionBarWithNavController(this, navController)
 	    setupWithNavController(binding.homeBNV, navController)
     }
-	
-	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-		val inflater = menuInflater
-		inflater.inflate(R.menu.menu_class_fragment, menu)
-		return super.onCreateOptionsMenu(menu)
-	}
+
     override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
 }
