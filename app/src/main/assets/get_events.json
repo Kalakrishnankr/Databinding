@@ -1,87 +1,206 @@
 [
   {
-    "id": 1,
+    "event_id": 1,
     "title": "AVP Indoor Volleyball Wheaton",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 2,
+    "event_id": 2,
     "title": "JBVL Indoor Volleyball Wheaton",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 3,
+    "event_id": 3,
     "title": "LAS VEGAS BEACH SERIES #4",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 4,
+    "event_id": 4,
     "title": "AVP Indoor Volleyball Wheaton",
-    "event_date": "2018-09-19"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 5,
+    "event_id": 5,
     "title": "JBVL Indoor Volleyball Wheaton",
-    "event_date": "2018-09-19"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 6,
+    "event_id": 6,
     "title": "LAS VEGAS BEACH SERIES #4",
-    "event_date": "2018-09-19"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 7,
+    "event_id": 7,
     "title": "AVP Indoor Volleyball Wheaton",
-    "event_date": "2018-09-20"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 8,
+    "event_id": 8,
     "title": "JBVL Indoor Volleyball Wheaton",
-    "event_date": "2018-09-20"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 9,
+    "event_id": 9,
     "title": "LAS VEGAS BEACH SERIES #4",
-    "event_date": "2018-09-20"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 10,
+    "event_id": 10,
     "title": "AVP Indoor Volleyball Wheaton",
-    "event_date": "2018-09-21"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 11,
+    "event_id": 11,
     "title": "JBVL Indoor Volleyball Wheaton",
-    "event_date": "2018-09-21"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 12,
+    "event_id": 12,
     "title": "LAS VEGAS BEACH SERIES #4",
-    "event_date": "2018-09-22"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 13,
+    "event_id": 13,
     "title": "AVP Indoor Volleyball Wheaton",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 14,
+    "event_id": 14,
     "title": "JBVL Indoor Volleyball Wheaton",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 15,
+    "event_id": 15,
     "title": "LAS VEGAS BEACH SERIES #4",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 16,
+    "event_id": 16,
     "title": "AVP Indoor Volleyball Wheaton",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   },
   {
-    "id": 17,
+    "event_id": 17,
     "title": "JBVL Indoor Volleyball Wheaton",
-    "event_date": "2018-09-18"
+    "venue": "Amphi Theatre",
+    "admin": "Samuel Robert",
+    "team_size": 2,
+    "location": "California",
+    "event_start_date": "2018-09-23",
+    "event_end_date": "2018-09-31",
+    "reg_start_date": "2018-09-01",
+    "reg_end_date": "2018-09-15"
   }
 ]

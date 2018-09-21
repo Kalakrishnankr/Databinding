@@ -33,8 +33,11 @@ interface ApiService {
 
     @GET("get_events")
     fun getEvent(date: Date, limit: Int, index: Int = 0): Call<Resource<List<Event>>>
-
-    companion object {
+	
+	@GET("get_event")
+	fun getEvent(eventId: Int): LiveData<ApiResponse<Event>>
+	
+	companion object {
         const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"
         private const val HEADER_NO_AUTH = "$NO_AUTH: true"

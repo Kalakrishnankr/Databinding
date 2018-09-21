@@ -26,5 +26,30 @@
 	<fragment android:id="@+id/action_calendar"
 		android:name="com.beachpartnerllc.beachpartner.event.CalendarFragment"
 		android:label="Calendar"
-		tools:layout="@layout/fragment_calendar"/>
+		tools:layout="@layout/fragment_calendar">
+		<action android:id="@+id/action_master_calendar"
+			app:destination="@id/masterCalendarFragment"/>
+	</fragment>
+
+	<action
+		android:id="@+id/action_event"
+		app:destination="@id/EventFragment"/>
+
+	<fragment
+		android:id="@+id/masterCalendarFragment"
+		android:name="com.beachpartnerllc.beachpartner.event.MasterCalendarFragment"
+		android:label="MasterCalendarFragment"
+		tools:layout="@layout/fragment_master_calendar">
+
+	</fragment>
+
+	<fragment
+		android:id="@+id/EventFragment"
+		android:name="com.beachpartnerllc.beachpartner.event.EventFragment"
+		android:label="EventFragment"
+		tools:layout="@layout/fragment_event">
+		<argument
+			android:name="event_id"
+			app:argType="integer"/>
+	</fragment>
 </navigation>

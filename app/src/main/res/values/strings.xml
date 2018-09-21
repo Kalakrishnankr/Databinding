@@ -39,4 +39,15 @@
     <string name="i_did_not_get_email">I never got the Email</string>
     <string name="return_to_sign_in">Return to Sign In</string>
     <string name="hint_i_did_not_get_email">Please Check your spam folder; email may take as long as 10 minutes to arrive. If after 10 minutes you have not received your email, please  contact us so we can help you.</string>
+	<string name="location">Location</string>
+	<string name="venue">Venue</string>
+	<string name="event_admin_name">Event Admin Name</string>
+	<string name="start_date">Start Date</string>
+	<string name="end_date">End Date</string>
+	<string name="team_size">Team Size</string>
+	<string name="registration_starts_ends">Registration Starts/ Ends</string>
+	<string name="invite_partner">Invite Partner</string>
+	<string name="view_partner">View Partner</string>
+	<string name="i_m_going_for_this_event">I’m going for this event</string>
+	<string name="event_date_format">MMM dd, yyyy</string>
 </resources>

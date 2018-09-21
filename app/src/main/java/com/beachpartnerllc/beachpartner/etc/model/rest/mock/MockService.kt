@@ -26,8 +26,9 @@ class MockService(
         private val delegate: BehaviorDelegate<ApiService>,
         private val serializer: Gson,
         private val app: Application) : ApiService {
-
-    override fun getStates(): LiveData<ApiResponse<List<State>>> {
+	
+	
+	override fun getStates(): LiveData<ApiResponse<List<State>>> {
         val data = stringFromFile("get_state")
         val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
         return delegate.returningResponse(response).getStates()
@@ -52,6 +53,12 @@ class MockService(
         val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
         return delegate.returningResponse(Resource.success(response)).getEvent(date, limit, index)
     }
+	
+	override fun getEvent(eventId: Int): LiveData<ApiResponse<Event>> {
+		val data = stringFromFile("get_event")
+		val response: Event = serializer.fromJson(data, object : TypeToken<Event>() {}.type)
+		return delegate.returningResponse(response).getEvent(eventId)
+	}
 
     private fun stringFromFile(filePath: String): String {
         val stream = app.resources.assets.open("$filePath.json")

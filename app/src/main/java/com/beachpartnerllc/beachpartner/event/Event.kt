@@ -1,5 +1,6 @@
 package com.beachpartnerllc.beachpartner.event
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
@@ -10,7 +11,14 @@ import java.util.*
  */
 @Entity(tableName = "events")
 data class Event(
-        @PrimaryKey val id: Int,
-        val title: String,
-        val eventDate: Date
+	@PrimaryKey val eventId: Int,
+	val title: String,
+	val location: String,
+	val venue: String,
+	val admin: String,
+	@ColumnInfo(name = "team_size") val teamSize: String,
+	@ColumnInfo(name = "event_start_date") val eventStartDate: Date,
+	@ColumnInfo(name = "event_end_date") val eventEndDate: Date,
+	@ColumnInfo(name = "reg_start_date") val regStartDate: Date,
+	@ColumnInfo(name = "reg_end_date") val regEndDate: Date
 )

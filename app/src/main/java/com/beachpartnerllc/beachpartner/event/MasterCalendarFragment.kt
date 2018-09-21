@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.beachpartnerllc.beachpartner.HomeNavDirections
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.MasterCalendarBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.etc.common.truncateTime
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -26,10 +27,10 @@ class MasterCalendarFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = inflater.bind(R.layout.fragment_master_calendar, container)
-        binding.adapter = EventAdapter()
+        binding.adapter = EventAdapter(::onEvent)
         return binding.root
     }
-
+    
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -38,9 +39,10 @@ class MasterCalendarFragment : BaseFragment() {
         binding.setLifecycleOwner(viewLifecycleOwner)
         vm.events.observe(viewLifecycleOwner, Observer { binding.adapter!!.submitList(it) })
         vm.showEventsOf(Calendar.getInstance().time.truncateTime())
-
-        vm.isLoading.observe(this, Observer {
-            Timber.e(it.toString())
-        })
+    }
+    
+    private fun onEvent(event: Event) {
+        val action = HomeNavDirections.ActionEvent(event.eventId)
+        findNavController().navigate(action)
     }
 }
