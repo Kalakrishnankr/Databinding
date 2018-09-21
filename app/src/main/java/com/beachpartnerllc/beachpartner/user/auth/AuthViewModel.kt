@@ -32,7 +32,9 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     val signInValidate = MutableLiveData<Boolean>()
     val signUpValidate = MutableLiveData<Boolean>()
     val signUp2Validate = MutableLiveData<Boolean>()
-
+	val isProfileEdit = MutableLiveData<Boolean>()
+	val currentState = MutableLiveData<Boolean>()
+	
     fun signIn() = map(repo.signIn(auth.value!!)) {
         loading.value = it.status == RequestState.LOADING
         if (it.isSuccess()) {
@@ -76,8 +78,12 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
         }
         it
     }!!
-
-    init {
+	
+	fun editable(isEdit: Boolean) {
+		isProfileEdit.value = isEdit
+	}
+	
+	init {
         auth.value = Auth()
         profile.value = Profile()
     }
