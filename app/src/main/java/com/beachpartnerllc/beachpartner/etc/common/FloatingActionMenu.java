@@ -449,7 +449,7 @@ public class FloatingActionMenu extends ViewGroup {
         bringChildToFront(mMenuButton);
         bringChildToFront(mImageToggle);
         mButtonsCount = getChildCount();
-//        createLabels();
+       createLabels();
     }
 
     private void createLabels() {
@@ -461,7 +461,7 @@ public class FloatingActionMenu extends ViewGroup {
 
             if (fab.getTag(R.id.fab_label) != null) continue;
 
-            addLabel(fab);
+            //addLabel(fab);
 
             if (fab == mMenuButton) {
                 mMenuButton.setOnClickListener(new OnClickListener() {
