@@ -14,10 +14,6 @@ import javax.inject.Singleton
 class DatabaseModule {
 	@Singleton
 	@Provides
-	fun cropDaoProvider(db: AppDatabase) = db.stateDao()
-	
-	@Singleton
-	@Provides
 	fun roomProvider(app: Application): AppDatabase {
 		// TODO: swap out in memory database implementation for production
 		/*return Room.databaseBuilder(app, AppDatabase::class.java, AppDatabase.DATABASE_NAME)

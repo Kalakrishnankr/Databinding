@@ -61,3 +61,5 @@ data class Profile(
     
     fun isCoach() = userType == UserType.COACH
 }
+
+data class Session(val profile: Profile, val sessionId: String)

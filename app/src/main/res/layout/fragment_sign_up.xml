@@ -54,7 +54,6 @@
 			android:layout_marginEnd="24dp"
 			android:enabled="@{!vm.loading}"
 			android:textColorHint="@color/grey_f6f6f6"
-			app:error="@{vm.nameError.getErrorResources()}"
 			app:layout_constraintEnd_toEndOf="@id/bgView"
 			app:layout_constraintStart_toStartOf="@id/bgView"
 			app:layout_constraintTop_toTopOf="@id/bgView">
@@ -154,6 +153,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:checked="@{vm.profile.isMale()}"
+				android:enabled="@{!vm.loading}"
 				android:fontFamily="@font/sf_medium"
 				android:tag="@{Gender.MALE}"
 				android:text="@string/male"
@@ -166,6 +166,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:checked="@{vm.profile.isFemale()}"
+				android:enabled="@{!vm.loading}"
 				android:fontFamily="@font/sf_medium"
 				android:text="@string/female"
 				android:textColor="@color/selector_2f3e87_484848"
@@ -201,6 +202,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:checked="@{vm.profile.isAthlete()}"
+				android:enabled="@{!vm.loading}"
 				android:fontFamily="@font/sf_medium"
 				android:tag="@{UserType.ATHLETE}"
 				android:text="@string/athlete"
@@ -213,6 +215,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:checked="@{vm.profile.isCoach()}"
+				android:enabled="@{!vm.loading}"
 				android:fontFamily="@font/sf_medium"
 				android:tag="@{UserType.COACH}"
 				android:text="@string/coach"
@@ -230,7 +233,6 @@
 			android:alpha="@{vm.signUpValidate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid ? 1.0f : 0.5f}"
 			android:background="@drawable/draw_rect_gradient_001443_2b3990"
 			android:enabled="@{vm.signUpValidate &amp;&amp; !vm.loading&amp;&amp; vm.profile.valid}"
-			android:minHeight="32dp"
 			android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_proceed)}"
 			android:text="@string/proceed"
 			android:textAllCaps="false"
@@ -239,6 +241,17 @@
 			app:layout_constraintStart_toStartOf="@id/bgView"
 			app:layout_constraintTop_toBottomOf="@id/userTypeRG"/>
 
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall.White"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/standard"
+			app:isLoading="@{vm.loading}"
+			app:layout_constraintBottom_toBottomOf="@id/proceedBtn"
+			app:layout_constraintEnd_toEndOf="@id/proceedBtn"
+			app:layout_constraintTop_toTopOf="@id/proceedBtn"/>
+
 		<TextView
 			android:id="@+id/loginLabel"
 			android:layout_width="wrap_content"
@@ -246,7 +259,7 @@
 			android:layout_marginTop="8dp"
 			android:enabled="@{!vm.loading}"
 			android:fontFamily="@font/sf_medium"
-			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_global_signInFragment)}"
+			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
 			android:padding="@dimen/narrow"
 			android:text="@string/already_have_account_login"
 			android:textColor="@color/grey_aee4e4e4"
@@ -263,6 +276,8 @@
 			android:layout_width="0dp"
 			android:layout_height="0dp"
 			android:layout_marginTop="@dimen/medium"
+			app:layout_constraintEnd_toEndOf="@id/bgView"
+			app:layout_constraintStart_toStartOf="@id/bgView"
 			app:layout_constraintTop_toBottomOf="@id/loginLabel"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

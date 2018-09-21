@@ -25,6 +25,7 @@
 
 	<style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
 		<item name="android:fontFamily">@font/sf_regular</item>
+		<item name="android:background">@drawable/draw_rect_gradient_001443_2b3990</item>
 		<item name="android:includeFontPadding">false</item>
 	</style>
 
@@ -48,8 +49,8 @@
 	<style name="LoadingIndicatorSmall" parent="AVLoadingIndicatorView.Small">
 		<item name="indicatorName">BallPulseSyncIndicator</item>
 	</style>
-	<style name="LoadingIndicatorSmall.Green">
-		<item name="indicatorColor">@color/colorAccent</item>
+	<style name="LoadingIndicatorSmall.White">
+		<item name="indicatorColor">@color/white</item>
 	</style>
 
 </resources>

@@ -17,4 +17,7 @@ interface AuthFragmentModule {
 
     @ContributesAndroidInjector
     fun contributeSignUp2Fragment(): SignUp2Fragment
+
+    @ContributesAndroidInjector
+    fun contributePostRegistrationFragment(): PostRegistrationFragment
 }

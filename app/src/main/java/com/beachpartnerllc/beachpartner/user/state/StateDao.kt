@@ -15,6 +15,6 @@ interface StateDao {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	fun insertStates(crops: List<State>)
 	
-	@Query("SELECT * FROM stateId")
-	fun getAllStates(): LiveData<List<State>>
+	@Query("SELECT * FROM state")
+    fun getStates(): LiveData<List<State>>
 }

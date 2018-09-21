@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="UnreceivedEmailBinding">
+		<import type="com.beachpartnerllc.beachpartner.user.auth.AuthState"/>
+
+		<variable
+			name="handler"
+			type="com.beachpartnerllc.beachpartner.user.auth.PostRegistrationFragment"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/draw_rect_e4e4e4_r13"
+		android:paddingBottom="@dimen/dimen_16dp">
+
+		<ImageView
+			android:id="@+id/closeIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:contentDescription="@null"
+			android:onClick="@{()->handler.onStateChanged(AuthState.SIGN_IN)}"
+			android:padding="@dimen/dimen_16dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_close_black_18dp"/>
+
+		<ImageView
+			android:id="@+id/smileIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_24"
+			android:contentDescription="@null"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/closeIV"
+			app:srcCompat="@drawable/ic_sad_black_126dp"/>
+
+		<TextView
+			android:id="@+id/neverLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:fontFamily="@font/sf_bold"
+			android:text="@string/i_did_not_get_email"
+			android:textAllCaps="true"
+			android:textColor="@color/blue_2b3a87"
+			android:textSize="@dimen/text_16sp"
+			app:layout_constraintEnd_toEndOf="@id/smileIV"
+			app:layout_constraintStart_toStartOf="@id/smileIV"
+			app:layout_constraintTop_toBottomOf="@id/smileIV"/>
+
+		<TextView
+			android:id="@+id/msgLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_44dp"
+			android:gravity="center"
+			android:paddingStart="@dimen/dimen_20dp"
+			android:paddingEnd="@dimen/dimen_20dp"
+			android:text="@string/hint_i_did_not_get_email"
+			android:textColor="@color/grey_333333"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintBottom_toTopOf="@id/signInBtn"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/neverLabel"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

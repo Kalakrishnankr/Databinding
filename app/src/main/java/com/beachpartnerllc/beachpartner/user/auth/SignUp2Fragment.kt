@@ -13,8 +13,6 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SignUpFragment2Binding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
-import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.Profile
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -73,9 +71,11 @@ class SignUp2Fragment : BaseFragment() {
 		dialog.setView(dp)
 		dialog.show()
 	}
-	
-	val registerObserver = Observer<Resource<Profile>> {}
-	
+
+	fun register() {
+		vm.register().observe(this, Observer { })
+	}
+
 	override fun onDestroyView() {
 		mDisposable.dispose()
 		super.onDestroyView()

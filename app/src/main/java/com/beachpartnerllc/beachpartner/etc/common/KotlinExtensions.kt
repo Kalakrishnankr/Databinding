@@ -1,7 +1,8 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -23,40 +24,51 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 /********         Arch Components         ***************/
-inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory, isFromActivity: Boolean = true): T {
-    return if (isFromActivity) ViewModelProviders.of(activity!!, factory)[T::class.java]
-    else ViewModelProviders.of(this, factory)[T::class.java]
+inline fun <reified T : ViewModel> Fragment.getViewModel(factory: ViewModelProvider.Factory, ofActivity: Boolean = true): T {
+	return if (ofActivity) ViewModelProviders.of(activity!!, factory)[T::class.java]
+	else ViewModelProviders.of(this, factory)[T::class.java]
 }
 
 inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(factory: ViewModelProvider.Factory): T {
-    return ViewModelProviders.of(this, factory)[T::class.java]
+	return ViewModelProviders.of(this, factory)[T::class.java]
 }
 
 
 /********          View Components          **************/
 inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: (View) -> T, @LayoutRes res: Int): T {
-    val inflater = LayoutInflater.from(context)
-    val view = inflater.inflate(res, this, false)
-    return createHolder(view)
+	val inflater = LayoutInflater.from(context)
+	val view = inflater.inflate(res, this, false)
+	return createHolder(view)
 }
 
 inline fun <reified T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
-    val inflater = LayoutInflater.from(context)
-    val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
-    return construct(binding)
+	val inflater = LayoutInflater.from(context)
+	val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
+	return construct(binding)
 }
-
 
 inline fun <reified R : ViewDataBinding> ViewGroup.bind(@LayoutRes resId: Int): R {
-    val inflater = LayoutInflater.from(context)
-    return DataBindingUtil.inflate(inflater, resId, this, false)
+	val inflater = LayoutInflater.from(context)
+	return DataBindingUtil.inflate(inflater, resId, this, false)
 }
+
+inline fun <reified R : ViewDataBinding> LayoutInflater.bind(@LayoutRes layoutResId: Int, parent: ViewGroup?): R {
+	return DataBindingUtil.inflate(this, layoutResId, parent, false)
+}
+
 
 /********           System                   **************/
-inline fun <reified T : AppCompatActivity> Context.startActivity() {
-    startActivity(Intent(this, T::class.java))
-}
 
+inline fun <reified T : AppCompatActivity> Activity.startActivity(
+	data: Bundle = Bundle(),
+	isForResult: Boolean = false,
+	requestCode: Int = 0
+) {
+	val intent = Intent(this, T::class.java)
+	intent.putExtras(data)
+	if (isForResult) startActivityForResult(intent, requestCode)
+	else startActivity(intent)
+}
 
 /*******              String                 ***************/
 
