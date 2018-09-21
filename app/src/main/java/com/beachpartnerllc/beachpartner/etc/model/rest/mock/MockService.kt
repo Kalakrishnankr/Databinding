@@ -15,6 +15,10 @@ import retrofit2.mock.BehaviorDelegate
  * @created on 05 Dec 2017 at 7:07 PM
  */
 class MockService(private val delegate: BehaviorDelegate<ApiService>) : ApiService {
+	/*override fun getProfiles(profile: Profile): LiveData<ApiResponse<List<Profile>>> {
+		return delegate.returningResponse(Resource.success(profile)).getProfiles(profile)
+	}*/
+	
 	override fun getStates(): LiveData<ApiResponse<List<State>>> {
 		TODO()
 	}

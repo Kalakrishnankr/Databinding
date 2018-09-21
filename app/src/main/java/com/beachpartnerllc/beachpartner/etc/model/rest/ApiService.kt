@@ -28,6 +28,10 @@ interface ApiService {
 	@GET("states")
 	fun getStates(): LiveData<ApiResponse<List<State>>>
 	
+	/*@Headers(Companion.HEADER_NO_AUTH)
+	@GET("users/search")
+	fun getProfiles(search: Search): LiveData<ApiResponse<List<Profile>>>*/
+	
 	companion object {
 	    const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"

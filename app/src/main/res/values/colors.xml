@@ -19,9 +19,8 @@
     <color name="grey_484848">#484848</color>
     <color name="black">#000000</color>
 	<color name="blue_443f58a1">#443f58a1</color>
+	<color name="grey_c6c0c0">#c6c0c0</color>
 
-
-	<color name="finder_card_btn_background_light_grey">#f4fffdfd</color>
-	<color name="search_page_text_color">#233282</color>
-	<color name="transparent_blue">#900a19e1</color>
+	<color name="blue_233282">#233282</color>
+	<color name="transparent_blue_900a19e1">#900a19e1</color>
 </resources>
