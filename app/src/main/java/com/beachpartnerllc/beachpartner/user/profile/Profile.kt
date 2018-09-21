@@ -1,5 +1,6 @@
-package com.beachpartnerllc.beachpartner.user.userprofile
+package com.beachpartnerllc.beachpartner.user.profile
 
+import android.graphics.Bitmap
 import com.beachpartnerllc.beachpartner.etc.common.isEmail
 import com.beachpartnerllc.beachpartner.etc.common.isMobile
 import com.beachpartnerllc.beachpartner.etc.common.isName
@@ -18,7 +19,9 @@ data class Profile(
 	var email: String? = null,
 	var mobile: String? = null,
 	var password: String? = null,
-	var dob: String? = null
+	var dob: String? = null,
+	var image: Bitmap?=null,
+	var video:Any?=null
 ) {
 
     fun isFirstNameValid() = firstName.isName()
