@@ -11,11 +11,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.AthleteProfileBinding
@@ -44,10 +43,8 @@ import javax.inject.Inject
 class AthleteProfileFragment : BaseFragment() {
 	private lateinit var binding: AthleteProfileBinding
 	@Inject lateinit var factory: ViewModelProvider.Factory
-	private lateinit var imgBitmap: Bitmap
-	private lateinit var chooserIntent: Intent
-	private var intentList: MutableList<Intent> = ArrayList()
-	private val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+	private lateinit var vm: AuthViewModel
+	
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = inflater.bind(R.layout.fragment_athlete_profile, container)
@@ -61,9 +58,17 @@ class AthleteProfileFragment : BaseFragment() {
 	
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
-		val vm: AuthViewModel = getViewModel(factory)
+		vm = getViewModel(factory)
 		binding.vm = vm
+		vm.isProfileEdit.observe(viewLifecycleOwner, Observer {
+				activity!!.invalidateOptionsMenu()
+		})
 		binding.setLifecycleOwner(viewLifecycleOwner)
+	}
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setHasOptionsMenu(true)
 	}
 	
 	fun fabClick() {
@@ -93,8 +98,8 @@ class AthleteProfileFragment : BaseFragment() {
 		super.onActivityResult(requestCode, resultCode, data)
 		if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
 			if (data!!.hasExtra("data")) {
-				imgBitmap = data.extras!!.get("data") as Bitmap
-				Glide.with(requireContext()).load(imgBitmap).apply(RequestOptions.circleCropTransform())
+				val img = data.extras!!.get("data") as Bitmap
+				Glide.with(requireContext()).load(img).apply(RequestOptions.circleCropTransform())
 					.into(binding.profilePicIV)
 			} else
 				Glide.with(requireContext()).load(data.data).apply(RequestOptions.circleCropTransform())
@@ -103,7 +108,7 @@ class AthleteProfileFragment : BaseFragment() {
 		} else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK) {
 			val selectedVideoUri = data!!.data
 			val dashUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
-			setVideoUrl(binding.exoplayerProfile, dashUrl)
+			setVideoUrl(binding.exoplayerProfile, selectedVideoUri)
 		}
 	}
 	
@@ -135,7 +140,8 @@ class AthleteProfileFragment : BaseFragment() {
 		val imageIntent1 = Intent(Intent.ACTION_GET_CONTENT)
 		imageIntent1.type = "image/*"
 		val imageIntent2 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-		intentList = arrayListOf(imageIntent1, imageIntent2)
+		val intentList = arrayListOf(imageIntent1, imageIntent2)
+		var chooserIntent: Intent? = null
 		if (intentList.size > 0) {
 			chooserIntent = Intent.createChooser(intentList.removeAt(intentList.size - 1), getString(R.string.max_size_image))
 			chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toTypedArray<Parcelable>())
@@ -152,7 +158,8 @@ class AthleteProfileFragment : BaseFragment() {
 		videoIntent1.putExtra(MediaStore.Video.Thumbnails.WIDTH, 720)
 		val videoIntent2 = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.INTERNAL_CONTENT_URI)
 		videoIntent2.type = "video/*"
-		intentList = arrayListOf(videoIntent1, videoIntent2)
+		val intentList = arrayListOf(videoIntent1, videoIntent2)
+		var chooserIntent: Intent? = null
 		if (intentList.size > 0) {
 			chooserIntent = Intent.createChooser(intentList.removeAt(intentList.size - 1), getString(R.string.max_size_video))
 			chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toTypedArray<Parcelable>())
@@ -197,5 +204,28 @@ class AthleteProfileFragment : BaseFragment() {
 			}
 		})
 	}
-
+	
+	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+		menu!!.clear()
+		if (vm.isProfileEdit.value == true) inflater?.inflate(R.menu.menu_save_discard, menu)
+		super.onCreateOptionsMenu(menu, inflater)
+	}
+	
+	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+		when(item!!.itemId){
+			R.id.action_discard -> {
+				vm.editable(false)
+				return true
+			}
+			R.id.action_save ->{
+				vm.editable(false)
+				return true
+			}
+		}
+		return super.onOptionsItemSelected(item)
+	}
+	
+	companion object {
+		private val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+	}
 }
