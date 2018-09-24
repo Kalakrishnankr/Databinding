@@ -67,12 +67,16 @@ class SignUpFragment : BaseFragment() {
     }
 
     private fun readInput(inputs: Array<out Any?>) {
-        val profile = vm.profile.value!!
-        val gender = binding.genderRG.findViewById<RadioButton>(inputs[2].toString().toInt()).tag as Gender
-        val userType = binding.userTypeRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as UserType
-        if (userType != profile.userType) profile.dob = null
-        profile.gender = gender
-        profile.userType = userType
+        try {
+            val profile = vm.profile.value!!
+            val gender = binding.genderRG.findViewById<RadioButton>(inputs[2].toString().toInt()).tag as Gender
+            val userType = binding.userTypeRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as UserType
+            if (userType != profile.userType) profile.dob = null
+            profile.gender = gender
+            profile.userType = userType
+        } catch (e: TypeCastException) {
+            Timber.e(e, e.localizedMessage)
+        }
     }
 
     override fun onDestroyView() {

@@ -18,48 +18,47 @@ data class Profile(
 	var email: String? = null,
 	var mobile: String? = null,
 	var password: String? = null,
-	var dob: String? = null
-) {
-
-    fun isFirstNameValid() = firstName.isName()
-
-    fun isLastNameValid() = lastName.isName()
-    
-    fun isStateValid() = stateId != null
-
-    fun isGenderValid() = gender != null
-
-    fun isUserTypeValid() = userType != null
-
-    fun isValid() = isFirstNameValid() && isLastNameValid() && isStateValid() && isGenderValid() &&
-            isUserTypeValid()
-
-    fun isEmailValid() = email.isEmail()
-
-    fun isMobileValid() = mobile.isMobile()
-
-    fun isPasswordValid() = password.isPassword()
-
-    fun isDobValid() = try {
-        val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.US)
-        sdf.isLenient = false
-        sdf.parse(dob)
-        true
-    } catch (e: ParseException) {
-        false
-    } catch (e: NullPointerException) {
-        false
-    }
-
-    fun isValid2() = isEmailValid() && isMobileValid() && isPasswordValid() && isDobValid()
-    
-    fun isAthlete() = userType == UserType.ATHLETE
-    
-    fun isMale() = gender == Gender.MALE
-    
-    fun isFemale() = gender == Gender.FEMALE
-    
-    fun isCoach() = userType == UserType.COACH
+	var dob: String? = null) {
+	
+	fun isFirstNameValid() = firstName.isName()
+	
+	fun isLastNameValid() = lastName.isName()
+	
+	fun isStateValid() = stateId != null
+	
+	fun isGenderValid() = gender != null
+	
+	fun isUserTypeValid() = userType != null
+	
+	fun isValid() = isFirstNameValid() && isLastNameValid() && isStateValid()
+		&& isGenderValid() && isUserTypeValid()
+	
+	fun isEmailValid() = email.isEmail()
+	
+	fun isMobileValid() = mobile.isMobile()
+	
+	fun isPasswordValid() = password.isPassword()
+	
+	fun isDobValid() = try {
+		val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+		sdf.isLenient = false
+		sdf.parse(dob)
+		true
+	} catch (e: ParseException) {
+		false
+	} catch (e: NullPointerException) {
+		false
+	}
+	
+	fun isValid2() = isEmailValid() && isMobileValid() && isPasswordValid() && isDobValid()
+	
+	fun isAthlete() = userType == UserType.ATHLETE
+	
+	fun isMale() = gender == Gender.MALE
+	
+	fun isFemale() = gender == Gender.FEMALE
+	
+	fun isCoach() = userType == UserType.COACH
 }
 
 data class Session(val profile: Profile, val sessionId: String)
