@@ -18,8 +18,13 @@ data class Profile(
 	var email: String? = null,
 	var mobile: String? = null,
 	var password: String? = null,
-	var dob: String? = null
-) {
+	var dob: String? = null,
+	var imageurl: String? = null,
+	var videourl: String? = null,
+	var age: Int? = null,
+	var status: String? = null
+)
+{
 
     fun isFirstNameValid() = firstName.isName()
 

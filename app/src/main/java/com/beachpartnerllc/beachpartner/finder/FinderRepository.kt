@@ -1,11 +1,17 @@
 package com.beachpartnerllc.beachpartner.finder
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import com.beachpartnerllc.beachpartner.etc.base.BaseRepository
 import com.beachpartnerllc.beachpartner.etc.common.RateLimiter
 import com.beachpartnerllc.beachpartner.etc.exec.AppExecutors
 import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
+import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
+import com.beachpartnerllc.beachpartner.user.Profile
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -41,22 +47,29 @@ class FinderRepository @Inject constructor(
 			}
 		}.asLiveData()
 	}*/
-	
-	/*fun play(search: Search): LiveData<Resource<Search>>{
-		val state = MutableLiveData<Resource<Search>>()
+	fun getProfiles(): MutableLiveData<Resource<List<Profile>>> {
+		val state = MutableLiveData<Resource<List<Profile>>>()
 		state.value = Resource.loading()
-		
-		api.getProfiles(search).enqueue(object : Callback<Resource<Search>?>{
-			override fun onFailure(call: Call<Resource<Search>?>, t: Throwable) {
-				httpRequestFailed(call,t)
-				state.value = Resource.error()
+		api.getProfiles().enqueue(object : Callback<Resource<List<Profile>>?>{
+			override fun onFailure(call: Call<Resource<List<Profile>>?>, t: Throwable){
+			}
+			override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
+				if (response.isSuccessful){
+					state.value = response.body()
+				}else{
+					state.value = Resource.error(response)
+				}
 			}
 			
-			override fun onResponse(call: Call<Resource<Search>?>, response: Response<Resource<Search>?>) {
-			state.value = response.body()
-			}
 		})
 		return state
-	}*/
+	}
+	
+	
+	
 }
+
+
+
+
 

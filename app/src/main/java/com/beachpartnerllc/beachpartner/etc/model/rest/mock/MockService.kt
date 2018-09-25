@@ -26,6 +26,13 @@ class MockService(
 	private val serializer: Gson,
 	private val app: Application) : ApiService {
 	
+	
+	override fun getProfiles(): Call<Resource<List<Profile>>> {
+		val data = stringFromFile("get_profile")
+		val response : List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
+		return delegate.returningResponse(Resource.success(response)).getProfiles()
+	}
+	
 	override fun getStates(): LiveData<ApiResponse<List<State>>> {
 		val data = stringFromFile("get_state")
 		val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)

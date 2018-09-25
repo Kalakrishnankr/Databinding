@@ -1,9 +1,12 @@
 package com.beachpartnerllc.beachpartner.finder
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
+import com.beachpartnerllc.beachpartner.etc.common.SingleLiveEvent
+import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.user.Gender
-import com.beachpartnerllc.beachpartner.user.state.State
+import com.beachpartnerllc.beachpartner.user.Profile
 import javax.inject.Inject
 
 /**
@@ -16,7 +19,10 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 	val search = MutableLiveData<Search>()
 	val selectedStatePosition = MutableLiveData<Int>()
 	val multibar = MutableLiveData<Boolean>()
-	private lateinit var stateList: List<State>
+	val event = SingleLiveEvent<String>()
+	val profile = MutableLiveData<ArrayList<Profile>>()
+	private lateinit var profileList: List<Profile>
+	
 	
 	/*fun setStatePosition(position: Int) {
 		val user = search.value!!
@@ -33,33 +39,48 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 		it
 	}!!*/
 	
-	fun onAgeChange(min : Int , index : Int) { val ageValue = search.value!!
-		if(index == 0) ageValue.minAge = min else ageValue.maxAge = min
-		search.value = ageValue }
+	fun onAgeChange(min: Int, index: Int) {
+		val ageValue = search.value!!
+		if (index == 0) ageValue.minAge = min else ageValue.maxAge = min
+		search.value = ageValue
+	}
 	
-	fun isCheck(isStatus : Boolean){ val status = search.value!!
+	fun isCheck(isStatus: Boolean) {
+		val status = search.value!!
 		status.isCoach = isStatus
-		search.value = status }
+		search.value = status
+	}
 	
-	fun isMale(isValue : Boolean){ val sex = search.value!!
+	fun isMale(isValue: Boolean) {
+		val sex = search.value!!
 		val result = sex.gender?.compareTo(Gender.FEMALE)
-		if (result == 0) { sex.gender = Gender.BOTH
-			search.value = sex }
-		else{ sex.gender = Gender.MALE
-			search.value = sex } }
-	fun isFemale(isValue : Boolean) { val sex = search.value!!
-		val result = sex.gender?.compareTo(Gender.MALE)
-		if (result == 0) { sex.gender = Gender.BOTH
+		if (result == 0) {
+			sex.gender = Gender.BOTH
 			search.value = sex
-		}else{ sex.gender = Gender.FEMALE
-			search.value = sex } }
-		
-	/*fun play(): LiveData<Resource<Search>> = Transformations.map(repo.play(search.value!!)){
-		loading.value = it.status == RequestState.LOADING
-		it
-	}!!*/
+		} else {
+			sex.gender = Gender.MALE
+			search.value = sex
+		}
+	}
 	
-	fun play(){}
+	fun isFemale(isValue: Boolean) {
+		val sex = search.value!!
+		val result = sex.gender?.compareTo(Gender.MALE)
+		if (result == 0) {
+			sex.gender = Gender.BOTH
+			search.value = sex
+		} else {
+			sex.gender = Gender.FEMALE
+			search.value = sex
+		}
+	}
+	
+	
+	fun findProfiles() = map(repo.getProfiles()) {
+		loading.value = it.isLoading()
+		it
+	}!!
+	
 	init {
 		search.value = Search()
 	}

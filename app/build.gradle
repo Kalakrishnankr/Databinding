@@ -96,10 +96,8 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-core:2.7.1'
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.7.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.7.1'
-
-
+    implementation 'com.android.support:cardview-v7:28.0.0'
 }
-3
 
 static def getBuildDateTime() {
     return "Build Generated On: ${new Date().format("dd MMMM, 2018 @ h:mma")}"

@@ -3,8 +3,9 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 	<data class="SearchFragmentBinding">
+		<import type="androidx.navigation.Navigation"/>
+		<import type="com.beachpartnerllc.beachpartner.R"/>
 		<import type="com.beachpartnerllc.beachpartner.user.Gender"/>
-		<variable name="selected" type="boolean" />
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
 	</data>
 	<ScrollView
@@ -19,24 +20,24 @@
 				android:id="@+id/ageCV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/margin_left_10dp_search"
-				android:layout_marginTop="@dimen/margin_top_13dp_search"
-				android:layout_marginRight="@dimen/margin_left_10dp_search"
-				app:cardCornerRadius="@dimen/card_corner_radious_5dp_search"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginTop="@dimen/dimen_13dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent">
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:padding="@dimen/card_padding_14dp">
+					android:padding="@dimen/dimen_14dp">
 
 					<TextView
 						android:id="@+id/ageLimitTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginStart="@dimen/margin_left_13dp_search"
-						android:layout_marginTop="@dimen/margin_left_13dp_search"
+						android:layout_marginStart="@dimen/dimen_13dp"
+						android:layout_marginTop="@dimen/dimen_13dp"
 						android:contentDescription="@null"
 						android:text="@string/age_limit"
 						android:textColor="@color/blue_233282"
@@ -47,7 +48,7 @@
 						android:id="@+id/minAgeTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/margin_left_13dp_search"
+						android:layout_marginTop="@dimen/dimen_13dp"
 						android:contentDescription="@null"
 						android:text="@{Integer.toString(vm.search.minAge)}"
 						android:gravity="end"
@@ -61,7 +62,7 @@
 						android:id="@+id/seperatorTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/margin_left_13dp_search"
+						android:layout_marginTop="@dimen/dimen_13dp"
 						android:contentDescription="@null"
 						android:gravity="end"
 						android:text="-"
@@ -75,8 +76,8 @@
 						android:id="@+id/maxAgeTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/margin_left_13dp_search"
-						android:layout_marginEnd="@dimen/margin_right_15dp_search"
+						android:layout_marginTop="@dimen/dimen_13dp"
+						android:layout_marginEnd="@dimen/dimen_15dp"
 						android:contentDescription="@null"
 						android:gravity="end"
 						android:text="@{Integer.toString(vm.search.maxAge)}"
@@ -90,7 +91,7 @@
 						android:id="@+id/minTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginStart="@dimen/margin_left_20dp"
+						android:layout_marginStart="@dimen/dimen_20dp"
 						android:gravity="center"
 						android:text="@string/min_age"
 						app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +102,7 @@
 						android:id="@+id/maxTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginEnd="@dimen/margin_left_20dp"
+						android:layout_marginEnd="@dimen/dimen_20dp"
 						android:gravity="center"
 						android:text="@string/max_age"
 						app:layout_constraintBottom_toBottomOf="parent"
@@ -126,8 +127,8 @@
 				android:id="@+id/ageInfoTV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/margin_left_10dp_search"
-				android:padding="@dimen/padding_10dp_search_info"
+				android:layout_marginStart="@dimen/dimen_10dp"
+				android:padding="@dimen/dimen_10dp"
 				android:text="@string/finder_info_age"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/ageCV"/>
@@ -136,21 +137,21 @@
 				android:id="@+id/stateCV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/margin_left_10dp_search"
-				android:layout_marginRight="@dimen/margin_left_10dp_search"
-				app:cardCornerRadius="@dimen/card_corner_radious_5dp_search"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
 				app:layout_constraintTop_toBottomOf="@+id/ageInfoTV">
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:padding="@dimen/card_padding_14dp">
+					android:padding="@dimen/dimen_14dp">
 
 					<TextView
 						android:id="@+id/stateTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginStart="@dimen/margin_left_13dp_search"
+						android:layout_marginStart="@dimen/dimen_13dp"
 						android:gravity="start"
 						android:text="@string/state"
 						android:textColor="@color/blue_233282"
@@ -164,7 +165,7 @@
 						android:id="@+id/stateACS"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginEnd="@dimen/margin_right_15dp_search"
+						android:layout_marginEnd="@dimen/dimen_15dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toEndOf="@+id/stateTV"
@@ -178,8 +179,8 @@
 				android:id="@+id/stateInfoTV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/margin_left_10dp_search"
-				android:padding="@dimen/padding_10dp_search_info"
+				android:layout_marginStart="@dimen/dimen_10dp"
+				android:padding="@dimen/dimen_10dp"
 				android:text="@string/finder_info_location"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/stateCV"/>
@@ -188,22 +189,22 @@
 				android:id="@+id/genderCV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/margin_left_10dp_search"
-				android:layout_marginRight="@dimen/margin_left_10dp_search"
-				app:cardCornerRadius="@dimen/card_corner_radious_5dp_search"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/stateInfoTV">
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:padding="@dimen/card_padding_14dp">
+					android:padding="@dimen/dimen_14dp">
 
 					<TextView
 						android:id="@+id/showmeTV"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginStart="@dimen/margin_left_13dp_search"
+						android:layout_marginStart="@dimen/dimen_13dp"
 						android:gravity="start"
 						android:text="@string/show_me"
 						android:textColor="@color/blue_233282"
@@ -214,7 +215,7 @@
 						android:id="@+id/genderTV"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginEnd="@dimen/margin_right_15dp_search"
+						android:layout_marginEnd="@dimen/dimen_15dp"
 						android:gravity="start"
 						android:text="@{vm.search.gender.name}"
 						android:textColor="@color/blue_233282"
@@ -224,7 +225,7 @@
 
 					<androidx.appcompat.widget.AppCompatButton
 						android:id="@+id/maleBT"
-						android:layout_width="@dimen/btn_width_gender_finder_95dp"
+						android:layout_width="@dimen/dimen_95dp"
 						android:layout_height="wrap_content"
 						android:text="@string/male"
 						android:theme="@style/Theme.Design.Light.NoActionBar"
@@ -236,7 +237,7 @@
 
 					<androidx.appcompat.widget.AppCompatButton
 						android:id="@+id/femaleBT"
-						android:layout_width="@dimen/btn_width_gender_finder_95dp"
+						android:layout_width="@dimen/dimen_95dp"
 						android:layout_height="wrap_content"
 						android:text="@string/female"
 						android:theme="@style/Theme.Design.Light.NoActionBar"
@@ -254,22 +255,22 @@
 				android:id="@+id/coachCV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/margin_left_10dp_search"
-				android:layout_marginTop="@dimen/margin_top_19dp"
-				android:layout_marginRight="@dimen/margin_left_10dp_search"
-				app:cardCornerRadius="@dimen/card_corner_radious_5dp_search"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginTop="@dimen/dimen_19dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/genderCV">
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:padding="@dimen/card_padding_14dp">
+					android:padding="@dimen/dimen_14dp">
 					<TextView
 						android:id="@+id/coachTV"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						android:layout_marginStart="@dimen/margin_left_13dp_search"
+						android:layout_marginStart="@dimen/dimen_13dp"
 						android:gravity="center"
 						android:text="@string/include_coaches"
 						android:textColor="@color/blue_233282"
@@ -282,7 +283,7 @@
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						android:checked="@{vm.search.isCoach}"
-						android:layout_marginEnd="@dimen/margin_right_15dp_search"
+						android:layout_marginEnd="@dimen/dimen_15dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
@@ -293,7 +294,7 @@
 			</androidx.cardview.widget.CardView>
 
 			<ImageView
-				android:id="@+id/playBT"
+				android:id="@+id/playIMV"
 				android:layout_width="60dp"
 				android:layout_height="60dp"
 				android:layout_marginTop="10dp"
@@ -301,7 +302,7 @@
 				android:src="@drawable/icon_play"
 				app:layout_constraintLeft_toRightOf="parent"
 				app:layout_constraintRight_toLeftOf="parent"
-				android:onClick="@{()->vm.play()}"
+				android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_search_result)}"
 				app:layout_constraintTop_toBottomOf="@+id/coachCV"/>
 			<TextView
 				android:layout_width="wrap_content"
@@ -311,7 +312,7 @@
 				android:textStyle="bold"
 				app:layout_constraintLeft_toRightOf="parent"
 				app:layout_constraintRight_toLeftOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/playBT"/>
+				app:layout_constraintTop_toBottomOf="@+id/playIMV"/>
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 

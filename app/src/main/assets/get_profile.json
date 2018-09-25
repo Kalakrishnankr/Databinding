@@ -1,0 +1,32 @@
+[
+  {
+    "userId": 17,
+    "firstName": "Chris",
+    "lastName": "Rector",
+    "email": "chrisrectorseq@gmail.com",
+    "dob": 493842600000,
+    "stateId": 45,
+    "age": 33,
+    "status": "Active",
+    "mobile": 8787878787,
+    "imageurl": "https://s3-us-west-2.amazonaws.com/beachpartner/DM_IMG/13-m13.jpg",
+    "videourl": "https://s3-us-west-2.amazonaws.com/beachpartner/user/188/profileData/1525698093623-VID_20180507_183120.mp4",
+    "userType": "COACH",
+    "gender": "FEMALE"
+  },
+  {
+    "userId": 18,
+    "firstName":"Alex",
+    "lastName": "Xavier",
+    "email": "chrisrectorseq@gmail.com",
+    "dob": 632102400000,
+    "stateId": 45,
+    "age": 28,
+    "status": "Active",
+    "mobile": 1212121212,
+    "imageurl": "https://s3-us-west-2.amazonaws.com/beachpartner/user/258/profileData/1525856080051-unnamed.jpg",
+    "videourl": "https://s3-us-west-2.amazonaws.com/beachpartner/user/258/profileData/1525856091553-VID_20180505_201456.mp4",
+    "userType": "ATHLETE",
+    "gender": "MALE"
+  }
+]

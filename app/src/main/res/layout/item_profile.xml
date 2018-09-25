@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data class="ProfileItemBinding">
+		<variable name="profile" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+	</data>
+
+	<androidx.cardview.widget.CardView
+		android:id="@+id/swipe_card"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:cardBackgroundColor="@android:color/white"
+		app:cardCornerRadius="8dp"
+		app:cardUseCompatPadding="true">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/cardCV"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<com.wang.avi.AVLoadingIndicatorView
+				android:id="@+id/loadingAVLV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:indicatorColor="@android:color/holo_green_light"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+			<ImageView
+				android:id="@+id/imgvIV"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:contentDescription="@null"
+				android:scaleType="centerCrop"
+				android:src="@{profile.imageurl}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+
+			<com.google.android.exoplayer2.ui.SimpleExoPlayerView
+				android:id="@+id/exoplayerSPV"
+				android:layout_width="match_parent"
+				android:layout_height="500dp"
+				android:clickable="false"
+				android:visibility="invisible"
+				app:auto_show="false"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:resize_mode="fill"
+				app:use_controller="false"/>
+
+			<View
+				android:id="@+id/viewBottom"
+				android:layout_width="match_parent"
+				android:layout_height="100dp"
+				android:background="@drawable/overlay_card"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"/>
+
+			<TextView
+				android:id="@+id/nameTV"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:contentDescription="@null"
+				android:lines="1"
+				android:paddingStart="13dp"
+				android:paddingTop="16dp"
+				android:paddingEnd="13dp"
+				android:text="@{profile.mobile}"
+				android:textColor="@android:color/white"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/viewBottom"/>
+
+			<TextView
+				android:id="@+id/typeTV"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:contentDescription="@null"
+				android:paddingStart="13dp"
+				android:paddingTop="10dp"
+				android:paddingEnd="13dp"
+				android:text="@{profile.status}"
+				android:textColor="@android:color/white"
+				android:textSize="18sp"
+				android:textStyle="bold"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/nameTV"/>
+
+
+			<ImageView
+				android:id="@+id/flagIMV"
+				android:layout_width="@dimen/dimen_36"
+				android:layout_height="@dimen/dimen_36"
+				android:layout_marginEnd="6dp"
+				android:contentDescription="@null"
+				android:padding="2dp"
+				android:src="@drawable/ic_info_39dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@id/infoIMV"
+				app:layout_constraintTop_toTopOf="@+id/viewBottom"/>
+
+			<ImageView
+				android:id="@+id/infoIMV"
+				android:layout_width="@dimen/dimen_36"
+				android:layout_height="@dimen/dimen_36"
+				android:layout_marginEnd="16dp"
+				android:contentDescription="@null"
+				android:padding="2dp"
+				android:src="@drawable/ic_info_39dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/viewBottom"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.cardview.widget.CardView>
+</layout>
