@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +36,7 @@ class SearchResultFragment : BaseFragment() {
 		binding.setLifecycleOwner(viewLifecycleOwner)
 		vm.findProfiles().observe(viewLifecycleOwner, Observer {
 			if (it.isSuccess()) {
+				      binding.loaderPB.isVisible=false
 					  val adapter =  ProfileListingAdapter(it.data!!, context)
 					  adapter.addAll(it.data)
 					  binding.profileCSV.setAdapter(adapter)

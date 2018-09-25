@@ -8,10 +8,10 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<com.yuyakaido.android.cardstackview.CardStackView
+	<com.beachpartnerllc.beachpartner.cardstackview.CardStackView
 		android:id="@+id/profileCSV"
 		android:layout_width="match_parent"
-		android:layout_height="400dp"
+		android:layout_height="match_parent"
 		android:clipToPadding="false"
 		app:elevationEnabled="false"
 		app:leftOverlay="@layout/overlay_left"
@@ -23,8 +23,6 @@
 		app:swipeThreshold="0.75"
 		app:topOverlay="@layout/overlay_top"
 		app:translationDiff="8"
-		android:layout_marginLeft="25dp"
-		android:layout_marginRight="25dp"
 		app:layout_constraintBottom_toTopOf="@+id/view_btn_bg_one"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent"

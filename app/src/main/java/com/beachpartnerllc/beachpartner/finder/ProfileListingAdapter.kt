@@ -8,6 +8,8 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.ProfileItemBinding
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.user.Profile
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 
 /**
@@ -31,13 +33,15 @@ class ProfileListingAdapter(private val profiles: List<Profile>, context: Contex
 		} else {
 			convertView.tag as ViewHolder
 		}
-		return holder.bind(getItem(position))
+		return holder.bind(getItem(position),context)
 	}
 	
 	class ViewHolder(private val binding: ProfileItemBinding) {
-		fun bind(item: Profile): View {
+		fun bind(item: Profile, context: Context): View {
 			binding.profile = item
 			binding.executePendingBindings()
+			Glide.with(context).load(item.imageurl).apply(RequestOptions.placeholderOf(R.drawable.default_icon)).into(binding
+				.imgvIV)
 			return binding.root
 		}
 	}

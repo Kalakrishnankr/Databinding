@@ -108,6 +108,8 @@ fun setOnThumbValueChangeListener(view: MultiSlider, listener: OnMinMaxValueList
 	}
 }
 
+
+
 @BindingAdapter("onDrawableEndClick")
 fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
     if (listener != null) {
