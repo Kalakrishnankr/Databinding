@@ -6,6 +6,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
@@ -103,6 +104,22 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                    listener.onDrawableEnd()
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
+        }
+    }
+}
+
+@BindingAdapter("onDrawableEndClick")
+fun setOnDrawableEndClick(editText:AppCompatEditText , listener: OnCompoundDrawableClickListener?) {
+    val fuzz = 10;
+    if (listener != null) {
+        editText.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN ) {
+                if (event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -fuzz)) {
                     listener.onDrawableEnd()
                     return@setOnTouchListener true
                 }
