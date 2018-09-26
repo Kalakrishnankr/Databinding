@@ -41,7 +41,7 @@ inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: 
     return createHolder(view)
 }
 
-inline fun <reified T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
+inline fun <T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
     val inflater = LayoutInflater.from(context)
     val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
     return construct(binding)

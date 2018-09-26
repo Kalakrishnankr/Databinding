@@ -37,6 +37,12 @@ interface ApiService {
 	@GET("get_event")
 	fun getEvent(eventId: Int): LiveData<ApiResponse<Event>>
 	
+	@GET("get_connections")
+	fun getConnections(): LiveData<ApiResponse<List<Profile>>>
+	
+	@POST("send_invitation")
+	fun sendInvitation(@Body invitees: List<Int>): Call<Resource<Any>>
+	
 	companion object {
         const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"

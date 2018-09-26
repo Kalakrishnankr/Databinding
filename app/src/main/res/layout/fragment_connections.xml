@@ -3,35 +3,96 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
+
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="ConnectionsBinding">
+		<variable name="validate" type="Boolean"/>
+		<variable name="connectionsAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
+		<variable name="potentialAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.connection.ConnectionsFragment"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.connection.ConnectionViewModel"/>
+	</data>
+
 	<com.sothree.slidinguppanel.SlidingUpPanelLayout
-		xmlns:sothree="http://schemas.android.com/apk/res-auto"
-		android:id="@+id/sliding_layout"
+		android:id="@+id/sliderSPL"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:gravity="bottom"
-		sothree:umanoPanelHeight="68dp"
-		sothree:umanoShadowHeight="4dp">
+		app:shadowHeight="@{0}"
+		app:umanoAnchorPoint="0.5"
+		app:umanoFadeColor="@android:color/transparent"
+		app:umanoInitialState="expanded"
+		app:umanoScrollInterpolator="@android:anim/bounce_interpolator"
+		app:umanoShadowHeight="0dp">
 
-		<data class="ConnectionsBinding">
-
-		</data>
-		<LinearLayout
+		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:orientation="vertical">
+			android:layout_height="match_parent">
 
 			<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/connectionRV"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:adapter="@{connectionsAdapter}"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:listitem="@layout/item_connections"/>
+
+			<com.wang.avi.AVLoadingIndicatorView
+				android:id="@+id/loaderLIV"
+				style="@style/LoadingIndicatorSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:isLoading="@{vm.loading}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/white"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/titleTV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:background="@drawable/draw_rect_273588_top_corners"
+				android:fontFamily="@font/sf_medium"
+				android:padding="@dimen/dimen_12dp"
+				android:text="@string/potential_partners"
+				android:textColor="@color/color_ebebeb"
+				android:textSize="@dimen/text_16sp"/>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/potentialRV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:adapter="@{potentialAdapter}"
 				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-				tools:listitem="@layout/item_connections"/>
+				tools:listitem="@layout/item_potential_partrner"/>
+
+			<androidx.appcompat.widget.AppCompatButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginBottom="@dimen/dimen_8dp"
+				android:background="@drawable/draw_rect_273588_r16"
+				android:enabled="@{!vm.loading}"
+				android:minHeight="@dimen/dimen_36dp"
+				android:onClick="@{()->handler.onInvite()}"
+				android:text="@string/invite_friend"
+				android:textColor="@color/white"
+				android:textSize="@dimen/text_12sp"
+				android:visibility="gone"
+				app:goneUntil="@{validate &amp;&amp; potentialAdapter.getItemCount() &gt; 0}"/>
+
 		</LinearLayout>
-
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="0dp"
-			android:layout_height="0dp">
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
 	</com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </layout>

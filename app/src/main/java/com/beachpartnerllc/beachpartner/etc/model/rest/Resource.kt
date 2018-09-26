@@ -17,8 +17,8 @@ class Resource<out T> constructor(
         fun <T> success(data: T? = null) = Resource(SUCCESS, data, null)
 
         fun <T> error(message: String? = null, data: T? = null, code: Int = 0) = Resource(ERROR, data, message)
-
-        fun <T> error(response: Response<T?>) = Resource(ERROR, null, response.message(), response.code())
+    
+        fun <T> error(response: Response<T?>) = Resource(ERROR, null, response.errorBody().toString(), response.code())
 
         fun <T> loading(data: T? = null) = Resource(LOADING, data, null)
 

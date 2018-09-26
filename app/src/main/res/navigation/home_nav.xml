@@ -51,5 +51,13 @@
 		<argument
 			android:name="event_id"
 			app:argType="integer"/>
+
+		<action android:id="@+id/action_invite"
+			app:destination="@id/connectionsFragment"/>
 	</fragment>
+
+	<fragment android:id="@+id/connectionsFragment"
+		android:name="com.beachpartnerllc.beachpartner.connection.ConnectionsFragment"
+		android:label="ConnectionsFragment"
+		tools:layout="@layout/fragment_connections"/>
 </navigation>

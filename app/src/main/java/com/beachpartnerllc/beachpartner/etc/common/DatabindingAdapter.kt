@@ -6,15 +6,19 @@ import android.text.SpannableStringBuilder
 import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.wang.avi.AVLoadingIndicatorView
 import java.util.*
 
@@ -37,13 +41,13 @@ fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
 	else view.smoothToHide()
 }
 
-@BindingAdapter("url")
-fun setUrl(imageView: ImageView, url: String?) {
-	/*Picasso.with(imageView.context)
-			.load(url)
-			.fit()
-			.centerCrop()
-			.into(imageView)*/
+@BindingAdapter("url", "isRound", requireAll = false)
+fun setUrl(imageView: ImageView, url: String?, isRound: Boolean?) {
+	GlideApp.with(imageView)
+		.load(url)
+		.diskCacheStrategy(DiskCacheStrategy.ALL)
+		.apply(if (isRound == true) RequestOptions.circleCropTransform() else RequestOptions.centerCropTransform())
+		.into(imageView)
 }
 
 @BindingAdapter("nestedScrollingEnabled")
@@ -127,4 +131,14 @@ fun compactCalendarListener(view: CompactCalendarView, listener: DateListener) {
 @BindingAdapter("android:text", "format", requireAll = true)
 fun formatText(view: TextView, date: Date?, format: String) {
 	date?.let { view.text = DateFormat.format(format, it) }
+}
+
+@BindingAdapter("shadowHeight")
+fun setShadowHeight(view: SlidingUpPanelLayout, height: Int) {
+	view.shadowHeight = height
+}
+
+@BindingAdapter("goneUntil")
+fun goneUntil(view: View, isVisible: Boolean) {
+	view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
