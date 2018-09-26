@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.Gender
-import com.beachpartnerllc.beachpartner.user.Profile
-import com.beachpartnerllc.beachpartner.user.Session
-import com.beachpartnerllc.beachpartner.user.UserType
 import com.beachpartnerllc.beachpartner.user.auth.Auth
+import com.beachpartnerllc.beachpartner.user.profile.Gender
+import com.beachpartnerllc.beachpartner.user.profile.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Session
+import com.beachpartnerllc.beachpartner.user.profile.UserType
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

@@ -2,7 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.model.pref
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.beachpartnerllc.beachpartner.user.Session
+import com.beachpartnerllc.beachpartner.user.profile.Session
 import javax.inject.Singleton
 
 /**

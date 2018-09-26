@@ -33,6 +33,7 @@
 					android:layout_height="match_parent"
 					android:clickable="false"
 					android:focusable="true"
+					android:focusableInTouchMode="true"
 					app:resize_mode="fill"
 					app:use_controller="false"/>
 			</FrameLayout>

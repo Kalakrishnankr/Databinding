@@ -11,8 +11,8 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.NetworkBoundResource
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.Profile
-import com.beachpartnerllc.beachpartner.user.Session
+import com.beachpartnerllc.beachpartner.user.profile.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Session
 import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
 import retrofit2.Callback
@@ -97,4 +97,5 @@ class AuthRepository @Inject constructor(
 
         return state
     }
+
 }

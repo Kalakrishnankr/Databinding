@@ -1,9 +1,9 @@
 package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
-import com.beachpartnerllc.beachpartner.user.Profile
-import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
+import com.beachpartnerllc.beachpartner.user.profile.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Session
 import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
 import retrofit2.http.Body
