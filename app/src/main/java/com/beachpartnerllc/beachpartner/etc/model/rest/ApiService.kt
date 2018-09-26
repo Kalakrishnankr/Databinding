@@ -33,6 +33,19 @@ interface ApiService {
 	@GET("users/search")
 	fun getProfiles(): Call<Resource<List<Profile>>>
 	
+	@Headers(HEADER_NO_AUTH)
+	@POST("users/request-friendship/{userId}")
+	fun rightSwipe(userId: Int): Call<Resource<Profile>>
+	
+	@Headers(HEADER_NO_AUTH)
+	@POST("users/reject-friendship/{userId}")
+	fun leftSwipe(userId: Int) : Call<Resource<Profile>>
+	
+	@Headers(HEADER_NO_AUTH)
+	@POST("users/hifi/{userId}")
+	fun topSwipe(userId: Int) : Call<Resource<Profile>>
+	
+	
 	companion object {
 	    const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"

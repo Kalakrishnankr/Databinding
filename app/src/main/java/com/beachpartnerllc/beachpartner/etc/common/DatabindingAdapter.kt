@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.beachpartnerllc.beachpartner.cardstackview.CardStackView
+import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
@@ -103,11 +105,31 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
 @BindingAdapter("onThumbValueChange")
 fun setOnThumbValueChangeListener(view: MultiSlider, listener: OnMinMaxValueListener) {
 	view.setOnThumbValueChangeListener { multiSlider, thumb, thumbIndex, value ->
-		//Timber.e(view.min.toString())
 		if (thumbIndex ==0) listener.onMinMax(value,thumbIndex) else listener.onMinMax(value,thumbIndex)
 	}
 }
 
+@BindingAdapter("onCardEventChange")
+fun setOnCardEventListener(view: CardStackView, listener: OnCardSwipeChangeListener) {
+        view.setCardEventListener(object: CardStackView.CardEventListener {
+            override fun onCardDragging(percentX: Float, percentY: Float) {
+            }
+    
+            override fun onCardSwiped(direction: SwipeDirection?, index: Int) {
+               listener.onDirection(direction!!,index)
+            }
+    
+            override fun onCardReversed() {
+            }
+    
+            override fun onCardMovedToOrigin() {
+            }
+    
+            override fun onCardClicked(index: Int) {
+                Timber.e(index.toString())
+            }
+        })
+}
 
 
 @BindingAdapter("onDrawableEndClick")

@@ -33,6 +33,18 @@ class MockService(
 		return delegate.returningResponse(Resource.success(response)).getProfiles()
 	}
 	
+	override fun leftSwipe(userId: Int): Call<Resource<Profile>> {
+		return delegate.returningResponse("success").leftSwipe(userId)
+	}
+	
+	override fun rightSwipe(userId: Int): Call<Resource<Profile>> {
+		return delegate.returningResponse("success").rightSwipe(userId)
+	}
+	
+	override fun topSwipe(userId: Int): Call<Resource<Profile>> {
+		return delegate.returningResponse("success").rightSwipe(userId)
+	}
+	
 	override fun getStates(): LiveData<ApiResponse<List<State>>> {
 		val data = stringFromFile("get_state")
 		val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)

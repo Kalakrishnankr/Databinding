@@ -1,105 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:android="http://schemas.android.com/apk/res/android">
-	<data class = "SearchResultFragment2Binding">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data class="SearchResultFragment2Binding">
+		<import type="com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"/>
 	</data>
-<androidx.constraintlayout.widget.ConstraintLayout
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-
-	<com.beachpartnerllc.beachpartner.cardstackview.CardStackView
-		android:id="@+id/profileCSV"
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:clipToPadding="false"
-		app:elevationEnabled="false"
-		app:leftOverlay="@layout/overlay_left"
-		app:rightOverlay="@layout/overlay_right"
-		app:scaleDiff="0.03"
-		app:stackFrom="top"
-		app:swipeDirection="freedom_no_bottom"
-		app:swipeEnabled="true"
-		app:swipeThreshold="0.75"
-		app:topOverlay="@layout/overlay_top"
-		app:translationDiff="8"
-		app:layout_constraintBottom_toTopOf="@+id/view_btn_bg_one"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
+		android:layout_height="match_parent">
+
+		<com.beachpartnerllc.beachpartner.cardstackview.CardStackView
+			android:id="@+id/profileCSV"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="false"
+			app:elevationEnabled="false"
+			app:layout_constraintBottom_toTopOf="@+id/btnbgVI"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:leftOverlay="@layout/overlay_left"
+			app:onCardEventChange="@{(direction,index)->vm.onSwipe(direction,index)}"
+			app:rightOverlay="@layout/overlay_right"
+			app:scaleDiff="0.03"
+			app:stackFrom="top"
+			app:swipeDirection="freedom_no_bottom"
+			app:swipeEnabled="true"
+			app:swipeThreshold="0.75"
+			app:topOverlay="@layout/overlay_top"
+			app:translationDiff="8"/>
+
+		<ProgressBar
+			android:id="@+id/loaderPB"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="@+id/profileCSV"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/profileCSV"/>
+
+		<View
+			android:id="@+id/bottomVIEW"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/circlebgVI"/>
+
+		<View
+			android:id="@+id/btnbgVI"
+			android:layout_width="174dp"
+			android:layout_height="42dp"
+			android:layout_marginBottom="@dimen/dimen_5dp"
+			android:background="@drawable/rounded_rectangle"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@id/bottomVIEW"/>
+
+		<View
+			android:id="@+id/circlebgVI"
+			android:layout_width="65dp"
+			android:layout_height="50dp"
+			android:layout_marginBottom="12dp"
+			android:background="@drawable/shape_circle_bg"
+			app:layout_constraintBottom_toBottomOf="@+id/btnbgVI"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintStart_toStartOf="parent"/>
+
+		<ImageView
+			android:id="@+id/hifiIMV"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:onClick="@{()->profileCSV.swipe(SwipeDirection.Top)}"
+			android:src="@drawable/icon_hifi_finder"
+			android:contentDescription="@null"
+			app:layout_constraintBottom_toBottomOf="@id/btnbgVI"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/circlebgVI"/>
+
+		<ImageView
+			android:id="@+id/undoIMV"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:src="@drawable/icon_undo_inactive"
+			android:onClick="@{()->profileCSV.reverse()}"
+			android:contentDescription="@null"
+			app:layout_constraintBottom_toBottomOf="@id/btnbgVI"
+			app:layout_constraintLeft_toLeftOf="@+id/btnbgVI"
+			app:layout_constraintRight_toLeftOf="@+id/circlebgVI"
+			app:layout_constraintTop_toTopOf="@+id/btnbgVI"/>
+
+		<ImageView
+			android:id="@+id/locationIMV"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:src="@drawable/icon_location"
+			android:contentDescription="@null"
+			app:layout_constraintBottom_toBottomOf="@id/btnbgVI"
+			app:layout_constraintLeft_toRightOf="@+id/circlebgVI"
+			app:layout_constraintRight_toRightOf="@+id/btnbgVI"
+			app:layout_constraintTop_toTopOf="@+id/btnbgVI"/>
 
 
-	<ProgressBar
-		android:id="@+id/loaderPB"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintBottom_toBottomOf="@+id/profileCSV"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		android:visibility="visible"
-		app:layout_constraintTop_toTopOf="@+id/profileCSV"/>
-
-	<View
-		android:id="@+id/buttonView"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_two"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintBottom_toBottomOf="parent"/>
-
-	<View
-		android:id="@+id/view_btn_bg_one"
-		android:layout_width="174dp"
-		android:layout_height="42dp"
-		android:background="@drawable/rounded_rectangle"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="@id/buttonView"
-		app:layout_constraintBottom_toBottomOf="parent"/>
-
-	<View
-		android:id="@+id/view_btn_bg_two"
-		android:layout_width="65dp"
-		android:layout_height="50dp"
-		android:layout_marginBottom="12dp"
-		android:background="@drawable/shape_circle_bg"
-		app:layout_constraintBottom_toBottomOf="@+id/view_btn_bg_one"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintStart_toStartOf="parent"/>
-
-	<ImageView
-		android:id="@+id/imgv_hifi"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_two"
-		app:layout_constraintBottom_toBottomOf="@id/view_btn_bg_one"
-		android:src="@drawable/icon_hifi_finder"/>
-
-	<ImageView
-		android:id="@+id/imgv_undo"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_one"
-		app:layout_constraintLeft_toLeftOf="@+id/view_btn_bg_one"
-		app:layout_constraintRight_toLeftOf="@+id/view_btn_bg_two"
-		app:layout_constraintBottom_toBottomOf="@id/view_btn_bg_one"
-		android:src="@drawable/icon_undo_inactive"/>
-
-	<ImageView
-		android:id="@+id/imgv_location"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintTop_toTopOf="@+id/view_btn_bg_one"
-		app:layout_constraintBottom_toBottomOf="@id/view_btn_bg_one"
-		app:layout_constraintRight_toRightOf="@+id/view_btn_bg_one"
-		app:layout_constraintLeft_toRightOf="@+id/view_btn_bg_two"
-		android:src="@drawable/icon_location"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

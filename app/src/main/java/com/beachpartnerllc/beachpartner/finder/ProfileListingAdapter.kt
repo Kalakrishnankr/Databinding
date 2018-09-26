@@ -18,8 +18,8 @@ import com.bumptech.glide.request.RequestOptions
  */
 class ProfileListingAdapter(private val profiles: List<Profile>, context: Context?) : ArrayAdapter<Profile>
 (context, 0){
-	
-	override fun getItem(position: Int) = profiles[position]
+
+ 	override fun getItem(position: Int) = profiles[position]
 	
 	override fun getItemId(position: Int) = position.toLong()
 	

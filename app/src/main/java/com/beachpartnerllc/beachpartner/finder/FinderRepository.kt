@@ -65,7 +65,60 @@ class FinderRepository @Inject constructor(
 		return state
 	}
 	
+	fun actionRightSwipe(profile: Profile): MutableLiveData<Resource<Profile>>{
+		val state = MutableLiveData<Resource<Profile>>()
+		state.value = Resource.loading()
+		api.rightSwipe(profile.userId).enqueue(object: Callback<Resource<Profile>?> {
+			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+			}
+			
+			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+				if (response.isSuccessful){
+					state.value = response.body()
+				}else{
+					state.value = Resource.error(response)
+				}
+			}
+		})
+		return state
+	}
 	
+	fun actionLeftSwipe(profile: Profile) : MutableLiveData<Resource<Profile>>{
+		val state = MutableLiveData<Resource<Profile>>()
+		state.value = Resource.loading()
+		api.leftSwipe(profile.userId).enqueue(object: Callback<Resource<Profile>?> {
+			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+			}
+			
+			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+				if (response.isSuccessful){
+					state.value = response.body()
+				}else{
+					state.value = Resource.error(response)
+				}
+			}
+		})
+		return state
+	}
+	
+	fun actionTopSwipe(profile: Profile) : MutableLiveData<Resource<Profile>>{
+		val state =MutableLiveData<Resource<Profile>>()
+		state.value  = Resource.loading()
+		api.topSwipe(profile.userId).enqueue(object: Callback<Resource<Profile>?> {
+			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+			}
+			
+			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+				if (response.isSuccessful){
+					state.value = response.body()
+				}else{
+					state.value = Resource.error(response)
+				}
+			}
+		})
+		
+		return state
+	}
 	
 }
 
