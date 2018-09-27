@@ -72,7 +72,7 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
     fun setStatePosition(position: Int) {
         val user = profile.value!!
         user.stateId = stateList[position].stateId
-        profile.value = user
+	    // profile.value = user
     }
 
     fun getStates() = map(repo.getStateList()) {
