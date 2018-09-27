@@ -106,6 +106,9 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 		singleProfile = repo.actionTopSwipe(profile)
 	}
 	
+	fun play(){
+	}
+	
 	init {
 		search.value = Search()
 	}

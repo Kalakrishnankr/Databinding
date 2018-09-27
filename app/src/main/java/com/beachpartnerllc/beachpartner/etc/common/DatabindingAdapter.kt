@@ -1,9 +1,11 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
+import android.annotation.SuppressLint
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beachpartnerllc.beachpartner.cardstackview.CardStackView
 import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.beachpartnerllc.beachpartner.utils.DoubleTapListener
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
 import io.apptik.widget.MultiSlider
@@ -126,12 +129,26 @@ fun setOnCardEventListener(view: CardStackView, listener: OnCardSwipeChangeListe
             }
     
             override fun onCardClicked(index: Int) {
-                Timber.e(index.toString())
+                //Timber.e(index.toString())
             }
         })
 }
 
+@SuppressLint("ClickableViewAccessibility")
+@BindingAdapter("onDoubleClickEvent")
+fun setOnDoubleTapListener(view : ImageView,listener: OnImageDoubleClickListener){
+	view.setOnTouchListener(object: DoubleTapListener() {
+		override fun onSingleClick(v: View) {
+        }
+		override fun onDoubleClick(v: View): Boolean {
+            listener.imageDoubleTap()
+            return@onDoubleClick true
+		}
+	})
+}
 
+
+@SuppressLint("ClickableViewAccessibility")
 @BindingAdapter("onDrawableEndClick")
 fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
     if (listener != null) {

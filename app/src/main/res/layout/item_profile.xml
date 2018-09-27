@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<data class="ProfileItemBinding">
+		<import type="android.view.View"/>
 		<variable name="profile" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.finder.ProfileListingAdapter"/>
 	</data>
 	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
@@ -29,7 +31,7 @@
 				app:layout_constraintTop_toTopOf="parent"/>
 
 			<ImageView
-				android:id="@+id/imgvIV"
+				android:id="@+id/avatarIV"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:contentDescription="@null"
@@ -38,21 +40,20 @@
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+				app:layout_constraintTop_toTopOf="parent"
+				app:onDoubleClickEvent="@{()-> adapter.setVideoUrl(avatarIV,videoPV,profile.videourl)}"/>
 
 			<com.google.android.exoplayer2.ui.SimpleExoPlayerView
-				android:id="@+id/exoplayerSPV"
+				android:id="@+id/videoPV"
 				android:layout_width="match_parent"
-				android:layout_height="500dp"
-				android:clickable="false"
+				android:layout_height="match_parent"
 				android:visibility="invisible"
-				app:auto_show="false"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
-				app:resize_mode="fill"
-				app:use_controller="false"/>
+				app:use_controller="false"
+				app:auto_show="false"/>
 
 			<View
 				android:id="@+id/viewBottom"

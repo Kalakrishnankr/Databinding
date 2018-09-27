@@ -79,10 +79,10 @@
 			android:onClick="@{()->profileCSV.swipe(SwipeDirection.Top)}"
 			android:src="@drawable/icon_hifi_finder"
 			android:contentDescription="@null"
-			app:layout_constraintBottom_toBottomOf="@id/btnbgVI"
-			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/circlebgVI"/>
+			app:layout_constraintLeft_toRightOf="@+id/undoIMV"
+			app:layout_constraintRight_toLeftOf="@+id/locationIMV"
+			app:layout_constraintTop_toTopOf="@+id/circlebgVI"
+			app:layout_constraintBottom_toBottomOf="parent"/>
 
 		<ImageView
 			android:id="@+id/undoIMV"
