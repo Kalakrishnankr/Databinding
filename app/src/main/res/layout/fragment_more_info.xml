@@ -3,6 +3,7 @@
 	<data class="MoreInfoBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.MoreInfoFragment"/>
+		<variable name="R" type="com.beachpartnerllc.beachpartner.R"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -42,10 +43,13 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:selectedItemPosition="@{vm.selectedExperiencePosition}"
+			app:itemView="@{handler.getItemView()}"
 			app:layout_constraintBaseline_toBaselineOf="@id/tv_experience_label"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
-			app:layout_constraintStart_toEndOf="@+id/tv_experience_label"/>
+			app:layout_constraintStart_toEndOf="@+id/tv_experience_label"
+			android:entries="@array/experience"/>
 
 		<View
 			android:id="@+id/bound_experience"
@@ -74,11 +78,14 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			app:itemView="@{handler.getItemView()}"
+			android:selectedItemPosition="@{vm.selectedPreferencePosition}"
 			app:layout_constraintBaseline_toBaselineOf="@id/tv_preference_label"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_preference_label"
-			app:layout_constraintTop_toBottomOf="@id/bound_experience"/>
+			app:layout_constraintTop_toBottomOf="@id/bound_experience"
+			android:entries="@array/courtPreference"/>
 
 		<View
 			android:id="@+id/bound_preference"
@@ -107,10 +114,13 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			app:itemView="@{handler.getItemView()}"
+			android:selectedItemPosition="@{vm.selectedPosPosition}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_position_label"
-			app:layout_constraintTop_toBottomOf="@id/bound_preference"/>
+			app:layout_constraintTop_toBottomOf="@id/bound_preference"
+			android:entries="@array/position"/>
 
 		<View
 			android:id="@+id/bound_position"
@@ -139,10 +149,13 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			app:itemView="@{handler.getItemView()}"
+			android:selectedItemPosition="@{vm.selectedHeightPosition}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_height_label"
-			app:layout_constraintTop_toBottomOf="@id/bound_position"/>
+			app:layout_constraintTop_toBottomOf="@id/bound_position"
+			android:entries="@array/height"/>
 
 		<View
 			android:id="@+id/bound_height"
@@ -171,10 +184,13 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			app:itemView="@{handler.getItemView()}"
+			android:selectedItemPosition="@{vm.selectedDistancePosition}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_travel_willingness_label"
-			app:layout_constraintTop_toBottomOf="@id/bound_height"/>
+			app:layout_constraintTop_toBottomOf="@id/bound_height"
+			android:entries="@array/distance"/>
 
 		<View
 			android:id="@+id/bound_travel_willingness"
@@ -208,6 +224,7 @@
 			android:enabled="@{vm.isProfileEdit}"
 			android:inputType="textCapWords"
 			android:maxLines="1"
+			android:text="@={vm.athlete.highSchool}"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:textColor="@color/blue_263588"
@@ -247,6 +264,7 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:text="@={vm.athlete.indoorClub}"
 			android:inputType="textCapWords"
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
@@ -288,6 +306,7 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:text="@={vm.athlete.collegeBeach}"
 			android:inputType="textCapWords"
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
@@ -329,6 +348,7 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:text="@={vm.athlete.collegeIndoor}"
 			android:inputType="textCapWords"
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
@@ -369,6 +389,7 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:text="@={vm.athlete.sandRecruitsNo}"
 			android:inputType="textCapWords"
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
@@ -409,6 +430,7 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:text="@={vm.athlete.topFinishes[1]}"
 			android:inputType="textCapWords"
 			android:maxLines="1"
 			android:drawableEnd="@{vm.isProfileEdit() &amp;&amp; vm.topFinishesCount &lt; 2?@drawable/ic_add_15dp:null}"

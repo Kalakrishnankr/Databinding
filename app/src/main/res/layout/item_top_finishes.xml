@@ -30,6 +30,7 @@
 		android:drawableEnd="@{vm.isProfileEdit?@drawable/ic_remove_15dp:null}"
 		android:inputType="textCapWords"
 		android:maxLines="1"
+		android:onTextChanged="@{()->handler.readTopFinishes()}"
 		app:onDrawableEndClick="@{()->handler.removeTopFinish(topFinishItemRootCL)}"
 		android:paddingStart="@dimen/dimen_8dp"
 		android:paddingEnd="@dimen/dimen_8dp"

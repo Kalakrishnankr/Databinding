@@ -1,61 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="states">
-        <item>Alabama</item>
-        <item>Alaska</item>
-        <item>Arizona</item>
-        <item>Arkansas</item>
-        <item>California</item>
-        <item>Colorado</item>
-        <item>Connecticut</item>
-        <item>Delaware</item>
-        <item>Florida</item>
-        <item>Georgia</item>
-        <item>Hawaii</item>
-        <item>Idaho</item>
-        <item>Illinois</item>
-        <item>Indiana</item>
-        <item>Iowa</item>
-        <item>Kansas</item>
-        <item>Kentucky</item>
-        <item>Louisiana</item>
-        <item>Maine</item>
-        <item>Maryland</item>
-        <item>Massachusetts</item>
-        <item>Michigan</item>
-        <item>Minnesota</item>
-        <item>Mississippi</item>
-        <item>Missouri</item>
-        <item>Montana</item>
-        <item>Nebraska</item>
-        <item>Nevada</item>
-        <item>New Hampshire</item>
-        <item>New Jersey</item>
-        <item>New Mexico</item>
-        <item>New York</item>
-        <item>North Carolina</item>
-        <item>North Dakota</item>
-        <item>Ohio</item>
-        <item>Oklahoma</item>
-        <item>Oregon</item>
-        <item>Pennsylvania</item>
-        <item>Rhode Island</item>
-        <item>South Carolina</item>
-        <item>South Dakota</item>
-        <item>Tennessee</item>
-        <item>Texas</item>
-        <item>Utah</item>
-        <item>Vermont</item>
-        <item>Virginia</item>
-        <item>Washington</item>
-        <item>West Virginia</item>
-        <item>Wisconsin</item>
-        <item>Wyoming</item>
-    </string-array>
+	<string-array name="profile_titles">
+		<item>Basic Information</item>
+		<item>More Information</item>
+	</string-array>
 
-    <string-array name="profile_titles">
-        <item>Basic Information</item>
-        <item>More Information</item>
-    </string-array>
+	<string-array name="experience">
+		<item>Please Select</item>
+		<item>“Newbie” [New to the Game]</item>
+		<item>1&#8211;2 years [Some Indoor/Beach Experience]</item>
+		<item>2&#8211;3 years [Beach Club/Tournament Experience]</item>
+		<item>3&#8211;4 years [Experienced Tournament Player]</item>
+		<item>More than 4 years</item>
+	</string-array>
 
+	<string-array name="courtPreference">
+		<item>Please Select</item>
+		<item>Left Side</item>
+		<item>Right Side</item>
+		<item>No Preference</item>
+	</string-array>
+
+	<string-array name="position">
+		<item>Please Select</item>
+		<item>Primary Blocker</item>
+		<item>Primary Defender</item>
+		<item>Split Block/Defense</item>
+	</string-array>
+
+	<string-array name="distance">
+		<item>Please Select</item>
+		<item>Not Willing</item>
+		<item>Up to 25 miles</item>
+		<item>Up to 50 miles</item>
+		<item>Up to 100 miles</item>
+		<item>Up to 250 miles</item>
+		<item>Up to 500 miles</item>
+		<item>Nationwide</item>
+		<item>International</item>
+	</string-array>
+
+	<string-array name="height">
+		<item>Please Select</item>
+		<item> 4\' 10\"</item>
+		<item> 4\' 11\"</item>
+		<item> 5\' 0\"</item>
+		<item> 5\' 1\"</item>
+		<item> 5\' 2\"</item>
+		<item> 5\' 3\"</item>
+		<item> 5\' 4\"</item>
+		<item> 5\' 5\"</item>
+		<item> 5\' 6\"</item>
+		<item> 5\' 7\"</item>
+		<item> 5\' 8\"</item>
+		<item> 5\' 9\"</item>
+		<item> 5\' 10\"</item>
+		<item> 5\' 11\"</item>
+		<item> 6\' 0\"</item>
+		<item> 6\' 1\"</item>
+		<item> 6\' 2\"</item>
+		<item> 6\' 3\"</item>
+		<item> 6\' 4\"</item>
+		<item> 6\' 5\"</item>
+		<item> 6\' 6\"</item>
+		<item> 6\' 7\"</item>
+		<item> 6\' 8\"</item>
+		<item> 6\' 9\"</item>
+		<item> 6\' 10\"</item>
+		<item> 6\' 11\"</item>
+		<item> 7\' 0\"</item>
+	</string-array>
+
+	<string-array name="gender">
+		<item>Male</item>
+		<item>Female</item>
+	</string-array>
 </resources>

@@ -3,6 +3,7 @@
 	<data class="BasicInfoBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.BasicInfoFragment"/>
+		<variable name="adapter" type="android.widget.ArrayAdapter"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -48,6 +49,7 @@
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
+			android:text="@={vm.profile.firstName}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_fname_label"
@@ -87,6 +89,7 @@
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
+			android:text="@={vm.profile.lastName}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_lname_label"
@@ -113,23 +116,21 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/bound_lname"/>
 
-		<androidx.appcompat.widget.AppCompatEditText
+		<androidx.appcompat.widget.AppCompatSpinner
 			android:id="@+id/edit_gender"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
-			android:inputType="textCapWords"
-			android:paddingStart="@dimen/dimen_8dp"
-			android:paddingEnd="@dimen/dimen_8dp"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
+			app:adapter="@{adapter}"
+			android:selectedItemPosition="@={vm.selectedGenderPosition}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
-			app:layout_constraintTop_toBottomOf="@+id/bound_lname"
-			tools:text="Female"/>
+			app:layout_constraintTop_toBottomOf="@+id/bound_lname"/>
 
 		<View
 			android:id="@+id/bound_gender"
@@ -158,11 +159,14 @@
 			android:layout_margin="17dp"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
-			android:inputType="textCapWords"
+			android:inputType="date"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
+			android:onClick="@{()->handler.onDobClick()}"
+			android:text="@={vm.profile.dob}"
+			android:focusable="false"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_dob_label"
@@ -197,6 +201,7 @@
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
 			android:textColor="@color/blue_263588"
+			android:selectedItemPosition="@={vm.selectedStatePosition}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/spinner_state_label"
@@ -236,6 +241,7 @@
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
+			android:text="@={vm.profile.mobile}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_phone_label"

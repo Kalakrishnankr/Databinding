@@ -114,19 +114,21 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
 }
 
 @BindingAdapter("onDrawableEndClick")
-fun setOnDrawableEndClick(editText:AppCompatEditText , listener: OnCompoundDrawableClickListener?) {
-    val fuzz = 10;
-    if (listener != null) {
-        editText.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN ) {
-                if (event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -fuzz)) {
-                    listener.onDrawableEnd()
-                    return@setOnTouchListener true
-                }
-            }
-            return@setOnTouchListener false
-        }
-    }
+fun setOnDrawableEndClick(editText: AppCompatEditText, listener: OnCompoundDrawableClickListener?) {
+	val padding = 10
+	if (listener != null) {
+		editText.setOnTouchListener { _, event ->
+			if (event.action == MotionEvent.ACTION_DOWN) {
+				if (editText.compoundDrawables[DRAWABLE_RIGHT] == null) return@setOnTouchListener false
+				else if (event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -
+					padding)) {
+					listener.onDrawableEnd()
+					return@setOnTouchListener true
+				}
+			}
+			return@setOnTouchListener false
+		}
+	}
 }
 
 @BindingAdapter("itemDecoration", "offset", requireAll = false)
@@ -136,4 +138,15 @@ fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
         else -> null
     }
 	view.addItemDecoration(decorator!!)
+}
+
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("itemView")
+fun setItemView(view: Spinner, itemView: Int) {
+	val adapter = view.adapter as ArrayAdapter<String>
+	val items = ArrayList<String>(adapter.count)
+	for (i in 0 until adapter.count) {
+		items.add(adapter.getItem(i))
+	}
+	view.adapter = ArrayAdapter<String>(view.context, itemView, items)
 }
