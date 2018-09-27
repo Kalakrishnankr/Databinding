@@ -4,6 +4,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -119,4 +120,9 @@ fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
         else -> null
     }
 	view.addItemDecoration(decorator!!)
+}
+
+@BindingAdapter("goneUntil")
+fun goneUntil(view: View, isGone: Boolean) {
+    view.visibility = if (isGone) View.GONE else View.VISIBLE
 }

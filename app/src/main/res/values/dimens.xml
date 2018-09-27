@@ -23,4 +23,6 @@
 	<dimen name="dimen_44dp">44dp</dimen>
 	<dimen name="dimen_16dp">16dp</dimen>
 	<dimen name="text_16sp">16sp</dimen>
+	<dimen name="dimen_4dp">4dp</dimen>
+	<dimen name="dimen_8dp">8dp</dimen>
 </resources>

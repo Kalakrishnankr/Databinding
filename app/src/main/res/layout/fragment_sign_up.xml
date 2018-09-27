@@ -10,6 +10,7 @@
 		<import type="com.beachpartnerllc.beachpartner.user.UserType"/>
 
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.auth.SignUpFragment"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -121,6 +122,21 @@
 			app:layout_constraintStart_toEndOf="@id/stateLabel"
 			app:layout_constraintTop_toBottomOf="@id/lastNameTIL"
 			tools:entries="@array/states"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/standard"
+			android:drawableStart="@drawable/ic_refresh_grey_18dp"
+			android:drawablePadding="@dimen/dimen_8dp"
+			android:onClick="@{()->handler.loadStates()}"
+			android:padding="@dimen/dimen_4dp"
+			android:text="@string/retry"
+			android:textColor="@color/grey_999999"
+			app:goneUntil="@{vm.loading || vm.stateList.size &gt; 0}"
+			app:layout_constraintEnd_toEndOf="@+id/firstNameTIL"
+			app:layout_constraintStart_toEndOf="@id/stateLabel"
+			app:layout_constraintTop_toBottomOf="@id/lastNameTIL"/>
 
 		<TextView
 			android:id="@+id/genderLabel"
