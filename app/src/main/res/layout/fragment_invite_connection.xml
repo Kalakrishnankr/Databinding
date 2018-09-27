@@ -5,11 +5,11 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<!--suppress AndroidUnknownAttribute -->
-	<data class="ConnectionsBinding">
+	<data class="InviteConnectionBinding">
 		<variable name="validate" type="Boolean"/>
 		<variable name="connectionsAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 		<variable name="potentialAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
-		<variable name="handler" type="com.beachpartnerllc.beachpartner.connection.ConnectionsFragment"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.connection.InviteConnectionFragment"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.connection.ConnectionViewModel"/>
 	</data>
 

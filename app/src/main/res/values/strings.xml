@@ -53,4 +53,9 @@
 	<string name="potential_partners">Potential Partners</string>
 	<string name="space_separator">%1$s %2$s</string>
 	<string name="invite_friend">Invite Friend</string>
+	<string name="block">Block</string>
+	<string name="message">Message</string>
+	<string name="notes">Notes</string>
+	<string name="format_age">Age: %d</string>
+	<string name="item_space_decoration">ItemSpaceDecoration</string>
 </resources>

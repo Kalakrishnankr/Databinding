@@ -9,8 +9,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -100,13 +103,16 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
 	}
 }
 
-@BindingAdapter("itemDecoration", "offset", requireAll = false)
-fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
-	val decorator: RecyclerView.ItemDecoration? = when (decoration) {
-		"ItemOffsetDecoration" -> ItemOffsetDecoration(view.context, offset)
-		else -> null
+@BindingAdapter("spaceOffset")
+fun setItemDecoration(view: RecyclerView, space: Float) {
+	val layoutManager = view.layoutManager
+	val spanCount = when (layoutManager) {
+		is GridLayoutManager -> layoutManager.spanCount
+		is StaggeredGridLayoutManager -> layoutManager.spanCount
+		else -> 1
 	}
-	view.addItemDecoration(decorator!!)
+	val decorator = ItemSpaceDecoration(space.toInt(), spanCount)
+	view.addItemDecoration(decorator)
 }
 
 @BindingAdapter("setupWithViewPager")
@@ -141,4 +147,9 @@ fun setShadowHeight(view: SlidingUpPanelLayout, height: Int) {
 @BindingAdapter("goneUntil")
 fun goneUntil(view: View, isVisible: Boolean) {
 	view.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("scrollTo")
+fun scrollTo(view: NestedScrollView, direction: Int) {
+	view.fullScroll(direction)
 }

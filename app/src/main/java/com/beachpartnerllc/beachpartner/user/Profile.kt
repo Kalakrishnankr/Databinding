@@ -54,6 +54,7 @@ data class Profile(
 		false
 	}
 	
+
 	fun isValid2() = isEmailValid() && isMobileValid() && isPasswordValid() && isDobValid()
 	
 	fun isAthlete() = userType == UserType.ATHLETE
@@ -63,6 +64,8 @@ data class Profile(
 	fun isFemale() = gender == Gender.FEMALE
 	
 	fun isCoach() = userType == UserType.COACH
+	
+	fun getAge() = 23
 }
 
 data class Session(val profile: Profile, val sessionId: String)

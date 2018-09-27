@@ -1,6 +1,7 @@
 package com.beachpartnerllc.beachpartner.home
 
-import com.beachpartnerllc.beachpartner.connection.ConnectionsFragment
+import com.beachpartnerllc.beachpartner.connection.ConnectionFragment
+import com.beachpartnerllc.beachpartner.connection.InviteConnectionFragment
 import com.beachpartnerllc.beachpartner.event.CalendarFragment
 import com.beachpartnerllc.beachpartner.event.EventFragment
 import com.beachpartnerllc.beachpartner.event.MasterCalendarFragment
@@ -22,5 +23,8 @@ interface HomeFragmentModule {
 	fun contributeEventFragment(): EventFragment
 	
 	@ContributesAndroidInjector
-	fun contributeConnectionsFragment(): ConnectionsFragment
+	fun contributeConnectionFragment(): ConnectionFragment
+	
+	@ContributesAndroidInjector
+	fun contributeInviteConnectionFragment(): InviteConnectionFragment
 }

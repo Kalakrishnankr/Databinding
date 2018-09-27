@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
-import com.beachpartnerllc.beachpartner.databinding.ConnectionsBinding
 import com.beachpartnerllc.beachpartner.databinding.ConnectionsItemBinding
+import com.beachpartnerllc.beachpartner.databinding.InviteConnectionBinding
 import com.beachpartnerllc.beachpartner.databinding.PotentialItemBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseAdapter
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
@@ -24,15 +24,15 @@ import javax.inject.Inject
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 21 Sep 2018 at 3:28 PM
  */
-class ConnectionsFragment : BaseFragment() {
+class InviteConnectionFragment : BaseFragment() {
 	@Inject lateinit var factory: ViewModelProvider.Factory
-	private lateinit var binding: ConnectionsBinding
+	private lateinit var binding: InviteConnectionBinding
 	private lateinit var vm: ConnectionViewModel
 	private lateinit var potentialAdapter: BaseAdapter<Profile, PotentialItemBinding, PotentialViewHolder>
 	private lateinit var connectionsAdapter: BaseAdapter<Profile, ConnectionsItemBinding, ConnectionsViewHolder>
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = inflater.bind(R.layout.fragment_connections, container)
+		binding = inflater.bind(R.layout.fragment_invite_connection, container)
 		binding.handler = this
 		return binding.root
 	}
