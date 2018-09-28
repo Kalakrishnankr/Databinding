@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="EventBinding">
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/draw_rect_gradient_ae273588_ffffff">
+
+		<TextView
+			android:id="@+id/titleTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:drawableStart="@drawable/ic_star_green_45dp"
+			android:drawableEnd="@drawable/ic_star_green_45dp"
+			android:fontFamily="@font/sf_medium"
+			android:gravity="center"
+			android:lines="1"
+			android:text="@{vm.event.title}"
+			android:textColor="@color/white"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="AVP  Pacific  Zonal Championship"/>
+
+		<View
+			android:id="@+id/detailsBG"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginStart="@dimen/dimen_12dp"
+			android:layout_marginTop="@dimen/dimen_10dp"
+			android:layout_marginEnd="@dimen/dimen_12dp"
+			android:background="@drawable/draw_rect_21f5f5f5_r8"
+			app:layout_constraintBottom_toBottomOf="@id/detailsBB"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/titleTV"/>
+
+		<TextView
+			android:id="@+id/locationLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_18dp"
+			android:layout_marginTop="@dimen/dimen_18dp"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/location"
+			android:textColor="@color/blue_e6132063"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintStart_toStartOf="@id/detailsBG"
+			app:layout_constraintTop_toTopOf="@id/detailsBG"/>
+
+		<TextView
+			android:id="@+id/venueLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/venue"
+			android:textColor="@color/blue_e6132063"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintStart_toStartOf="@id/locationLabel"
+			app:layout_constraintTop_toBottomOf="@id/locationLabel"/>
+
+		<TextView
+			android:id="@+id/adminLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/event_admin_name"
+			android:textColor="@color/blue_e6132063"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintStart_toStartOf="@id/locationLabel"
+			app:layout_constraintTop_toBottomOf="@id/venueLabel"/>
+
+		<TextView
+			android:id="@+id/sizeLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/team_size"
+			android:textColor="@color/blue_e6132063"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintStart_toStartOf="@id/locationLabel"
+			app:layout_constraintTop_toBottomOf="@id/adminLabel"/>
+
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/labelBarrier"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:barrierDirection="end"
+			app:constraint_referenced_ids="locationLabel,venueLabel,adminLabel"/>
+
+		<TextView
+			android:id="@+id/locationTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_16dp"
+			android:fontFamily="@font/sf_medium"
+			android:text="@{vm.event.location}"
+			android:textColor="@color/grey_e6f0f0f0"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintBaseline_toBaselineOf="@id/locationLabel"
+			app:layout_constraintStart_toEndOf="@id/labelBarrier"
+			tools:text="CA"/>
+
+		<TextView
+			android:id="@+id/venueTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_medium"
+			android:text="@{vm.event.venue}"
+			android:textColor="@color/grey_e6f0f0f0"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintBaseline_toBaselineOf="@id/venueLabel"
+			app:layout_constraintStart_toStartOf="@id/locationTV"
+			tools:text="Huntington Beach"/>
+
+		<TextView
+			android:id="@+id/adminTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_medium"
+			android:text="@{vm.event.admin}"
+			android:textColor="@color/grey_e6f0f0f0"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintBaseline_toBaselineOf="@id/adminLabel"
+			app:layout_constraintStart_toStartOf="@id/locationTV"
+			tools:text="David Cameron"/>
+
+		<TextView
+			android:id="@+id/sizeTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_medium"
+			android:text="@{vm.event.teamSize}"
+			android:textColor="@color/grey_e6f0f0f0"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintBaseline_toBaselineOf="@id/sizeLabel"
+			app:layout_constraintStart_toStartOf="@id/locationTV"
+			tools:text="2"/>
+
+		<View
+			android:id="@+id/detailsBB"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			app:layout_constraintEnd_toEndOf="@id/detailsBG"
+			app:layout_constraintStart_toStartOf="@id/detailsBG"
+			app:layout_constraintTop_toBottomOf="@id/sizeTV"/>
+
+		<View
+			android:id="@+id/startDateBG"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginStart="@dimen/dimen_24dp"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:background="@drawable/ic_left_bubble_blue_stroke_108dp"
+			app:layout_constraintBottom_toBottomOf="@id/startDateTV"
+			app:layout_constraintEnd_toEndOf="@id/startDateTV"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/detailsBG"/>
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_18dp"
+			android:contentDescription="@null"
+			android:src="@drawable/ic_calendar_blue_33dp"
+			app:layout_constraintBottom_toBottomOf="@id/startDateBG"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@id/startDateBG"/>
+
+		<TextView
+			android:id="@+id/startDateLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingStart="@dimen/dimen_18dp"
+			android:paddingTop="@dimen/dimen_2dp"
+			android:paddingEnd="0dp"
+			android:text="@string/start_date"
+			android:textColor="@color/blue_586399"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintEnd_toEndOf="@id/startDateTV"
+			app:layout_constraintStart_toStartOf="@id/startDateTV"
+			app:layout_constraintTop_toTopOf="@id/startDateBG"/>
+
+		<TextView
+			android:id="@+id/startDateTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_medium"
+			android:paddingStart="@dimen/dimen_36dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@{vm.event.eventStartDate}"
+			android:textColor="@color/blue_26368a"
+			android:textSize="@dimen/text_14sp"
+			app:format="@{@string/event_date_format}"
+			app:layout_constraintStart_toStartOf="@id/startDateBG"
+			app:layout_constraintTop_toBottomOf="@id/startDateLabel"
+			tools:text="May 05, 2018"/>
+
+		<ImageView
+			android:id="@+id/arrowIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:contentDescription="@null"
+			android:src="@drawable/ic_arrow_right_blue_19dp"
+			app:layout_constraintBottom_toBottomOf="@id/startDateBG"
+			app:layout_constraintEnd_toStartOf="@id/endDateBG"
+			app:layout_constraintStart_toEndOf="@id/startDateBG"
+			app:layout_constraintTop_toTopOf="@id/startDateBG"/>
+
+		<View
+			android:id="@+id/endDateBG"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginEnd="@dimen/dimen_24dp"
+			android:background="@drawable/ic_right_bubble_blue_stroke_108dp"
+			app:layout_constraintBottom_toBottomOf="@id/endDateTV"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@id/endDateTV"
+			app:layout_constraintTop_toTopOf="@id/startDateBG"/>
+
+		<TextView
+			android:id="@+id/endDateLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingStart="0dp"
+			android:paddingTop="@dimen/dimen_4dp"
+			android:paddingEnd="@dimen/dimen_18dp"
+			android:text="@string/end_date"
+			android:textColor="@color/blue_586399"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintEnd_toEndOf="@id/endDateTV"
+			app:layout_constraintStart_toStartOf="@id/endDateTV"
+			app:layout_constraintTop_toTopOf="@id/endDateBG"/>
+
+		<TextView
+			android:id="@+id/endDateTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_medium"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_36dp"
+			android:text="@{vm.event.eventEndDate}"
+			android:textColor="@color/blue_26368a"
+			android:textSize="@dimen/text_14sp"
+			app:format="@{@string/event_date_format}"
+			app:layout_constraintEnd_toEndOf="@id/endDateBG"
+			app:layout_constraintTop_toBottomOf="@id/endDateLabel"
+			tools:text="May 08, 2018"/>
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/dimen_18dp"
+			android:contentDescription="@null"
+			android:src="@drawable/ic_calendar_blue_33dp"
+			app:layout_constraintBottom_toBottomOf="@id/endDateBG"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@id/endDateBG"/>
+
+		<View
+			android:id="@+id/bottomView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:background="@color/white"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/endDateBG"/>
+
+		<TextView
+			android:id="@+id/registrationLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_medium"
+			android:padding="@dimen/text_16sp"
+			android:text="@string/registration_starts_ends"
+			android:textColor="@color/grey_030303"
+			android:textSize="@dimen/text_16sp"
+			app:layout_constraintTop_toTopOf="@id/bottomView"/>
+
+		<TextView
+			android:id="@+id/regStartLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_16dp"
+			android:text="@string/start_date"
+			android:textColor="@color/grey_505050"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/registrationLabel"/>
+
+		<TextView
+			android:id="@+id/regEndLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_16dp"
+			android:layout_marginTop="@dimen/dimen_8dp"
+			android:text="@string/end_date"
+			android:textColor="@color/grey_505050"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/regStartLabel"/>
+
+		<TextView
+			android:id="@+id/regStartTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_16dp"
+			android:text="@{vm.event.regStartDate}"
+			android:textColor="@color/grey_505050"
+			android:textSize="@dimen/text_15sp"
+			app:format="@{@string/event_date_format}"
+			app:layout_constraintBaseline_toBaselineOf="@id/regStartLabel"
+			app:layout_constraintStart_toStartOf="@id/labelBarrier"
+			tools:text="Feb 10, 2018"/>
+
+		<TextView
+			android:id="@+id/regEndTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_16dp"
+			android:layout_marginTop="@dimen/dimen_8dp"
+			android:text="@{vm.event.regEndDate}"
+			android:textColor="@color/grey_505050"
+			android:textSize="@dimen/text_15sp"
+			app:format="@{@string/event_date_format}"
+			app:layout_constraintBaseline_toBaselineOf="@id/regEndLabel"
+			app:layout_constraintStart_toStartOf="@id/labelBarrier"
+			tools:text="Feb 15, 2018"/>
+
+		<View
+			android:id="@+id/divider"
+			android:layout_width="0dp"
+			android:layout_height="0.7dp"
+			android:layout_marginTop="@dimen/dimen_12dp"
+			android:background="@color/grey_e2e2e2"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/regEndTV"/>
+
+
+		<TextView
+			android:id="@+id/invitePartnerLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_24dp"
+			android:drawableTop="@drawable/ic_invite_partner_blue_21dp"
+			android:drawablePadding="13dp"
+			android:enabled="@{!vm.isEventLoading}"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/invite_partner"
+			android:textColor="@color/blue_26368b"
+			app:layout_constraintEnd_toStartOf="@+id/registerLabel"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+		<TextView
+			android:id="@+id/registerLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawableTop="@drawable/ic_register_blue_21dp"
+			android:drawablePadding="12dp"
+			android:enabled="@{!vm.isEventLoading}"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/register"
+			android:textColor="@color/blue_26368b"
+			app:layout_constraintBaseline_toBaselineOf="@id/invitePartnerLabel"
+			app:layout_constraintEnd_toStartOf="@+id/viewPartnerLabel"
+			app:layout_constraintStart_toEndOf="@+id/invitePartnerLabel"
+			/>
+
+		<TextView
+			android:id="@+id/viewPartnerLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawableTop="@drawable/ic_view_partner_blue_20dp"
+			android:drawablePadding="18dp"
+			android:enabled="@{!vm.isEventLoading}"
+			android:fontFamily="@font/sf_medium"
+			android:text="@string/view_partner"
+			android:textColor="@color/blue_26368b"
+			app:layout_constraintBaseline_toBaselineOf="@id/invitePartnerLabel"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/registerLabel"/>
+
+		<TextView
+			android:id="@+id/goingLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_16dp"
+			android:drawableTop="@drawable/ic_check_circle_green_24dp"
+			android:enabled="@{!vm.isEventLoading}"
+			android:text="@string/i_m_going_for_this_event"
+			android:textColor="@color/green_03b670"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/viewPartnerLabel"/>
+
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall.White"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:isLoading="@{vm.isEventLoading}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

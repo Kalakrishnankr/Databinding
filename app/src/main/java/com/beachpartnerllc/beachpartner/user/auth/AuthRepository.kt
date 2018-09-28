@@ -3,7 +3,7 @@ package com.beachpartnerllc.beachpartner.user.auth
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.beachpartnerllc.beachpartner.etc.base.BaseRepository
+import com.beachpartnerllc.beachpartner.etc.base.Repository
 import com.beachpartnerllc.beachpartner.etc.exec.AppExecutors
 import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
 import com.beachpartnerllc.beachpartner.etc.model.pref.Preference
@@ -25,18 +25,18 @@ import javax.inject.Singleton
  */
 @Singleton
 class AuthRepository @Inject constructor(
-        private val api: ApiService,
-        private val db: AppDatabase,
-        private val pref: Preference,
-        private val exec: AppExecutors,
-        app: Application) : BaseRepository(app) {
+	private val api: ApiService,
+	private val db: AppDatabase,
+	private val pref: Preference,
+	private val exec: AppExecutors,
+	app: Application) : Repository(app) {
 
     fun getStateList() = object : NetworkBoundResource<List<State>, List<State>>(exec) {
-        override fun saveCallResult(item: List<State>) = db.stateDao().insertStates(item)
+	    override fun saveCallResult(item: List<State>) = db.state().insertStates(item)
 
         override fun shouldFetch(data: List<State>?) = data == null || data.isEmpty()
-
-        override fun loadFromDb() = db.stateDao().getStates()
+	
+	    override fun loadFromDb() = db.state().getStates()
 
         override fun createCall() = api.getStates()
 

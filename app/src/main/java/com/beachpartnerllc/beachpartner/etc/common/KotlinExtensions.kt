@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author Samuel Robert <sam@spotsoon.com>
@@ -57,9 +57,9 @@ inline fun <reified R : ViewDataBinding> LayoutInflater.bind(@LayoutRes layoutRe
 }
 
 inline fun <reified T : AppCompatActivity> Activity.startActivity(
-		data: Bundle = Bundle(),
-		isForResult: Boolean = false,
-		requestCode: Int = 0
+	data: Bundle = Bundle(),
+	isForResult: Boolean = false,
+	requestCode: Int = 0
 ) {
 	val intent = Intent(this, T::class.java)
 	intent.putExtras(data)
@@ -77,3 +77,13 @@ fun String?.isPassword() = this != null && length > 7 && this.trim().length == l
 
 fun String?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex())
 
+fun Date.truncateTime(): Date {
+	val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+	return formatter.parse(formatter.format(this))
+}
+
+inline fun <reified T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
+	val mediator = MediatorLiveData<T>()
+	observables.forEach { mediator.addSource(it) { value -> mediator.value = value } }
+	return mediator
+}

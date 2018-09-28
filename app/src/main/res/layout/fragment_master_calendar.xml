@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="MasterCalendarBinding">
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.event.EventAdapter"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/monthTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="@dimen/dimen_8dp"
+			android:text="@{vm.selectedMonth}"
+			android:textAllCaps="true"
+			android:textColor="@color/blue_233c92"
+			android:textSize="@dimen/text_18sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="September 2018"/>
+
+		<com.github.sundeepk.compactcalendarview.CompactCalendarView
+			android:id="@+id/masterCCV"
+			android:layout_width="0dp"
+			android:layout_height="250dp"
+			android:padding="@dimen/dimen_16dp"
+			app:compactCalendarBackgroundColor="@color/white"
+			app:compactCalendarCurrentDayBackgroundColor="@color/grey_e4e4e4"
+			app:compactCalendarCurrentSelectedDayBackgroundColor="@color/blue_233c92"
+			app:compactCalendarCurrentSelectedDayTextColor="@color/white"
+			app:compactCalendarListener="@{date -> vm.showEventsOf(date)}"
+			app:compactCalendarMultiEventIndicatorColor="#fff"
+			app:compactCalendarTargetHeight="250dp"
+			app:compactCalendarTextColor="@color/grey_6d6e71"
+			app:compactCalendarTextSize="@dimen/text_16sp"
+			app:compactCalendarUseThreeLetterAbbreviation="@{true}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/monthTV"/>
+
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/eventSRL"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/masterCCV"
+			app:onRefreshListener="@{() -> vm.refresh()}"
+			app:refreshing="@{vm.isLoading}">
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/eventRV"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:adapter="@{adapter}"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+				tools:listitem="@layout/item_master_event"/>
+
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
