@@ -17,6 +17,7 @@
 package com.beachpartnerllc.beachpartner.event
 
 import androidx.annotation.MainThread
+import androidx.paging.PagedList
 import com.beachpartnerllc.beachpartner.etc.common.PagingRequestHelper
 import com.beachpartnerllc.beachpartner.etc.common.createStatusLiveData
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService

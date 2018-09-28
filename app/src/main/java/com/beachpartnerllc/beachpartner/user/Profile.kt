@@ -1,5 +1,8 @@
 package com.beachpartnerllc.beachpartner.user
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.beachpartnerllc.beachpartner.etc.common.isEmail
 import com.beachpartnerllc.beachpartner.etc.common.isMobile
 import com.beachpartnerllc.beachpartner.etc.common.isName
@@ -8,8 +11,9 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Entity(tableName = "Connections")
 data class Profile(
-	val userId: Int = -1,
+	@PrimaryKey val userId: Int = -1,
 	var firstName: String? = null,
 	var lastName: String? = null,
 	var stateId: Int? = null,
@@ -18,8 +22,9 @@ data class Profile(
 	var email: String? = null,
 	var mobile: String? = null,
 	var password: String? = null,
-	var dob: String? = null) {
-	var dateOfBirth: Date? = null
+	var dob: String? = null,
+	var avatarUrl: String? = null) {
+	@Ignore var dateOfBirth: Date? = null
 	
 	fun isFirstNameValid() = firstName.isName()
 	
@@ -60,6 +65,8 @@ data class Profile(
 	fun isFemale() = gender == Gender.FEMALE
 	
 	fun isCoach() = userType == UserType.COACH
+	
+	fun getAge() = 23
 }
 
 data class Session(val profile: Profile, val sessionId: String)

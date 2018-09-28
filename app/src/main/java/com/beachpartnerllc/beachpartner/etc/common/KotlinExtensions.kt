@@ -33,6 +33,11 @@ inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(factory: ViewM
 	return ViewModelProviders.of(this, factory)[T::class.java]
 }
 
+inline fun <reified T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
+	val mediator = MediatorLiveData<T>()
+	observables.forEach { mediator.addSource(it) { value -> mediator.value = value } }
+	return mediator
+}
 
 /********          View Components          **************/
 inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: (View) -> T, @LayoutRes res: Int): T {
@@ -41,7 +46,8 @@ inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: 
 	return createHolder(view)
 }
 
-inline fun <reified T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
+
+inline fun <T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
 	val inflater = LayoutInflater.from(context)
 	val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
 	return construct(binding)
@@ -59,8 +65,7 @@ inline fun <reified R : ViewDataBinding> LayoutInflater.bind(@LayoutRes layoutRe
 inline fun <reified T : AppCompatActivity> Activity.startActivity(
 	data: Bundle = Bundle(),
 	isForResult: Boolean = false,
-	requestCode: Int = 0
-) {
+	requestCode: Int = 0) {
 	val intent = Intent(this, T::class.java)
 	intent.putExtras(data)
 	if (isForResult) startActivityForResult(intent, requestCode)
@@ -80,10 +85,4 @@ fun String?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex(
 fun Date.truncateTime(): Date {
 	val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 	return formatter.parse(formatter.format(this))
-}
-
-inline fun <reified T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
-	val mediator = MediatorLiveData<T>()
-	observables.forEach { mediator.addSource(it) { value -> mediator.value = value } }
-	return mediator
 }

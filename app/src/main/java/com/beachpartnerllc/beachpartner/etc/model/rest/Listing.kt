@@ -1,6 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 
 
 /**

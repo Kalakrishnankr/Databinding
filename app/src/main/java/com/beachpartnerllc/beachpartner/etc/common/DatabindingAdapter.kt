@@ -9,12 +9,19 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.wang.avi.AVLoadingIndicatorView
 import java.util.*
 
@@ -37,13 +44,13 @@ fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
 	else view.smoothToHide()
 }
 
-@BindingAdapter("url")
-fun setUrl(imageView: ImageView, url: String?) {
-	/*Picasso.with(imageView.context)
-			.load(url)
-			.fit()
-			.centerCrop()
-			.into(imageView)*/
+@BindingAdapter("url", "isRound", requireAll = false)
+fun setUrl(imageView: ImageView, url: String?, isRound: Boolean?) {
+	GlideApp.with(imageView)
+		.load(url)
+		.diskCacheStrategy(DiskCacheStrategy.ALL)
+		.apply(if (isRound == true) RequestOptions.circleCropTransform() else RequestOptions.centerCropTransform())
+		.into(imageView)
 }
 
 @BindingAdapter("nestedScrollingEnabled")
@@ -96,18 +103,16 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
 	}
 }
 
-@BindingAdapter("itemDecoration", "offset", requireAll = false)
-fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
-	val decorator: RecyclerView.ItemDecoration? = when (decoration) {
-		"ItemOffsetDecoration" -> ItemOffsetDecoration(view.context, offset)
-		else -> null
+@BindingAdapter("spaceOffset")
+fun setItemDecoration(view: RecyclerView, space: Float) {
+	val layoutManager = view.layoutManager
+	val spanCount = when (layoutManager) {
+		is GridLayoutManager -> layoutManager.spanCount
+		is StaggeredGridLayoutManager -> layoutManager.spanCount
+		else -> 1
 	}
-	view.addItemDecoration(decorator!!)
-}
-
-@BindingAdapter("goneUntil")
-fun goneUntil(view: View, isGone: Boolean) {
-	view.visibility = if (isGone) View.GONE else View.VISIBLE
+	val decorator = ItemSpaceDecoration(space.toInt(), spanCount)
+	view.addItemDecoration(decorator)
 }
 
 @BindingAdapter("setupWithViewPager")
@@ -132,4 +137,19 @@ fun compactCalendarListener(view: CompactCalendarView, listener: DateListener) {
 @BindingAdapter("android:text", "format", requireAll = true)
 fun formatText(view: TextView, date: Date?, format: String) {
 	date?.let { view.text = DateFormat.format(format, it) }
+}
+
+@BindingAdapter("shadowHeight")
+fun setShadowHeight(view: SlidingUpPanelLayout, height: Int) {
+	view.shadowHeight = height
+}
+
+@BindingAdapter("goneUntil")
+fun goneUntil(view: View, isGone: Boolean) {
+	view.visibility = if (isGone) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("scrollTo")
+fun scrollTo(view: NestedScrollView, direction: Int) {
+	view.fullScroll(direction)
 }

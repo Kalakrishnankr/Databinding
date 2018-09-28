@@ -10,20 +10,34 @@ import com.beachpartnerllc.beachpartner.etc.common.bind
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 14 Jun 2018 at 11:11 AM
  */
-class BaseAdapter<T, B : ViewDataBinding>(
-        private val items: List<T>,
-        @LayoutRes private val layoutRes: Int,
-        private val binder: (B, T) -> Unit
-) : RecyclerView.Adapter<BaseAdapter<T, B>.BaseViewHolder>() {
+open class BaseAdapter<T, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(
+	val items: List<T>,
+	@LayoutRes private val layoutRes: Int,
+	private val construct: (B) -> VH
+) : RecyclerView.Adapter<BaseViewHolder<T, B>>() {
+	
+	override fun getItemCount() = items.size
+	
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = parent.bind(construct, layoutRes)
+	
+	override fun onBindViewHolder(holder: BaseViewHolder<T, B>, position: Int) {
+		holder.bindTo(items[position])
+		holder.itemBinding.executePendingBindings()
+	}
+	
+	open fun addItem(item: T): Int {
+		(items as ArrayList).add(item)
+		notifyItemInserted(items.size - 1)
+		return items.size - 1
+	}
+	
+	open fun removeItem(position: Int): T {
+		val item = (items as ArrayList).removeAt(position)
+		notifyItemRemoved(position)
+		return item
+	}
+}
 
-    override fun getItemCount() = items.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = parent.bind(::BaseViewHolder, layoutRes)
-
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        binder.invoke(holder.binding, items[position])
-        holder.binding.executePendingBindings()
-    }
-
-    inner class BaseViewHolder(val binding: B) : RecyclerView.ViewHolder(binding.root)
+abstract class BaseViewHolder<T, B : ViewDataBinding>(val itemBinding: B) : RecyclerView.ViewHolder(itemBinding.root) {
+	abstract fun bindTo(item: T)
 }
