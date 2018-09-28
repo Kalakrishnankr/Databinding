@@ -58,4 +58,6 @@
 	<string name="notes">Notes</string>
 	<string name="format_age">Age: %d</string>
 	<string name="item_space_decoration">ItemSpaceDecoration</string>
+	<string name="event_details">Event Details</string>
+	<string name="master_calendar">Master Calendar</string>
 </resources>

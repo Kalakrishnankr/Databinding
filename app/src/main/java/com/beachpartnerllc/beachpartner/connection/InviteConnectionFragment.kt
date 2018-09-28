@@ -62,6 +62,8 @@ class InviteConnectionFragment : BaseFragment() {
 		BaseViewHolder<Profile, ConnectionsItemBinding>(itemBinding) {
 		init {
 			itemBinding.addIV.setOnClickListener {
+				if (adapterPosition < 0) return@setOnClickListener
+				
 				potentialAdapter.addItem(connectionsAdapter.removeItem(adapterPosition))
 				binding.validate = true
 			}
@@ -76,6 +78,8 @@ class InviteConnectionFragment : BaseFragment() {
 		BaseViewHolder<Profile, PotentialItemBinding>(itemBinding) {
 		init {
 			itemBinding.removeIV.setOnClickListener {
+				if (adapterPosition < 0) return@setOnClickListener
+				
 				connectionsAdapter.addItem(potentialAdapter.removeItem(adapterPosition))
 				binding.validate = true
 			}
