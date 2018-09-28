@@ -71,7 +71,8 @@ class SignUpFragment : BaseFragment() {
 	
 	private fun readInput(inputs: Array<out Any?>) {
 		val profile = vm.profile.value!!
-		vm.selectedStatePosition.value = inputs[2].toString().toInt()
+		val statePosition = inputs[2].toString().toInt()
+		if (statePosition > -1) vm.selectedStatePosition.value = statePosition
 		val gender = binding.genderRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as Gender
 		val userType = binding.userTypeRG.findViewById<RadioButton>(inputs[4].toString().toInt()).tag as UserType
 		if (userType != profile.userType) profile.dob = null

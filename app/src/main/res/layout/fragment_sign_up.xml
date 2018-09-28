@@ -278,7 +278,7 @@
 			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
 			android:padding="@dimen/narrow"
 			android:text="@string/already_have_account_login"
-			android:textColor="@color/grey_aee4e4e4"
+			android:textColor="@color/grey_dde4e4e4"
 			android:textSize="@dimen/text_size_small"
 			app:end="@{31}"
 			app:foregroundColorSpan="@{@color/blue_ae12235b}"

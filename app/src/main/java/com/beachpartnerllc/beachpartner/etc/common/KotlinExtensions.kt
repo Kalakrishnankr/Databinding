@@ -73,7 +73,7 @@ fun String?.isEmail() = this != null && Patterns.EMAIL_ADDRESS.matcher(this).mat
 
 fun String?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches()
 
-fun String?.isPassword() = this != null && length > 7
+fun String?.isPassword() = this != null && length > 7 && this.trim().length == length
 
 fun String?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex())
 

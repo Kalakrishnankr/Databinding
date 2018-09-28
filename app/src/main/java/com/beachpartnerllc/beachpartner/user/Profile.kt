@@ -19,6 +19,7 @@ data class Profile(
 	var mobile: String? = null,
 	var password: String? = null,
 	var dob: String? = null) {
+	var dateOfBirth: Date? = null
 	
 	fun isFirstNameValid() = firstName.isName()
 	
@@ -42,7 +43,7 @@ data class Profile(
 	fun isDobValid() = try {
 		val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 		sdf.isLenient = false
-		sdf.parse(dob)
+		dateOfBirth = sdf.parse(dob)
 		true
 	} catch (e: ParseException) {
 		false

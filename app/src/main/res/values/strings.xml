@@ -23,12 +23,12 @@
     <string name="coach">Coach</string>
     <string name="user_type">User Type</string>
     <string name="invalid_email">Invalid Email</string>
-    <string name="invalid_password">Minimum 8 Characters</string>
+    <string name="invalid_password">Minimum 8 Characters (No spaces at ends)</string>
     <string name="athlete">Athlete</string>
     <string name="state">State</string>
     <string name="invalid_name">Invalid Name</string>
     <string name="invalid_mobile">Invalid Mobile Number</string>
-    <string name="invalid_dob">Invalid DoB</string>
+    <string name="invalid_dob">Invalid DOB</string>
     <string name="cancel">Cancel</string>
     <string name="okay">okay</string>
     <string name="format_dob">%1$02d/%2$02d/%3$d</string>
@@ -40,7 +40,8 @@
     <string name="oops_something_went_wrong">Oops something went wrong</string>
     <string name="thank_you">Thank you</string>
     <string name="for_registering">For Registering!</string>
-    <string name="hint_register">Thank for registering. To complete registration,  please check your email inbox (up to 10 minutes) and click on the link</string>
+    <string name="hint_register">Thank you for registering. To complete registration,  please check your email inbox (up to
+        10 minutes) and click on the link</string>
     <string name="i_did_not_get_email">I never got the Email</string>
     <string name="return_to_sign_in">Return to Sign In</string>
     <string name="hint_i_did_not_get_email">Please Check your spam folder; email may take as long as 10 minutes to arrive. If after 10 minutes you have not received your email, please  contact us so we can help you.</string>

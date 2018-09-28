@@ -34,7 +34,7 @@ class AuthViewModel @Inject constructor(private val repo: AuthRepository) : View
 	val selectedStatePosition = object : MutableLiveData<Int>() {
 		override fun setValue(value: Int?) {
 			super.setValue(value)
-			if (value ?: -1 >= 0) profile.value!!.stateId = stateList.value?.get(value!!)?.stateId
+			profile.value!!.stateId = stateList.value?.get(value!!)?.stateId
 		}
 	}
 	
