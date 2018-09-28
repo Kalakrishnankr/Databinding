@@ -33,7 +33,7 @@ inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(factory: ViewM
 	return ViewModelProviders.of(this, factory)[T::class.java]
 }
 
-inline fun <reified T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
+fun <T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
 	val mediator = MediatorLiveData<T>()
 	observables.forEach { mediator.addSource(it) { value -> mediator.value = value } }
 	return mediator
