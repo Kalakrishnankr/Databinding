@@ -27,8 +27,18 @@
 	</fragment>
 	<fragment android:id="@+id/searchResultFragment"
 		android:name="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"
-		android:label="SearchResultFragment"
+		android:label="@string/app_name"
 		tools:layout="@layout/fragment_search_result">
+		<action android:id="@+id/action_profile_details"
+			app:destination="@id/profileDetailedInfoFragment"
+			/>
+	</fragment>
+	<fragment android:id="@+id/profileDetailedInfoFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.ProfileDetailedInfoFragment"
+		android:label="@string/app_name">
+		<argument
+			android:name="id"
+			app:argType="integer"/>
 	</fragment>
 
 </navigation>

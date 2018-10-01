@@ -5,6 +5,7 @@
 		<import type="android.view.View"/>
 		<variable name="profile" type="com.beachpartnerllc.beachpartner.user.Profile"/>
 		<variable name="adapter" type="com.beachpartnerllc.beachpartner.finder.ProfileListingAdapter"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"/>
 	</data>
 	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
@@ -20,45 +21,48 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
+			<ImageView
+				android:id="@+id/avatarIV"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:contentDescription="@null"
+				android:scaleType="centerCrop"
+				android:visibility="invisible"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:onDoubleClickEvent="@{()->adapter.setVideoUrl(loadingAVLV,avatarIV,videoPV,profile.videourl)}"/>
+
+			<com.google.android.exoplayer2.ui.SimpleExoPlayerView
+				android:id="@+id/videoPV"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:visibility="visible"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:use_controller="false"
+				app:auto_show="false"
+				app:resize_mode="fill"/>
+
+
 			<com.wang.avi.AVLoadingIndicatorView
 				android:id="@+id/loadingAVLV"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="@dimen/dimen_50dp"
+				android:layout_height="@dimen/dimen_50dp"
+				android:visibility="visible"
 				app:indicatorColor="@android:color/holo_green_light"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
 				app:layout_constraintTop_toTopOf="parent"/>
 
-			<ImageView
-				android:id="@+id/avatarIV"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:contentDescription="@null"
-				android:scaleType="centerCrop"
-				android:src="@{profile.imageurl}"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:onDoubleClickEvent="@{()-> adapter.setVideoUrl(avatarIV,videoPV,profile.videourl)}"/>
-
-			<com.google.android.exoplayer2.ui.SimpleExoPlayerView
-				android:id="@+id/videoPV"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:visibility="invisible"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:use_controller="false"
-				app:auto_show="false"/>
-
 			<View
 				android:id="@+id/viewBottom"
 				android:layout_width="match_parent"
-				android:layout_height="100dp"
+				android:layout_height="@dimen/dimen_100dp"
 				android:background="@drawable/overlay_card"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
@@ -73,7 +77,7 @@
 				android:paddingStart="13dp"
 				android:paddingTop="16dp"
 				android:paddingEnd="13dp"
-				android:text="@{profile.mobile}"
+				android:text="@{profile.firstName +' '+ profile.lastName +` , `+ profile.age}"
 				android:textColor="@android:color/white"
 				android:textSize="20sp"
 				android:textStyle="bold"
@@ -88,7 +92,7 @@
 				android:paddingStart="13dp"
 				android:paddingTop="10dp"
 				android:paddingEnd="13dp"
-				android:text="@{profile.status}"
+				android:text="@{profile.userType.name()}"
 				android:textColor="@android:color/white"
 				android:textSize="18sp"
 				android:textStyle="bold"
@@ -103,7 +107,7 @@
 				android:layout_marginEnd="6dp"
 				android:contentDescription="@null"
 				android:padding="2dp"
-				android:src="@drawable/ic_info_39dp"
+				android:src="@drawable/icon_flag"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toStartOf="@id/infoIMV"
 				app:layout_constraintTop_toTopOf="@+id/viewBottom"/>

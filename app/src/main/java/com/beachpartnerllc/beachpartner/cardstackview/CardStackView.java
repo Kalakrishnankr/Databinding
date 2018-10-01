@@ -137,7 +137,7 @@ public class CardStackView extends FrameLayout {
                     .inflate(R.layout.card_container, this, false);
             view.setDraggable(false);
             view.setCardStackOption(option);
-            //view.setOverlay(option.leftOverlay, option.rightOverlay, option.bottomOverlay, option.topOverlay);
+            view.setOverlay(option.leftOverlay, option.rightOverlay, option.bottomOverlay, option.topOverlay);
             containers.add(0, view);
             addView(view);
         }

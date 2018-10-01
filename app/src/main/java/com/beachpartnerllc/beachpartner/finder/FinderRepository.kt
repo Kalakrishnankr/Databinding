@@ -7,8 +7,10 @@ import com.beachpartnerllc.beachpartner.etc.common.RateLimiter
 import com.beachpartnerllc.beachpartner.etc.exec.AppExecutors
 import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
+import com.beachpartnerllc.beachpartner.etc.model.rest.NetworkBoundResource
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,25 +30,20 @@ class FinderRepository @Inject constructor(
 	app: Application) : BaseRepository(app) {
 	private val invalidateTimer = RateLimiter<String>(30, TimeUnit.SECONDS)
 	
-	/*fun getStateList(): LiveData<Resource<List<State>>> {
-		return object : NetworkBoundResource<List<State>, List<State>>(exec) {
-			override fun saveCallResult(item: List<State>) {
-				db.stateDao().insertStates(item)
-			}
-			
-			override fun shouldFetch(data: List<State>?): Boolean {
-				return data == null || data.isEmpty() || invalidateTimer.shouldFetch(State::class.java.name)
-			}
-			
-			override fun loadFromDb(): LiveData<List<State>> {
-				return db.stateDao().getAllStates()
-			}
-			
-			override fun createCall(): LiveData<ApiResponse<List<State>>> {
-				return api.getStates()
-			}
-		}.asLiveData()
-	}*/
+	fun getStateList() = object : NetworkBoundResource<List<State>, List<State>>(exec) {
+		override fun saveCallResult(item: List<State>) = db.stateDao().insertStates(item)
+		
+		override fun shouldFetch(data: List<State>?) = data == null || data.isEmpty()
+		
+		override fun loadFromDb() = db.stateDao().getStates()
+		
+		override fun createCall() = api.getStates()
+		
+		override fun onFetchFailed() {
+			createCall()
+		}
+	}.asLiveData()
+	
 	fun getProfiles(): MutableLiveData<Resource<List<Profile>>> {
 		val state = MutableLiveData<Resource<List<Profile>>>()
 		state.value = Resource.loading()
@@ -118,6 +115,24 @@ class FinderRepository @Inject constructor(
 		})
 		
 		return state
+	}
+	
+	fun actionBlock(profile: Profile)   : MutableLiveData<Resource<Flag>>{
+		val flag = MutableLiveData<Resource<Flag>>()
+		flag.value = Resource.loading()
+		val request = hashMapOf(
+			"flagUserId" to profile.userId,
+			"flagReason" to "Unknown"
+		)
+		api.flagUser(request).enqueue(object: Callback<Flag?> {
+			override fun onFailure(call: Call<Flag?>, t: Throwable) {
+			}
+			
+			override fun onResponse(call: Call<Flag?>, response: Response<Flag?>) {
+				flag.value = if (response.code() == 200) Resource.success(response.body()) else Resource.error()
+			}
+		})
+		return flag
 	}
 	
 }

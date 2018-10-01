@@ -10,6 +10,8 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.user.Gender
 import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.auth.AuthState
+import com.beachpartnerllc.beachpartner.user.state.State
 import javax.inject.Inject
 
 /**
@@ -23,25 +25,29 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 	val selectedStatePosition = MutableLiveData<Int>()
 	val multibar = MutableLiveData<Boolean>()
 	val event = SingleLiveEvent<String>()
-	var profile = MutableLiveData<ArrayList<Profile>>()
+	var profile = MutableLiveData<Profile>()
 	lateinit var profileList: List<Profile>
 	var singleProfile = MutableLiveData<Resource<Profile>>()
+	val state = MutableLiveData<AuthState>()
+	private lateinit var stateList: List<State>
 	
 	
-	/*fun setStatePosition(position: Int) {
-		val user = search.value!!
-		user.stateId = stateList[position].stateId
-		search.value = user
-	}*/
-	
-	/*fun getStates() = Transformations.map(findrepo.getStateList()) {
-		loading.value = it.status == RequestState.LOADING
+	fun setStatePosition(position: Int) {
+		if (!::stateList.isInitialized) return
 		
+		val user = profile.value!!
+		user.stateId = stateList[position].stateId
+		profile.value = user
+	}
+	
+	fun getStates() = map(repo.getStateList()) {
+		loading.value = it.isLoading()
 		if (it.isSuccess()) {
 			stateList = it.data!!
+			selectedStatePosition.value = selectedStatePosition.value
 		}
 		it
-	}!!*/
+	}!!
 	
 	fun onAgeChange(min: Int, index: Int) {
 		val ageValue = search.value!!
@@ -106,10 +112,15 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 		singleProfile = repo.actionTopSwipe(profile)
 	}
 	
-	fun play(){
+	fun blockPerson(profile: Profile) = map(repo.actionBlock(profile)){
+		loading.value = it.isLoading()
+		if(it.isSuccess())
+			it
 	}
+	
 	
 	init {
 		search.value = Search()
+		profile.value = Profile()
 	}
 }

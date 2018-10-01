@@ -1,6 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
+import com.beachpartnerllc.beachpartner.finder.Flag
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -45,6 +46,9 @@ interface ApiService {
 	@POST("users/hifi/{userId}")
 	fun topSwipe(userId: Int) : Call<Resource<Profile>>
 	
+	@Headers(Companion.HEADER_NO_AUTH)
+	@POST("users/flag-user")
+	fun flagUser(@Body request: HashMap<String, Any>) : Call<Flag>
 	
 	companion object {
 	    const val URL_BASE = "http://10.0.2.2:5000/"

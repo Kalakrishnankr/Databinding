@@ -36,7 +36,7 @@
         android:id="@+id/signUp2Fragment"
         android:name="com.beachpartnerllc.beachpartner.user.auth.SignUp2Fragment"
 	    android:label="@string/sign_up"
-	    tools:layout="@layout/fragment_sign_up_2"/>
+	    tools:layout="@layout/fragment_sign_up_2">
 
     <action
 	    android:id="@+id/action_sign_in"
@@ -45,5 +45,6 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@+id/signInFragment" />
+    </fragment>
 
 </navigation>

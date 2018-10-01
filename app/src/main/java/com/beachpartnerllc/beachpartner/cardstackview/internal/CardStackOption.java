@@ -6,7 +6,7 @@ import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection;
 import java.util.List;
 
 public class CardStackOption {
-    public int visibleCount = 3;
+    public int visibleCount = 8;
     public float swipeThreshold = 0.75f; // Percentage
     public float translationDiff = 12f; // DP
     public float scaleDiff = 0.02f; // Percentage

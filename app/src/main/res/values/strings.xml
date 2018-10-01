@@ -56,5 +56,8 @@
 	<string name="include_coaches">Include Coaches</string>
 	<string name="play">Play</string>
 	<string name="top_finishes">Top Finishes in Last Year</string>
+	<string name="flag_message">Flagged users are reviewed by Beach Partner staff to determine whether they violate the guidelines. Serious or repeated violations can lead to account termination.</string>
+	<string name="flag_title">Are you sure you want to Flag </string>
+
 
 </resources>

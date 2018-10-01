@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SearchFragmentBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
+import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import javax.inject.Inject
 
 
@@ -35,19 +38,18 @@ class SearchFragment : BaseFragment()  {
 		binding.vm = vm
 		binding.setLifecycleOwner(viewLifecycleOwner)
 		
-		
-		/*vm.selectedStatePosition.observe(this, Observer {
+		vm.selectedStatePosition.observe(viewLifecycleOwner, Observer {
 			it?.let { vm.setStatePosition(it) }
-		})*/
+		})
 		
-		/*vm.getStates().observe(viewLifecycleOwner, Observer { it ->
-			if(it.isSuccess()){
+		vm.getStates().observe(viewLifecycleOwner, Observer { it ->
+			if (it.isSuccess()) {
 				binding.stateACS.adapter = ArrayAdapter(
 					context!!,
 					android.R.layout.simple_dropdown_item_1line,
 					it.data?.map { it.stateName }!!)
 			}
-		})*/
+		})
 		
 	}
 }
