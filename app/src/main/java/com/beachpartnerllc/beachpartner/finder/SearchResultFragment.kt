@@ -49,7 +49,7 @@ class SearchResultFragment : BaseFragment() {
 	
 	fun alertFlagged(profile: Profile) {
 		val builder = AlertDialog.Builder(context!!)
-		builder.setTitle("Are you sure you want to Flag " + profile.mobile + " ?")
+		builder.setTitle("${getString(R.string.flag_title)} ${profile.firstName} ${profile.lastName} ?")
 			.setMessage(R.string.flag_message)
 			.setCancelable(true)
 			.setPositiveButton("Yes") { _, _ -> block(profile) }
