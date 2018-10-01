@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1093023196365",
+    "firebase_url": "https://beachpartner-6cd7a.firebaseio.com",
+    "project_id": "beachpartner-6cd7a",
+    "storage_bucket": "beachpartner-6cd7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093023196365:android:b092f044f9416268",
+        "android_client_info": {
+          "package_name": "com.beachpartnerllc.beachpartner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093023196365-i62a8o3l1484ju6cfrue855cj8pb9fjn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beachpartnerllc.beachpartner",
+            "certificate_hash": "5a908b9d3706ce442cec9379eb295e13b9015f3c"
+          }
+        },
+        {
+          "client_id": "1093023196365-pdmc4v0etv4n7fksactk6a4fvjd3edmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw3a7IFGwF6Kp51kiS4fOE4VI7gmglCX0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093023196365-pdmc4v0etv4n7fksactk6a4fvjd3edmo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1093023196365-lirnai8u46lqbvdf0p6bp7nfq6kui6oa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beachpartnerllc.beachpartner"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

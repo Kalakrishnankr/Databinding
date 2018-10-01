@@ -131,6 +131,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="action_chat">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="850" />
+                            <option name="y" value="-3" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_message">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="action_connection">
                     <value>
                       <LayoutPositions>
@@ -165,8 +186,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1220" />
-                            <option name="y" value="22" />
+                            <option name="x" value="1216" />
+                            <option name="y" value="337" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -179,6 +200,18 @@
                           <Point>
                             <option name="x" value="729" />
                             <option name="y" value="334" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="messageFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1105" />
+                            <option name="y" value="-268" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -62,4 +62,5 @@
 	<string name="item_space_decoration">ItemSpaceDecoration</string>
 	<string name="event_details">Event Details</string>
 	<string name="master_calendar">Master Calendar</string>
+	<string name="messaging">Messaging</string>
 </resources>

@@ -5,6 +5,8 @@ import com.beachpartnerllc.beachpartner.connection.InviteConnectionFragment
 import com.beachpartnerllc.beachpartner.event.CalendarFragment
 import com.beachpartnerllc.beachpartner.event.EventFragment
 import com.beachpartnerllc.beachpartner.event.MasterCalendarFragment
+import com.beachpartnerllc.beachpartner.messaging.ChatFragment
+import com.beachpartnerllc.beachpartner.messaging.MessageFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -27,4 +29,10 @@ interface HomeFragmentModule {
 	
 	@ContributesAndroidInjector
 	fun contributeInviteConnectionFragment(): InviteConnectionFragment
+	
+	@ContributesAndroidInjector
+	fun contributeChatFragment(): ChatFragment
+	
+	@ContributesAndroidInjector
+	fun contributeMessageFragment(): MessageFragment
 }
