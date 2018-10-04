@@ -14,6 +14,7 @@ import com.beachpartnerllc.beachpartner.user.state.StateDao
 @Database(entities = [State::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 	abstract fun stateDao(): StateDao
+	//abstract fun profileDao() : ProfileDao
 	
 	companion object {
 		const val DATABASE_NAME = "bp.db"

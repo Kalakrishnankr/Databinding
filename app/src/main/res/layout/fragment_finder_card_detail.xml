@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
-	<data class = "ProfileDeatailedInfoFragmentBinding">
+	<data class = "ProfileDetailFragmentBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="itemProfile" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.ProfileDetailFragment"/>
 	</data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,63 +20,70 @@
 			android:layout_height="wrap_content">
 
 			<ImageView
-				android:id="@+id/imgv_person"
+				android:id="@+id/avatarIMV"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:src="@drawable/dislike"
+				android:layout_height="@dimen/dimen_300dp"
+				android:scaleType="centerCrop"
 				android:contentDescription="@null"
+				app:layout_constraintTop_toTopOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"/>
 
 			<View
-				android:id="@+id/view_One"
+				android:id="@+id/titlebgVI"
 				android:layout_width="match_parent"
-				android:layout_height="50dp"
+				android:layout_height="@dimen/dimen_70dp"
 				android:background="@drawable/overlay_card"
-				app:layout_constraintBottom_toBottomOf="@+id/imgv_person"
+				app:layout_constraintBottom_toBottomOf="@+id/avatarIMV"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
 				app:layout_constraintStart_toStartOf="parent"/>
 
 			<TextView
-				android:id="@+id/txtv_name"
+				android:id="@+id/nameTV"
 				android:layout_width="wrap_content"
 				android:layout_height="0dp"
-				android:text="Alex Xavier , 19"
 				android:textColor="@color/white"
+				android:text="@{vm.itemProfile.firstName+' '+ vm.itemProfile.lastName+`,`+ vm.itemProfile.age}"
+				android:textSize="20sp"
+				android:layout_marginStart="@dimen/dimen_10dp"
+				android:layout_marginTop="@dimen/dimen_10dp"
 				android:textStyle="bold"
-				android:padding="5dp"
 				android:contentDescription="@null"
 				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintTop_toTopOf="@+id/view_One"/>
+				app:layout_constraintTop_toTopOf="@+id/titlebgVI"/>
 			<TextView
-				android:id="@+id/txtv_usertype"
+				android:id="@+id/usertypeTV"
 				android:layout_width="wrap_content"
 				android:layout_height="0dp"
-				android:text="Athlete"
+				android:text="@{vm.itemProfile.userType.name()}"
+				android:layout_marginStart="@dimen/dimen_10dp"
+				android:layout_marginTop="@dimen/dimen_5dp"
+				android:textSize="18sp"
 				android:contentDescription="@null"
 				android:textColor="@color/white"
-				app:layout_constraintBottom_toBottomOf="@+id/view_One"
+				app:layout_constraintBottom_toBottomOf="@+id/titlebgVI"
 				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/txtv_name"/>
+				app:layout_constraintTop_toBottomOf="@+id/nameTV"/>
 
 			<ImageView
-				android:id="@+id/imgv_uparrow"
+				android:id="@+id/upIM"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/icon_uparrow"
 				android:padding="@dimen/dimen_10dp"
 				android:contentDescription="@null"
 				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="@+id/view_One"/>
+				app:layout_constraintTop_toTopOf="@+id/titlebgVI"
+				android:onClick="@{()-> handler.backStack()}"/>
 
 
 			<!--Folding Cell Layout start here-->
 
 
 			<androidx.cardview.widget.CardView
-				android:id="@+id/foldingCard"
+				android:id="@+id/foldingCV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="10dp"
@@ -83,11 +92,11 @@
 				app:cardCornerRadius="@dimen/dimen_5dp"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintStart_toStartOf="@id/view_One"
-				app:layout_constraintTop_toBottomOf="@+id/view_One">
+				app:layout_constraintStart_toStartOf="@id/titlebgVI"
+				app:layout_constraintTop_toBottomOf="@+id/titlebgVI">
 
 				<com.ramotion.foldingcell.FoldingCell
-					android:id="@+id/folding_cell"
+					android:id="@+id/foldingFC"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
 
@@ -97,7 +106,7 @@
 							android:visibility="gone">
 
 							<TextView
-								android:id="@+id/txtv_topOne"
+								android:id="@+id/topOneTV"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:contentDescription="@null"
@@ -105,21 +114,21 @@
 								app:layout_constraintRight_toRightOf="parent"
 								app:layout_constraintStart_toStartOf="parent"/>
 							<TextView
-								android:id="@+id/txtv_topTwo"
+								android:id="@+id/topTwoTV"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:contentDescription="@null"
 								app:layout_constraintLeft_toLeftOf="parent"
 								app:layout_constraintRight_toRightOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/txtv_topOne"/>
+								app:layout_constraintTop_toBottomOf="@+id/topOneTV"/>
 							<TextView
-								android:id="@+id/txtv_topThree"
+								android:id="@+id/topThreeTV"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:contentDescription="@null"
 								app:layout_constraintLeft_toLeftOf="parent"
 								app:layout_constraintRight_toRightOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/txtv_topTwo"/>
+								app:layout_constraintTop_toBottomOf="@+id/topTwoTV"/>
 
 						</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -129,7 +138,7 @@
 						android:padding="@dimen/dimen_5dp">
 
 						<ImageView
-							android:id="@+id/imgv_badge"
+							android:id="@+id/badgeIMV"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:src="@drawable/ic_badge"
@@ -139,14 +148,14 @@
 							app:layout_constraintTop_toTopOf="parent"/>
 
 						<TextView
-							android:id="@+id/txtv_badge_info"
+							android:id="@+id/badgeInfoTV"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:contentDescription="@null"
 							android:text="@string/top_finishes"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/imgv_badge"/>
+							app:layout_constraintTop_toBottomOf="@+id/badgeIMV"/>
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 				</com.ramotion.foldingcell.FoldingCell>
@@ -158,66 +167,66 @@
 
 
 			<View
-				android:id="@+id/view_Two"
+				android:id="@+id/horizontalLineVI"
 				android:layout_width="match_parent"
 				android:layout_height="1dp"
 				android:background="@color/blue_0b1d56"
 				android:layout_marginTop="10dp"
-				app:layout_constraintTop_toBottomOf="@+id/foldingCard"
+				app:layout_constraintTop_toBottomOf="@+id/foldingCV"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"/>
 
 
 			<View
-				android:id="@+id/view_Three_calendar_topButtons"
+				android:id="@+id/calbuttonbgVI"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dp"
-				app:layout_constraintTop_toBottomOf="@+id/view_Two"
+				app:layout_constraintTop_toBottomOf="@+id/horizontalLineVI"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"/>
 
 
 			<ImageView
-				android:id="@+id/imgv_left_arrow"
+				android:id="@+id/leftArrowIMV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/left_arrow"
 				android:contentDescription="@null"
-				android:layout_marginLeft="50dp"
-				app:layout_constraintStart_toStartOf="@id/view_Three_calendar_topButtons"
-				app:layout_constraintTop_toTopOf="@+id/view_Three_calendar_topButtons"
+				android:layout_marginStart="50dp"
+				app:layout_constraintStart_toStartOf="@id/calbuttonbgVI"
+				app:layout_constraintTop_toTopOf="@+id/calbuttonbgVI"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"/>
 
 
 			<ImageView
-				android:id="@+id/imgv_right_arrow"
+				android:id="@+id/rightArrowIMV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/right_arrow"
 				android:contentDescription="@null"
-				android:layout_marginRight="50dp"
-				app:layout_constraintTop_toTopOf="@+id/view_Three_calendar_topButtons"
+				android:layout_marginEnd="50dp"
+				app:layout_constraintTop_toTopOf="@+id/calbuttonbgVI"
 				app:layout_constraintRight_toRightOf="parent"/>
 
 			<TextView
-				android:id="@+id/txtv_monthview"
+				android:id="@+id/monthTV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="JANUARY"
 				android:textStyle="bold"
 				android:contentDescription="@null"
 				android:textColor="@color/blue_0b1d56"
-				app:layout_constraintTop_toBottomOf="@+id/view_Three_calendar_topButtons"
-				app:layout_constraintLeft_toRightOf="@+id/imgv_left_arrow"
-				app:layout_constraintRight_toLeftOf="@+id/imgv_right_arrow"/>
+				app:layout_constraintTop_toBottomOf="@+id/calbuttonbgVI"
+				app:layout_constraintLeft_toRightOf="@+id/leftArrowIMV"
+				app:layout_constraintRight_toLeftOf="@+id/rightArrowIMV"/>
 
 
 			<com.github.sundeepk.compactcalendarview.CompactCalendarView
 				xmlns:app="http://schemas.android.com/apk/res-auto"
-				android:id="@+id/compactcalendar"
+				android:id="@+id/calendarCCV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				app:compactCalendarTargetHeight="250dp"
@@ -233,8 +242,8 @@
 				app:compactCalendarEventIndicatorStyle="small_indicator"
 				app:compactCalendarOtherMonthDaysTextColor="#534c4c"
 				app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
-				app:layout_constraintStart_toStartOf="@id/view_Three_calendar_topButtons"
-				app:layout_constraintTop_toBottomOf="@+id/txtv_monthview"
+				app:layout_constraintStart_toStartOf="@id/calbuttonbgVI"
+				app:layout_constraintTop_toBottomOf="@+id/monthTV"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
 				app:layout_constraintBottom_toBottomOf="parent"/>

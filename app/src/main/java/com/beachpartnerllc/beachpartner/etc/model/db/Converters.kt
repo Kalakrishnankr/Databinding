@@ -14,4 +14,18 @@ class Converters {
 	
 	@TypeConverter
 	fun dateToLong(date: Date) = date.time
+	
+//	@TypeConverter
+//	fun genderToString(value : Gender) = value.toString()
+//
+//	@TypeConverter
+//	fun stringToGender(gender : String) = Gender.valueOf(gender)
+//
+//	@TypeConverter
+//	fun usertypeToString(value: UserType) = value.toString()
+//
+//	@TypeConverter
+//	fun stringToUsertype(userType: String)= UserType.valueOf(userType)
+	
+
 }

@@ -8,7 +8,6 @@ import com.beachpartnerllc.beachpartner.etc.common.SingleLiveEvent
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
-import com.beachpartnerllc.beachpartner.user.Gender
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.auth.AuthState
 import com.beachpartnerllc.beachpartner.user.state.State
@@ -21,23 +20,24 @@ import javax.inject.Inject
 class FinderViewModel @Inject constructor(private val repo: FinderRepository) : ViewModel() {
 	
 	val loading = MutableLiveData<Boolean>()
-	val search = MutableLiveData<Search>()
 	val selectedStatePosition = MutableLiveData<Int>()
 	val multibar = MutableLiveData<Boolean>()
 	val event = SingleLiveEvent<String>()
+	var search = MutableLiveData<Search>()
 	var profile = MutableLiveData<Profile>()
-	lateinit var profileList: List<Profile>
 	var singleProfile = MutableLiveData<Resource<Profile>>()
 	val state = MutableLiveData<AuthState>()
-	private lateinit var stateList: List<State>
+	lateinit var stateList: List<State>
+	lateinit var profileList: List<Profile>
+	lateinit var bpprofileList : List<Profile>
+	var itemProfile: Profile? = null
 	
 	
 	fun setStatePosition(position: Int) {
 		if (!::stateList.isInitialized) return
-		
-		val user = profile.value!!
+		val user = search.value!!
 		user.stateId = stateList[position].stateId
-		profile.value = user
+		search.value = user
 	}
 	
 	fun getStates() = map(repo.getStateList()) {
@@ -55,38 +55,24 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 		search.value = ageValue
 	}
 	
-	fun isCheck(isStatus: Boolean) {
+	fun isMaleActive() {
+		val status = search.value!!
+		status.isMaleActive = !status.isMaleActive
+		search.value = status
+	}
+	
+	fun isFemaleActive(){val status = search.value!!
+		status.isFemaleActive = !status.isFemaleActive
+		search.value = status
+	}
+	
+	fun isCoachInclude(isStatus: Boolean) {
 		val status = search.value!!
 		status.isCoach = isStatus
 		search.value = status
 	}
 	
-	fun isMale(isValue: Boolean) {
-		val sex = search.value!!
-		val result = sex.gender?.compareTo(Gender.FEMALE)
-		if (result == 0) {
-			sex.gender = Gender.BOTH
-			search.value = sex
-		} else {
-			sex.gender = Gender.MALE
-			search.value = sex
-		}
-	}
-	
-	fun isFemale(isValue: Boolean) {
-		val sex = search.value!!
-		val result = sex.gender?.compareTo(Gender.MALE)
-		if (result == 0) {
-			sex.gender = Gender.BOTH
-			search.value = sex
-		} else {
-			sex.gender = Gender.FEMALE
-			search.value = sex
-		}
-	}
-	
-	
-	fun findProfiles() = map(repo.getProfiles()) {
+	fun findProfiles() = map(repo.getProfiles(search.value!!)) {
 		loading.value = it.isLoading()
 		if (it.isSuccess()) profileList = it.data!!
 		it
@@ -112,12 +98,27 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 		singleProfile = repo.actionTopSwipe(profile)
 	}
 	
-	fun blockPerson(profile: Profile) = map(repo.actionBlock(profile)){
+	fun blockPerson(profile: Profile) = map(repo.actionBlock(profile)) {
 		loading.value = it.isLoading()
-		if(it.isSuccess())
-			it
+		if (it.isSuccess())
+			it.data
+		it
 	}
 	
+	fun getProfile(userId: Int) = map(repo.getAccount(userId)) {
+		loading.value = it.isLoading()
+		if (it.isSuccess()) it.data!!
+		it
+	}
+	
+	fun getbpProfiles() = map(repo.getBluebpProfiles()){
+		loading.value = it.isLoading()
+		if(it.isSuccess()){
+			bpprofileList = it.data!!
+		}
+		it
+		
+	}!!
 	
 	init {
 		search.value = Search()

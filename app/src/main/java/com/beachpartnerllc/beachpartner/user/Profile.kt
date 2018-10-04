@@ -7,9 +7,8 @@ import com.beachpartnerllc.beachpartner.etc.common.isPassword
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 data class Profile(
-	val userId: Int = -1,
+	val userId: Int? = null ,
 	var firstName: String? = null,
 	var lastName: String? = null,
 	var stateId: Int? = null,

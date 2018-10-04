@@ -28,7 +28,7 @@ class Preference(private val pref: SharedPreferences) {
 	fun setSession(session: Session) {
 		val profile = session.profile
 		pref.edit {
-			putInt(PREF_USER_ID, profile.userId)
+			putInt(PREF_USER_ID, profile.userId!!)
 			putInt(PREF_STATE_ID, profile.stateId!!)
 			putString(PREF_SESSION_ID, session.sessionId)
 			putString(PREF_FIRST_NAME, profile.firstName)

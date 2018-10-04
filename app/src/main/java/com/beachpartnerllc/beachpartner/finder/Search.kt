@@ -11,6 +11,13 @@ data class Search (
 	var maxAge: Int? = null,
 	var stateId: Int? = null,
 	var gender: Gender? = null,
-	var isCoach: Boolean = false
-)
+	var isCoach: Boolean = false,
+	var isMaleActive: Boolean = false,
+	var isFemaleActive: Boolean = false) {
+	fun getGenderStatus() = when {
+			isMaleActive && isFemaleActive -> "BOTH"
+			isMaleActive -> "MALE"
+			else -> "FEMALE"
+	}
+}
 

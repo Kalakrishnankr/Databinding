@@ -6,6 +6,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.finder.Flag
+import com.beachpartnerllc.beachpartner.user.Gender
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -26,14 +27,29 @@ class MockService(
 	private val delegate: BehaviorDelegate<ApiService>,
 	private val serializer: Gson,
 	private val app: Application) : ApiService {
+	
+	
+	override fun bpProfiles(): Call<Resource<List<Profile>>> {
+		val data = stringFromFile("get_profiles")
+		val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
+		return delegate.returningResponse(Resource.success(response)).bpProfiles()
+	}
+	
+	override fun getAccount(userId: Int) : Call<Resource<Profile>>{
+		val data = stringFromFile("get_profile")
+		val response: Profile = serializer.fromJson(data, object : TypeToken<Profile>() {}.type)
+		return delegate.returningResponse(Resource.success(response)).getAccount(userId)
+	}
+	
 	override fun flagUser(request: HashMap<String, Any>): Call<Flag> {
 		return delegate.returningResponse("success").flagUser(request)
 	}
 	
-	override fun getProfiles(): Call<Resource<List<Profile>>> {
-		val data = stringFromFile("get_profile")
+	override fun allProfiles(isCoach: Boolean, minAge: Int?, maxAge: Int?, gender: Gender?, stateId: Int?):
+		Call<Resource<List<Profile>>> {
+		val data = stringFromFile("get_profiles")
 		val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
-		return delegate.returningResponse(Resource.success(response)).getProfiles()
+		return delegate.returningResponse(Resource.success(response)).allProfiles(isCoach, minAge, maxAge,gender, stateId)
 	}
 	
 	override fun leftSwipe(userId: Int): Call<Resource<Profile>> {

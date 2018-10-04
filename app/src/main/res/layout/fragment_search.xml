@@ -220,7 +220,7 @@
 						android:layout_height="wrap_content"
 						android:layout_marginEnd="@dimen/dimen_15dp"
 						android:gravity="start"
-						android:text="@{vm.search.gender.name}"
+						android:text="@{vm.search.getGenderStatus()}"
 						android:textColor="@color/blue_233282"
 						android:textStyle="bold"
 						app:layout_constraintRight_toRightOf="parent"
@@ -231,24 +231,22 @@
 						android:layout_width="@dimen/dimen_95dp"
 						android:layout_height="wrap_content"
 						android:text="@string/male"
-						android:theme="@style/Theme.Design.Light.NoActionBar"
 						app:layout_constraintEnd_toStartOf="@+id/femaleBT"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toBottomOf="@+id/showmeTV"
-						android:onClick="@{()-> vm.isMale(true)}"
-						android:tag="@{Gender.MALE}"/>
+						android:background="@{vm.search.isMaleActive ? @color/blue_3a438e : R.color.white}"
+						android:onClick="@{()-> vm.isMaleActive()}"/>
 
 					<androidx.appcompat.widget.AppCompatButton
 						android:id="@+id/femaleBT"
 						android:layout_width="@dimen/dimen_95dp"
 						android:layout_height="wrap_content"
 						android:text="@string/female"
-						android:theme="@style/Theme.Design.Light.NoActionBar"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toEndOf="@+id/maleBT"
 						app:layout_constraintTop_toBottomOf="@+id/showmeTV"
-						android:onClick="@{()-> vm.isFemale(true)}"
-						android:tag="@{Gender.FEMALE}"/>
+						android:background="@{vm.search.isFemaleActive ? @color/blue_3a438e : R.color.white}"
+						android:onClick="@{()-> vm.isFemaleActive()}"/>
 
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
@@ -290,7 +288,7 @@
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						android:onCheckedChanged="@{(v,checked)->vm.isCheck(checked)}"/>
+						android:onCheckedChanged="@{(v,checked)->vm.isCoachInclude(checked)}"/>
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -305,7 +303,7 @@
 				android:src="@drawable/icon_play"
 				app:layout_constraintLeft_toRightOf="parent"
 				app:layout_constraintRight_toLeftOf="parent"
-				android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_search_result)}"
+				android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_finderTocard)}"
 				app:layout_constraintTop_toBottomOf="@+id/coachCV"/>
 			<TextView
 				android:layout_width="wrap_content"

@@ -1,8 +1,6 @@
 package com.beachpartnerllc.beachpartner.home
 
-import com.beachpartnerllc.beachpartner.finder.ProfileDetailedInfoFragment
-import com.beachpartnerllc.beachpartner.finder.SearchFragment
-import com.beachpartnerllc.beachpartner.finder.SearchResultFragment
+import com.beachpartnerllc.beachpartner.finder.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -16,7 +14,13 @@ interface HomeFragmentModule {
     
     @ContributesAndroidInjector
     fun contributeSearchResultFragment() : SearchResultFragment
+	
+	@ContributesAndroidInjector
+	fun contributeCardFragment() : CardFragment
+	
+	@ContributesAndroidInjector
+	fun contributeStripFragment() : StripFragment
     
     @ContributesAndroidInjector
-    fun contributeProfileDetailedInfoFragment() : ProfileDetailedInfoFragment
+    fun contributeProfileDetailedInfoFragment() : ProfileDetailFragment
 }

@@ -7,24 +7,30 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
-import com.beachpartnerllc.beachpartner.databinding.ProfileDeatailedInfoFragmentBinding
+import com.beachpartnerllc.beachpartner.databinding.CardFragmentBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
+import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import javax.inject.Inject
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>
- * @created on 01 Oct 2018 at 11:54 AM
+ * @created on 04 Oct 2018 at 4:03 PM
  */
-class ProfileDetailedInfoFragment : BaseFragment() {
+class CardFragment  : BaseFragment(){
 	@Inject lateinit var factory: ViewModelProvider.Factory
-	private lateinit var binding: ProfileDeatailedInfoFragmentBinding
-	private lateinit var vm :FinderViewModel
-	private  var userId : Int = 0
+	private lateinit var binding: CardFragmentBinding
+	private lateinit var vm : FinderViewModel
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_finder_card_detail,container,false)
-		userId = ProfileDetailedInfoFragmentArgs.fromBundle(arguments).id
+		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_playcard,container,false)
 		return binding.root
 	}
 	
+	override fun onActivityCreated(savedInstanceState: Bundle?) {
+		super.onActivityCreated(savedInstanceState)
+		vm = getViewModel(factory)
+		binding.vm = vm
+		binding.setLifecycleOwner(viewLifecycleOwner)
+		
+	}
 }

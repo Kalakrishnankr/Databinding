@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.finder.Flag
+import com.beachpartnerllc.beachpartner.user.Gender
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -30,25 +31,27 @@ interface ApiService {
 	@GET("states")
 	fun getStates(): LiveData<ApiResponse<List<State>>>
 	
-	@Headers(HEADER_NO_AUTH)
 	@GET("users/search")
-	fun getProfiles(): Call<Resource<List<Profile>>>
+	fun allProfiles(isCoach: Boolean, minAge: Int?, maxAge: Int?, gender: Gender?, stateId: Int?):
+		Call<Resource<List<Profile>>>
 	
-	@Headers(HEADER_NO_AUTH)
 	@POST("users/request-friendship/{userId}")
 	fun rightSwipe(userId: Int): Call<Resource<Profile>>
 	
-	@Headers(HEADER_NO_AUTH)
 	@POST("users/reject-friendship/{userId}")
 	fun leftSwipe(userId: Int) : Call<Resource<Profile>>
 	
-	@Headers(HEADER_NO_AUTH)
 	@POST("users/hifi/{userId}")
 	fun topSwipe(userId: Int) : Call<Resource<Profile>>
 	
-	@Headers(Companion.HEADER_NO_AUTH)
 	@POST("users/flag-user")
 	fun flagUser(@Body request: HashMap<String, Any>) : Call<Flag>
+	
+	@GET("users/account/{userId}")
+	fun getAccount(userId: Int): Call<Resource<Profile>>
+	
+	@GET("user/search")
+	fun bpProfiles() : Call<Resource<List<Profile>>>
 	
 	companion object {
 	    const val URL_BASE = "http://10.0.2.2:5000/"

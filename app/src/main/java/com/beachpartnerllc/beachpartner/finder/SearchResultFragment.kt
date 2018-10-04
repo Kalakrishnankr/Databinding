@@ -52,8 +52,8 @@ class SearchResultFragment : BaseFragment() {
 		builder.setTitle("${getString(R.string.flag_title)} ${profile.firstName} ${profile.lastName} ?")
 			.setMessage(R.string.flag_message)
 			.setCancelable(true)
-			.setPositiveButton("Yes") { _, _ -> block(profile) }
-			.setNegativeButton("No") { dialog, _ -> dialog.cancel() }
+			.setPositiveButton(getString(R.string.yes)) { _, _ -> block(profile) }
+			.setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
 		val alert = builder.create()
 		alert.show()
 	}
@@ -63,7 +63,7 @@ class SearchResultFragment : BaseFragment() {
 	}
 	
 	fun profileInfo(profile: Profile) {
-		val direction  = SearchResultFragmentDirections.ActionProfileDetails(profile.userId)
+		val direction  = SearchResultFragmentDirections.ActionProfileDetails(profile.userId!!)
 		findNavController().navigate(direction)
 	}
 	
