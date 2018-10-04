@@ -6,10 +6,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.user.auth.Auth
-import com.beachpartnerllc.beachpartner.user.profile.Gender
-import com.beachpartnerllc.beachpartner.user.profile.Profile
-import com.beachpartnerllc.beachpartner.user.profile.Session
-import com.beachpartnerllc.beachpartner.user.profile.UserType
+import com.beachpartnerllc.beachpartner.user.profile.*
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -42,6 +39,10 @@ class MockService(
 
 	override fun register(profile: Profile): Call<Resource<Any>> {
 		return delegate.returningResponse(Resource.success(profile)).register(profile)
+	}
+	
+	override fun update(athlete: Athlete): Call<Resource<Athlete>> {
+		return delegate.returningResponse(Resource.success(athlete)).update(athlete)
 	}
 	
 	private fun loadJSONFromAsset(filename: String): String {

@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.user.auth.Auth
+import com.beachpartnerllc.beachpartner.user.profile.Athlete
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.profile.Session
 import com.beachpartnerllc.beachpartner.user.state.State
@@ -28,6 +29,10 @@ interface ApiService {
 	@Headers(HEADER_NO_AUTH)
 	@GET("states")
 	fun getStates(): LiveData<ApiResponse<List<State>>>
+	
+	@Headers(HEADER_NO_AUTH)
+	@POST("user/update")
+	fun update(@Body athlete: Athlete): Call<Resource<Athlete>>
 	
 	companion object {
 	    const val URL_BASE = "http://10.0.2.2:5000/"

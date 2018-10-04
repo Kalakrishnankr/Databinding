@@ -71,9 +71,9 @@ inline fun <reified T : AppCompatActivity> Activity.startActivity(
 
 fun String?.isEmail() = this != null && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-fun String?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches()
+fun CharSequence?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches() && length>9
 
 fun String?.isPassword() = this != null && length > 7
 
-fun String?.isName() = this != null && this.matches("[a-zA-Z]+".toRegex())
+fun CharSequence?.isName() = this != null && this.matches("[a-zA-Z]+".toRegex())
 

@@ -57,8 +57,13 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textColor="@color/white"
-				android:visibility="gone"
-				tools:text="@string/no_video"/>
+				android:visibility="@{vm.profile.video != null?android.view.View.GONE:android.view.View.VISIBLE}"
+				android:text="@string/no_video"
+				android:textSize="@dimen/text_size_16"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="@+id/profilePicIV"/>
 
 			<ImageView
 				android:id="@+id/profilePicIV"
@@ -83,6 +88,7 @@
 				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
+				android:visibility="@{vm.profile.image == null ?android.view.View.GONE:android.view.View.VISIBLE}"
 				app:layout_constraintVertical_bias="0.9"/>
 
 			<com.beachpartnerllc.beachpartner.etc.common.FloatingActionMenu
@@ -166,12 +172,13 @@
 			<TextView
 				android:id="@+id/username_tv"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_height="13dp"
 				android:layout_marginTop="@dimen/dimen_8dp"
-				tools:text="Martin Luther King"
+				android:text='@{vm.profile.firstName != null?vm.profile.firstName+vm.profile.lastName:""}'
 				app:layout_constraintEnd_toEndOf="@+id/profilePicIV"
 				app:layout_constraintStart_toStartOf="@+id/profilePicIV"
-				app:layout_constraintTop_toBottomOf="@+id/profilePicIV"/>
+				app:layout_constraintTop_toBottomOf="@+id/profilePicIV"
+				tools:text="Martin Luther King"/>
 
 			<TextView
 				android:id="@+id/profile_designation"

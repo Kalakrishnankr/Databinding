@@ -21,6 +21,7 @@ import com.beachpartnerllc.beachpartner.databinding.AthleteProfileBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
+import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -61,8 +62,9 @@ class AthleteProfileFragment : BaseFragment() {
 		vm = getViewModel(factory)
 		binding.vm = vm
 		vm.isProfileEdit.observe(viewLifecycleOwner, Observer {
-				activity!!.invalidateOptionsMenu()
+			activity!!.invalidateOptionsMenu()
 		})
+		vm.profileValidate.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
 		binding.setLifecycleOwner(viewLifecycleOwner)
 	}
 	
@@ -76,8 +78,15 @@ class AthleteProfileFragment : BaseFragment() {
 	}
 	
 	fun shareImage() {
-		if (binding.profilePicIV.drawable != null)
-			Toast.makeText(context, "Sharing.....", Toast.LENGTH_LONG).show()
+		if (binding.profilePicIV.drawable != null) {
+			val intent = Intent(Intent.ACTION_SEND)
+			intent.putExtra(Intent.EXTRA_TEXT, "https://www.beachpartner.com/preregistration/")
+			intent.putExtra(Intent.EXTRA_SUBJECT, "BeachPartner App")
+//			intent.putExtra(Intent.EXTRA_STREAM,binding.profilePicIV.drawable)
+			intent.type = "image/*"
+			startActivity(Intent.createChooser(intent, "Share image via..."))
+		} else
+			Toast.makeText(context, "Please upload an image and then share it", Toast.LENGTH_LONG).show()
 	}
 	
 	fun uploadImage() {
@@ -107,7 +116,6 @@ class AthleteProfileFragment : BaseFragment() {
 			binding.progressBarProfileImg.visibility = View.GONE
 		} else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK) {
 			val selectedVideoUri = data!!.data
-			val dashUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
 			setVideoUrl(binding.exoplayerProfile, selectedVideoUri)
 		}
 	}
@@ -170,20 +178,21 @@ class AthleteProfileFragment : BaseFragment() {
 	private fun setVideoUrl(exoPlayer: PlayerView, url: Any?) {
 		if (url == null) return
 		
-		val simpleExoplayer: SimpleExoPlayer
+		val simpleExoPlayer: SimpleExoPlayer
 		val bandwidthMeter = DefaultBandwidthMeter()
 		exoPlayer.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL)
 		val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(bandwidthMeter))
-		simpleExoplayer = ExoPlayerFactory.newSimpleInstance(exoPlayer.context, trackSelector)
+		simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(exoPlayer.context, trackSelector)
 		val uri: Uri? = if (url is String) Uri.parse(url as String?) else url as Uri?
+		vm.profile.value!!.video = uri
 		val mediaSource = buildMediaSource(uri, exoPlayer.context)
-		simpleExoplayer.prepare(mediaSource)
-		simpleExoplayer.volume = 0f
-		simpleExoplayer.repeatMode = Player.REPEAT_MODE_ONE
-		simpleExoplayer.playWhenReady = true
-		simpleExoplayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
-		exoPlayer.player = simpleExoplayer
-		setStateChangeListener(simpleExoplayer)
+		simpleExoPlayer.prepare(mediaSource)
+		simpleExoPlayer.volume = 0f
+		simpleExoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+		simpleExoPlayer.playWhenReady = true
+		simpleExoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+		exoPlayer.player = simpleExoPlayer
+		setStateChangeListener(simpleExoPlayer)
 	}
 	
 	private fun buildMediaSource(uri: Uri?, context: Context): MediaSource {
@@ -207,18 +216,27 @@ class AthleteProfileFragment : BaseFragment() {
 	
 	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
 		menu!!.clear()
-		if (vm.isProfileEdit.value == true) inflater?.inflate(R.menu.menu_save_discard, menu)
+		val homeActivity = activity as HomeActivity
+		if (vm.isProfileEdit.value == true) {
+			inflater?.inflate(R.menu.menu_save_discard, menu)
+			homeActivity.supportActionBar!!.title = getString(R.string.edit_profile)
+			menu.findItem(R.id.action_save).isEnabled = vm.profileValidate.value == true
+		} else
+			homeActivity.supportActionBar!!.title = getString(R.string.my_profile)
+		
 		super.onCreateOptionsMenu(menu, inflater)
 	}
 	
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		when(item!!.itemId){
+		when (item!!.itemId) {
 			R.id.action_discard -> {
 				vm.editable(false)
 				return true
 			}
-			R.id.action_save ->{
+			R.id.action_save -> {
 				vm.editable(false)
+				vm.isTopFinishesSet.value =true
+				vm.update()
 				return true
 			}
 		}

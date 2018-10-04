@@ -15,7 +15,9 @@ import com.beachpartnerllc.beachpartner.user.profile.Athlete
 import com.beachpartnerllc.beachpartner.user.profile.Gender
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.state.State
+import timber.log.Timber
 import javax.inject.Inject
+
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>
@@ -42,12 +44,8 @@ class AuthViewModel @Inject constructor(
 	val isProfileEdit = MutableLiveData<Boolean>()
 	val currentState = MutableLiveData<Boolean>()
 	val topFinishesCount = MutableLiveData<Int>()
-	
-	val selectedExperiencePosition = MutableLiveData<Int>()
-	val selectedPreferencePosition = MutableLiveData<Int>()
-	val selectedPosPosition = MutableLiveData<Int>()
-	val selectedHeightPosition = MutableLiveData<Int>()
-	val selectedDistancePosition = MutableLiveData<Int>()
+	val profileValidate = MutableLiveData<Boolean>()
+	val isTopFinishesSet =MutableLiveData<Boolean>()
 	
 	fun signIn() = map(repo.signIn(auth.value!!)) {
 		loading.value = it.status == RequestState.LOADING
@@ -55,6 +53,40 @@ class AuthViewModel @Inject constructor(
 			state.value = AUTHENTICATED
 		}
 	}!!
+	
+	val selectedExperiencePosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setExperience(value)
+			super.setValue(value)
+		}
+	}
+	
+	val selectedPreferencePosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setPreference(value)
+			super.setValue(value)
+		}
+	}
+	
+	val selectedPosPosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setPosition(value)
+			super.setValue(value)
+		}
+	}
+	
+	val selectedHeightPosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setHeight(value)
+			super.setValue(value)
+		}
+	}
+	val selectedDistancePosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setDistance(value)
+			super.setValue(value)
+		}
+	}
 	
 	fun signInSkipInitCount(): Long = if (signInValidate.value == true) 0 else 1
 	
@@ -111,44 +143,44 @@ class AuthViewModel @Inject constructor(
 		val user = profile.value!!
 		if (position == 0) user.gender = Gender.MALE
 		else user.gender = Gender.FEMALE
-		profile.value = user
 	}
 	
-	fun setExperience(position: Int) {
+	fun setExperience(position: Int?) {
 		val user = athlete.value!!
-		user.experience = app.resources.getStringArray(R.array.experience)[position]
-		athlete.value = user
+		user.experience = app.resources.getStringArray(R.array.experience)[position!!]
 	}
 	
 	fun setPreference(position: Int?) {
 		val user = athlete.value!!
 		user.preference = app.resources.getStringArray(R.array.courtPreference)[position!!]
-		athlete.value = user
 	}
 	
 	fun setPosition(position: Int?) {
 		val user = athlete.value!!
 		user.position = app.resources.getStringArray(R.array.position)[position!!]
-		athlete.value = user
 	}
 	
 	fun setHeight(position: Int?) {
 		val user = athlete.value!!
 		user.height = app.resources.getStringArray(R.array.height)[position!!]
-		athlete.value = user
 	}
 	
 	fun setDistance(position: Int?) {
 		val user = athlete.value!!
 		user.distance = app.resources.getStringArray(R.array.distance)[position!!]
-		athlete.value = user
 	}
 	
 	fun setTopFinishes(topFinishes: ArrayList<String>) {
-		val user =athlete.value!!
-		user.topFinishes =topFinishes
-		athlete.value =user
+		val user = athlete.value!!
+		user.topFinishes = topFinishes
 	}
+	
+	fun update() = map(repo.update(athlete.value!!)) {
+		loading.value = it.status == RequestState.LOADING
+		if (it.isSuccess()) {
+			Timber.e("Success")
+		}
+	}!!
 	
 	init {
 		auth.value = Auth()

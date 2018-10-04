@@ -1,15 +1,20 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
+import android.graphics.drawable.Drawable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
 
@@ -20,7 +25,7 @@ import com.wang.avi.AVLoadingIndicatorView
  */
 @BindingAdapter("error")
 fun setError(view: TextInputLayout, error: String?) {
-    view.error = error
+	view.error = error
 }
 
 @BindingAdapter("error")
@@ -28,29 +33,30 @@ fun setError(view: TextInputLayout, error: Int) = setError(view, if (error == 0)
 
 @BindingAdapter("isLoading")
 fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
-    if (isLoading) view.smoothToShow()
-    else view.smoothToHide()
+	if (isLoading) view.smoothToShow()
+	else view.smoothToHide()
 }
 
-@BindingAdapter("url")
-fun setUrl(imageView: ImageView, url: String?) {
-    /*Picasso.with(imageView.context)
-            .load(url)
-            .fit()
-            .centerCrop()
-            .into(imageView)*/
+@BindingAdapter("url", "placeHolder", requireAll = false)
+fun setUrl(imageView: ImageView, url: String?, placeholder: Drawable) {
+	Glide.with(imageView.context)
+		.load(url)
+		.apply(RequestOptions().circleCrop())
+		.apply(RequestOptions.centerCropTransform())
+		.apply(RequestOptions.placeholderOf(placeholder))
+		.into(imageView)
 }
 
 @BindingAdapter("nestedScrollingEnabled")
 fun setNestedScrollingEnabled(view: RecyclerView, nestedScrollingEnabled: Boolean) {
-    view.isNestedScrollingEnabled = nestedScrollingEnabled
+	view.isNestedScrollingEnabled = nestedScrollingEnabled
 }
 
 @BindingAdapter("foregroundColorSpan", "start", "end", requireAll = false)
 fun setForegroundColorSpan(view: TextView, color: Int, start: Int = 0, end: Int = view.text.length - 1) {
-    val spanBuilder = SpannableStringBuilder(view.text)
-    spanBuilder.setSpan(ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    view.text = spanBuilder
+	val spanBuilder = SpannableStringBuilder(view.text)
+	spanBuilder.setSpan(ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+	view.text = spanBuilder
 }
 
 /*@BindingAdapter("disableShift")
@@ -78,39 +84,39 @@ fun disableShiftMode(view: BottomNavigationView, disableShift: Boolean) {
 
 @BindingAdapter("onOkInSoftKeyboard")
 fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardListener?) {
-    if (listener == null) {
-        view.setOnEditorActionListener(null)
-    } else {
-        view.setOnEditorActionListener { _, _, event ->
-            if (event != null) {
-                // if shift key is down, then we want to insert the '\n' char in the TextView;
-                // otherwise, the default action is to invoke listener callback.
-                if (!event.isShiftPressed) {
-                    listener.onOkInSoftKeyboard()
-                    return@setOnEditorActionListener false
-                }
-                return@setOnEditorActionListener false
-            }
-
-            listener.onOkInSoftKeyboard()
-            return@setOnEditorActionListener false
-        }
-    }
+	if (listener == null) {
+		view.setOnEditorActionListener(null)
+	} else {
+		view.setOnEditorActionListener { _, _, event ->
+			if (event != null) {
+				// if shift key is down, then we want to insert the '\n' char in the TextView;
+				// otherwise, the default action is to invoke listener callback.
+				if (!event.isShiftPressed) {
+					listener.onOkInSoftKeyboard()
+					return@setOnEditorActionListener false
+				}
+				return@setOnEditorActionListener false
+			}
+			
+			listener.onOkInSoftKeyboard()
+			return@setOnEditorActionListener false
+		}
+	}
 }
 
 @BindingAdapter("onDrawableEndClick")
 fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
-    if (listener != null) {
-        view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
-                    listener.onDrawableEnd()
-                    return@setOnTouchListener true
-                }
-            }
-            return@setOnTouchListener false
-        }
-    }
+	if (listener != null) {
+		view.setOnTouchListener { _, event ->
+			if (event.action == MotionEvent.ACTION_UP) {
+				if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+					listener.onDrawableEnd()
+					return@setOnTouchListener true
+				}
+			}
+			return@setOnTouchListener false
+		}
+	}
 }
 
 @BindingAdapter("onDrawableEndClick")
@@ -121,7 +127,7 @@ fun setOnDrawableEndClick(editText: AppCompatEditText, listener: OnCompoundDrawa
 			if (event.action == MotionEvent.ACTION_DOWN) {
 				if (editText.compoundDrawables[DRAWABLE_RIGHT] == null) return@setOnTouchListener false
 				else if (event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -
-					padding)) {
+						padding)) {
 					listener.onDrawableEnd()
 					return@setOnTouchListener true
 				}
@@ -133,10 +139,10 @@ fun setOnDrawableEndClick(editText: AppCompatEditText, listener: OnCompoundDrawa
 
 @BindingAdapter("itemDecoration", "offset", requireAll = false)
 fun setItemDecoration(view: RecyclerView, decoration: String, offset: Int) {
-    val decorator: RecyclerView.ItemDecoration? = when (decoration) {
-        "ItemOffsetDecoration" -> ItemOffsetDecoration(view.context, offset)
-        else -> null
-    }
+	val decorator: RecyclerView.ItemDecoration? = when (decoration) {
+		"ItemOffsetDecoration" -> ItemOffsetDecoration(view.context, offset)
+		else -> null
+	}
 	view.addItemDecoration(decorator!!)
 }
 

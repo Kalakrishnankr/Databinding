@@ -74,4 +74,7 @@
 	<string name="college_indoor">College (Indoor)</string>
 	<string name="my_profile">My Profile</string>
 	<string name="edit_profile">Edit Profile</string>
+	<string name="error_first_name">Please enter your first name</string>
+	<string name="error_last_name">Please enter your last name</string>
+	<string name="error_mobile">Please enter a valid mobile number</string>
 </resources>

@@ -16,6 +16,7 @@ import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
+import kotlinx.android.synthetic.main.item_top_finishes.view.*
 import javax.inject.Inject
 
 
@@ -36,32 +37,24 @@ class MoreInfoFragment : BaseFragment() {
 		binding.vm = vm
 		binding.handler = this
 		binding.setLifecycleOwner(viewLifecycleOwner)
-		vm.selectedExperiencePosition.observe(viewLifecycleOwner, Observer {
-			vm.setExperience(it)
+		vm.isTopFinishesSet.observe(viewLifecycleOwner, Observer {
+			if (it == true) readTopFinishes()
 		})
-		
-		vm.selectedPreferencePosition.observe(viewLifecycleOwner, Observer {
-			vm.setPreference(it)
-		})
-		
-		vm.selectedPosPosition.observe(viewLifecycleOwner, Observer {
-			vm.setPosition(it)
-		})
-		
-		vm.selectedHeightPosition.observe(viewLifecycleOwner, Observer {
-			vm.setHeight(it)
-		})
-		
-		vm.selectedDistancePosition.observe(viewLifecycleOwner, Observer {
-			vm.setDistance(it)
+		vm.athlete.observe(viewLifecycleOwner, Observer {
+			it.topFinishes.forEachIndexed { index, s ->
+				if (index >= 1) addTopFinish(s)
+			}
 		})
 	}
 	
-	fun addTopFinish() {
+	fun getItemView(): Int = R.layout.simple_spinner_item_1line
+	
+	fun addTopFinish(topFinish: String? = null) {
 		val inflater = LayoutInflater.from(context)
 		val binding: TopFinishesBinding = inflater.bind(R.layout.item_top_finishes, this.binding.topFinishesLL)
 		binding.handler = this
 		binding.vm = vm
+		binding.topFinishesAET.setText(topFinish)
 		this.binding.topFinishesLL.addView(binding.root)
 		this.binding.topFinishesLL.invalidate()
 		binding.setLifecycleOwner(viewLifecycleOwner)
@@ -69,12 +62,14 @@ class MoreInfoFragment : BaseFragment() {
 	}
 	
 	fun removeTopFinish(view: View) {
+		view.topFinishesAET.text = null
 		binding.topFinishesLL.removeView(view)
 		vm.removeTopFinish()
 	}
 	
-	fun readTopFinishes() {
+	private fun readTopFinishes() {
 		val topFinishes = ArrayList<String>()
+		topFinishes.add(binding.editTopFinishes1.text.toString())
 		binding.topFinishesLL.forEach {
 			val topFinish = it.findViewById<AppCompatEditText>(R.id.topFinishesAET).text.toString()
 			topFinishes.add(topFinish)
@@ -82,5 +77,4 @@ class MoreInfoFragment : BaseFragment() {
 		}
 	}
 	
-	fun getItemView() : Int = R.layout.simple_spinner_item_1line
 }

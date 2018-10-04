@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	<data class="BasicInfoBinding">
+		<import type="com.beachpartnerllc.beachpartner.R"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.BasicInfoFragment"/>
 		<variable name="adapter" type="android.widget.ArrayAdapter"/>
+		<variable name="firstNameError" type="Boolean"/>
+		<variable name="lastNameError" type="Boolean"/>
+		<variable name="mobileError" type="Boolean"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -47,9 +51,10 @@
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.firstName}"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
-			android:text="@={vm.profile.firstName}"
+			app:error="@{vm.isProfileEdit &amp;&amp; firstNameError ? @string/invalid_name : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_fname_label"
@@ -87,9 +92,10 @@
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.lastName}"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
-			android:text="@={vm.profile.lastName}"
+			app:error="@{vm.isProfileEdit &amp;&amp; lastNameError ? @string/invalid_name : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_lname_label"
@@ -123,10 +129,10 @@
 			android:layout_margin="17dp"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:selectedItemPosition="@={vm.selectedGenderPosition}"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
 			app:adapter="@{adapter}"
-			android:selectedItemPosition="@={vm.selectedGenderPosition}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
@@ -159,14 +165,14 @@
 			android:layout_margin="17dp"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
+			android:focusable="false"
 			android:inputType="date"
+			android:onClick="@{()->handler.onDobClick()}"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.dob}"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
-			android:onClick="@{()->handler.onDobClick()}"
-			android:text="@={vm.profile.dob}"
-			android:focusable="false"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_dob_label"
@@ -200,8 +206,8 @@
 			android:layout_margin="17dp"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
-			android:textColor="@color/blue_263588"
 			android:selectedItemPosition="@={vm.selectedStatePosition}"
+			android:textColor="@color/blue_263588"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/spinner_state_label"
@@ -235,13 +241,14 @@
 			android:layout_margin="17dp"
 			android:background="@drawable/text_field"
 			android:enabled="@{vm.isProfileEdit}"
-			android:inputType="textCapWords"
+			android:inputType="phone"
 			android:maxLength="10"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.mobile}"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
-			android:text="@={vm.profile.mobile}"
+			app:error="@{vm.isProfileEdit &amp;&amp; mobileError ? @string/invalid_mobile : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
