@@ -35,6 +35,6 @@ class MessageFragment : BaseFragment() {
 			.setQuery(vm.getMessages(chatId), Message::class.java)
 			.setLifecycleOwner(viewLifecycleOwner)
 			.build()
-		binding.adapter = MessageAdapter(options)
+		binding.adapter = MessageAdapter(vm.getSelfId(), options)
 	}
 }

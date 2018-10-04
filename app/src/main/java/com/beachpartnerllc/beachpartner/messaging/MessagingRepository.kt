@@ -47,4 +47,6 @@ class MessagingRepository
 			.document(chatId)
 			.collection("messages")
 	}
+	
+	fun getSelfId() = pref.userId
 }

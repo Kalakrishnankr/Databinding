@@ -11,4 +11,6 @@ class MessagingViewModel @Inject constructor(private val repo: MessagingReposito
 	fun getChats() = repo.getChats()
 	
 	fun getMessages(chatId: String) = repo.getMessages(chatId)
+	
+	fun getSelfId() = repo.getSelfId()
 }
