@@ -61,6 +61,7 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="both">Both</string>
+	<string name="hyphen">-</string>
 
 
 </resources>

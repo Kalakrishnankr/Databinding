@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection
-import com.beachpartnerllc.beachpartner.etc.common.SingleLiveEvent
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
@@ -21,8 +20,6 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 	
 	val loading = MutableLiveData<Boolean>()
 	val selectedStatePosition = MutableLiveData<Int>()
-	val multibar = MutableLiveData<Boolean>()
-	val event = SingleLiveEvent<String>()
 	var search = MutableLiveData<Search>()
 	var profile = MutableLiveData<Profile>()
 	var singleProfile = MutableLiveData<Resource<Profile>>()
@@ -119,7 +116,6 @@ class FinderViewModel @Inject constructor(private val repo: FinderRepository) : 
 		it
 		
 	}!!
-	
 	init {
 		search.value = Search()
 		profile.value = Profile()

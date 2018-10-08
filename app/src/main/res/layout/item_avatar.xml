@@ -4,8 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="StripItemBinding">
-		<variable
-			name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
 	</data>
 	<ImageView
 		android:id="@+id/itemIV"

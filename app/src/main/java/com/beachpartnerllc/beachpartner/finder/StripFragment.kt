@@ -28,7 +28,7 @@ import javax.inject.Inject
 class StripFragment : BaseFragment() {
 	@Inject lateinit var factory: ViewModelProvider.Factory
 	private lateinit var binding: StripFragmentBinding
-	private lateinit var vm: FinderViewModel
+	lateinit var vm: FinderViewModel
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = DataBindingUtil.inflate(inflater,R.layout.fragment_bpstrip_profiles,container,false)
@@ -53,7 +53,7 @@ class StripFragment : BaseFragment() {
 		
 		init {
 			itemBinding.itemIV.setOnClickListener{
-				Timber.e("Clicked" + itemBinding.item!!.userId )
+				Timber.e("Clicked" + itemBinding.item!!)
 				
 			}
 		}

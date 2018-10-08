@@ -108,8 +108,18 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
 @BindingAdapter("onThumbValueChange")
 fun setOnThumbValueChangeListener(view: MultiSlider, listener: OnMinMaxValueListener) {
 	view.setOnThumbValueChangeListener { multiSlider, thumb, thumbIndex, value ->
-		if (thumbIndex ==0) listener.onMinMax(value,thumbIndex) else listener.onMinMax(value,thumbIndex)
+		if (thumbIndex ==0) listener.onMinMax(value,thumbIndex)
+        else listener.onMinMax(value,thumbIndex)
 	}
+}
+
+@BindingAdapter("leftThumbValue")
+fun leftThumbValue(view: MultiSlider, value: Int) {
+    view.min = value
+}
+@BindingAdapter("rightThumbValue")
+fun rightThumbValue(view: MultiSlider, value: Int) {
+    view.max = value
 }
 
 @BindingAdapter("onCardEventChange")
