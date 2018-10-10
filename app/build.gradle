@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.3.0'
-    
+
     //exoplayer dependency
     implementation 'com.google.android.exoplayer:exoplayer:2.7.1'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.7.1'
@@ -69,6 +69,11 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+
+    //amazonS3
+    implementation 'com.amazonaws:aws-android-sdk-core:2.7.+'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.7.+'
+    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.7.+@aar') { transitive = true }
 
     // dagger dependency
     kapt 'com.google.dagger:dagger-compiler:2.12'
