@@ -63,4 +63,5 @@
 	<string name="event_details">Event Details</string>
 	<string name="master_calendar">Master Calendar</string>
 	<string name="messaging">Messaging</string>
+	<string name="type_a_message">Type a message</string>
 </resources>

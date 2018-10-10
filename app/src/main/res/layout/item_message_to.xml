@@ -30,10 +30,11 @@
 				android:minWidth="@dimen/dimen_64dp"
 				android:text="@{item.content}"
 				android:textColor="@color/grey_030303"
+				android:maxEms="14"
 				android:textSize="@dimen/text_16sp"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
-				tools:text="Hello"/>
+				tools:text="Hello df;lgd;flgkd;flgkd;flgkd;flkd;flgkd;flgkdf;ldkgd dlfkg;dfldf"/>
 
 			<TextView
 				android:id="@+id/timeTV"

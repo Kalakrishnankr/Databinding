@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class Preference(private val pref: SharedPreferences) {
 	var firstVisit: Boolean
 		get() = pref.getBoolean(PREF_FIRST_VISIT, true)
-		set(value) = pref.edit().putBoolean(PREF_FIRST_VISIT, value).apply()
+		set(value) = pref.edit { putBoolean(PREF_FIRST_VISIT, value) }
 	
 	val sessionId: String?
 		get() = pref.getString(PREF_SESSION_ID, null)

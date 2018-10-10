@@ -64,7 +64,7 @@
 			android:maxLines="1"
 			android:text="@{item.recent.content}"
 			android:textAppearance="?attr/textAppearanceListItem"
-			android:textColor="@color/grey_1d1e1f"
+			android:textColor="@color/grey_777777"
 			android:textSize="16sp"
 			app:layout_constraintBottom_toBottomOf="@id/avatarIV"
 			app:layout_constraintEnd_toEndOf="parent"

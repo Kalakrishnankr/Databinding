@@ -21,7 +21,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:autoLink="all"
-			android:maxEms="13"
+			android:maxEms="14"
 			android:minWidth="@dimen/dimen_64dp"
 			android:text="@{item.content}"
 			android:textColor="@color/grey_030303"

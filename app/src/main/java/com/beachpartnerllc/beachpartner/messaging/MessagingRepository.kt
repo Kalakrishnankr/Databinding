@@ -45,8 +45,22 @@ class MessagingRepository
 	fun getMessages(chatId: String): Query {
 		return db.collection("chat")
 			.document(chatId)
-			.collection("messages")
+			.collection("messages").orderBy(Message::sentAt.name, Query.Direction.DESCENDING)
 	}
 	
 	fun getSelfId() = pref.userId
+	
+	fun sendMessage(chatId: String, msg: Message) {
+		val chat = db.collection("chat").document(chatId)
+		
+		chat.collection("messages")
+			.add(msg).addOnSuccessListener { _ ->
+				val map = hashMapOf(
+					Message::senderId.name to msg.senderId,
+					Message::sentAt.name to msg.sentAt,
+					Message::content.name to msg.content
+				)
+				chat.update(Chat::recent.name, map)
+			}
+	}
 }

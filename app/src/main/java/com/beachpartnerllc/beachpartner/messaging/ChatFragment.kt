@@ -57,7 +57,7 @@ class ChatFragment : BaseFragment() {
 	}
 	
 	private fun onChatItem(chat: Chat) {
-		val direction = ChatFragmentDirections.actionMessage(chat.id!!)
+		val direction = ChatFragmentDirections.actionMessage(chat.id!!, chat.title!!)
 		findNavController().navigate(direction)
 	}
 }

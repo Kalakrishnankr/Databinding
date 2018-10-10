@@ -4,6 +4,7 @@
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="MessageBinding">
 		<variable name="adapter" type="com.beachpartnerllc.beachpartner.messaging.MessageAdapter"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.messaging.MessagingViewModel"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,12 +17,40 @@
 			android:layout_height="0dp"
 			android:adapter="@{adapter}"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintBottom_toTopOf="@+id/contentET"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:reverseLayout="true"
 			tools:listitem="@layout/item_message_from"/>
 
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/contentET"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:background="@drawable/draw_rect_f5f5f5_stroke_e4e4e4"
+			android:hint="@string/type_a_message"
+			android:padding="@dimen/dimen_16dp"
+			android:text="@={vm.message.content}"
+			android:textColor="@color/grey_484848"
+			android:textColorHint="@color/grey_c2c2c2"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"/>
+
+		<ImageView
+			android:id="@+id/sendIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:alpha="@{vm.message.content.trim().isEmpty() ? 0.5f : 1f}"
+			android:background="@drawable/draw_rect_233282"
+			android:contentDescription="@null"
+			android:enabled="@{!vm.message.content.trim().isEmpty()}"
+			android:onClick="@{()->vm.sendMessage()}"
+			android:padding="@dimen/dimen_12dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:srcCompat="@drawable/ic_send_white_24dp"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
