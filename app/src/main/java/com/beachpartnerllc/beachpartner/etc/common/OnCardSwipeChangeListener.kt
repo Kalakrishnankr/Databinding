@@ -1,6 +1,6 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
-import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection
+import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection
 
 /**
  * @author Samuel Robert <samuel.robert></samuel.robert>@seqato.com>

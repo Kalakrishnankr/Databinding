@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.cardstackview;
+package com.beachpartnerllc.beachpartner.finder.cardstackview;
 
 public enum StackFrom {
     Bottom, Top;

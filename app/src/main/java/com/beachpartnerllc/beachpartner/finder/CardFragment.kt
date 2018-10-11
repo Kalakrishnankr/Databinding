@@ -19,7 +19,6 @@ import javax.inject.Inject
 class CardFragment  : BaseFragment(){
 	@Inject lateinit var factory: ViewModelProvider.Factory
 	private lateinit var binding: CardFragmentBinding
-	private lateinit var vm : FinderViewModel
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_playcard,container,false)
@@ -28,9 +27,8 @@ class CardFragment  : BaseFragment(){
 	
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
-		vm = getViewModel(factory)
+		val vm: FinderViewModel = getViewModel(factory)
 		binding.vm = vm
 		binding.setLifecycleOwner(viewLifecycleOwner)
-		
 	}
 }

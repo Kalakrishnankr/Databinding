@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.cardstackview;
+package com.beachpartnerllc.beachpartner.finder.cardstackview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,10 +16,10 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 
 import com.beachpartnerllc.beachpartner.R;
-import com.beachpartnerllc.beachpartner.cardstackview.internal.CardContainerView;
-import com.beachpartnerllc.beachpartner.cardstackview.internal.CardStackOption;
-import com.beachpartnerllc.beachpartner.cardstackview.internal.CardStackState;
-import com.beachpartnerllc.beachpartner.cardstackview.internal.Util;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.internal.CardContainerView;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.internal.CardStackOption;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.internal.CardStackState;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.internal.Util;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,14 +27,33 @@ import java.util.List;
 import androidx.core.view.ViewCompat;
 
 public class CardStackView extends FrameLayout {
-
-    public interface CardEventListener {
-        void onCardDragging(float percentX, float percentY);
-        void onCardSwiped(com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction, int index);
-        void onCardReversed();
-        void onCardMovedToOrigin();
-        void onCardClicked(int index);
-    }
+	
+	private CardContainerView.ContainerEventListener containerEventListener = new CardContainerView.ContainerEventListener() {
+		@Override
+		public void onContainerDragging(float percentX, float percentY) {
+			update(percentX, percentY);
+		}
+		
+		@Override
+		public void onContainerSwiped(Point point, SwipeDirection direction) {
+			swipe(point, direction);
+		}
+		
+		@Override
+		public void onContainerMovedToOrigin() {
+			initializeCardStackPosition();
+			if (cardEventListener != null) {
+				cardEventListener.onCardMovedToOrigin();
+			}
+		}
+		
+		@Override
+		public void onContainerClicked() {
+			if (cardEventListener != null) {
+				cardEventListener.onCardClicked(state.topIndex);
+			}
+		}
+	};
 
     private CardStackOption option = new CardStackOption();
     private CardStackState state = new CardStackState();
@@ -56,38 +75,15 @@ public class CardStackView extends FrameLayout {
             state.lastCount = adapter.getCount();
         }
     };
-    private CardContainerView.ContainerEventListener containerEventListener = new CardContainerView.ContainerEventListener() {
-        @Override
-        public void onContainerDragging(float percentX, float percentY) {
-            update(percentX, percentY);
-        }
-        @Override
-        public void onContainerSwiped(Point point, com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction) {
-            swipe(point, direction);
-        }
-        @Override
-        public void onContainerMovedToOrigin() {
-            initializeCardStackPosition();
-            if (cardEventListener != null) {
-                cardEventListener.onCardMovedToOrigin();
-            }
-        }
-        @Override
-        public void onContainerClicked() {
-            if (cardEventListener != null) {
-                cardEventListener.onCardClicked(state.topIndex);
-            }
-        }
-    };
-
-    public CardStackView(Context context) {
-        this(context, null);
-    }
-
-    public CardStackView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
+	
+	public CardStackView(Context context) {
+		this(context, null);
+	}
+	
+	public CardStackView(Context context, AttributeSet attrs) {
+		this(context, attrs, 0);
+	}
+	
     public CardStackView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -96,16 +92,23 @@ public class CardStackView extends FrameLayout {
         setSwipeThreshold(array.getFloat(R.styleable.CardStackView_swipeThreshold, option.swipeThreshold));
         setTranslationDiff(array.getFloat(R.styleable.CardStackView_translationDiff, option.translationDiff));
         setScaleDiff(array.getFloat(R.styleable.CardStackView_scaleDiff, option.scaleDiff));
-        setStackFrom(com.beachpartnerllc.beachpartner.cardstackview.StackFrom.values()[array.getInt(R.styleable.CardStackView_stackFrom, option.stackFrom.ordinal())]);
+	    setStackFrom(StackFrom.values()[array.getInt(R.styleable.CardStackView_stackFrom, option.stackFrom.ordinal())]);
         setElevationEnabled(array.getBoolean(R.styleable.CardStackView_elevationEnabled, option.isElevationEnabled));
         setSwipeEnabled(array.getBoolean(R.styleable.CardStackView_swipeEnabled, option.isSwipeEnabled));
-        setSwipeDirection(com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection.from(array.getInt(R.styleable.CardStackView_swipeDirection, 0)));
+	    setSwipeDirection(SwipeDirection.from(array.getInt(R.styleable.CardStackView_swipeDirection, 0)));
         setLeftOverlay(array.getResourceId(R.styleable.CardStackView_leftOverlay, 0));
         setRightOverlay(array.getResourceId(R.styleable.CardStackView_rightOverlay, 0));
         setBottomOverlay(array.getResourceId(R.styleable.CardStackView_bottomOverlay, 0));
         setTopOverlay(array.getResourceId(R.styleable.CardStackView_topOverlay, 0));
         array.recycle();
     }
+	
+	public void setStackFrom(StackFrom stackFrom) {
+		option.stackFrom = stackFrom;
+		if (adapter != null) {
+			initialize(false);
+		}
+	}
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
@@ -207,37 +210,11 @@ public class CardStackView extends FrameLayout {
             ViewCompat.setRotation(view, 0f);
         }
     }
-
-    private void update(float percentX, float percentY) {
-        if (cardEventListener != null) {
-            cardEventListener.onCardDragging(percentX, percentY);
-        }
-
-        if (!option.isElevationEnabled) {
-            return;
-        }
-
-        for (int i = 1; i < option.visibleCount; i++) {
-            CardContainerView view = containers.get(i);
-
-            float currentScale = 1f - (i * option.scaleDiff);
-            float nextScale = 1f - ((i - 1) * option.scaleDiff);
-            float percent = currentScale + (nextScale - currentScale) * Math.abs(percentX);
-            ViewCompat.setScaleX(view, percent);
-            ViewCompat.setScaleY(view, percent);
-
-            float currentTranslationY = i * Util.toPx(getContext(), option.translationDiff);
-            if (option.stackFrom == com.beachpartnerllc.beachpartner.cardstackview.StackFrom.Top) {
-                currentTranslationY *= -1;
-            }
-
-            float nextTranslationY = (i - 1) * Util.toPx(getContext(), option.translationDiff);
-            if (option.stackFrom == com.beachpartnerllc.beachpartner.cardstackview.StackFrom.Top) {
-                nextTranslationY *= -1;
-            }
-
-            float translationY = currentTranslationY - Math.abs(percentX) * (currentTranslationY - nextTranslationY);
-            ViewCompat.setTranslationY(view, translationY);
+	
+	public void setSwipeDirection(List<SwipeDirection> swipeDirection) {
+		option.swipeDirection = swipeDirection;
+		if (adapter != null) {
+			initialize(false);
         }
     }
 
@@ -262,38 +239,10 @@ public class CardStackView extends FrameLayout {
                 .setListener(listener)
                 .start();
     }
-
-    public void performSwipe(com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction, AnimatorSet set, AnimatorSet overlayAnimatorSet, final Animator.AnimatorListener listener) {
-        boolean showOverlay;
-        if (showOverlay = direction == com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection.Left) {
-            getTopView().showLeftOverlay();
-        } else if (showOverlay = direction == com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection.Right) {
-            getTopView().showRightOverlay();
-        } else if (showOverlay = direction == com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection.Bottom){
-            getTopView().showBottomOverlay();
-        } else if (showOverlay = direction == com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection.Top){
-            getTopView().showTopOverlay();
-        } else {
-            showOverlay = false;
-        }
-        if(showOverlay) {
-            if(overlayAnimatorSet != null) {
-                getTopView().setOverlayAlpha(overlayAnimatorSet);
-            } else {
-                getTopView().setOverlayAlpha(1f);
-            }
-        }
-
-        set.addListener(listener);
-        set.setInterpolator(new TimeInterpolator() {
-            @Override
-            public float getInterpolation(float input) {
-                CardContainerView view = getTopView();
-                update(view.getPercentX(), view.getPercentY());
-                return input;
-            }
-        });
-        set.start();
+	
+	public void swipe(final SwipeDirection direction) {
+		final Point point = new Point(0, 2000);
+		swipe(point, direction);
     }
 
     private void moveToBottom(CardContainerView container) {
@@ -335,23 +284,15 @@ public class CardStackView extends FrameLayout {
             containers.get(1).setDraggable(true);
         }
     }
-
-    private void executePostSwipeTask(Point point, com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction) {
-        reorderForSwipe();
-
-        state.lastPoint = point;
-
-        initializeCardStackPosition();
-
-        state.topIndex++;
-
-        if (cardEventListener != null) {
-            cardEventListener.onCardSwiped(direction, state.topIndex - 1);
-        }
-
-        loadNextView();
-        containers.getLast().setContainerEventListener(null);
-        containers.getFirst().setContainerEventListener(containerEventListener);
+	
+	public void swipe(final Point point, final SwipeDirection direction) {
+		executePreSwipeTask();
+		performSwipe(point, new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationEnd(Animator animator) {
+				executePostSwipeTask(point, direction);
+			}
+		});
     }
 
     private void executePostReverseTask() {
@@ -412,12 +353,23 @@ public class CardStackView extends FrameLayout {
             initialize(false);
         }
     }
-
-    public void setStackFrom(com.beachpartnerllc.beachpartner.cardstackview.StackFrom stackFrom) {
-        option.stackFrom = stackFrom;
-        if (adapter != null) {
-            initialize(false);
+	
+	private void executePostSwipeTask(Point point, SwipeDirection direction) {
+		reorderForSwipe();
+		
+		state.lastPoint = point;
+		
+		initializeCardStackPosition();
+		
+		state.topIndex++;
+		
+		if (cardEventListener != null) {
+			cardEventListener.onCardSwiped(direction, state.topIndex - 1);
         }
+		
+		loadNextView();
+		containers.getLast().setContainerEventListener(null);
+		containers.getFirst().setContainerEventListener(containerEventListener);
     }
 
     public void setElevationEnabled(boolean isElevationEnabled) {
@@ -433,12 +385,9 @@ public class CardStackView extends FrameLayout {
             initialize(false);
         }
     }
-
-    public void setSwipeDirection(List<com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection> swipeDirection) {
-        option.swipeDirection = swipeDirection;
-        if (adapter != null) {
-            initialize(false);
-        }
+	
+	public void swipe(final SwipeDirection direction, AnimatorSet set) {
+		swipe(direction, set, null);
     }
 
     public void setLeftOverlay(int leftOverlay) {
@@ -472,27 +421,8 @@ public class CardStackView extends FrameLayout {
     public void setPaginationReserved() {
         state.isPaginationReserved = true;
     }
-    
-    public void swipe(final com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction) {
-        final Point point = new Point(0, 2000);
-        swipe(point, direction);
-    }
-
-    public void swipe(final Point point, final com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction) {
-        executePreSwipeTask();
-        performSwipe(point, new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                executePostSwipeTask(point, direction);
-            }
-        });
-    }
-
-    public void swipe(final com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction, AnimatorSet set) {
-        swipe(direction, set, null);
-    }
-   
-    public void swipe(final com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection direction, AnimatorSet
+	
+	public void swipe(final SwipeDirection direction, AnimatorSet
         cardAnimatorSet, AnimatorSet overlayAnimatorSet) {
         executePreSwipeTask();
         performSwipe(direction, cardAnimatorSet, overlayAnimatorSet, new AnimatorListenerAdapter() {
@@ -502,6 +432,84 @@ public class CardStackView extends FrameLayout {
             }
         });
     }
+	
+	public void performSwipe(SwipeDirection direction, AnimatorSet set, AnimatorSet overlayAnimatorSet, final Animator.AnimatorListener listener) {
+		boolean showOverlay;
+		if (showOverlay = direction == SwipeDirection.Left) {
+			getTopView().showLeftOverlay();
+		} else if (showOverlay = direction == SwipeDirection.Right) {
+			getTopView().showRightOverlay();
+		} else if (showOverlay = direction == SwipeDirection.Bottom) {
+			getTopView().showBottomOverlay();
+		} else if (showOverlay = direction == SwipeDirection.Top) {
+			getTopView().showTopOverlay();
+		} else {
+			showOverlay = false;
+		}
+		if (showOverlay) {
+			if (overlayAnimatorSet != null) {
+				getTopView().setOverlayAlpha(overlayAnimatorSet);
+			} else {
+				getTopView().setOverlayAlpha(1f);
+			}
+		}
+		
+		set.addListener(listener);
+		set.setInterpolator(new TimeInterpolator() {
+			@Override
+			public float getInterpolation(float input) {
+				CardContainerView view = getTopView();
+				update(view.getPercentX(), view.getPercentY());
+				return input;
+			}
+		});
+		set.start();
+	}
+	
+	private void update(float percentX, float percentY) {
+		if (cardEventListener != null) {
+			cardEventListener.onCardDragging(percentX, percentY);
+		}
+		
+		if (!option.isElevationEnabled) {
+			return;
+		}
+		
+		for (int i = 1; i < option.visibleCount; i++) {
+			CardContainerView view = containers.get(i);
+			
+			float currentScale = 1f - (i * option.scaleDiff);
+			float nextScale = 1f - ((i - 1) * option.scaleDiff);
+			float percent = currentScale + (nextScale - currentScale) * Math.abs(percentX);
+			ViewCompat.setScaleX(view, percent);
+			ViewCompat.setScaleY(view, percent);
+			
+			float currentTranslationY = i * Util.toPx(getContext(), option.translationDiff);
+			if (option.stackFrom == StackFrom.Top) {
+				currentTranslationY *= -1;
+			}
+			
+			float nextTranslationY = (i - 1) * Util.toPx(getContext(), option.translationDiff);
+			if (option.stackFrom == StackFrom.Top) {
+				nextTranslationY *= -1;
+			}
+			
+			float translationY = currentTranslationY - Math.abs(percentX) * (currentTranslationY - nextTranslationY);
+			ViewCompat.setTranslationY(view, translationY);
+		}
+	}
+	
+	public interface CardEventListener {
+		void onCardDragging(float percentX, float percentY);
+		
+		void onCardSwiped(SwipeDirection direction, int index);
+		
+		void onCardReversed();
+		
+		void onCardMovedToOrigin();
+		
+		void onCardClicked(int index);
+	}
 
     public void reverse() {
         if (state.lastPoint != null) {

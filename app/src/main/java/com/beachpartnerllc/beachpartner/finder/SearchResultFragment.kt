@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SearchResultFragment2Binding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
+import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.user.Profile
@@ -28,7 +28,7 @@ class SearchResultFragment : BaseFragment() {
 	private lateinit var vm: FinderViewModel
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_result, container, false)
+		binding = inflater.bind(R.layout.fragment_search_result, container)
 		return binding.root
 	}
 	
@@ -41,13 +41,13 @@ class SearchResultFragment : BaseFragment() {
 			if (it.isSuccess()) {
 				binding.loaderPB.isVisible = false
 				val adapter = ProfileListingAdapter(context!!, ::alertFlagged,::profileInfo)
-				adapter.addAll(it.data)
+				adapter.addAll(it.data!!)
 				binding.profileCSV.setAdapter(adapter)
 			}
 		})
 	}
 	
-	fun alertFlagged(profile: Profile) {
+	private fun alertFlagged(profile: Profile) {
 		val builder = AlertDialog.Builder(context!!)
 		builder.setTitle("${getString(R.string.flag_title)} ${profile.firstName} ${profile.lastName} ?")
 			.setMessage(R.string.flag_message)
@@ -62,9 +62,8 @@ class SearchResultFragment : BaseFragment() {
 		vm.blockPerson(profile).observe(this, Observer { })
 	}
 	
-	fun profileInfo(profile: Profile) {
+	private fun profileInfo(profile: Profile) {
 		val direction  = SearchResultFragmentDirections.ActionProfileDetails(profile.userId!!)
 		findNavController().navigate(direction)
 	}
-	
 }

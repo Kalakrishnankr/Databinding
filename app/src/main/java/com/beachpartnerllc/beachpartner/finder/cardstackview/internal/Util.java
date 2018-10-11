@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.cardstackview.internal;
+package com.beachpartnerllc.beachpartner.finder.cardstackview.internal;
 
 import android.content.Context;
 import android.graphics.Point;

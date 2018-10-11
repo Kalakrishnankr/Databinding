@@ -26,7 +26,6 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.wang.avi.AVLoadingIndicatorView
-import timber.log.Timber
 
 
 /**
@@ -34,7 +33,6 @@ import timber.log.Timber
  * @created on 24 Sep 2018 at 10:17 AM
  */
 class ProfileListingAdapter(
-
 	context: Context,
 	private val callback: (Profile) -> Unit,
 	private val call: (Profile) -> Unit) : ArrayAdapter<Profile>(context, 0) {
@@ -46,27 +44,27 @@ class ProfileListingAdapter(
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 		val holder = if (convertView == null) {
 			binding = parent!!.bind(R.layout.item_profile)
-			binding.adapter=this
+			binding.adapter = this
 			val holder = ViewHolder(binding)
 			binding.root.tag = holder
 			holder
 		} else {
 			convertView.tag as ViewHolder
 		}
+		
 		binding.loadingAVLV.visibility = View.INVISIBLE
 		binding.videoPV.visibility = View.INVISIBLE
 		binding.avatarIV.visibility = View.VISIBLE
-		return holder.bind(getItem(position), context,callback,call)
+		return holder.bind(getItem(position), context, callback, call)
 	}
 	
 	class ViewHolder(private val binding: ProfileItemBinding) {
 		fun bind(item: Profile, context: Context, callback: (Profile) -> Unit, call: (Profile) -> Unit): View {
 			binding.profile = item
-			Timber.e("VideoURL"+item.videourl)
 			binding.executePendingBindings()
 			Glide.with(context).load(item.imageurl).apply(RequestOptions.placeholderOf(R.drawable.default_icon)).into(binding
 				.avatarIV)
-			binding.flagIMV.setOnClickListener{
+			binding.flagIMV.setOnClickListener {
 				callback.invoke(item)
 			}
 			binding.infoIMV.setOnClickListener {
@@ -76,7 +74,7 @@ class ProfileListingAdapter(
 		}
 	}
 	
-	fun setVideoUrl(pgbar : AVLoadingIndicatorView,imageview: ImageView, exoPlayer: SimpleExoPlayerView, url: Any?) {
+	fun setVideoUrl(pgbar: AVLoadingIndicatorView, imageview: ImageView, exoPlayer: SimpleExoPlayerView, url: Any?) {
 		pgbar.visibility = View.VISIBLE
 		if (url == null) return
 		val simpleExoplayer: SimpleExoPlayer
@@ -93,12 +91,12 @@ class ProfileListingAdapter(
 		simpleExoplayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
 		exoPlayer.player = simpleExoplayer
 		exoPlayer.controllerAutoShow = false
-		setStateChangeListener(pgbar,simpleExoplayer,imageview,exoPlayer)
+		setStateChangeListener(pgbar, simpleExoplayer, imageview, exoPlayer)
 	}
 	
-	private fun setStateChangeListener(loadingAVL : AVLoadingIndicatorView,simpleExoplayer: SimpleExoPlayer?, imageview:
+	private fun setStateChangeListener(loadingAVL: AVLoadingIndicatorView, simpleExoplayer: SimpleExoPlayer?, imageview:
 	ImageView, exoPlayer:
-	SimpleExoPlayerView) {
+	                                   SimpleExoPlayerView) {
 		simpleExoplayer!!.addListener(object : Player.DefaultEventListener() {
 			override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
 				when (playbackState) {
@@ -108,7 +106,8 @@ class ProfileListingAdapter(
 					Player.STATE_READY -> {
 						loadingAVL.visibility = View.INVISIBLE
 						imageview.visibility = View.INVISIBLE
-						exoPlayer.visibility = View.VISIBLE }
+						exoPlayer.visibility = View.VISIBLE
+					}
 					Player.STATE_ENDED -> {
 						imageview.visibility = View.VISIBLE
 						exoPlayer.visibility = View.GONE
@@ -119,7 +118,7 @@ class ProfileListingAdapter(
 	}
 	
 	private fun buildMediaSource(uri: Uri?, context: Context): MediaSource {
-		var dataSourceFactory = DefaultDataSourceFactory(context,"ua")
+		var dataSourceFactory = DefaultDataSourceFactory(context, "ua")
 		//val dataSourceFactory = DefaultHttpDataSourceFactory("ua")
 		return ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
 	}

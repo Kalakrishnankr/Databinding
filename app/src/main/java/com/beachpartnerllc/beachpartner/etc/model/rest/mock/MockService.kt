@@ -6,7 +6,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.finder.Flag
-import com.beachpartnerllc.beachpartner.user.Gender
+import com.beachpartnerllc.beachpartner.finder.Search
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -29,39 +29,38 @@ class MockService(
 	private val app: Application) : ApiService {
 	
 	
-	override fun bpProfiles(): Call<Resource<List<Profile>>> {
+	override fun getStripProfile(): Call<Resource<List<Profile>>> {
 		val data = stringFromFile("get_profiles")
 		val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
-		return delegate.returningResponse(Resource.success(response)).bpProfiles()
+		return delegate.returningResponse(Resource.success(response)).getStripProfile()
 	}
 	
-	override fun getAccount(userId: Int) : Call<Resource<Profile>>{
+	override fun getProfile(userId: Int): Call<Resource<Profile>> {
 		val data = stringFromFile("get_profile")
 		val response: Profile = serializer.fromJson(data, object : TypeToken<Profile>() {}.type)
-		return delegate.returningResponse(Resource.success(response)).getAccount(userId)
+		return delegate.returningResponse(Resource.success(response)).getProfile(userId)
 	}
 	
-	override fun flagUser(request: HashMap<String, Any>): Call<Flag> {
-		return delegate.returningResponse("success").flagUser(request)
+	override fun blockUser(request: HashMap<String, Any>): Call<Flag> {
+		return delegate.returningResponse("success").blockUser(request)
 	}
 	
-	override fun allProfiles(isCoach: Boolean, minAge: Int?, maxAge: Int?, gender: Gender?, stateId: Int?):
-		Call<Resource<List<Profile>>> {
+	override fun searchProfile(search: Search): Call<Resource<List<Profile>>> {
 		val data = stringFromFile("get_profiles")
 		val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
-		return delegate.returningResponse(Resource.success(response)).allProfiles(isCoach, minAge, maxAge,gender, stateId)
+		return delegate.returningResponse(Resource.success(response)).searchProfile(search)
 	}
 	
-	override fun leftSwipe(userId: Int): Call<Resource<Profile>> {
-		return delegate.returningResponse("success").leftSwipe(userId)
+	override fun dislikeUser(userId: Int): Call<Resource<Profile>> {
+		return delegate.returningResponse("success").dislikeUser(userId)
 	}
 	
-	override fun rightSwipe(userId: Int): Call<Resource<Profile>> {
-		return delegate.returningResponse("success").rightSwipe(userId)
+	override fun likeUser(userId: Int): Call<Resource<Profile>> {
+		return delegate.returningResponse("success").likeUser(userId)
 	}
 	
-	override fun topSwipe(userId: Int): Call<Resource<Profile>> {
-		return delegate.returningResponse("success").rightSwipe(userId)
+	override fun hiFiveUser(userId: Int): Call<Resource<Profile>> {
+		return delegate.returningResponse("success").likeUser(userId)
 	}
 	
 	override fun getStates(): LiveData<ApiResponse<List<State>>> {

@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.cardstackview.internal;
+package com.beachpartnerllc.beachpartner.finder.cardstackview.internal;
 
 
 import android.animation.AnimatorSet;
@@ -14,14 +14,14 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 
 import com.beachpartnerllc.beachpartner.R;
-import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection;
 
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 
 public class CardContainerView extends FrameLayout {
-
-    private com.beachpartnerllc.beachpartner.cardstackview.internal.CardStackOption option;
+	
+	private CardStackOption option;
 
     private float viewOriginX = 0f;
     private float viewOriginY = 0f;
@@ -115,10 +115,10 @@ public class CardContainerView extends FrameLayout {
 
             float motionCurrentX = event.getRawX();
             float motionCurrentY = event.getRawY();
-
-            Point point = com.beachpartnerllc.beachpartner.cardstackview.internal.Util.getTargetPoint(motionOriginX, motionOriginY, motionCurrentX, motionCurrentY);
-            com.beachpartnerllc.beachpartner.cardstackview.internal.Quadrant quadrant = com.beachpartnerllc.beachpartner.cardstackview.internal.Util.getQuadrant(motionOriginX, motionOriginY, motionCurrentX, motionCurrentY);
-            double radian = com.beachpartnerllc.beachpartner.cardstackview.internal.Util.getRadian(motionOriginX, motionOriginY, motionCurrentX, motionCurrentY);
+	
+	        Point point = Util.getTargetPoint(motionOriginX, motionOriginY, motionCurrentX, motionCurrentY);
+	        Quadrant quadrant = Util.getQuadrant(motionOriginX, motionOriginY, motionCurrentX, motionCurrentY);
+	        double radian = Util.getRadian(motionOriginX, motionOriginY, motionCurrentX, motionCurrentY);
             double degree = 0;
             SwipeDirection direction = null;
             switch (quadrant) {
@@ -286,8 +286,8 @@ public class CardContainerView extends FrameLayout {
         viewOriginX = ViewCompat.getTranslationX(this);
         viewOriginY = ViewCompat.getTranslationY(this);
     }
-
-    public void setCardStackOption(com.beachpartnerllc.beachpartner.cardstackview.internal.CardStackOption option) {
+	
+	public void setCardStackOption(CardStackOption option) {
         this.option = option;
     }
 

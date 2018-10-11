@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<data class="SearchResultFragment2Binding">
-		<import type="com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection"/>
+		<import type="com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
 		<variable name="adapter" type="com.beachpartnerllc.beachpartner.finder.ProfileListingAdapter"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"/>
@@ -11,7 +11,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
-		<com.beachpartnerllc.beachpartner.cardstackview.CardStackView
+		<com.beachpartnerllc.beachpartner.finder.cardstackview.CardStackView
 			android:id="@+id/profileCSV"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

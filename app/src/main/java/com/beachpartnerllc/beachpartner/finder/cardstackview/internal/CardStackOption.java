@@ -1,7 +1,7 @@
-package com.beachpartnerllc.beachpartner.cardstackview.internal;
+package com.beachpartnerllc.beachpartner.finder.cardstackview.internal;
 
-import com.beachpartnerllc.beachpartner.cardstackview.StackFrom;
-import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.StackFrom;
+import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection;
 
 import java.util.List;
 

@@ -10,9 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.beachpartnerllc.beachpartner.cardstackview.CardStackView
-import com.beachpartnerllc.beachpartner.cardstackview.SwipeDirection
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.beachpartnerllc.beachpartner.finder.cardstackview.CardStackView
+import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection
 import com.beachpartnerllc.beachpartner.utils.DoubleTapListener
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
