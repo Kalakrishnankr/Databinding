@@ -5,5 +5,5 @@ package com.beachpartnerllc.beachpartner.user
  * @created on 17 Aug 2018 at 11:07 AM
  */
 enum class Gender {
-	MALE, FEMALE
+    MALE, FEMALE, BOTH
 }

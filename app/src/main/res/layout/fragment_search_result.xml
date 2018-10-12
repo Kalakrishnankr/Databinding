@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data class="SearchResultFragment2Binding">
+		<import type="com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.finder.ProfileListingAdapter"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<com.beachpartnerllc.beachpartner.finder.cardstackview.CardStackView
+			android:id="@+id/profileCSV"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="false"
+			app:elevationEnabled="false"
+			app:layout_constraintBottom_toTopOf="@+id/btnbgVI"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:leftOverlay="@layout/overlay_left"
+			app:onCardEventChange="@{(direction,index)->vm.onSwipe(direction,index)}"
+			app:rightOverlay="@layout/overlay_right"
+			app:scaleDiff="0.03"
+			app:stackFrom="top"
+			app:swipeDirection="freedom_no_bottom"
+			app:swipeEnabled="true"
+			app:swipeThreshold="0.75"
+			app:topOverlay="@layout/overlay_top"
+			app:translationDiff="8"/>
+
+		<ProgressBar
+			android:id="@+id/loaderPB"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="@+id/profileCSV"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/profileCSV"/>
+
+		<View
+			android:id="@+id/bottomVIEW"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/circlebgVI"/>
+
+		<View
+			android:id="@+id/btnbgVI"
+			android:layout_width="174dp"
+			android:layout_height="42dp"
+			android:layout_marginBottom="@dimen/dimen_5dp"
+			android:background="@drawable/rounded_rectangle"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@id/bottomVIEW"/>
+
+		<View
+			android:id="@+id/circlebgVI"
+			android:layout_width="@dimen/dimen_65dp"
+			android:layout_height="@dimen/dimen_50dp"
+			android:layout_marginBottom="@dimen/dimen_12dp"
+			android:background="@drawable/shape_circle_bg"
+			app:layout_constraintBottom_toBottomOf="@+id/btnbgVI"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintStart_toStartOf="parent"/>
+
+		<ImageView
+			android:id="@+id/hifiIMV"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:contentDescription="@null"
+			android:onClick="@{()->profileCSV.swipe(SwipeDirection.Top)}"
+			android:src="@drawable/icon_hifi_finder"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toRightOf="@+id/undoIMV"
+			app:layout_constraintRight_toLeftOf="@+id/locationIMV"
+			app:layout_constraintTop_toTopOf="@+id/circlebgVI"/>
+
+		<ImageView
+			android:id="@+id/undoIMV"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:contentDescription="@null"
+			android:onClick="@{()->profileCSV.reverse()}"
+			android:padding="@dimen/dimen_3dp"
+			android:src="@drawable/icon_undo_active"
+			app:layout_constraintBottom_toBottomOf="@id/btnbgVI"
+			app:layout_constraintLeft_toLeftOf="@+id/btnbgVI"
+			app:layout_constraintRight_toLeftOf="@+id/circlebgVI"
+			app:layout_constraintTop_toTopOf="@+id/btnbgVI"/>
+
+		<ImageView
+			android:id="@+id/locationIMV"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:contentDescription="@null"
+			android:padding="@dimen/dimen_3dp"
+			android:src="@drawable/icon_location_active"
+			app:layout_constraintBottom_toBottomOf="@id/btnbgVI"
+			app:layout_constraintLeft_toRightOf="@+id/circlebgVI"
+			app:layout_constraintRight_toRightOf="@+id/btnbgVI"
+			app:layout_constraintTop_toTopOf="@+id/btnbgVI"/>
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

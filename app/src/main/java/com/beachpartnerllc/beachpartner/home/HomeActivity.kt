@@ -13,7 +13,6 @@ class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 	    setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.navFragment)

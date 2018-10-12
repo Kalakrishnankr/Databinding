@@ -1,7 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc
 
 import android.app.Activity
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.beachpartnerllc.beachpartner.BuildConfig
 import com.beachpartnerllc.beachpartner.etc.di.AppInjector
 import dagger.android.AndroidInjector
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * @created on 29 Nov 2017 at 10:50 AM
  */
 
-class App : Application(), HasActivityInjector {
+class App : MultiDexApplication(), HasActivityInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {

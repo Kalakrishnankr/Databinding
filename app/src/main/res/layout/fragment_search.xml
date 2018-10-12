@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<data class="SearchFragmentBinding">
+		<import type="androidx.navigation.Navigation"/>
+		<import type="com.beachpartnerllc.beachpartner.R"/>
+		<import type="com.beachpartnerllc.beachpartner.user.Gender"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+	</data>
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:context=".finder.SearchFragment">
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/ageCV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginTop="@dimen/dimen_13dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="@dimen/dimen_14dp">
+
+					<TextView
+						android:id="@+id/ageLimitTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/dimen_13dp"
+						android:layout_marginTop="@dimen/dimen_13dp"
+						android:contentDescription="@null"
+						android:text="@string/age_limit"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+					<TextView
+						android:id="@+id/minAgeTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="130dp"
+						android:layout_marginTop="@dimen/dimen_13dp"
+						android:contentDescription="@null"
+						android:gravity="end"
+						android:text="@{Integer.toString(vm.search.minAge)}"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintEnd_toStartOf="@+id/seperatorTV"
+						app:layout_constraintStart_toEndOf="@+id/ageLimitTV"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+					<TextView
+						android:id="@+id/seperatorTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/dimen_13dp"
+						android:contentDescription="@null"
+						android:gravity="center"
+						android:text="@string/hyphen"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintEnd_toStartOf="@+id/maxAgeTV"
+						app:layout_constraintStart_toEndOf="@+id/minAgeTV"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+					<TextView
+						android:id="@+id/maxAgeTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/dimen_13dp"
+						android:layout_marginEnd="@dimen/dimen_15dp"
+						android:contentDescription="@null"
+						android:gravity="start"
+						android:text="@{Integer.toString(vm.search.maxAge)}"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/seperatorTV"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+					<TextView
+						android:id="@+id/minTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/dimen_20dp"
+						android:gravity="center"
+						android:text="@string/min_age"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/ageLimitTV"/>
+
+					<TextView
+						android:id="@+id/maxTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="@dimen/dimen_20dp"
+						android:gravity="center"
+						android:text="@string/max_age"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/ageLimitTV"/>
+
+					<io.apptik.widget.MultiSlider
+						android:id="@+id/rangebarMS"
+						android:layout_width="0dp"
+						android:layout_height="50dp"
+						app:drawThumbsApart="true"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toRightOf="@+id/minTV"
+						app:layout_constraintRight_toLeftOf="@+id/maxTV"
+						app:layout_constraintTop_toBottomOf="@+id/ageLimitTV"
+						app:leftThumbValue="@{vm.search.minAge}"
+						app:onThumbValueChange="@{(min, max)->vm.onAgeChange(min,max)}"
+						app:rightThumbValue="@{vm.search.maxAge}"
+						app:thumbNumber="2"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.cardview.widget.CardView>
+
+			<TextView
+				android:id="@+id/ageInfoTV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/dimen_10dp"
+				android:padding="@dimen/dimen_10dp"
+				android:text="@string/finder_info_age"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/ageCV"/>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/stateCV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
+				app:layout_constraintTop_toBottomOf="@+id/ageInfoTV">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="@dimen/dimen_14dp">
+
+					<TextView
+						android:id="@+id/stateTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/dimen_13dp"
+						android:gravity="start"
+						android:text="@string/state"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/stateACS"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+					<androidx.appcompat.widget.AppCompatSpinner
+						android:id="@+id/stateACS"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="@dimen/dimen_15dp"
+						android:enabled="@{!vm.loading}"
+						android:selectedItemPosition="@={vm.selectedStatePosition}"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/stateTV"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+			</androidx.cardview.widget.CardView>
+			<TextView
+				android:id="@+id/stateInfoTV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/dimen_10dp"
+				android:padding="@dimen/dimen_10dp"
+				android:text="@string/finder_info_location"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/stateCV"/>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/genderCV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/stateInfoTV">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="@dimen/dimen_14dp">
+
+					<TextView
+						android:id="@+id/showmeTV"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/dimen_13dp"
+						android:gravity="start"
+						android:text="@string/show_me"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+					<TextView
+						android:id="@+id/genderTV"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="@dimen/dimen_15dp"
+						android:gravity="start"
+						android:text="@{vm.search.getGenderStatus()}"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+					<androidx.appcompat.widget.AppCompatButton
+						android:id="@+id/maleBT"
+						android:layout_width="@dimen/dimen_95dp"
+						android:layout_height="wrap_content"
+						android:background="@{vm.search.isMaleActive ? @color/blue_3a438e : R.color.white}"
+						android:onClick="@{()-> vm.isMaleActive()}"
+						android:text="@string/male"
+						app:layout_constraintEnd_toStartOf="@+id/femaleBT"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/showmeTV"/>
+
+					<androidx.appcompat.widget.AppCompatButton
+						android:id="@+id/femaleBT"
+						android:layout_width="@dimen/dimen_95dp"
+						android:layout_height="wrap_content"
+						android:background="@{vm.search.isFemaleActive ? @color/blue_3a438e : R.color.white}"
+						android:onClick="@{()-> vm.isFemaleActive()}"
+						android:text="@string/female"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/maleBT"
+						app:layout_constraintTop_toBottomOf="@+id/showmeTV"/>
+
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.cardview.widget.CardView>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/coachCV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/dimen_10dp"
+				android:layout_marginTop="@dimen/dimen_19dp"
+				android:layout_marginRight="@dimen/dimen_10dp"
+				app:cardCornerRadius="@dimen/dimen_5dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/genderCV">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="@dimen/dimen_14dp">
+					<TextView
+						android:id="@+id/coachTV"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/dimen_13dp"
+						android:gravity="center"
+						android:text="@string/include_coaches"
+						android:textColor="@color/blue_233282"
+						android:textStyle="bold"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+					<androidx.appcompat.widget.SwitchCompat
+						android:id="@+id/toggleSC"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="@dimen/dimen_15dp"
+						android:checked="@{vm.search.isCoach}"
+						android:onCheckedChanged="@{(v,checked)->vm.isCoachInclude(checked)}"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+			</androidx.cardview.widget.CardView>
+
+			<ImageView
+				android:id="@+id/playIMV"
+				android:layout_width="60dp"
+				android:layout_height="60dp"
+				android:layout_marginTop="10dp"
+				android:contentDescription="@null"
+				android:onClick="@{(view)-> Navigation.findNavController(view).navigate(R.id.action_finderTocard)}"
+				android:src="@drawable/icon_play"
+				app:layout_constraintLeft_toRightOf="parent"
+				app:layout_constraintRight_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/coachCV"/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/play"
+				android:textColor="@color/blue_233282"
+				android:textStyle="bold"
+				app:layout_constraintLeft_toRightOf="parent"
+				app:layout_constraintRight_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/playIMV"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</ScrollView>
+</layout>

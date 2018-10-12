@@ -19,9 +19,34 @@
 
 	<fragment
 		android:id="@+id/action_bp"
-		android:name="com.beachpartnerllc.beachpartner.home.Home2Fragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.SearchFragment"
 		android:label="@string/app_name"
-		tools:layout="@layout/fragment_home_2"/>
+		tools:layout="@layout/fragment_search">
+		<action android:id="@+id/action_finderTocard"
+			app:destination="@id/cardFragment"/>
+	</fragment>
+
+	<fragment android:id="@+id/searchResultFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_search_result">
+		<action android:id="@+id/action_profile_details"
+			app:destination="@+id/profileDetailFragment"/>
+	</fragment>
+
+	<fragment android:id="@+id/profileDetailFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.ProfileDetailFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_finder_card_detail">
+		<argument
+			android:name="id"
+			app:argType="integer"/>
+	</fragment>
+
+	<fragment android:id="@+id/cardFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.CardFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_playcard"/>
 
 	<fragment android:id="@+id/action_calendar"
 		android:name="com.beachpartnerllc.beachpartner.event.CalendarFragment"

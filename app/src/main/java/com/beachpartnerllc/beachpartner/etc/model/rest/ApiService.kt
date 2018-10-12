@@ -2,6 +2,8 @@ package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.event.Event
+import com.beachpartnerllc.beachpartner.finder.Flag
+import com.beachpartnerllc.beachpartner.finder.Search
 import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -26,25 +28,46 @@ interface ApiService {
     @Headers(HEADER_NO_AUTH)
     @POST("user/register")
     fun register(@Body profile: Profile): Call<Resource<Any>>
-	
-	@Headers(HEADER_NO_AUTH)
-	@GET("states")
-	fun getStates(): LiveData<ApiResponse<List<State>>>
-	
-	@GET("get_events")
-	fun getEvent(date: Date, limit: Int, index: Int = 0): Call<Resource<List<Event>>>
-	
-	@GET("get_event")
-	fun getEvent(eventId: Int): LiveData<ApiResponse<Event>>
-	
-	@GET("get_connections")
-	fun getConnections(): LiveData<ApiResponse<List<Profile>>>
-	
-	@POST("send_invitation")
-	fun sendInvitation(@Body invitees: List<Int>): Call<Resource<Any>>
-	
-	companion object {
-		const val URL_BASE = "http://10.0.2.2:5000/"
+
+    @Headers(HEADER_NO_AUTH)
+    @GET("states")
+    fun getStates(): LiveData<ApiResponse<List<State>>>
+
+    @GET("get_events")
+    fun getEvent(date: Date, limit: Int, index: Int = 0): Call<Resource<List<Event>>>
+
+    @GET("get_event")
+    fun getEvent(eventId: Int): LiveData<ApiResponse<Event>>
+
+    @GET("get_connections")
+    fun getConnections(): LiveData<ApiResponse<List<Profile>>>
+
+    @POST("send_invitation")
+    fun sendInvitation(@Body invitees: List<Int>): Call<Resource<Any>>
+
+    @GET("users/search")
+    fun searchProfile(search: Search): Call<Resource<List<Profile>>>
+
+    @POST("users/request-friendship/{userId}")
+    fun likeUser(userId: Int): Call<Resource<Profile>>
+
+    @POST("users/reject-friendship/{userId}")
+    fun dislikeUser(userId: Int): Call<Resource<Profile>>
+
+    @POST("users/hifi/{userId}")
+    fun hiFiveUser(userId: Int): Call<Resource<Profile>>
+
+    @POST("users/flag-user")
+    fun blockUser(@Body request: HashMap<String, Any>): Call<Flag>
+
+    @GET("users/account/{userId}")
+    fun getProfile(userId: Int): Call<Resource<Profile>>
+
+    @GET("user/search")
+    fun getStripProfile(): Call<Resource<List<Profile>>>
+
+    companion object {
+        const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"
         private const val HEADER_NO_AUTH = "$NO_AUTH: true"
     }
