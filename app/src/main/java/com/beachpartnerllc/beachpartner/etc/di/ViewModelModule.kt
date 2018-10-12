@@ -2,6 +2,8 @@ package com.beachpartnerllc.beachpartner.etc.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.beachpartnerllc.beachpartner.connection.ConnectionViewModel
+import com.beachpartnerllc.beachpartner.event.EventViewModel
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
 import dagger.Binds
 import dagger.Module
@@ -13,6 +15,16 @@ interface ViewModelModule {
 	@IntoMap
 	@ViewModelKey(AuthViewModel::class)
 	fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
+	
+	@Binds
+	@IntoMap
+	@ViewModelKey(EventViewModel::class)
+	fun bindEventViewModel(viewModel: EventViewModel): ViewModel
+	
+	@Binds
+	@IntoMap
+	@ViewModelKey(ConnectionViewModel::class)
+	fun bindConnectionViewModel(viewModel: ConnectionViewModel): ViewModel
 	
 	@Binds
 	fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

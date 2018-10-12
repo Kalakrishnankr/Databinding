@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="PostRegistrationBinding">
+
+		<import type="com.beachpartnerllc.beachpartner.user.auth.AuthState"/>
+
+		<variable
+			name="handler"
+			type="com.beachpartnerllc.beachpartner.user.auth.PostRegistrationFragment"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/draw_rect_e4e4e4_r13"
+		android:paddingBottom="@dimen/dimen_16dp">
+
+		<ImageView
+			android:id="@+id/smileIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_24dp"
+			android:contentDescription="@null"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_smile_blue_105dp"/>
+
+		<TextView
+			android:id="@+id/thankLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:fontFamily="@font/sf_bold"
+			android:text="@string/thank_you"
+			android:textAllCaps="true"
+			android:textColor="@color/blue_2f3e87"
+			android:textSize="@dimen/text_22sp"
+			app:layout_constraintEnd_toEndOf="@id/smileIV"
+			app:layout_constraintStart_toStartOf="@id/smileIV"
+			app:layout_constraintTop_toBottomOf="@id/smileIV"/>
+
+		<TextView
+			android:id="@+id/registeringLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/sf_bold"
+			android:text="@string/for_registering"
+			android:textAllCaps="true"
+			android:textColor="@color/grey_333333"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintEnd_toEndOf="@id/thankLabel"
+			app:layout_constraintStart_toStartOf="@id/thankLabel"
+			app:layout_constraintTop_toBottomOf="@id/thankLabel"/>
+
+		<TextView
+			android:id="@+id/msgLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_44dp"
+			android:gravity="center"
+			android:paddingStart="@dimen/dimen_20dp"
+			android:paddingEnd="@dimen/dimen_20dp"
+			android:text="@string/hint_register"
+			android:textColor="@color/grey_333333"
+			android:textSize="@dimen/text_10sp"
+			app:layout_constraintBottom_toTopOf="@id/signInBtn"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/registeringLabel"/>
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/signInBtn"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_28dp"
+			android:layout_marginTop="@dimen/dimen_44dp"
+			android:layout_marginEnd="@dimen/dimen_28dp"
+			android:onClick="@{()->handler.onStateChanged(AuthState.SIGN_IN)}"
+			android:text="@string/return_to_sign_in"
+			android:textAllCaps="false"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/msgLabel"/>
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/neverBtn"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_28dp"
+			android:layout_marginEnd="@dimen/dimen_28dp"
+			android:onClick="@{()->handler.onStateChanged(AuthState.UNVERIFIED)}"
+			android:text="@string/i_did_not_get_email"
+			android:textAllCaps="false"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/signInBtn"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

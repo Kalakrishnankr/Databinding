@@ -1,0 +1,74 @@
+[
+  {
+    "user_id": 1,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 2,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 3,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 4,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 5,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 6,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 7,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 8,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  },
+  {
+    "user_id": 9,
+    "first_name": "Sarah",
+    "last_name": "Pavan",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "http://sarahpavan.com/wp-content/uploads/2017/02/sarah-pavan-dig.jpg"
+  }
+]

@@ -13,8 +13,6 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SignUpFragment2Binding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
-import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.Profile
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,27 +28,27 @@ import javax.inject.Inject
  */
 class SignUp2Fragment : BaseFragment() {
 	@Inject lateinit var mFactory: ViewModelProvider.Factory
-	private lateinit var mBinding: SignUpFragment2Binding
+	private lateinit var binding: SignUpFragment2Binding
 	private lateinit var mDisposable: Disposable
 	private lateinit var vm: AuthViewModel
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_2, container, false)
-		return mBinding.root
+		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_2, container, false)
+		return binding.root
 	}
 	
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
 		
 		vm = getViewModel(mFactory)
-		mBinding.vm = vm
-		mBinding.handler = this
-		mBinding.setLifecycleOwner(viewLifecycleOwner)
+		binding.vm = vm
+		binding.handler = this
+		binding.setLifecycleOwner(viewLifecycleOwner)
 		
-		val email = RxTextView.afterTextChangeEvents(mBinding.emailET).skip(vm.signUp2SkipInitCount())
-		val mobile = RxTextView.afterTextChangeEvents(mBinding.mobileET).skip(vm.signUp2SkipInitCount())
-		val password = RxTextView.afterTextChangeEvents(mBinding.passwordET).skip(vm.signUp2SkipInitCount())
-		val dob = RxTextView.afterTextChangeEvents(mBinding.dobET).skip(vm.signUp2SkipInitCount())
+		val email = RxTextView.afterTextChangeEvents(binding.emailET).skip(vm.signUp2SkipInitCount())
+		val mobile = RxTextView.afterTextChangeEvents(binding.mobileET).skip(vm.signUp2SkipInitCount())
+		val password = RxTextView.afterTextChangeEvents(binding.passwordET).skip(vm.signUp2SkipInitCount())
+		val dob = RxTextView.afterTextChangeEvents(binding.dobET).skip(vm.signUp2SkipInitCount())
 		val observables = listOf(email, mobile, password, dob)
 		mDisposable = Observable.combineLatest(observables) { vm.signUp2Validate.value = true }
 			.doOnError { Timber.e(it) }
@@ -61,20 +59,27 @@ class SignUp2Fragment : BaseFragment() {
 	fun onDobPicker() {
 		val profile = vm.profile.value!!
 		val cal = Calendar.getInstance()
+		if (profile.isDobValid()) cal.time = profile.dateOfBirth!!
 		val dp = DatePicker(context, null, R.style.DatePickerStyle)
 		dp.calendarViewShown = false
-		dp.maxDate = cal.timeInMillis - if (profile.isAthlete()) 157784630000 else 568024668000 // 5 years or 18 years
-		dp.init(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH], null)
+		dp.maxDate = Calendar.getInstance().timeInMillis - if (profile.isAthlete()) 157784630000 else 568024668000 // 5 years or 18 years
+		val currentText = binding.dobET.text.toString()
+		dp.init(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH]) { _, year: Int, month: Int, day: Int ->
+			binding.dobET.setText(getString(R.string.format_dob, month + 1, day, year))
+		}
+		
 		val dialog = AlertDialog.Builder(context!!)
 			.setCustomTitle(layoutInflater.inflate(R.layout.dialog_title, null, false))
-			.setPositiveButton(R.string.okay) { _, _ -> mBinding.dobET.setText(getString(R.string.format_dob, dp.month + 1, dp.dayOfMonth, dp.year)) }
-			.setNegativeButton(R.string.cancel, null)
+			.setPositiveButton(R.string.okay, null)
+			.setNegativeButton(R.string.cancel) { _, _ -> binding.dobET.setText(currentText) }
 			.create()
 		dialog.setView(dp)
 		dialog.show()
 	}
 	
-	val registerObserver = Observer<Resource<Profile>> {}
+	fun register() {
+		vm.register().observe(this, Observer { })
+	}
 	
 	override fun onDestroyView() {
 		mDisposable.dispose()

@@ -8,7 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="action_global_signInFragment">
+                  <entry key="action_sign_in">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -63,6 +63,123 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
+        <entry key="home_nav.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="EventFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="968" />
+                            <option name="y" value="339" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_invite">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="action_bp">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="375" />
+                            <option name="y" value="-2" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="action_calendar">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="599" />
+                            <option name="y" value="-2" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_master_calendar">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="action_connection">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="140" />
+                            <option name="y" value="-6" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="action_event">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_home">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-118" />
+                            <option name="y" value="-9" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="connectionsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1220" />
+                            <option name="y" value="22" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="masterCalendarFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="729" />
+                            <option name="y" value="334" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

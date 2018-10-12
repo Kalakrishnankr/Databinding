@@ -17,11 +17,10 @@
 			android:layout_height="wrap_content"
 			android:adapter="@{avatarAdapter}"
 			android:orientation="horizontal"
-			app:itemDecoration="@{@string/item_offset_decoration}"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:offset="@{R.dimen.narrow}"
+			app:spaceOffset="@{@dimen/dimen_8dp}"
 			tools:listitem="@layout/item_avatar"/>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

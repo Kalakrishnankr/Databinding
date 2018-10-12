@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.AthleteHomeFragmentBinding
-import com.beachpartnerllc.beachpartner.databinding.AvatarItemBinding
-import com.beachpartnerllc.beachpartner.etc.base.BaseAdapter
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 
 /**
@@ -22,13 +20,5 @@ class AthleteHomeFragment : BaseFragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_athlete_home, container, false)
         return mBinding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        mBinding.avatarAdapter = BaseAdapter<Avatar, AvatarItemBinding>(
-                arrayListOf(Avatar(), Avatar()),
-                R.layout.item_avatar,
-                { binding, item -> binding.item = item }
-        )
-    }
+	
 }

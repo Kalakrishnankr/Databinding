@@ -21,7 +21,7 @@ class HeaderInterceptor(private val mApp: Application, private val mPref: Prefer
 
         request = if (request.header(ApiService.NO_AUTH) == null) {
             request.newBuilder()
-                    .addHeader(TOKEN_KEY, TOKEN_VALUE + mPref.sessionKey!!)
+                    .addHeader(TOKEN_KEY, TOKEN_VALUE + mPref.sessionId!!)
                     .build()
         } else {
             request.newBuilder()

@@ -1,0 +1,19 @@
+{
+  "data": {
+    "profile": {
+      "user_id": 73,
+      "first_name": "Samuel",
+      "last_name": "Robert",
+      "state_id": 1,
+      "gender": "MALE",
+      "user_type": "ATHLETE",
+      "email": "sam.rob@test.com",
+      "mobile": "9663379596",
+      "dob": "1994-05-14"
+    },
+    "session_id": "test_session_key"
+  },
+  "message": "logged in successfully",
+  "code": 201,
+  "status": "SUCCESS"
+}

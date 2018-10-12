@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="CalendarBinding">
+		<variable
+			name="adapter"
+			type="com.beachpartnerllc.beachpartner.etc.common.ViewPagerAdapter"/>
+	</data>
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<com.google.android.material.tabs.TabLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/colorPrimary"
+			app:setupWithViewPager="@{calendarVP}"
+			app:tabIndicatorColor="@color/white"
+			app:tabIndicatorHeight="@dimen/dimen_2dp"
+			app:tabSelectedTextColor="@color/white"
+			app:tabTextAppearance="@style/AppTabTextAppearance"
+			app:tabTextColor="@color/transparent_white"/>
+
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/calendarVP"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:adapter="@{adapter}"/>
+
+	</LinearLayout>
+
+</layout>

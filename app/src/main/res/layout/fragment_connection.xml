@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="ConnectionBinding">
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.connection.ConnectionViewModel"/>
+	</data>
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/grey_f4f4f4"
+		app:refreshing="@{vm.loading}">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:adapter="@{adapter}"
+			app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+			app:spaceOffset="@{@dimen/dimen_18dp}"
+			app:spanCount="2"
+			tools:listitem="@layout/item_connection"/>
+
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
