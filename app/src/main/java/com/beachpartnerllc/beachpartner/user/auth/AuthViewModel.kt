@@ -12,6 +12,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.user.auth.AuthState.*
 import com.beachpartnerllc.beachpartner.user.profile.Athlete
+import com.beachpartnerllc.beachpartner.user.profile.Coach
 import com.beachpartnerllc.beachpartner.user.profile.Gender
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.state.State
@@ -31,6 +32,7 @@ class AuthViewModel @Inject constructor(
 	val auth = MutableLiveData<Auth>()
 	val profile = MutableLiveData<Profile>()
 	val athlete = MutableLiveData<Athlete>()
+	val coach = MutableLiveData<Coach>()
 	val nameError = MutableLiveData<BaseErrorEvent>()
 	
 	val state = MutableLiveData<AuthState>()
@@ -45,7 +47,9 @@ class AuthViewModel @Inject constructor(
 	val currentState = MutableLiveData<Boolean>()
 	val topFinishesCount = MutableLiveData<Int>()
 	val profileValidate = MutableLiveData<Boolean>()
-	val isTopFinishesSet =MutableLiveData<Boolean>()
+	val isTopFinishesSet = MutableLiveData<Boolean>()
+	val imgAvailable = MutableLiveData<Boolean>()
+	val uploadProgress = MutableLiveData<Int>()
 	
 	fun signIn() = map(repo.signIn(auth.value!!)) {
 		loading.value = it.status == RequestState.LOADING
@@ -84,6 +88,20 @@ class AuthViewModel @Inject constructor(
 	val selectedDistancePosition = object : MutableLiveData<Int>() {
 		override fun setValue(value: Int?) {
 			setDistance(value)
+			super.setValue(value)
+		}
+	}
+	
+	val selectedFundingPosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setFunding(value)
+			super.setValue(value)
+		}
+	}
+	
+	val selectedSharingPosition = object : MutableLiveData<Int>() {
+		override fun setValue(value: Int?) {
+			setSharing(value)
 			super.setValue(value)
 		}
 	}
@@ -175,10 +193,42 @@ class AuthViewModel @Inject constructor(
 		user.topFinishes = topFinishes
 	}
 	
+	private fun setFunding(position: Int?) {
+		val user = coach.value!!
+		user.funding = app.resources.getStringArray(R.array.yes_no)[position!!]
+	}
+	
+	private fun setSharing(position: Int?) {
+		val user = coach.value!!
+		user.sharingAthletes = app.resources.getStringArray(R.array.yes_no)[position!!]
+	}
+	
 	fun update() = map(repo.update(athlete.value!!)) {
 		loading.value = it.status == RequestState.LOADING
 		if (it.isSuccess()) {
 			Timber.e("Success")
+		}
+	}!!
+	
+	fun uploadImageToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
+		if (it.isSuccess()) {
+			val user = athlete.value
+			user!!.image = it.data
+			athlete.value = user
+			imgAvailable.value = false
+		} else {
+			uploadProgress.value = it.code
+			imgAvailable.value = true
+		}
+	}!!
+	
+	fun uploadVideoToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
+		if (it.isSuccess()) {
+			val user = athlete.value
+			user!!.video = it.data
+			athlete.value = user
+		} else {
+			uploadProgress.value = it.code
 		}
 	}!!
 	
@@ -187,5 +237,6 @@ class AuthViewModel @Inject constructor(
 		profile.value = Profile()
 		athlete.value = Athlete()
 		topFinishesCount.value = 0
+		imgAvailable.value = false
 	}
 }

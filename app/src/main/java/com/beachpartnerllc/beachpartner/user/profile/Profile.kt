@@ -18,9 +18,7 @@ open class Profile(
 	open var email: String? = null,
 	open var mobile: String? = null,
 	open var password: String? = null,
-	open var dob: String? = null,
-	open var image: String? = null,
-	open var video: Any? = null
+	open var dob: String? = null
 ) {
 	
 	fun isFirstNameValid() = firstName.isName()

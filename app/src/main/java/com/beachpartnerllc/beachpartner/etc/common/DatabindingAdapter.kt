@@ -1,10 +1,12 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -15,8 +17,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.exoplayer2.C
+import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.material.textfield.TextInputLayout
 import com.wang.avi.AVLoadingIndicatorView
+import timber.log.Timber
 
 
 /**
@@ -37,12 +52,11 @@ fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
 	else view.smoothToHide()
 }
 
-@BindingAdapter("url", "placeHolder", requireAll = false)
-fun setUrl(imageView: ImageView, url: String?, placeholder: Drawable) {
+@BindingAdapter("url", "placeHolder", requireAll = true)
+fun setImageUrl(imageView: ImageView, url: String?, placeholder: Drawable) {
 	Glide.with(imageView.context)
 		.load(url)
 		.apply(RequestOptions().circleCrop())
-		.apply(RequestOptions.centerCropTransform())
 		.apply(RequestOptions.placeholderOf(placeholder))
 		.into(imageView)
 }
@@ -59,28 +73,6 @@ fun setForegroundColorSpan(view: TextView, color: Int, start: Int = 0, end: Int 
 	view.text = spanBuilder
 }
 
-/*@BindingAdapter("disableShift")
-fun disableShiftMode(view: BottomNavigationView, disableShift: Boolean) {
-    val menuView = view.getChildAt(0) as BottomNavigationMenuView
-    try {
-        val shiftingMode = menuView.javaClass.getDeclaredField("mShiftingMode")
-        shiftingMode.isAccessible = true
-        shiftingMode.setBoolean(menuView, false)
-        shiftingMode.isAccessible = false
-        for (i in 0 until menuView.childCount) {
-            val item = menuView.getChildAt(i) as BottomNavigationItemView
-
-            item.setShiftingMode(!disableShift)
-            // set once again checked value, so view will be updated
-
-            item.setChecked(item.itemData.isChecked)
-        }
-    } catch (e: NoSuchFieldException) {
-        Log.e("BNVHelper", "Unable to get shift mode field", e)
-    } catch (e: IllegalAccessException) {
-        Log.e("BNVHelper", "Unable to change value of shift mode", e)
-    }
-}*/
 
 @BindingAdapter("onOkInSoftKeyboard")
 fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardListener?) {
@@ -100,21 +92,6 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
 			
 			listener.onOkInSoftKeyboard()
 			return@setOnEditorActionListener false
-		}
-	}
-}
-
-@BindingAdapter("onDrawableEndClick")
-fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
-	if (listener != null) {
-		view.setOnTouchListener { _, event ->
-			if (event.action == MotionEvent.ACTION_UP) {
-				if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
-					listener.onDrawableEnd()
-					return@setOnTouchListener true
-				}
-			}
-			return@setOnTouchListener false
 		}
 	}
 }
@@ -155,4 +132,36 @@ fun setItemView(view: Spinner, itemView: Int) {
 		items.add(adapter.getItem(i))
 	}
 	view.adapter = ArrayAdapter<String>(view.context, itemView, items)
+}
+
+@BindingAdapter("url", "listener", requireAll = false)
+fun setUrl(view: PlayerView, url: Any?, listener: PlayerStateChangeListener) {
+	
+	val simpleExoPlayer: SimpleExoPlayer
+	val bandwidthMeter = DefaultBandwidthMeter()
+	view.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL)
+	val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(bandwidthMeter))
+	simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(view.context, trackSelector)
+	val uri: Uri? = if (url is String) Uri.parse(url as String?) else url as Uri?
+	val dataSourceFactory = DefaultDataSourceFactory(view.context, "ua")
+	val mediaSource = ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
+	simpleExoPlayer.prepare(mediaSource)
+	simpleExoPlayer.volume = 0f
+	simpleExoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+	simpleExoPlayer.playWhenReady = true
+	simpleExoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+	view.player = simpleExoPlayer
+	simpleExoPlayer.addListener(object : Player.DefaultEventListener() {
+		override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+			super.onPlayerStateChanged(playWhenReady, playbackState)
+			Timber.e("current state: $playbackState")
+			listener.onPlayerStateChanged(playbackState)
+		}
+	})
+}
+
+@BindingAdapter("visibleIf")
+fun changeVisibility(view: View, visible: Boolean) {
+	if (visible) view.visibility = View.VISIBLE
+	else view.visibility = View.GONE
 }

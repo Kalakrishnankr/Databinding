@@ -8,3 +8,5 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.RequestState.*
  */
 
 inline fun <reified T> Resource<T>?.isSuccess(): Boolean = this != null && (status == SUCCESS || status == CACHED)
+
+inline fun <reified T> Resource<T>?.isError(): Boolean = this != null && (status == ERROR)

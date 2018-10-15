@@ -14,6 +14,8 @@ data class Athlete(
 	var indoorClub: String? = null,
 	var collegeBeach: String? = null,
 	var collegeIndoor: String? = null,
-	var sandRecruitsNo:String?= null,
-	var topFinishes: ArrayList<String> = ArrayList()
+	var sandRecruitsNo: String? = null,
+	var topFinishes: ArrayList<String> = ArrayList(),
+	var image: String? = null,
+	var video: Any? = null
 ) : Profile()

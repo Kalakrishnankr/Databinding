@@ -1,10 +1,17 @@
 package com.beachpartnerllc.beachpartner.user.auth
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
+import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.etc.base.BaseRepository
 import com.beachpartnerllc.beachpartner.etc.exec.AppExecutors
+import com.beachpartnerllc.beachpartner.etc.model.aws.AwsServiceModule.Companion.URL_BUCKET
 import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
 import com.beachpartnerllc.beachpartner.etc.model.pref.Preference
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
@@ -18,6 +25,8 @@ import com.beachpartnerllc.beachpartner.user.state.State
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,6 +40,7 @@ class AuthRepository @Inject constructor(
 	private val db: AppDatabase,
 	private val pref: Preference,
 	private val exec: AppExecutors,
+	private val transfer: TransferUtility,
 	app: Application) : BaseRepository(app) {
 	
 	// private val invalidateTimer = RateLimiter<String>(30, TimeUnit.MINUTES)
@@ -102,13 +112,12 @@ class AuthRepository @Inject constructor(
 	fun update(athlete: Athlete): LiveData<Resource<Athlete>> {
 		val state = MutableLiveData<Resource<Athlete>>()
 		state.value = Resource.loading()
-		api.register(athlete).enqueue(object : Callback<Resource<Any>?> {
-			override fun onFailure(call: Call<Resource<Any>?>, t: Throwable) {
-				httpRequestFailed(call, t)
+		api.update(athlete).enqueue(object : Callback<Resource<Athlete>?> {
+			override fun onFailure(call: Call<Resource<Athlete>?>, t: Throwable) {
 				state.value = Resource.error()
 			}
 			
-			override fun onResponse(call: Call<Resource<Any>?>, response: Response<Resource<Any>?>) {
+			override fun onResponse(call: Call<Resource<Athlete>?>, response: Response<Resource<Athlete>?>) {
 				when (response.code()) {
 					HTTP_CREATED -> {
 						state.value = Resource.success(athlete)
@@ -117,6 +126,37 @@ class AuthRepository @Inject constructor(
 			}
 		})
 		
+		return state
+	}
+	
+	fun uploadFileToS3(path: String, extension: String): LiveData<Resource<String>> {
+		val state = MutableLiveData<Resource<String>>()
+		val file = File(path)
+		val key = "avatar/${System.nanoTime()}$extension"
+		transfer.upload(key, file, CannedAccessControlList.PublicRead)
+			.setTransferListener(object : TransferListener {
+				override fun onProgressChanged(id: Int, bytesCurrent: Long, bytesTotal: Long) {
+					val percentDoneF = bytesCurrent.toFloat() / bytesTotal.toFloat() * 100
+					val percentDone = percentDoneF.toInt()
+					Timber.d("ID:$id bytesCurrent: $bytesCurrent bytesTotal: $bytesTotal $percentDone%")
+					state.value = Resource.loading(code = percentDoneF.toInt())
+				}
+				
+				override fun onStateChanged(id: Int, transferState: TransferState?) {
+					Timber.d("State : %s", transferState?.toString())
+					if (TransferState.COMPLETED == transferState) {
+						val url = URL_BUCKET + key
+						Timber.d(url)
+						state.value = Resource.success(url)
+					}
+				}
+				
+				override fun onError(id: Int, ex: Exception?) {
+					state.value = Resource.error()
+					Timber.e(ex)
+					Toast.makeText(app, R.string.upload_error, Toast.LENGTH_LONG).show()
+				}
+			})
 		return state
 	}
 }
