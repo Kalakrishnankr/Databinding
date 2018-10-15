@@ -137,8 +137,7 @@ class AuthRepository @Inject constructor(
 			.setTransferListener(object : TransferListener {
 				override fun onProgressChanged(id: Int, bytesCurrent: Long, bytesTotal: Long) {
 					val percentDoneF = bytesCurrent.toFloat() / bytesTotal.toFloat() * 100
-					val percentDone = percentDoneF.toInt()
-					Timber.d("ID:$id bytesCurrent: $bytesCurrent bytesTotal: $bytesTotal $percentDone%")
+					Timber.d("ID:$id bytesCurrent: $bytesCurrent bytesTotal: $bytesTotal $percentDoneF")
 					state.value = Resource.loading(code = percentDoneF.toInt())
 				}
 				

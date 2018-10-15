@@ -26,5 +26,8 @@
 	<fragment android:id="@+id/athleteProfileFragment3"
 		android:name="com.beachpartnerllc.beachpartner.user.profile.AthleteProfileFragment"
 		android:label="AthleteProfileFragment"/>
+	<fragment android:id="@+id/coachProfileFragment"
+		android:name="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"
+		android:label="CoachProfileFragment"/>
 
 </navigation>

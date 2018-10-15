@@ -121,8 +121,7 @@
 			android:textColorHint="@color/grey_f6f6f6"
 			app:layout_constraintEnd_toEndOf="@+id/firstNameTIL"
 			app:layout_constraintStart_toEndOf="@id/stateLabel"
-			app:layout_constraintTop_toBottomOf="@id/lastNameTIL"
-			tools:entries="@array/states"/>
+			app:layout_constraintTop_toBottomOf="@id/lastNameTIL"/>
 
 		<TextView
 			android:id="@+id/genderLabel"

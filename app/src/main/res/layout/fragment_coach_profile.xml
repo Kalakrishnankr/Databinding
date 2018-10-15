@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<data class="CoachProfileBinding">
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.user.profile.ViewPagerAdapter"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"/>
+	</data>
+	<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/scrollview_profile"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fillViewport="true">
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:context=".user.profile.CoachProfileFragment">
+
+			<ImageView
+				android:id="@+id/bgView"
+				android:layout_width="0dp"
+				android:layout_height="200dp"
+				android:src="@drawable/art_volleyball_various_360dp"
+				app:layout_constraintBottom_toBottomOf="@+id/profileImgIV"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+			<View
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:background="@drawable/draw_rect_e4e4e4_r13"
+				app:layout_constraintBottom_toBottomOf="@+id/profileImgIV"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/profileImgIV"/>
+			<ImageView
+				android:id="@+id/profileImgIV"
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:layout_marginStart="@dimen/dimen_8dp"
+				android:onClick="@{()->handler.uploadImage()}"
+				android:paddingTop="@dimen/dimen_8dp"
+				android:paddingBottom="@dimen/dimen_8dp"
+				android:src="@drawable/ic_user_img"
+				app:layout_constraintBottom_toBottomOf="@id/bgView"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+			<TextView
+				android:id="@+id/nameTV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/text_16sp"
+				app:layout_constraintBottom_toBottomOf="@id/bgView"
+				app:layout_constraintStart_toEndOf="@id/profileImgIV"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:text="Antonio Levi"/>
+
+			<TextView
+				android:id="@+id/userTypeLabel"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/college_coach"
+				android:textSize="@dimen/text_16sp"
+				app:layout_constraintStart_toEndOf="@id/profileImgIV"
+				app:layout_constraintTop_toBottomOf="@+id/nameTV"/>
+
+			<View
+				android:layout_width="2dp"
+				android:layout_height="0dp"
+				android:layout_marginStart="@dimen/dimen_13dp"
+				android:background="@color/colorPrimaryDark"
+				app:layout_constraintBottom_toBottomOf="@id/userTypeLabel"
+				app:layout_constraintEnd_toStartOf="@id/editTV"
+				app:layout_constraintTop_toTopOf="@id/nameTV"/>
+
+			<TextView
+				android:id="@+id/editTV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="25dp"
+				android:drawableTop="@drawable/ic_coach_edit"
+				android:onClick="@{()->vm.editable(true)}"
+				android:text="@string/edit_profile"
+				app:layout_constraintBottom_toBottomOf="@+id/userTypeLabel"
+				app:layout_constraintEnd_toEndOf="parent"/>
+
+			<com.google.android.material.tabs.TabLayout
+				android:id="@+id/tabs"
+				android:layout_width="match_parent"
+				android:layout_height="34.5dp"
+				android:layout_marginTop="@dimen/dimen_8dp"
+				android:background="@color/grey_eeeeee"
+				android:elevation="@dimen/dimen_10dp"
+				app:layout_constraintTop_toBottomOf="@+id/bgView"
+				app:tabMode="fixed"/>
+
+			<com.beachpartnerllc.beachpartner.user.profile.CustomViewPager
+				android:id="@+id/pager"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:adapter="@{adapter}"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/tabs">
+			</com.beachpartnerllc.beachpartner.user.profile.CustomViewPager>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</ScrollView>
+</layout>
