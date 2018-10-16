@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.amazonaws.mobile.client.AWSMobileClient
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.CoachProfileBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
@@ -27,12 +28,13 @@ class CoachProfileFragment : BaseFragment() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setHasOptionsMenu(true)
+		AWSMobileClient.getInstance().initialize(context).execute()
 	}
 	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = inflater.bind(R.layout.fragment_coach_profile, container)
 		binding.tabs.setupWithViewPager(binding.pager)
-		val fragments = arrayListOf(BasicInfoFragment(), MoreInfoFragment())
+		val fragments = arrayListOf(BasicInfoFragment(), CoachMoreInfoFragment())
 		binding.adapter = ViewPagerAdapter(childFragmentManager, fragments,
 			resources.getStringArray(R.array.profile_titles).asList())
 		binding.handler = this
@@ -64,6 +66,7 @@ class CoachProfileFragment : BaseFragment() {
 				val uri = ImageFilePath.getImageUri(context, img)
 				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, uri))
 				vm.uploadImageToS3(ImageFilePath.getPath(context, uri), extension)
+					.observe(viewLifecycleOwner, Observer { })
 			} else {
 				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, data.data))
 				vm.uploadImageToS3(ImageFilePath.getPath(context, data.data), extension)
@@ -83,7 +86,6 @@ class CoachProfileFragment : BaseFragment() {
 				return
 			}
 			else -> return
-			
 		}
 	}
 	

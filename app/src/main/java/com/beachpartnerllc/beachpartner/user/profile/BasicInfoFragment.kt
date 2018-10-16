@@ -60,7 +60,7 @@ class BasicInfoFragment : BaseFragment() {
 			}
 		})
 		vm.selectedStatePosition.observe(this, Observer {
-			it?.let { vm.setGender(it) }
+			it?.let { vm.setStatePosition(it) }
 		})
 		
 		val firstName = RxTextView.afterTextChangeEvents(binding.editFname).map { it.editable()?.isName() }

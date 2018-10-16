@@ -29,5 +29,6 @@ class CoachMoreInfoFragment : BaseFragment() {
 		super.onActivityCreated(savedInstanceState)
 		vm = getViewModel(factory)
 		binding.vm = vm
+		binding.setLifecycleOwner(viewLifecycleOwner)
 	}
 }

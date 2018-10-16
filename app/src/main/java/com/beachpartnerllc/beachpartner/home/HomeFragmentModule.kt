@@ -1,9 +1,6 @@
 package com.beachpartnerllc.beachpartner.home
 
-import com.beachpartnerllc.beachpartner.user.profile.AthleteProfileFragment
-import com.beachpartnerllc.beachpartner.user.profile.BasicInfoFragment
-import com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment
-import com.beachpartnerllc.beachpartner.user.profile.MoreInfoFragment
+import com.beachpartnerllc.beachpartner.user.profile.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -23,4 +20,7 @@ interface HomeFragmentModule {
 	
 	@ContributesAndroidInjector
 	fun contributeCoachProfileFragment(): CoachProfileFragment
+	
+	@ContributesAndroidInjector
+	fun contributeCoachMoreInfoFragment(): CoachMoreInfoFragment
 }

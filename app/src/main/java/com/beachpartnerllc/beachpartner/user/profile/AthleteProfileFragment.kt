@@ -148,7 +148,7 @@ class AthleteProfileFragment : BaseFragment() {
 			R.id.action_save -> {
 				vm.editable(false)
 				vm.isTopFinishesSet.value = true
-				vm.updateAthlete()
+				vm.updateAthlete().observe(this, Observer { })
 				return true
 			}
 		}

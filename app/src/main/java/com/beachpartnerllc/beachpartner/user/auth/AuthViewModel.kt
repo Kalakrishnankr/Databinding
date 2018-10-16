@@ -220,9 +220,9 @@ class AuthViewModel @Inject constructor(
 	
 	fun uploadImageToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
 		if (it.isSuccess()) {
-			val user = athlete.value
+			val user = profile.value
 			user!!.image = it.data
-			athlete.value = user
+			profile.value = user
 			imgAvailable.value = false
 		} else {
 			imageUploadProgress.value = it.code
@@ -244,6 +244,7 @@ class AuthViewModel @Inject constructor(
 		auth.value = Auth()
 		profile.value = Profile()
 		athlete.value = Athlete()
+		coach.value = Coach()
 		topFinishesCount.value = 0
 		imgAvailable.value = false
 	}
