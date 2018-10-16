@@ -1,5 +1,6 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.Spannable
@@ -96,6 +97,7 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
 	}
 }
 
+@SuppressLint("ClickableViewAccessibility")
 @BindingAdapter("onDrawableEndClick")
 fun setOnDrawableEndClick(editText: AppCompatEditText, listener: OnCompoundDrawableClickListener?) {
 	val padding = 10
@@ -136,25 +138,24 @@ fun setItemView(view: Spinner, itemView: Int) {
 
 @BindingAdapter("url", "listener", requireAll = false)
 fun setUrl(view: PlayerView, url: Any?, listener: PlayerStateChangeListener) {
-	
-	val simpleExoPlayer: SimpleExoPlayer
-	val bandwidthMeter = DefaultBandwidthMeter()
-	view.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL)
-	val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(bandwidthMeter))
-	simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(view.context, trackSelector)
 	val uri: Uri? = if (url is String) Uri.parse(url as String?) else url as Uri?
+	val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(DefaultBandwidthMeter()))
+	val player: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(view.context, trackSelector)
 	val dataSourceFactory = DefaultDataSourceFactory(view.context, "ua")
 	val mediaSource = ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
-	simpleExoPlayer.prepare(mediaSource)
-	simpleExoPlayer.volume = 0f
-	simpleExoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-	simpleExoPlayer.playWhenReady = true
-	simpleExoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
-	view.player = simpleExoPlayer
-	simpleExoPlayer.addListener(object : Player.DefaultEventListener() {
+	player.prepare(mediaSource)
+	player.apply {
+		volume = 0f
+		repeatMode = Player.REPEAT_MODE_ONE
+		playWhenReady = true
+		videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+	}
+	view.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL)
+	view.player = player
+	player.addListener(object : Player.DefaultEventListener() {
 		override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
 			super.onPlayerStateChanged(playWhenReady, playbackState)
-			Timber.e("current state: $playbackState")
+			Timber.d("current state: $playbackState")
 			listener.onPlayerStateChanged(playbackState)
 		}
 	})

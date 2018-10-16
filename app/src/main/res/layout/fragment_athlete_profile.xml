@@ -57,18 +57,18 @@
 				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="@id/containerFL"/>
-			<ProgressBar
-				android:id="@+id/determinateBar"
-				style="@android:style/Widget.ProgressBar.Horizontal"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_margin="@dimen/dimen_8dp"
-				android:progress="@{vm.uploadProgress}"
-				app:layout_constraintBottom_toBottomOf="@id/containerFL"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="0.5"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="@id/containerFL"/>
+			<!--<ProgressBar-->
+			<!--android:id="@+id/determinateBar"-->
+			<!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+			<!--android:layout_width="0dp"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:layout_margin="@dimen/dimen_8dp"-->
+			<!--android:progress="@{vm.videoUploadProgress}"-->
+			<!--app:layout_constraintBottom_toBottomOf="@id/containerFL"-->
+			<!--app:layout_constraintEnd_toEndOf="parent"-->
+			<!--app:layout_constraintHorizontal_bias="0.5"-->
+			<!--app:layout_constraintStart_toStartOf="parent"-->
+			<!--app:layout_constraintTop_toTopOf="@id/containerFL"/>-->
 
 			<TextView
 				android:id="@+id/noVideoLabel"
@@ -106,7 +106,7 @@
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintStart_toStartOf="parent"
-				android:progress="@{vm.uploadProgress}"
+				android:progress="@{vm.imageUploadProgress}"
 				app:layout_constraintTop_toTopOf="parent"
 				app:visibleIf="@{vm.imgAvailable}"
 				app:layout_constraintVertical_bias="0.9"/>

@@ -87,4 +87,5 @@
 	<string name="program_fully_funded">Is Your Program Fully Funded?</string>
 	<string name="share_athletes">Does Your Program Share Athletes Between Indoor and Beach</string>
 	<string name="upload_error">Upload Failed</string>
+	<string name="share_image_error">Please upload an image and then share it</string>
 </resources>

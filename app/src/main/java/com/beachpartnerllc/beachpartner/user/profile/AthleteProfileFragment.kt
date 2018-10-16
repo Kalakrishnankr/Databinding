@@ -1,20 +1,15 @@
 package com.beachpartnerllc.beachpartner.user.profile
 
-import android.Manifest
 import android.app.Activity.*
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.*
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.amazonaws.mobile.auth.core.IdentityHandler
-import com.amazonaws.mobile.auth.core.IdentityManager
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.AthleteProfileBinding
@@ -24,7 +19,6 @@ import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -47,30 +41,17 @@ class AthleteProfileFragment : BaseFragment() {
 		super.onActivityCreated(savedInstanceState)
 		vm = getViewModel(factory)
 		binding.vm = vm
-		vm.isProfileEdit.observe(viewLifecycleOwner, Observer {
-			activity!!.invalidateOptionsMenu()
-		})
+		vm.isProfileEdit.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
 		vm.profileValidate.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
-		vm.uploadProgress.observe(viewLifecycleOwner, Observer { })
+		vm.imageUploadProgress.observe(viewLifecycleOwner, Observer { })
+		vm.videoUploadProgress.observe(viewLifecycleOwner, Observer { })
 		binding.setLifecycleOwner(viewLifecycleOwner)
 	}
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setHasOptionsMenu(true)
-		AWSMobileClient.getInstance().initialize(context) {
-			IdentityManager.getDefaultIdentityManager().getUserID(
-				object : IdentityHandler {
-					override fun onIdentityId(s: String) {
-						Timber.d("Identity ID is: $s")
-					}
-					
-					override fun handleError(ex: Exception) {
-						Timber.e("Error: ${ex.message}")
-					}
-				}
-			)
-		}.execute()
+		AWSMobileClient.getInstance().initialize(context).execute()
 	}
 	
 	fun fabClick() {
@@ -79,7 +60,6 @@ class AthleteProfileFragment : BaseFragment() {
 	
 	fun shareImage() {
 		if (binding.profilePicIV.drawable != null) {
-			
 			val uri = ImageFilePath.getImageUri(context, binding.profilePicIV.drawable.toBitmap())
 			val intent = Intent(Intent.ACTION_SEND)
 			intent.putExtra(Intent.EXTRA_TEXT, "https://www.beachpartner.com/preregistration/")
@@ -87,7 +67,7 @@ class AthleteProfileFragment : BaseFragment() {
 			intent.putExtra(Intent.EXTRA_STREAM, uri)
 			intent.type = "image/*"
 			startActivity(Intent.createChooser(intent, "Share image via..."))
-		} else Toast.makeText(context, "Please upload an image and then share it", Toast.LENGTH_LONG).show()
+		} else Toast.makeText(context, getString(R.string.share_image_error), Toast.LENGTH_LONG).show()
 	}
 	
 	fun uploadImage() {
@@ -98,10 +78,6 @@ class AthleteProfileFragment : BaseFragment() {
 	fun uploadVideo() {
 		if (!hasPermissions(context, permissions)) requestPermissions(permissions, 22)
 		else startActivityForResult(pickVideoIntent(), PICK_VIDEO_REQUEST)
-	}
-	
-	private fun hasPermissions(context: Context?, permissions: Array<String>): Boolean {
-		return permissions.map { checkSelfPermission(context!!, it) != PackageManager.PERMISSION_GRANTED }.contains(false)
 	}
 	
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -121,7 +97,7 @@ class AthleteProfileFragment : BaseFragment() {
 			}
 		} else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK) {
 			val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, data!!.data))
-			vm.uploadVideoToS3(ImageFilePath.getPath(context, data!!.data), extension)
+			vm.uploadVideoToS3(ImageFilePath.getPath(context, data.data), extension)
 				.observe(viewLifecycleOwner, Observer { })
 		}
 	}
@@ -172,14 +148,10 @@ class AthleteProfileFragment : BaseFragment() {
 			R.id.action_save -> {
 				vm.editable(false)
 				vm.isTopFinishesSet.value = true
-				vm.update()
+				vm.updateAthlete()
 				return true
 			}
 		}
 		return super.onOptionsItemSelected(item)
-	}
-	
-	companion object {
-		private val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 	}
 }
