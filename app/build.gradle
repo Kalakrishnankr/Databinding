@@ -71,9 +71,9 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
 
     //amazonS3
-    implementation 'com.amazonaws:aws-android-sdk-core:2.7.+'
-    implementation 'com.amazonaws:aws-android-sdk-s3:2.7.+'
-    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.7.+@aar') { transitive = true }
+    implementation 'com.amazonaws:aws-android-sdk-core:2.7.5'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.7.5'
+    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.7.5@aar') { transitive = true }
 
     // dagger dependency
     kapt 'com.google.dagger:dagger-compiler:2.12'
