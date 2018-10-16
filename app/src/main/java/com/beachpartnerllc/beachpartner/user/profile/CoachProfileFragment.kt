@@ -1,26 +1,22 @@
 package com.beachpartnerllc.beachpartner.user.profile
 
-import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.CoachProfileBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
+import com.beachpartnerllc.beachpartner.etc.common.ImageFilePath
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import javax.inject.Inject
 
 class CoachProfileFragment : BaseFragment() {
@@ -56,13 +52,8 @@ class CoachProfileFragment : BaseFragment() {
 	
 	
 	fun uploadImage() {
-		if (!hasPermissions(context, CoachProfileFragment.permissions)) requestPermissions(CoachProfileFragment
-			.permissions, 21)
+		if (!hasPermissions(context, permissions)) requestPermissions(permissions, 21)
 		else startActivityForResult(pickImageIntent(), PICK_IMAGE_REQUEST)
-	}
-	
-	private fun hasPermissions(context: Context?, permissions: Array<String>): Boolean {
-		return permissions.map { ActivityCompat.checkSelfPermission(context!!, it) != PackageManager.PERMISSION_GRANTED }.contains(false)
 	}
 	
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -70,15 +61,13 @@ class CoachProfileFragment : BaseFragment() {
 		if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
 			if (data!!.hasExtra("data")) {
 				val img = data.extras!!.get("data") as Bitmap
-				Glide.with(requireContext()).load(img).apply(RequestOptions.circleCropTransform())
-					.into(binding.profileImgIV)
-				Glide.with(requireContext()).load(img).apply(RequestOptions.centerCropTransform())
-					.into(binding.bgView)
+				val uri = ImageFilePath.getImageUri(context, img)
+				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, uri))
+				vm.uploadImageToS3(ImageFilePath.getPath(context, uri), extension)
 			} else {
-				Glide.with(requireContext()).load(data.data).apply(RequestOptions.circleCropTransform())
-					.into(binding.profileImgIV)
-				Glide.with(requireContext()).load(data.data).apply(RequestOptions.centerCropTransform())
-					.into(binding.bgView)
+				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, data.data))
+				vm.uploadImageToS3(ImageFilePath.getPath(context, data.data), extension)
+					.observe(viewLifecycleOwner, Observer { })
 			}
 		}
 	}
@@ -119,15 +108,10 @@ class CoachProfileFragment : BaseFragment() {
 			}
 			R.id.action_save -> {
 				vm.editable(false)
-				vm.isTopFinishesSet.value = true
-				vm.update()
+				vm.updateCoach()
 				return true
 			}
 		}
 		return super.onOptionsItemSelected(item)
-	}
-	
-	companion object {
-		private val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 	}
 }

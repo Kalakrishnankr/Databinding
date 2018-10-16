@@ -49,7 +49,8 @@ class AuthViewModel @Inject constructor(
 	val profileValidate = MutableLiveData<Boolean>()
 	val isTopFinishesSet = MutableLiveData<Boolean>()
 	val imgAvailable = MutableLiveData<Boolean>()
-	val uploadProgress = MutableLiveData<Int>()
+	val imageUploadProgress = MutableLiveData<Int>()
+	val videoUploadProgress = MutableLiveData<Int>()
 	
 	fun signIn() = map(repo.signIn(auth.value!!)) {
 		loading.value = it.status == RequestState.LOADING
@@ -203,7 +204,14 @@ class AuthViewModel @Inject constructor(
 		user.sharingAthletes = app.resources.getStringArray(R.array.yes_no)[position!!]
 	}
 	
-	fun update() = map(repo.update(athlete.value!!)) {
+	fun updateAthlete() = map(repo.update(athlete.value!!)) {
+		loading.value = it.status == RequestState.LOADING
+		if (it.isSuccess()) {
+			Timber.e("Success")
+		}
+	}!!
+	
+	fun updateCoach() = map(repo.update(athlete.value!!)) {
 		loading.value = it.status == RequestState.LOADING
 		if (it.isSuccess()) {
 			Timber.e("Success")
@@ -217,7 +225,7 @@ class AuthViewModel @Inject constructor(
 			athlete.value = user
 			imgAvailable.value = false
 		} else {
-			uploadProgress.value = it.code
+			imageUploadProgress.value = it.code
 			imgAvailable.value = true
 		}
 	}!!
@@ -228,7 +236,7 @@ class AuthViewModel @Inject constructor(
 			user!!.video = it.data
 			athlete.value = user
 		} else {
-			uploadProgress.value = it.code
+			videoUploadProgress.value = it.code
 		}
 	}!!
 	

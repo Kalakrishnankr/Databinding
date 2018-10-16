@@ -18,7 +18,6 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.NetworkBoundResource
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.profile.Athlete
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.profile.Session
 import com.beachpartnerllc.beachpartner.user.state.State
@@ -109,18 +108,18 @@ class AuthRepository @Inject constructor(
 		return state
 	}
 	
-	fun update(athlete: Athlete): LiveData<Resource<Athlete>> {
-		val state = MutableLiveData<Resource<Athlete>>()
+	fun update(profile: Profile): LiveData<Resource<Profile>> {
+		val state = MutableLiveData<Resource<Profile>>()
 		state.value = Resource.loading()
-		api.update(athlete).enqueue(object : Callback<Resource<Athlete>?> {
-			override fun onFailure(call: Call<Resource<Athlete>?>, t: Throwable) {
+		api.update(profile).enqueue(object : Callback<Resource<Profile>?> {
+			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
 				state.value = Resource.error()
 			}
 			
-			override fun onResponse(call: Call<Resource<Athlete>?>, response: Response<Resource<Athlete>?>) {
+			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
 				when (response.code()) {
 					HTTP_CREATED -> {
-						state.value = Resource.success(athlete)
+						state.value = Resource.success(profile)
 					}
 				}
 			}
