@@ -19,6 +19,7 @@ import com.beachpartnerllc.beachpartner.user.state.State
 import timber.log.Timber
 import javax.inject.Inject
 
+
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 04 Jun 2018 at 2:44 PM
@@ -151,7 +152,6 @@ class AuthViewModel @Inject constructor(
         when {
             it.isSuccess() -> {
                 stateList.value = it.data!!
-                // selectedStatePosition.value = 0
             }
 
             it.isError() -> event.value = it.message
@@ -257,6 +257,7 @@ class AuthViewModel @Inject constructor(
         auth.value = Auth()
         profile.value = Profile()
         athlete.value = Athlete()
+        coach.value = Coach()
         topFinishesCount.value = 0
         imgAvailable.value = false
     }

@@ -34,8 +34,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="outputName" value="ic_transparent" />
-                                      <entry key="theme" value="HOLO_DARK" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_edit.png" />
+                                      <entry key="outputName" value="ic_edit" />
+                                      <entry key="themeColor" value="060456" />
                                     </map>
                                   </option>
                                 </PersistentState>

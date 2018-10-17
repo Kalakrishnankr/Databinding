@@ -47,9 +47,6 @@ class BasicInfoFragment : BaseFragment() {
         binding.vm = vm
         binding.setLifecycleOwner(viewLifecycleOwner)
         binding.adapter = ArrayAdapter(context, R.layout.simple_spinner_item_1line, resources.getStringArray(R.array.gender))
-        /* vm.selectedStatePosition.observe(this, Observer {
-             it?.let { vm.setStatePosition(it) }
-         })*/
         binding.handler = this
         vm.getStates().observe(viewLifecycleOwner, Observer { it ->
             if (it.isSuccess()) {

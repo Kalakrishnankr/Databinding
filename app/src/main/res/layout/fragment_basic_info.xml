@@ -18,11 +18,12 @@
 		tools:context=".user.profile.BasicInfoFragment">
 
 		<View
-			android:layout_width="match_parent"
+			android:layout_width="0dp"
 			android:layout_height="0dp"
 			android:layout_marginLeft="@dimen/dimen_13dp"
 			android:layout_marginRight="@dimen/dimen_13dp"
 			android:background="@color/grey_efeff1"
+			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"/>
@@ -53,6 +54,7 @@
 			android:text="@={vm.athlete.firstName}"
 			android:textColor="@color/blue_263588"
 			android:textSize="@dimen/text_size_regular"
+			android:selection="@{vm.isProfileEdit()?vm.athlete.firstName.length:0}"
 			app:error="@{vm.isProfileEdit &amp;&amp; firstNameError ? @string/invalid_name : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"

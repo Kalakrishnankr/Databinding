@@ -57,6 +57,7 @@ class MoreInfoFragment : BaseFragment() {
         binding.topFinishesAET.setText(topFinish)
         this.binding.topFinishesLL.addView(binding.root)
         this.binding.topFinishesLL.invalidate()
+        this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1).requestFocus()
         binding.setLifecycleOwner(viewLifecycleOwner)
         vm.addTopFinish()
     }

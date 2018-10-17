@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.*
+import com.amazonaws.mobile.client.AWSMobileClient
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
@@ -13,8 +14,10 @@ class HomeActivity : BaseActivity() {
     private lateinit var binding: HomeActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+
+        AWSMobileClient.getInstance().initialize(application).execute()
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 	    setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.navFragment)
@@ -24,5 +27,4 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
-
 }
