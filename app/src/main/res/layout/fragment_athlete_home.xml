@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="AthleteHomeFragmentBinding">
-		<import type="com.beachpartnerllc.beachpartner.R"/>
+		<!--<import type="com.beachpartnerllc.beachpartner.R"/>-->
 		<variable name="avatarAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 	</data>
 
@@ -22,6 +23,5 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:spaceOffset="@{@dimen/dimen_8dp}"
 			tools:listitem="@layout/item_avatar"/>
-
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

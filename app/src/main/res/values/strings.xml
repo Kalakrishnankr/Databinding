@@ -42,6 +42,7 @@
     <string name="i_did_not_get_email">I never got the Email</string>
     <string name="return_to_sign_in">Return to Sign In</string>
     <string name="hint_i_did_not_get_email">Please Check your spam folder; email may take as long as 10 minutes to arrive. If after 10 minutes you have not received your email, please  contact us so we can help you.</string>
+	<string name="player">Player</string>
 
 	<string name="retry">Retry</string>
 	<string name="location">Location</string>
@@ -82,4 +83,48 @@
 	<string name="no">No</string>
 	<string name="both">Both</string>
 	<string name="hyphen">-</string>
+
+	<string name="action_profile">Profile</string>
+	<string name="action_subscription">Subscription</string>
+	<string name="action_feedback">Feedback</string>
+	<string name="action_add_ons">Add ons</string>
+	<string name="action_settings">Settings</string>
+	<string name="action_help">Help</string>
+	<string name="action_logout">Logout</string>
+	<string name="editProfile">Edit Profile</string>
+	<string name="share">Share</string>
+	<string name="birth_date">Birth Date</string>
+	<string name="phone">Phone</string>
+	<string name="experience_level">Experience Level</string>
+	<string name="court_side_preference">Court Side Preference</string>
+	<string name="willingness_to_travel">Willingness To Travel</string>
+	<string name="high_school_attended">High School Attended</string>
+	<string name="indoor_club_played_at">Indoor Club Played at</string>
+	<string name="sand_recruits_number">Sand Recruits Number</string>
+	<string name="college_beach">College (Beach)</string>
+	<string name="no_video_available">No Video available</string>
+	<string name="no_video">No video available for this profile</string>
+	<string name="no_camera_permission">Permission for using camera is not allowed</string>
+	<string name="max_size_image">Please upload an image(max size: 4MB)</string>
+	<string name="max_size_video"><![CDATA[Please upload a video(max 30sec & 30MB)]]></string>
+	<string name="position">Position</string>
+	<string name="height">Height</string>
+	<string name="college_indoor">College (Indoor)</string>
+	<string name="my_profile">My Profile</string>
+	<string name="edit_profile">Edit Profile</string>
+	<string name="error_first_name">Please enter your first name</string>
+	<string name="error_last_name">Please enter your last name</string>
+	<string name="error_mobile">Please enter a valid mobile number</string>
+	<string name="college_coach">College Coach</string>
+	<string name="college_university">College/University</string>
+	<string name="description">Description</string>
+	<string name="number_of_athletes">Number of Athletes</string>
+	<string name="years_running">Years Running</string>
+	<string name="programs_offered">Programs Offered</string>
+	<string name="division">Division</string>
+	<string name="program_fully_funded">Is Your Program Fully Funded?</string>
+	<string name="share_athletes">Does Your Program Share Athletes Between Indoor and Beach</string>
+	<string name="upload_error">Upload Failed</string>
+	<string name="share_image_error">Please upload an image and then share it</string>
+
 </resources>

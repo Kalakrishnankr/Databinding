@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data class="BasicInfoBinding">
+		<!--<import type="com.beachpartnerllc.beachpartner.R"/>-->
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.BasicInfoFragment"/>
+		<variable name="adapter" type="android.widget.ArrayAdapter"/>
+		<variable name="firstNameError" type="Boolean"/>
+		<variable name="lastNameError" type="Boolean"/>
+		<variable name="mobileError" type="Boolean"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".user.profile.BasicInfoFragment">
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_marginLeft="@dimen/dimen_13dp"
+			android:layout_marginRight="@dimen/dimen_13dp"
+			android:background="@color/grey_efeff1"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"/>
+
+		<TextView
+			android:id="@+id/tv_fname_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/first_name"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toStartOf="@+id/edit_fname"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_fname"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.firstName}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_regular"
+			app:error="@{vm.isProfileEdit &amp;&amp; firstNameError ? @string/invalid_name : null}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_fname_label"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Martin"/>
+
+		<View
+			android:id="@+id/bound_fname"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@id/tv_fname_label"/>
+
+		<TextView
+			android:id="@+id/tv_lname_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/last_name"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toStartOf="@+id/edit_lname"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_fname"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_lname"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.lastName}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_regular"
+			app:error="@{vm.isProfileEdit &amp;&amp; lastNameError ? @string/invalid_name : null}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_lname_label"
+			app:layout_constraintTop_toBottomOf="@+id/bound_fname"
+			tools:text="Luther King"/>
+
+		<View
+			android:id="@+id/bound_lname"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@id/tv_lname_label"/>
+
+		<TextView
+			android:id="@+id/tv_gender_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/gender"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toStartOf="@+id/edit_gender"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_lname"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/edit_gender"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:selectedItemPosition="@={vm.selectedGenderPosition}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_regular"
+			app:adapter="@{adapter}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
+			app:layout_constraintTop_toBottomOf="@+id/bound_lname"/>
+
+		<View
+			android:id="@+id/bound_gender"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@id/tv_gender_label"/>
+
+		<TextView
+			android:id="@+id/tv_dob_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/birth_date"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toStartOf="@+id/edit_dob"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_gender"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_dob"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:focusable="false"
+			android:inputType="date"
+			android:onClick="@{()->handler.onDobClick()}"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.dob}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_dob_label"
+			app:layout_constraintTop_toBottomOf="@+id/bound_gender"
+			tools:text="28-02-1994"/>
+
+		<View
+			android:id="@+id/bound_dob"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@id/tv_dob_label"/>
+
+		<TextView
+			android:id="@+id/spinner_state_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/state"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toStartOf="@+id/spinner_state"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_dob"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/spinner_state"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:selectedItemPosition="@={vm.selectedStatePosition}"
+			android:textColor="@color/blue_263588"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/spinner_state_label"
+			app:layout_constraintTop_toBottomOf="@+id/bound_dob">
+		</androidx.appcompat.widget.AppCompatSpinner>
+
+		<View
+			android:id="@+id/bound_state"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@id/spinner_state_label"/>
+
+		<TextView
+			android:id="@+id/tv_phone_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/phone"
+			android:textSize="@dimen/text_size_regular"
+			app:layout_constraintEnd_toStartOf="@+id/edit_mobile"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_state"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_mobile"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="phone"
+			android:maxLength="10"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.mobile}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_regular"
+			app:error="@{vm.isProfileEdit &amp;&amp; mobileError ? @string/invalid_mobile : null}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
+			app:layout_constraintTop_toBottomOf="@+id/bound_state"
+			tools:text="95822222321"/>
+		<View
+			android:id="@+id/bound_phone"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@id/tv_phone_label"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

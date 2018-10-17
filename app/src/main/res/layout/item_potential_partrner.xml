@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="PotentialItemBinding">
-		<variable name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
 			app:isRound="@{true}"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:url="@{item.avatarUrl}"
+			app:imageUrl="@{item.avatarUrl}"
 			tools:src="@tools:sample/avatars"/>
 
 		<TextView
@@ -51,6 +51,5 @@
 			app:layout_constraintBottom_toBottomOf="@id/avatarIV"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="@id/avatarIV"/>
-
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	>
 	<data class="SearchFragmentBinding">
 		<import type="androidx.navigation.Navigation"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
-		<import type="com.beachpartnerllc.beachpartner.user.Gender"/>
+		<import type="com.beachpartnerllc.beachpartner.user.profile.Gender"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
 	</data>
 	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
+
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			tools:context=".finder.SearchFragment">
+			android:layout_height="wrap_content">
 
 			<androidx.cardview.widget.CardView
 				android:id="@+id/ageCV"
@@ -308,6 +308,7 @@
 				app:layout_constraintLeft_toRightOf="parent"
 				app:layout_constraintRight_toLeftOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/coachCV"/>
+
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -317,8 +318,6 @@
 				app:layout_constraintLeft_toRightOf="parent"
 				app:layout_constraintRight_toLeftOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/playIMV"/>
-
 		</androidx.constraintlayout.widget.ConstraintLayout>
-
 	</ScrollView>
 </layout>

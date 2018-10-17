@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.user
+package com.beachpartnerllc.beachpartner.user.profile
 
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -12,21 +12,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(tableName = "Connections")
-data class Profile(
-		@PrimaryKey val userId: Int = -1,
-		var firstName: String? = null,
-		var lastName: String? = null,
-		var stateId: Int? = null,
-		var gender: Gender? = null,
-		var userType: UserType? = null,
-		var email: String? = null,
-		var mobile: String? = null,
-		var password: String? = null,
-		var dob: String? = null,
-		var avatarUrl: String? = null,
-		var videoUrl: String? = null,
-		var age: Int? = null,
-		var status: String? = null) {
+open class Profile(
+	@PrimaryKey var userId: Int = -1,
+    var firstName: String? = null,
+    var lastName: String? = null,
+    var stateId: Int? = null,
+    var gender: Gender? = null,
+    var userType: UserType? = null,
+    var email: String? = null,
+    var mobile: String? = null,
+    var password: String? = null,
+    var dob: String? = null,
+    var avatarUrl: String? = null,
+    var videoUrl: String? = null,
+    var age: Int? = null,
+    var status: String? = null) {
 	@Ignore var dateOfBirth: Date? = null
 
 	fun isFirstNameValid() = firstName.isName()

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="StripItemBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
-		<variable name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 	</data>
 	<ImageView
 		android:id="@+id/itemIV"
@@ -13,6 +12,6 @@
 		android:layout_height="@dimen/dimen_65dp"
 		android:contentDescription="@null"
 		android:padding="@dimen/dimen_5dp"
-		app:url="@{item.avatarUrl}"
+		app:imageUrl="@{item.avatarUrl}"
 		tools:src="@tools:sample/avatars"/>
 </layout>

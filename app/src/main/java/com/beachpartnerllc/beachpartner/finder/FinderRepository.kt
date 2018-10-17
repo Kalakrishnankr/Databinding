@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.beachpartnerllc.beachpartner.etc.base.Repository
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+	>
 	<data class="SearchResultFragment2Binding">
 		<import type="com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
@@ -109,7 +109,6 @@
 			app:layout_constraintLeft_toRightOf="@+id/circlebgVI"
 			app:layout_constraintRight_toRightOf="@+id/btnbgVI"
 			app:layout_constraintTop_toTopOf="@+id/btnbgVI"/>
-
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,7 +4,7 @@
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="ProfileItemBinding">
 		<import type="android.view.View"/>
-		<variable name="profile" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="profile" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 		<variable name="adapter" type="com.beachpartnerllc.beachpartner.finder.ProfileListingAdapter"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"/>
 	</data>

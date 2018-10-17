@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="ConnectionItemBinding">
 		<import type="android.view.View"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
 		<variable name="isOpen" type="Boolean"/>
-		<variable name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 	</data>
 
 	<androidx.cardview.widget.CardView
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:cardCornerRadius="@dimen/dimen_6dp">
@@ -39,8 +38,8 @@
 						android:layout_height="@dimen/dimen_72dp"
 						android:layout_marginTop="@dimen/dimen_28dp"
 						android:contentDescription="@null"
+						app:imageUrl="@{item.avatarUrl}"
 						app:isRound="@{true}"
-						app:url="@{item.avatarUrl}"
 						tools:src="@tools:sample/avatars"/>
 
 					<TextView

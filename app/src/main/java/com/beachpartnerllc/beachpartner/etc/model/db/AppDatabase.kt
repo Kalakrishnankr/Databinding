@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.beachpartnerllc.beachpartner.connection.ConnectionDao
 import com.beachpartnerllc.beachpartner.event.Event
 import com.beachpartnerllc.beachpartner.event.EventDao
-import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.beachpartnerllc.beachpartner.user.state.StateDao
 

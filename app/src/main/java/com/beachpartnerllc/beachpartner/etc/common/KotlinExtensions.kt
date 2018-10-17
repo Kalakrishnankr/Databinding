@@ -75,11 +75,11 @@ inline fun <reified T : AppCompatActivity> Activity.startActivity(
 
 fun String?.isEmail() = this != null && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-fun String?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches()
+fun CharSequence?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches() && length > 9
 
 fun String?.isPassword() = this != null && length > 7 && this.trim().length == length
 
-fun String?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex())
+fun CharSequence?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex())
 
 fun Date.truncateTime(): Date {
 	val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

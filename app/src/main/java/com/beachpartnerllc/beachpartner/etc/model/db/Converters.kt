@@ -1,8 +1,8 @@
 package com.beachpartnerllc.beachpartner.etc.model.db
 
 import androidx.room.TypeConverter
-import com.beachpartnerllc.beachpartner.user.Gender
-import com.beachpartnerllc.beachpartner.user.UserType
+import com.beachpartnerllc.beachpartner.user.profile.Gender
+import com.beachpartnerllc.beachpartner.user.profile.UserType
 import java.util.*
 
 

@@ -1,13 +1,17 @@
 package com.beachpartnerllc.beachpartner.etc.common
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.format.DateFormat
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
@@ -22,11 +26,24 @@ import com.beachpartnerllc.beachpartner.utils.DoubleTapListener
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
+import com.google.android.exoplayer2.C
+import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.wang.avi.AVLoadingIndicatorView
 import io.apptik.widget.MultiSlider
+import timber.log.Timber
 import java.util.*
 
 
@@ -34,13 +51,11 @@ import java.util.*
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 04 Jun 2018 at 9:44 AM
  */
+
 @BindingAdapter("error")
 fun setError(view: TextInputLayout, error: String?) {
     view.error = error
 }
-
-@BindingAdapter("error")
-fun setError(view: TextInputLayout, error: Int) = setError(view, if (error == 0) null else view.resources.getString(error))
 
 @BindingAdapter("isLoading")
 fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
@@ -48,18 +63,14 @@ fun setLoading(view: AVLoadingIndicatorView, isLoading: Boolean) {
     else view.smoothToHide()
 }
 
-@BindingAdapter("url", "isRound", requireAll = false)
-fun setUrl(imageView: ImageView, url: String?, isRound: Boolean?) {
+@BindingAdapter("imageUrl", "isRound", "placeHolder", requireAll = false)
+fun setImageUrl(imageView: ImageView, url: String?, isRound: Boolean?, placeholder: Drawable?) {
     GlideApp.with(imageView)
-            .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .apply(if (isRound == true) RequestOptions.circleCropTransform() else RequestOptions.centerCropTransform())
-            .into(imageView)
-}
-
-@BindingAdapter("nestedScrollingEnabled")
-fun setNestedScrollingEnabled(view: RecyclerView, nestedScrollingEnabled: Boolean) {
-    view.isNestedScrollingEnabled = nestedScrollingEnabled
+        .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .apply(if (isRound == true) RequestOptions.circleCropTransform() else RequestOptions.centerCropTransform())
+        .apply(RequestOptions.placeholderOf(placeholder))
+        .into(imageView)
 }
 
 @BindingAdapter("foregroundColorSpan", "start", "end", requireAll = false)
@@ -89,6 +100,37 @@ fun setOnOkInSoftKeyboardListener(view: TextView, listener: OnOkInSoftKeyboardLi
             return@setOnEditorActionListener false
         }
     }
+}
+
+@SuppressLint("ClickableViewAccessibility")
+@BindingAdapter("onDrawableEndClick")
+fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
+    val padding = 10
+    if (listener != null) {
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                if (view.compoundDrawables[DRAWABLE_RIGHT] == null) return@setOnTouchListener false
+                else if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -
+                        padding)) {
+                    listener.onDrawableEnd()
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
+        }
+    }
+}
+
+@BindingAdapter("spaceOffset")
+fun setItemDecoration(view: RecyclerView, space: Float) {
+    val layoutManager = view.layoutManager
+    val spanCount = when (layoutManager) {
+        is GridLayoutManager -> layoutManager.spanCount
+        is StaggeredGridLayoutManager -> layoutManager.spanCount
+        else -> 1
+    }
+    val decorator = ItemSpaceDecoration(space.toInt(), spanCount)
+    view.addItemDecoration(decorator)
 }
 
 @SuppressLint("ClickableViewAccessibility")
@@ -127,52 +169,17 @@ fun setOnCardEventListener(view: CardStackView, listener: OnCardSwipeChangeListe
         }
 
         override fun onCardClicked(index: Int) {
-            //Timber.e(index.toString())
         }
     })
 }
 
-@SuppressLint("ClickableViewAccessibility")
-@BindingAdapter("onDoubleClickEvent")
-fun setOnDoubleTapListener(view: ImageView, listener: OnImageDoubleClickListener) {
-    view.setOnTouchListener(object : DoubleTapListener() {
-        override fun onSingleClick(v: View) {
-        }
+@BindingAdapter("compactCalendarListener")
+fun compactCalendarListener(view: CompactCalendarView, listener: DateListener) {
+    view.setListener(object : CompactCalendarView.CompactCalendarViewListener {
+        override fun onDayClick(dateClicked: Date) = listener.onDateChanged(dateClicked)
 
-        override fun onDoubleClick(v: View): Boolean {
-            listener.imageDoubleTap()
-            return@onDoubleClick true
-        }
+        override fun onMonthScroll(firstDayOfNewMonth: Date) = listener.onDateChanged(firstDayOfNewMonth)
     })
-}
-
-
-@SuppressLint("ClickableViewAccessibility")
-@BindingAdapter("onDrawableEndClick")
-fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListener?) {
-    if (listener != null) {
-        view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
-                    listener.onDrawableEnd()
-                    return@setOnTouchListener true
-                }
-            }
-            return@setOnTouchListener false
-        }
-    }
-}
-
-@BindingAdapter("spaceOffset")
-fun setItemDecoration(view: RecyclerView, space: Float) {
-    val layoutManager = view.layoutManager
-    val spanCount = when (layoutManager) {
-        is GridLayoutManager -> layoutManager.spanCount
-        is StaggeredGridLayoutManager -> layoutManager.spanCount
-        else -> 1
-    }
-    val decorator = ItemSpaceDecoration(space.toInt(), spanCount)
-    view.addItemDecoration(decorator)
 }
 
 @BindingAdapter("setupWithViewPager")
@@ -185,12 +192,17 @@ fun compactCalendarUseThreeLetterAbbreviation(view: CompactCalendarView, state: 
     view.setUseThreeLetterAbbreviation(state)
 }
 
-@BindingAdapter("compactCalendarListener")
-fun compactCalendarListener(view: CompactCalendarView, listener: DateListener) {
-    view.setListener(object : CompactCalendarView.CompactCalendarViewListener {
-        override fun onDayClick(dateClicked: Date) = listener.onDateChanged(dateClicked)
+@SuppressLint("ClickableViewAccessibility")
+@BindingAdapter("onDoubleClickEvent")
+fun setOnDoubleTapListener(view: ImageView, listener: OnImageDoubleClickListener) {
+    view.setOnTouchListener(object : DoubleTapListener() {
+        override fun onSingleClick(v: View) {
+        }
 
-        override fun onMonthScroll(firstDayOfNewMonth: Date) = listener.onDateChanged(firstDayOfNewMonth)
+        override fun onDoubleClick(v: View): Boolean {
+            listener.imageDoubleTap()
+            return true
+        }
     })
 }
 
@@ -212,4 +224,40 @@ fun goneUntil(view: View, isGone: Boolean) {
 @BindingAdapter("scrollTo")
 fun scrollTo(view: NestedScrollView, direction: Int) {
     view.fullScroll(direction)
+}
+
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("itemView")
+fun setItemView(view: Spinner, itemView: Int) {
+    val adapter = view.adapter as ArrayAdapter<String>
+    val items = ArrayList<String>(adapter.count)
+    for (i in 0 until adapter.count) {
+        items.add(adapter.getItem(i)!!)
+    }
+    view.adapter = ArrayAdapter<String>(view.context, itemView, items)
+}
+
+@BindingAdapter("url", "listener", requireAll = false)
+fun setImageUrl(view: PlayerView, url: Any?, listener: PlayerStateChangeListener) {
+    val uri: Uri? = if (url is String) Uri.parse(url as String?) else url as Uri?
+    val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(DefaultBandwidthMeter()))
+    val player: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(view.context, trackSelector)
+    val dataSourceFactory = DefaultDataSourceFactory(view.context, "ua")
+    val mediaSource = ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
+    player.prepare(mediaSource)
+    player.apply {
+        volume = 0f
+        repeatMode = Player.REPEAT_MODE_ONE
+        playWhenReady = true
+        videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+    }
+    view.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL)
+    view.player = player
+    player.addListener(object : Player.DefaultEventListener() {
+        override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+            super.onPlayerStateChanged(playWhenReady, playbackState)
+            Timber.d("current state: $playbackState")
+            listener.onPlayerStateChanged(playbackState)
+        }
+    })
 }

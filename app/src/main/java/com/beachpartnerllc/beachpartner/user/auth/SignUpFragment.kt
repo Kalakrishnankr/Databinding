@@ -14,8 +14,8 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.SignUpFragmentBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
-import com.beachpartnerllc.beachpartner.user.Gender
-import com.beachpartnerllc.beachpartner.user.UserType
+import com.beachpartnerllc.beachpartner.user.profile.Gender
+import com.beachpartnerllc.beachpartner.user.profile.UserType
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -26,62 +26,62 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SignUpFragment : BaseFragment() {
-	@Inject lateinit var factory: ViewModelProvider.Factory
-	private lateinit var vm: AuthViewModel
-	private lateinit var binding: SignUpFragmentBinding
-	private lateinit var disposable: Disposable
-	
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
-		binding.handler = this
-		return binding.root
-	}
-	
-	override fun onActivityCreated(savedInstanceState: Bundle?) {
-		super.onActivityCreated(savedInstanceState)
-		
-		vm = ViewModelProviders.of(activity!!, factory)[AuthViewModel::class.java]
-		binding.vm = vm
-		binding.setLifecycleOwner(viewLifecycleOwner)
-		
-		loadStates()
-		
-		val firstName = RxTextView.afterTextChangeEvents(binding.firstNameET).skip(vm.signUpSkipInitCount())
-		val lastName = RxTextView.afterTextChangeEvents(binding.lastNameET).skip(vm.signUpSkipInitCount())
-		val state = RxAdapterView.itemSelections(binding.stateACS).skip(vm.signUpSkipInitCount())
-		val gender = RxRadioGroup.checkedChanges(binding.genderRG).skip(vm.signUpSkipInitCount())
-		val userType = RxRadioGroup.checkedChanges(binding.userTypeRG).skip(vm.signUpSkipInitCount())
-		val observables = listOf(firstName, lastName, state, gender, userType)
-		disposable = Observable.combineLatest(observables) { readInput(it); vm.signUpValidate.value = true }
-			.doOnError { Timber.e(it) }
-			.subscribeOn(AndroidSchedulers.mainThread())
-			.subscribe()
-	}
-	
-	fun loadStates() {
-		vm.getStates().observe(viewLifecycleOwner, Observer { it ->
-			if (it.isSuccess()) {
-				binding.stateACS.adapter = ArrayAdapter(
-					context!!,
-					android.R.layout.simple_dropdown_item_1line,
-					it.data?.map { it.stateName }!!)
-			}
-		})
-	}
-	
-	private fun readInput(inputs: Array<out Any?>) {
-		val profile = vm.profile.value!!
-		val statePosition = inputs[2].toString().toInt()
-		if (statePosition > -1) vm.selectedStatePosition.value = statePosition
-		val gender = binding.genderRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as Gender
-		val userType = binding.userTypeRG.findViewById<RadioButton>(inputs[4].toString().toInt()).tag as UserType
-		if (userType != profile.userType) profile.dob = null
-		profile.gender = gender
-		profile.userType = userType
-	}
-	
-	override fun onDestroyView() {
-		disposable.dispose()
-		super.onDestroyView()
-	}
+    @Inject lateinit var factory: ViewModelProvider.Factory
+    private lateinit var vm: AuthViewModel
+    private lateinit var binding: SignUpFragmentBinding
+    private lateinit var disposable: Disposable
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
+        binding.handler = this
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        vm = ViewModelProviders.of(activity!!, factory)[AuthViewModel::class.java]
+        binding.vm = vm
+        binding.setLifecycleOwner(viewLifecycleOwner)
+
+        loadStates()
+
+        val firstName = RxTextView.afterTextChangeEvents(binding.firstNameET).skip(vm.signUpSkipInitCount())
+        val lastName = RxTextView.afterTextChangeEvents(binding.lastNameET).skip(vm.signUpSkipInitCount())
+        val state = RxAdapterView.itemSelections(binding.stateACS).skip(vm.signUpSkipInitCount())
+        val gender = RxRadioGroup.checkedChanges(binding.genderRG).skip(vm.signUpSkipInitCount())
+        val userType = RxRadioGroup.checkedChanges(binding.userTypeRG).skip(vm.signUpSkipInitCount())
+        val observables = listOf(firstName, lastName, state, gender, userType)
+        disposable = Observable.combineLatest(observables) { readInput(it); vm.signUpValidate.value = true }
+            .doOnError { Timber.e(it) }
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+    }
+
+    fun loadStates() {
+        vm.getStates().observe(viewLifecycleOwner, Observer { it ->
+            if (it.isSuccess()) {
+                binding.stateACS.adapter = ArrayAdapter(
+                    context!!,
+                    android.R.layout.simple_dropdown_item_1line,
+                    it.data?.map { it.stateName }!!)
+            }
+        })
+    }
+
+    private fun readInput(inputs: Array<out Any?>) {
+        val profile = vm.profile.value!!
+        val statePosition = inputs[2].toString().toInt()
+        if (statePosition > -1) vm.selectedStatePosition.value = statePosition
+        val gender = binding.genderRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as Gender
+        val userType = binding.userTypeRG.findViewById<RadioButton>(inputs[4].toString().toInt()).tag as UserType
+        if (userType != profile.userType) profile.dob = null
+        profile.gender = gender
+        profile.userType = userType
+    }
+
+    override fun onDestroyView() {
+        disposable.dispose()
+        super.onDestroyView()
+    }
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.ProfileItemBinding
 import com.beachpartnerllc.beachpartner.etc.common.bind
-import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.exoplayer2.C
@@ -33,9 +33,9 @@ import com.wang.avi.AVLoadingIndicatorView
  * @created on 24 Sep 2018 at 10:17 AM
  */
 class ProfileListingAdapter(
-        context: Context,
-        private val callback: (Profile) -> Unit,
-        private val call: (Profile) -> Unit) : ArrayAdapter<Profile>(context, 0) {
+    context: Context,
+    private val callback: (Profile) -> Unit,
+    private val call: (Profile) -> Unit) : ArrayAdapter<Profile>(context, 0) {
 
     private lateinit var binding: ProfileItemBinding
 

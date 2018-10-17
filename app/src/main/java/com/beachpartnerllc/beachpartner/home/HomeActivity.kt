@@ -8,10 +8,12 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
 
+
 class HomeActivity : BaseActivity() {
     private lateinit var binding: HomeActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 	    setSupportActionBar(binding.toolbar)
@@ -22,4 +24,5 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
+
 }

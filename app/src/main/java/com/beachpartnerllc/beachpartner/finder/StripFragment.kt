@@ -15,7 +15,7 @@ import com.beachpartnerllc.beachpartner.etc.base.BaseViewHolder
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
-import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import javax.inject.Inject

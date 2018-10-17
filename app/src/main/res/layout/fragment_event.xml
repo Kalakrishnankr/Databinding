@@ -5,9 +5,9 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="EventBinding">
-		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
 		<import type="androidx.navigation.Navigation"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout

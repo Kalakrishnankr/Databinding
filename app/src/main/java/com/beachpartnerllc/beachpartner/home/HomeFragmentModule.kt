@@ -6,6 +6,7 @@ import com.beachpartnerllc.beachpartner.event.CalendarFragment
 import com.beachpartnerllc.beachpartner.event.EventFragment
 import com.beachpartnerllc.beachpartner.event.MasterCalendarFragment
 import com.beachpartnerllc.beachpartner.finder.*
+import com.beachpartnerllc.beachpartner.user.profile.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -43,4 +44,19 @@ interface HomeFragmentModule {
 
     @ContributesAndroidInjector
     fun contributeProfileDetailedInfoFragment(): ProfileDetailFragment
+
+    @ContributesAndroidInjector
+    fun contributeBasicInfoFragment(): BasicInfoFragment
+
+    @ContributesAndroidInjector
+    fun contributeMoreInfoFragment(): MoreInfoFragment
+
+    @ContributesAndroidInjector
+    fun contributeAthleteProfileFragment(): AthleteProfileFragment
+
+    @ContributesAndroidInjector
+    fun contributeCoachProfileFragment(): CoachProfileFragment
+
+    @ContributesAndroidInjector
+    fun contributeCoachMoreInfoFragment(): CoachMoreInfoFragment
 }

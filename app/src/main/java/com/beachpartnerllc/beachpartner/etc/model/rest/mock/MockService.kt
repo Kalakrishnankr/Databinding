@@ -8,9 +8,9 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.event.Event
 import com.beachpartnerllc.beachpartner.finder.Flag
 import com.beachpartnerllc.beachpartner.finder.Search
-import com.beachpartnerllc.beachpartner.user.Profile
-import com.beachpartnerllc.beachpartner.user.Session
 import com.beachpartnerllc.beachpartner.user.auth.Auth
+import com.beachpartnerllc.beachpartner.user.profile.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Session
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,37 +29,38 @@ class MockService(
 	private val serializer: Gson,
 	private val app: Application) : ApiService {
 
-	override fun getStates(): LiveData<ApiResponse<List<State>>> {
-		val data = stringFromFile("get_state")
-		val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
-		return delegate.returningResponse(response).getStates()
-	}
+    override fun getStates(): LiveData<ApiResponse<List<State>>> {
+        val data = stringFromFile("get_state")
+        val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
+        return delegate.returningResponse(response).getStates()
+    }
 
     override fun signIn(auth: Auth): Call<Resource<Session>> {
-		val filePath = if ((0..1).random() == 0) "login_200_ok" else "login_422_invalid_credentials"
-		val data = stringFromFile(filePath)
-		val response: Resource<Session> = serializer.fromJson(data, object : TypeToken<Resource<Session>>() {}.type)
-		return delegate.returningResponse(response).signIn(auth)
-	}
+        val filePath = if ((0..1).random() == 0) "login_200_ok" else "login_422_invalid_credentials"
+        val data = stringFromFile(filePath)
+        val response: Resource<Session> = serializer.fromJson(data, object : TypeToken<Resource<Session>>() {}.type)
+        return delegate.returningResponse(response).signIn(auth)
+    }
 
     override fun register(profile: Profile): Call<Resource<Any>> {
-		/*val response = Response.Builder()
-				.code(201)
-				.body(ResponseBody.create(JSON, profile.toString()))*/
-		return delegate.returningResponse(null).register(profile)
-	}
+        return delegate.returningResponse(Resource.success(profile)).register(profile)
+    }
+
+    override fun update(profile: Profile?): Call<Resource<Profile>> {
+        return delegate.returningResponse(Resource.success(profile)).update(profile)
+    }
 
     override fun getEvent(date: Date, limit: Int, index: Int): Call<Resource<List<Event>>> {
-		val data = stringFromFile("get_events")
-		val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
-		return delegate.returningResponse(Resource.success(response)).getEvent(date, limit, index)
-	}
+        val data = stringFromFile("get_events")
+        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        return delegate.returningResponse(Resource.success(response)).getEvent(date, limit, index)
+    }
 
     override fun getEvent(eventId: Int): LiveData<ApiResponse<Event>> {
-		val data = stringFromFile("get_event")
-		val response: Event = serializer.fromJson(data, object : TypeToken<Event>() {}.type)
-		return delegate.returningResponse(response).getEvent(eventId)
-	}
+        val data = stringFromFile("get_event")
+        val response: Event = serializer.fromJson(data, object : TypeToken<Event>() {}.type)
+        return delegate.returningResponse(response).getEvent(eventId)
+    }
 
     override fun getConnections(): LiveData<ApiResponse<List<Profile>>> {
         val data = stringFromFile("get_connections")

@@ -7,8 +7,8 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection
 import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection.*
-import com.beachpartnerllc.beachpartner.user.Profile
 import com.beachpartnerllc.beachpartner.user.auth.AuthRepository
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.state.State
 import javax.inject.Inject
 

@@ -7,9 +7,7 @@
 	<data class="UnreceivedEmailBinding">
 		<import type="com.beachpartnerllc.beachpartner.user.auth.AuthState"/>
 
-		<variable
-			name="handler"
-			type="com.beachpartnerllc.beachpartner.user.auth.PostRegistrationFragment"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.auth.PostRegistrationFragment"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -26,8 +24,7 @@
 			android:onClick="@{()->handler.onStateChanged(AuthState.SIGN_IN)}"
 			android:padding="@dimen/dimen_16dp"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:srcCompat="@drawable/ic_close_black_18dp"/>
+			app:layout_constraintTop_toTopOf="parent"/>
 
 		<ImageView
 			android:id="@+id/smileIV"
@@ -65,7 +62,6 @@
 			android:text="@string/hint_i_did_not_get_email"
 			android:textColor="@color/grey_333333"
 			android:textSize="@dimen/text_12sp"
-			app:layout_constraintBottom_toTopOf="@id/signInBtn"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/neverLabel"/>

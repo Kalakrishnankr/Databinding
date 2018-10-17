@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data class="TopFinishesBinding">
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.MoreInfoFragment"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/topFinishItemRootCL"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<View
+				android:id="@+id/view"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_margin="@dimen/dimen_17"
+				app:layout_constraintEnd_toStartOf="@+id/topFinishesAET"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toStartOf="parent"/>
+
+			<androidx.appcompat.widget.AppCompatEditText
+				android:id="@+id/topFinishesAET"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimen_17"
+				android:background="@drawable/text_field"
+				android:drawableEnd="@{vm.isProfileEdit?@drawable/ic_remove_15dp:null}"
+				android:enabled="@{vm.isProfileEdit}"
+				android:inputType="textCapWords"
+				android:maxLines="1"
+				android:paddingStart="@dimen/dimen_8dp"
+				android:paddingEnd="@dimen/dimen_8dp"
+				android:textColor="@color/blue_263588"
+				android:textSize="@dimen/text_size_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toEndOf="@+id/view"
+				app:layout_constraintTop_toTopOf="parent"
+				app:onDrawableEndClick="@{()->handler.removeTopFinish(topFinishItemRootCL)}"/>
+
+			<View
+				android:id="@+id/bound_top_finishes"
+				android:layout_width="0dp"
+				android:layout_height="1dp"
+				android:layout_margin="@dimen/dimen_17"
+				android:background="@color/grey_A9A9A9"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/topFinishesAET"/>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
