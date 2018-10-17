@@ -26,7 +26,7 @@
 			<FrameLayout
 				android:id="@+id/containerFL"
 				android:layout_width="0dp"
-				android:layout_height="168dp"
+				android:layout_height="200dp"
 				android:onClick="@{()->handler.uploadVideo()}"
 				tools:layout_constraintEnd_toEndOf="parent"
 				tools:layout_constraintStart_toStartOf="parent">
@@ -87,7 +87,7 @@
 				android:id="@+id/profilePicIV"
 				android:layout_width="@dimen/circular_img_width"
 				android:layout_height="@dimen/circular_img_height"
-				android:layout_marginTop="135dp"
+				android:layout_marginTop="145dp"
 				android:onClick="@{()->handler.uploadImage()}"
 				app:url="@{vm.profile.image}"
 				app:placeHolder="@{@drawable/ic_user_img}"
