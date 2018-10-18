@@ -67,7 +67,7 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toBottomOf="@id/nameTV"
-						tools:text="Age : 23"/>
+						tools:text="23 years"/>
 
 					<TextView
 						android:id="@+id/blockTV"

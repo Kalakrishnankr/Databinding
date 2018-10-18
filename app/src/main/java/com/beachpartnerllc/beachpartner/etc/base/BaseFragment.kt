@@ -52,6 +52,8 @@ abstract class BaseFragment : Fragment(), Injectable {
         return chooserIntent
     }
 
+    open fun onBackPressed() = false
+
     companion object {
         const val PICK_IMAGE_REQUEST = 0
         const val PICK_VIDEO_REQUEST = 1

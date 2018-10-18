@@ -9,7 +9,6 @@
 		<variable name="validate" type="Boolean"/>
 		<variable name="connectionsAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 		<variable name="potentialAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
-		<variable name="handler" type="com.beachpartnerllc.beachpartner.connection.InviteConnectionFragment"/>
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.connection.ConnectionViewModel"/>
 	</data>
 
@@ -46,7 +45,7 @@
 				style="@style/LoadingIndicatorSmall"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				app:isLoading="@{vm.loading}"
+				app:isLoading="@{vm.isConnectionLoading}"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
@@ -84,9 +83,9 @@
 				android:layout_gravity="center_horizontal"
 				android:layout_marginBottom="@dimen/dimen_8dp"
 				android:background="@drawable/draw_rect_273588_r16"
-				android:enabled="@{!vm.loading}"
+				android:enabled="@{!vm.isConnectionLoading}"
 				android:minHeight="@dimen/dimen_36dp"
-				android:onClick="@{()->handler.onInvite()}"
+				android:onClick="@{()->vm.invite(potentialAdapter.items)}"
 				android:text="@string/invite_friend"
 				android:textColor="@color/white"
 				android:textSize="@dimen/text_12sp"

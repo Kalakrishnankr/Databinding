@@ -47,7 +47,7 @@ class MockServiceModule {
 	fun behaviorProvider(): NetworkBehavior {
 		val behavior = NetworkBehavior.create()
 		behavior.setDelay(1, TimeUnit.SECONDS)
-        behavior.setErrorPercent(10)
+        behavior.setErrorPercent(5)
         behavior.setVariancePercent(50)
 		return behavior
 	}
