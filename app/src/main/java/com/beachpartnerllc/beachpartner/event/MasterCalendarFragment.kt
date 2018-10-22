@@ -32,7 +32,7 @@ class MasterCalendarFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val vm: EventViewModel = getViewModel(factory)
+        val vm: EventViewModel = getViewModel(factory, false)
         binding.vm = vm
         binding.setLifecycleOwner(viewLifecycleOwner)
         binding.masterCCV.setCurrentDate(vm.eventDate.value)

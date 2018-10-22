@@ -70,16 +70,46 @@ open class Profile(
 
     fun isCoach() = userType == UserType.COACH
 
+    override fun hashCode(): Int {
+        var result = userId
+        result = 31 * result + (firstName?.hashCode() ?: 0)
+        result = 31 * result + (lastName?.hashCode() ?: 0)
+        result = 31 * result + (stateId ?: 0)
+        result = 31 * result + (gender?.hashCode() ?: 0)
+        result = 31 * result + (userType?.hashCode() ?: 0)
+        result = 31 * result + (email?.hashCode() ?: 0)
+        result = 31 * result + (mobile?.hashCode() ?: 0)
+        result = 31 * result + (password?.hashCode() ?: 0)
+        result = 31 * result + (dob?.hashCode() ?: 0)
+        result = 31 * result + (avatarUrl?.hashCode() ?: 0)
+        result = 31 * result + (videoUrl?.hashCode() ?: 0)
+        result = 31 * result + (age ?: 0)
+        result = 31 * result + (status?.hashCode() ?: 0)
+        result = 31 * result + (dateOfBirth?.hashCode() ?: 0)
+        return result
+    }
+
     override fun equals(other: Any?): Boolean {
+        if (this === other) return true
         if (other !is Profile) return false
 
-        return firstName == other.fullName && lastName == other.lastName &&
-            stateId == other.stateId && gender == other.gender &&
-            userType == other.userType && email == other.email &&
-            mobile == other.mobile && password == other.password &&
-            dob == other.dob && avatarUrl == other.avatarUrl &&
-            videoUrl == other.videoUrl && age == other.age &&
-            status == other.status
+        if (userId != other.userId) return false
+        if (firstName != other.firstName) return false
+        if (lastName != other.lastName) return false
+        if (stateId != other.stateId) return false
+        if (gender != other.gender) return false
+        if (userType != other.userType) return false
+        if (email != other.email) return false
+        if (mobile != other.mobile) return false
+        if (password != other.password) return false
+        if (dob != other.dob) return false
+        if (avatarUrl != other.avatarUrl) return false
+        if (videoUrl != other.videoUrl) return false
+        if (age != other.age) return false
+        if (status != other.status) return false
+        if (dateOfBirth != other.dateOfBirth) return false
+
+        return true
     }
 }
 

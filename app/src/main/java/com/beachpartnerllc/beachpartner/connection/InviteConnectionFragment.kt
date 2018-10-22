@@ -70,26 +70,33 @@ class InviteConnectionFragment : BaseFragment() {
         val searchView = (activity as HomeActivity).searchMSV
         searchView.setMenuItem(item)
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?) = false
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                filterConnections(query)
+                return true
+            }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                connectionsAdapter?.updateItems(
-                    connections
-                        ?.asSequence()
-                        ?.filter { it.fullName!!.contains(newText!!, true) }
-                        ?.minus(potentialAdapter.items)
-                        ?.toMutableList(),
-                    { old, new -> old.userId == new.userId },
-                    { old, new -> old == new }
-                )
-                return false
+                filterConnections(newText)
+                return true
             }
         })
     }
 
-    override fun onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu()
+    private fun filterConnections(query: String?) {
+        connectionsAdapter?.updateItems(
+            connections
+                ?.asSequence()
+                ?.minus(potentialAdapter.items)
+                ?.filter { it.fullName!!.contains(query ?: "", true) }
+                ?.toMutableList(),
+            { old, new -> old.userId == new.userId },
+            { old, new -> old == new }
+        )
+    }
+
+    override fun onDestroyView() {
         (activity as HomeActivity?)?.searchMSV?.closeSearch()
+        super.onDestroyView()
     }
 
     inner class ConnectionsViewHolder(itemBinding: ConnectionsItemBinding) :
