@@ -17,6 +17,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.miguelcatalan.materialsearchview.MaterialSearchView
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.*
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -122,6 +123,7 @@ class InviteConnectionFragment : BaseFragment() {
                 if (adapterPosition < 0) return@setOnClickListener
 
                 connectionsAdapter!!.addItem(potentialAdapter.removeItem(adapterPosition))
+                binding.sliderSPL.panelState = PanelState.ANCHORED
                 binding.validate = true
             }
         }
