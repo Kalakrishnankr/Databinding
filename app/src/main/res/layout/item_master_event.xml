@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="MasterEventBinding">
+		<import type="com.beachpartnerllc.beachpartner.event.EventStatus"/>
 		<variable name="item" type="com.beachpartnerllc.beachpartner.event.Event"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +17,7 @@
 			android:id="@+id/indicatorView"
 			android:layout_width="@dimen/dimen_8dp"
 			android:layout_height="@dimen/dimen_64dp"
+			android:background="@{item.status == EventStatus.REGISTERED ? @color/green_11d436 : @color/red_ff233d}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
