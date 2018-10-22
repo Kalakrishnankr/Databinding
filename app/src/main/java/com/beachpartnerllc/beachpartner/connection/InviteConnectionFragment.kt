@@ -123,7 +123,7 @@ class InviteConnectionFragment : BaseFragment() {
                 if (adapterPosition < 0) return@setOnClickListener
 
                 connectionsAdapter!!.addItem(potentialAdapter.removeItem(adapterPosition))
-                binding.sliderSPL.panelState = PanelState.ANCHORED
+                binding.sliderSPL.panelState = PanelState.COLLAPSED
                 binding.validate = true
             }
         }
