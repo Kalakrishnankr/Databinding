@@ -1,9 +1,7 @@
 package com.beachpartnerllc.beachpartner.connection
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.R
@@ -16,7 +14,10 @@ import com.beachpartnerllc.beachpartner.etc.base.BaseViewHolder
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
+import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.profile.Profile
+import com.miguelcatalan.materialsearchview.MaterialSearchView
+import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 
@@ -29,7 +30,13 @@ class InviteConnectionFragment : BaseFragment() {
     private lateinit var binding: InviteConnectionBinding
     private lateinit var vm: ConnectionViewModel
     private lateinit var potentialAdapter: BaseAdapter<Profile, PotentialItemBinding, PotentialViewHolder>
-    private lateinit var connectionsAdapter: BaseAdapter<Profile, ConnectionsItemBinding, ConnectionsViewHolder>
+    private var connectionsAdapter: BaseAdapter<Profile, ConnectionsItemBinding, ConnectionsViewHolder>? = null
+    private var connections: ArrayList<Profile>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = inflater.bind(R.layout.fragment_invite_connection, container)
@@ -47,10 +54,42 @@ class InviteConnectionFragment : BaseFragment() {
 
         vm.connections.observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
-                connectionsAdapter = BaseAdapter(it.data!!, R.layout.item_connections, ::ConnectionsViewHolder)
+                connections = it.data!!.toMutableList() as ArrayList<Profile>
+                connectionsAdapter = BaseAdapter(
+                    connections!!,
+                    R.layout.item_connections,
+                    ::ConnectionsViewHolder)
                 binding.connectionsAdapter = connectionsAdapter
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.menu_search, menu)
+        val item = menu!!.findItem(R.id.action_search)
+        val searchView = (activity as HomeActivity).searchMSV
+        searchView.setMenuItem(item)
+        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?) = false
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                connectionsAdapter?.updateItems(
+                    connections
+                        ?.asSequence()
+                        ?.filter { it.fullName!!.contains(newText!!, true) }
+                        ?.minus(potentialAdapter.items)
+                        ?.toMutableList(),
+                    { old, new -> old.userId == new.userId },
+                    { old, new -> old == new }
+                )
+                return false
+            }
+        })
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
+        (activity as HomeActivity?)?.searchMSV?.closeSearch()
     }
 
     inner class ConnectionsViewHolder(itemBinding: ConnectionsItemBinding) :
@@ -59,7 +98,7 @@ class InviteConnectionFragment : BaseFragment() {
             itemBinding.addIV.setOnClickListener {
                 if (adapterPosition < 0) return@setOnClickListener
 
-                potentialAdapter.addItem(connectionsAdapter.removeItem(adapterPosition))
+                potentialAdapter.addItem(connectionsAdapter!!.removeItem(adapterPosition))
                 binding.validate = true
             }
         }
@@ -75,7 +114,7 @@ class InviteConnectionFragment : BaseFragment() {
             itemBinding.removeIV.setOnClickListener {
                 if (adapterPosition < 0) return@setOnClickListener
 
-                connectionsAdapter.addItem(potentialAdapter.removeItem(adapterPosition))
+                connectionsAdapter!!.addItem(potentialAdapter.removeItem(adapterPosition))
                 binding.validate = true
             }
         }

@@ -18,7 +18,7 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        AWSMobileClient.getInstance().initialize(application).execute()
+        AWSMobileClient.getInstance().initialize(this).execute()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         setSupportActionBar(binding.toolbar)

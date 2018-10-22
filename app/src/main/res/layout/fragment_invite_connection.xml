@@ -20,7 +20,7 @@
 		app:shadowHeight="@{0}"
 		app:umanoAnchorPoint="0.5"
 		app:umanoFadeColor="@android:color/transparent"
-		app:umanoInitialState="expanded"
+		app:umanoInitialState="collapsed"
 		app:umanoScrollInterpolator="@android:anim/bounce_interpolator"
 		app:umanoShadowHeight="0dp">
 
