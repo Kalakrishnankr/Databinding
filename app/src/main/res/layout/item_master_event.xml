@@ -13,50 +13,50 @@
 		android:padding="@dimen/dimen_4dp">
 
 		<View
-				android:id="@+id/indicatorView"
-				android:layout_width="@dimen/dimen_8dp"
-				android:layout_height="@dimen/dimen_64dp"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				tools:background="@sample/indicator_color"/>
+			android:id="@+id/indicatorView"
+			android:layout_width="@dimen/dimen_8dp"
+			android:layout_height="@dimen/dimen_64dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:background="@sample/indicator_color"/>
 
-			<TextView
-				android:id="@+id/titleTV"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/dimen_12dp"
-				android:text="@{item.title}"
-				android:textColor="@color/grey_b5010101"
-				android:textSize="@dimen/text_16sp"
-				app:layout_constraintBottom_toBottomOf="@id/indicatorView"
-				app:layout_constraintEnd_toStartOf="@id/sendIV"
-				app:layout_constraintHorizontal_bias="0"
-				app:layout_constraintStart_toEndOf="@id/indicatorView"
-				app:layout_constraintTop_toTopOf="@id/indicatorView"
-				tools:text="@sample/event_titles"/>
+		<TextView
+			android:id="@+id/titleTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_12dp"
+			android:text="@{item.title}"
+			android:textColor="@color/grey_b5010101"
+			android:textSize="@dimen/text_16sp"
+			app:layout_constraintBottom_toBottomOf="@id/indicatorView"
+			app:layout_constraintEnd_toStartOf="@id/sendIV"
+			app:layout_constraintHorizontal_bias="0"
+			app:layout_constraintStart_toEndOf="@id/indicatorView"
+			app:layout_constraintTop_toTopOf="@id/indicatorView"
+			tools:text="@sample/event_titles"/>
 
-			<ImageView
-				android:id="@+id/sendIV"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/dimen_10dp"
-				android:contentDescription="@null"
-				android:padding="@dimen/dimen_4dp"
-				android:src="@drawable/ic_sent_grey_18dp"
-				app:layout_constraintBottom_toBottomOf="@id/titleTV"
-				app:layout_constraintEnd_toStartOf="@id/arrowIV"
-				app:layout_constraintTop_toTopOf="@id/titleTV"/>
+		<ImageView
+			android:id="@+id/sendIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/dimen_10dp"
+			android:contentDescription="@null"
+			android:padding="@dimen/dimen_4dp"
+			android:src="@drawable/ic_sent_grey_18dp"
+			app:layout_constraintBottom_toBottomOf="@id/titleTV"
+			app:layout_constraintEnd_toStartOf="@id/arrowIV"
+			app:layout_constraintTop_toTopOf="@id/titleTV"/>
 
-			<ImageView
-				android:id="@+id/arrowIV"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/dimen_18dp"
-				android:contentDescription="@null"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:srcCompat="@drawable/ic_arrow_right_black_14dp"/>
+		<ImageView
+			android:id="@+id/arrowIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/dimen_18dp"
+			android:contentDescription="@null"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_arrow_right_black_14dp"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
