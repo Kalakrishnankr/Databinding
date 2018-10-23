@@ -5,9 +5,10 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="EventBinding">
-		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
 		<import type="androidx.navigation.Navigation"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
+		<import type="com.beachpartnerllc.beachpartner.event.EventStatus"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -353,7 +354,6 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/regEndTV"/>
 
-
 		<TextView
 			android:id="@+id/invitePartnerLabel"
 			android:layout_width="wrap_content"
@@ -361,10 +361,11 @@
 			android:layout_marginTop="@dimen/dimen_24dp"
 			android:drawableTop="@drawable/ic_invite_partner_blue_21dp"
 			android:drawablePadding="13dp"
-			android:enabled="@{!vm.isEventLoading}"
+			android:alpha="@{!vm.isEventLoading &amp;&amp; vm.event.status != EventStatus.REGISTERED ? 1f : 0.5f}"
+			android:enabled="@{!vm.isEventLoading &amp;&amp; vm.event.status != EventStatus.REGISTERED}"
 			android:fontFamily="@font/sf_medium"
-			android:text="@string/invite_partner"
 			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_invite)}"
+			android:text="@string/invite_partner"
 			android:textColor="@color/blue_26368b"
 			app:layout_constraintEnd_toStartOf="@+id/registerLabel"
 			app:layout_constraintStart_toStartOf="parent"

@@ -2,7 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.model.pref
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.beachpartnerllc.beachpartner.user.Session
+import com.beachpartnerllc.beachpartner.user.profile.Session
 import javax.inject.Singleton
 
 /**
@@ -31,7 +31,7 @@ class Preference(private val pref: SharedPreferences) {
 	fun setSession(session: Session) {
 		val profile = session.profile
 		pref.edit {
-			putInt(PREF_USER_ID, profile.userId)
+            putInt(PREF_USER_ID, profile.userId)
 			putInt(PREF_STATE_ID, profile.stateId!!)
 			putString(PREF_SESSION_ID, session.sessionId)
 			putString(PREF_FIRST_NAME, profile.firstName)

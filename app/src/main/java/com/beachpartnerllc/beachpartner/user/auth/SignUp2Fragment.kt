@@ -64,13 +64,13 @@ class SignUp2Fragment : BaseFragment() {
 		dp.calendarViewShown = false
 		dp.maxDate = Calendar.getInstance().timeInMillis - if (profile.isAthlete()) 157784630000 else 568024668000 // 5 years or 18 years
 		val currentText = binding.dobET.text.toString()
-		dp.init(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH]) { _, year: Int, month: Int, day: Int ->
-			binding.dobET.setText(getString(R.string.format_dob, month + 1, day, year))
-		}
-		
+        dp.init(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH], null)
+
 		val dialog = AlertDialog.Builder(context!!)
 			.setCustomTitle(layoutInflater.inflate(R.layout.dialog_title, null, false))
-			.setPositiveButton(R.string.okay, null)
+            .setPositiveButton(R.string.okay) { _, _ ->
+                binding.dobET.setText(getString(R.string.format_dob, dp.month + 1, dp.dayOfMonth, dp.year))
+            }
 			.setNegativeButton(R.string.cancel) { _, _ -> binding.dobET.setText(currentText) }
 			.create()
 		dialog.setView(dp)

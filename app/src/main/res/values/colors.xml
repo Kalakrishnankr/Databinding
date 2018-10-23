@@ -16,9 +16,14 @@
 	<color name="white">#FFFFFF</color>
     <color name="blue_ae12235b">#ae12235b</color>
     <color name="grey_aee4e4e4">#aee4e4e4</color>
+	<color name="grey_484848">#484848</color>
 	<color name="black">#000000</color>
+	<color name="blue_443f58a1">#443f58a1</color>
 	<color name="grey_333333">#333333</color>
 	<color name="blue_2b3a87">#2B3a87</color>
+	<color name="grey_c6c0c0">#c6c0c0</color>
+	<color name="blue_233282">#233282</color>
+	<color name="blue_900a19e1">#900a19e1</color>
 	<color name="grey_999999">#999999</color>
 	<color name="grey_dde4e4e4">#dde4e4e4</color>
 	<color name="transparent_white">#AAFFFFFF</color>
@@ -46,9 +51,15 @@
 	<color name="grey_919191">#919191</color>
 	<color name="grey_dedede">#dedede</color>
 	<color name="grey_f4f4f4">#f4f4f4</color>
+	<color name="blue_3a438e">#3a438e</color>
+	<color name="grey_d6d6d6">#d6d6d6</color>
+	<color name="grey_eeeeee">#eeeeee</color>
+	<color name="blue_78263588">#78263588</color>
+	<color name="grey_efeff1">#efeff1</color>
+	<color name="grey_A9A9A9">#A9A9A9</color>
+	<color name="green_11d436">#11d436</color>
+	<color name="red_ff233d">#ff233d</color>
 	<color name="grey_777777">#777777</color>
 	<color name="grey_c2c2c2">#c2c2c2</color>
-	<color name="grey_484848">#484848</color>
-	<color name="blue_233282">#233282</color>
 	<color name="grey_f5f5f5">#f5f5f5</color>
 </resources>

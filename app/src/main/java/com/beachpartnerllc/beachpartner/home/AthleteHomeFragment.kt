@@ -20,5 +20,4 @@ class AthleteHomeFragment : BaseFragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_athlete_home, container, false)
         return mBinding.root
     }
-	
 }

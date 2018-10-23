@@ -21,7 +21,7 @@
 			app:isRound="@{true}"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:url="@{item.avatarUrl}"
+			app:imageUrl="@{item.avatarUrl}"
 			tools:src="@tools:sample/avatars"/>
 
 		<TextView

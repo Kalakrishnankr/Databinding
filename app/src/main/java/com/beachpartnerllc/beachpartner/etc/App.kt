@@ -15,12 +15,12 @@ import javax.inject.Inject
  */
 
 class App : MultiDexApplication(), HasActivityInjector {
-	@Inject lateinit var injector: DispatchingAndroidInjector<Activity>
+    @Inject lateinit var injector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
-	
-	    AppInjector.init(this)
+
+        AppInjector.init(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
@@ -28,6 +28,6 @@ class App : MultiDexApplication(), HasActivityInjector {
             // TODO: Plant a production tree for crash analytics
         }
     }
-	
-	override fun activityInjector() = injector
+
+    override fun activityInjector() = injector
 }

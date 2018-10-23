@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.di
 
 import android.app.Application
 import com.beachpartnerllc.beachpartner.etc.App
+import com.beachpartnerllc.beachpartner.etc.model.aws.AwsServiceModule
 import com.beachpartnerllc.beachpartner.etc.model.db.DatabaseModule
 import com.beachpartnerllc.beachpartner.etc.model.db.FirestoreDatabaseModule
 import com.beachpartnerllc.beachpartner.etc.model.pref.SharedPreferenceModule
@@ -19,7 +20,8 @@ import javax.inject.Singleton
 	DatabaseModule::class,
 	FirestoreDatabaseModule::class,
     MockServiceModule::class,
-    SharedPreferenceModule::class
+    SharedPreferenceModule::class,
+    AwsServiceModule::class
 ])
 interface AppComponent {
     fun inject(app: App)

@@ -4,9 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="MasterEventBinding">
-		<variable
-			name="item"
-			type="com.beachpartnerllc.beachpartner.event.Event"/>
+		<import type="com.beachpartnerllc.beachpartner.event.EventStatus"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.event.Event"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,6 +17,7 @@
 			android:id="@+id/indicatorView"
 			android:layout_width="@dimen/dimen_8dp"
 			android:layout_height="@dimen/dimen_64dp"
+			android:background="@{item.status == EventStatus.REGISTERED ? @color/green_11d436 : @color/red_ff233d}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +27,7 @@
 			android:id="@+id/titleTV"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/dimen_10dp"
+			android:layout_marginStart="@dimen/dimen_12dp"
 			android:text="@{item.title}"
 			android:textColor="@color/grey_b5010101"
 			android:textSize="@dimen/text_16sp"
@@ -60,7 +60,5 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@drawable/ic_arrow_right_black_14dp"/>
-
-
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

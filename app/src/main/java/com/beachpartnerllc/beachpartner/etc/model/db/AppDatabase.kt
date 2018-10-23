@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.beachpartnerllc.beachpartner.connection.ConnectionDao
 import com.beachpartnerllc.beachpartner.event.Event
 import com.beachpartnerllc.beachpartner.event.EventDao
-import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.state.State
 import com.beachpartnerllc.beachpartner.user.state.StateDao
 
@@ -18,10 +18,10 @@ import com.beachpartnerllc.beachpartner.user.state.StateDao
 @Database(entities = [State::class, Event::class, Profile::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 	abstract fun state(): StateDao
-	
-	abstract fun event(): EventDao
-	
-	abstract fun connection(): ConnectionDao
+
+    abstract fun event(): EventDao
+
+    abstract fun connection(): ConnectionDao
 	
 	companion object {
 		const val DATABASE_NAME = "bp.db"

@@ -41,6 +41,12 @@ fun <T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
 	return mediator
 }
 
+inline fun <reified T> mutableLiveDataOf(value: T): MutableLiveData<T> {
+    val liveData = MutableLiveData<T>()
+    liveData.value = value
+    return liveData
+}
+
 /********          View Components          **************/
 inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: (View) -> T, @LayoutRes res: Int): T {
 	val inflater = LayoutInflater.from(context)
@@ -48,8 +54,7 @@ inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: 
 	return createHolder(view)
 }
 
-
-inline fun <T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
+fun <T : RecyclerView.ViewHolder, R : ViewDataBinding> ViewGroup.bind(construct: (R) -> T, @LayoutRes resId: Int): T {
 	val inflater = LayoutInflater.from(context)
 	val binding: R = DataBindingUtil.inflate(inflater, resId, this, false)
 	return construct(binding)
@@ -78,11 +83,11 @@ inline fun <reified T : AppCompatActivity> Activity.startActivity(
 
 fun String?.isEmail() = this != null && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-fun String?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches()
+fun CharSequence?.isMobile() = this != null && Patterns.PHONE.matcher(this).matches() && length > 9
 
 fun String?.isPassword() = this != null && length > 7 && this.trim().length == length
 
-fun String?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex())
+fun CharSequence?.isName() = this != null && this.trim().matches("[a-z A-Z]+".toRegex())
 
 fun Date.truncateTime(): Date {
 	val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

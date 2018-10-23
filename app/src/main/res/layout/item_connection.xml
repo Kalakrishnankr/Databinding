@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="ConnectionItemBinding">
 		<import type="android.view.View"/>
 		<import type="com.beachpartnerllc.beachpartner.R"/>
 		<variable name="isOpen" type="Boolean"/>
-		<variable name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 	</data>
 
 	<androidx.cardview.widget.CardView
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:cardCornerRadius="@dimen/dimen_6dp">
@@ -24,7 +23,7 @@
 			<androidx.core.widget.NestedScrollView
 				android:id="@+id/scrollNSV"
 				android:layout_width="match_parent"
-				android:layout_height="164dp"
+				android:layout_height="174dp"
 				app:scrollTo="@{isOpen ? View.FOCUS_DOWN : View.FOCUS_UP}">
 
 				<LinearLayout
@@ -35,12 +34,12 @@
 
 					<ImageView
 						android:id="@+id/avatarIV"
-						android:layout_width="@dimen/dimen_72dp"
-						android:layout_height="@dimen/dimen_72dp"
+						android:layout_width="@dimen/dimen_84dp"
+						android:layout_height="@dimen/dimen_84dp"
 						android:layout_marginTop="@dimen/dimen_28dp"
 						android:contentDescription="@null"
+						app:imageUrl="@{item.avatarUrl}"
 						app:isRound="@{true}"
-						app:url="@{item.avatarUrl}"
 						tools:src="@tools:sample/avatars"/>
 
 					<TextView
@@ -48,10 +47,12 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:fontFamily="@font/sf_medium"
-						android:padding="@dimen/dimen_8dp"
+						android:ellipsize="end"
 						android:text="@{@string/space_separator(item.firstName, item.lastName)}"
 						android:textColor="@color/grey_375567"
 						android:textSize="@dimen/text_16sp"
+						android:lines="1"
+						android:paddingTop="@dimen/dimen_8dp"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toBottomOf="@id/avatarIV"
@@ -68,14 +69,14 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toBottomOf="@id/nameTV"
-						tools:text="Age : 23"/>
+						tools:text="23 years"/>
 
 					<TextView
 						android:id="@+id/blockTV"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginStart="@dimen/dimen_14dp"
-						android:layout_marginTop="@dimen/dimen_20dp"
+						android:layout_marginTop="@dimen/dimen_16dp"
 						android:layout_marginEnd="@dimen/dimen_14dp"
 						android:background="@drawable/draw_underline_dedede"
 						android:gravity="center_horizontal"
@@ -92,7 +93,7 @@
 						android:layout_marginEnd="@dimen/dimen_14dp"
 						android:background="@drawable/draw_underline_dedede"
 						android:gravity="center_horizontal"
-						android:padding="@dimen/dimen_8dp"
+						android:padding="@dimen/dimen_6dp"
 						android:text="@string/message"
 						android:textColor="@color/grey_919191"
 						android:textSize="@dimen/text_16sp"/>
@@ -105,7 +106,7 @@
 						android:layout_marginEnd="@dimen/dimen_14dp"
 						android:background="@drawable/draw_underline_dedede"
 						android:gravity="center_horizontal"
-						android:padding="@dimen/dimen_8dp"
+						android:padding="@dimen/dimen_6dp"
 						android:text="@string/notes"
 						android:textColor="@color/grey_919191"
 						android:textSize="@dimen/text_16sp"/>

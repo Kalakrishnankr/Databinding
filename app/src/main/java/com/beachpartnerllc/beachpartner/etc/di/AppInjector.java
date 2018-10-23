@@ -66,7 +66,6 @@ public class AppInjector {
 	
 	private static void handleActivity(Activity activity) {
 		if (!(activity instanceof HasSupportFragmentInjector)) return;
-		
 		AndroidInjection.inject(activity);
 		((FragmentActivity) activity).getSupportFragmentManager()
 		    .registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {

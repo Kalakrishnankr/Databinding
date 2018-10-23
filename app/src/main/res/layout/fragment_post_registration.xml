@@ -4,12 +4,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="PostRegistrationBinding">
-
 		<import type="com.beachpartnerllc.beachpartner.user.auth.AuthState"/>
-
-		<variable
-			name="handler"
-			type="com.beachpartnerllc.beachpartner.user.auth.PostRegistrationFragment"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.auth.PostRegistrationFragment"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout

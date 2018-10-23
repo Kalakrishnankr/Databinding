@@ -1,0 +1,15 @@
+{
+  "user_id": 17,
+  "first_name": "Chris",
+  "last_name": "Rector",
+  "email": "chrisrectorseq@gmail.com",
+  "dob": 493842600000,
+  "state_id": 45,
+  "age": 33,
+  "status": "Active",
+  "mobile": 0000000000,
+  "avatarUrl": "https://s3-us-west-2.amazonaws.com/beachpartner/DM_IMG/13-m13.jpg",
+  "videourl": "https://s3-us-west-2.amazonaws.com/beachpartner/user/560/profileData/1532951300945-VID_20180730_171752.mp4",
+  "user_type": "COACH",
+  "gender": "FEMALE"
+}

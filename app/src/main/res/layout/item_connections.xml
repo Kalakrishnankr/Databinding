@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+<layout
+	xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="ConnectionsItemBinding">
-		<variable name="item" type="com.beachpartnerllc.beachpartner.user.Profile"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +19,7 @@
 			app:isRound="@{true}"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:url="@{item.avatarUrl}"
+			app:imageUrl="@{item.avatarUrl}"
 			tools:src="@tools:sample/avatars"/>
 
 		<TextView
@@ -48,6 +48,5 @@
 			app:layout_constraintBottom_toBottomOf="@id/avatarIV"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="@id/avatarIV"/>
-
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

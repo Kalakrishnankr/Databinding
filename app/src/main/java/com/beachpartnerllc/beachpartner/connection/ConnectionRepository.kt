@@ -9,7 +9,7 @@ import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.NetworkBoundResource
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
-import com.beachpartnerllc.beachpartner.user.Profile
+import com.beachpartnerllc.beachpartner.user.profile.Profile
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

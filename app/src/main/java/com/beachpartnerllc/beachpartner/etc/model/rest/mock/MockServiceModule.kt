@@ -30,7 +30,7 @@ class MockServiceModule {
 			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 			.create()
 	}
-	
+
 	@Provides
 	@Singleton
 	fun provideRetrofit(serializer: Gson): Retrofit {
@@ -41,18 +41,18 @@ class MockServiceModule {
 			.addConverterFactory(GsonConverterFactory.create(serializer))
 			.build()
 	}
-	
-	@Provides
+
+    @Provides
 	@Singleton
 	fun behaviorProvider(): NetworkBehavior {
 		val behavior = NetworkBehavior.create()
 		behavior.setDelay(1, TimeUnit.SECONDS)
-		behavior.setVariancePercent(50)
-		behavior.setErrorPercent(10)
+        behavior.setErrorPercent(5)
+        behavior.setVariancePercent(50)
 		return behavior
 	}
-	
-	@Provides
+
+    @Provides
 	@Singleton
 	fun provideMockService(
 		retrofit: Retrofit,

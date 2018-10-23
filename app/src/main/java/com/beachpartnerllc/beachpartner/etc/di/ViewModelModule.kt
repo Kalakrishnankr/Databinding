@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beachpartnerllc.beachpartner.connection.ConnectionViewModel
 import com.beachpartnerllc.beachpartner.event.EventViewModel
+import com.beachpartnerllc.beachpartner.finder.FinderViewModel
 import com.beachpartnerllc.beachpartner.messaging.MessagingViewModel
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
 import dagger.Binds
@@ -21,17 +22,22 @@ interface ViewModelModule {
 	@IntoMap
 	@ViewModelKey(EventViewModel::class)
 	fun bindEventViewModel(viewModel: EventViewModel): ViewModel
-	
+
 	@Binds
 	@IntoMap
 	@ViewModelKey(ConnectionViewModel::class)
 	fun bindConnectionViewModel(viewModel: ConnectionViewModel): ViewModel
-	
-	@Binds
-	@IntoMap
-	@ViewModelKey(MessagingViewModel::class)
-	fun bindMessagingViewModel(viewModel: MessagingViewModel): ViewModel
-	
-	@Binds
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FinderViewModel::class)
+    fun bindFinderViewModel(finderViewModel: FinderViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessagingViewModel::class)
+    fun bindMessagingViewModel(viewModel: MessagingViewModel): ViewModel
+
+    @Binds
 	fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

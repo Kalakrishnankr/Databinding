@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
-	<data class="AvatarItemBinding">
-		<variable
-			name="item"
-			type="com.beachpartnerllc.beachpartner.home.Avatar"/>
+	<data class="StripItemBinding">
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
 	</data>
-	<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="@dimen/dimen_48dp"
-		android:layout_height="@dimen/dimen_48dp"
+	<ImageView
+		android:id="@+id/itemIV"
+		android:layout_width="@dimen/dimen_65dp"
+		android:layout_height="@dimen/dimen_65dp"
 		android:contentDescription="@null"
-		android:src="@drawable/ic_bp_various_37dp"/>
+		android:padding="@dimen/dimen_5dp"
+		app:imageUrl="@{item.avatarUrl}"
+		tools:src="@tools:sample/avatars"/>
 </layout>

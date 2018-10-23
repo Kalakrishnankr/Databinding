@@ -1,4 +1,4 @@
-package com.beachpartnerllc.beachpartner.user
+package com.beachpartnerllc.beachpartner.user.profile
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>

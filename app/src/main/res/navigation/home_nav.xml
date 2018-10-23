@@ -19,21 +19,45 @@
 
 	<fragment
 		android:id="@+id/action_bp"
-		android:name="com.beachpartnerllc.beachpartner.home.Home2Fragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.SearchFragment"
 		android:label="@string/app_name"
-		tools:layout="@layout/fragment_home_2"/>
+		tools:layout="@layout/fragment_search">
+		<action android:id="@+id/action_finderTocard"
+			app:destination="@id/cardFragment"/>
+	</fragment>
 
-	<fragment android:id="@+id/action_calendar"
+	<fragment
+		android:id="@+id/searchResultFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_search_result">
+		<action android:id="@+id/action_profile_details"
+			app:destination="@+id/profileDetailFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/profileDetailFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.ProfileDetailFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_finder_card_detail">
+		<argument
+			android:name="id"
+			app:argType="integer"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/cardFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.CardFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_playcard"/>
+
+	<fragment
+		android:id="@+id/action_calendar"
 		android:name="com.beachpartnerllc.beachpartner.event.CalendarFragment"
 		android:label="Calendar"
 		tools:layout="@layout/fragment_calendar">
 		<action android:id="@+id/action_master_calendar"
-			app:destination="@id/masterCalendarFragment"
-			app:enterAnim="@anim/nav_default_enter_anim"
-			app:exitAnim="@anim/nav_default_exit_anim"
-			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-			app:popExitAnim="@anim/nav_default_pop_exit_anim"
-			app:popUpToInclusive="false"/>
+			app:destination="@id/masterCalendarFragment"/>
 	</fragment>
 
 	<fragment
@@ -90,6 +114,18 @@
 		tools:layout="@layout/fragment_invite_connection"/>
 
 	<fragment
+		android:id="@+id/athleteProfileFragment"
+		android:name="com.beachpartnerllc.beachpartner.user.profile.AthleteProfileFragment"
+		android:label="AthleteProfileFragment"
+		tools:layout="@layout/fragment_athlete_profile"/>
+
+	<fragment
+		android:id="@+id/coachProfileFragment"
+		android:name="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"
+		android:label="CoachProfileFragment"
+		tools:layout="@layout/fragment_coach_profile"/>
+
+	<fragment
 		android:id="@+id/messageFragment"
 		android:name="com.beachpartnerllc.beachpartner.messaging.MessageFragment"
 		android:label="MessageFragment"
@@ -100,5 +136,4 @@
 		<argument android:name="title"
 			app:argType="string"/>
 	</fragment>
-
 </navigation>
