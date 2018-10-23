@@ -273,7 +273,7 @@
 			android:layout_marginTop="8dp"
 			android:enabled="@{!vm.loading}"
 			android:fontFamily="@font/sf_medium"
-			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
+			android:onClick="@{view -> Navigation.findNavController(view).navigateUp()}"
 			android:padding="@dimen/narrow"
 			android:text="@string/already_have_account_login"
 			android:textColor="@color/grey_dde4e4e4"

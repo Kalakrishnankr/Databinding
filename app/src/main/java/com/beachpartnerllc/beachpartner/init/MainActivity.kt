@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.init
 
 import android.content.Intent
 import android.os.Bundle
+import com.amazonaws.mobile.client.AWSMobileClient
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
 import com.beachpartnerllc.beachpartner.etc.common.startActivity
@@ -13,6 +14,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AWSMobileClient.getInstance().initialize(this).execute()
 
         startActivity<AuthActivity>(isForResult = true, requestCode = RC_AUTH)
     }

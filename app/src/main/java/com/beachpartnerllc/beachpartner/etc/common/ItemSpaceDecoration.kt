@@ -14,8 +14,6 @@ class ItemSpaceDecoration(private val offset: Int, private val spanCount: Int = 
 		
 		val left = if (position % spanCount != spanCount - 1) offset else offset / 2
 		val right = if (position % spanCount == spanCount - 1) offset else offset / 2
-		val bottom = if (position > parent.adapter!!.itemCount - spanCount) offset else 0
-		
-		outRect.set(left, offset, right, bottom)
+        outRect.set(left, offset / 2, right, offset / 2)
 	}
 }

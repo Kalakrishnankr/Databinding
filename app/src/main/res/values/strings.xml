@@ -126,5 +126,7 @@
 	<string name="share_athletes">Does Your Program Share Athletes Between Indoor and Beach</string>
 	<string name="upload_error">Upload Failed</string>
 	<string name="share_image_error">Please upload an image and then share it</string>
+	<string name="search">Search</string>
+	<string name="search_connections">Search connections</string>
 
 </resources>

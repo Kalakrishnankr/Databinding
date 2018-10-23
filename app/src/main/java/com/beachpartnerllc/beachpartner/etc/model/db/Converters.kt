@@ -1,6 +1,7 @@
 package com.beachpartnerllc.beachpartner.etc.model.db
 
 import androidx.room.TypeConverter
+import com.beachpartnerllc.beachpartner.event.EventStatus
 import com.beachpartnerllc.beachpartner.user.profile.Gender
 import com.beachpartnerllc.beachpartner.user.profile.UserType
 import java.util.*
@@ -11,21 +12,27 @@ import java.util.*
  * @created on 25 Oct 2017 at 10:50 AM
  */
 class Converters {
-	@TypeConverter
-	fun longToDate(value: Long) = Date(value)
-	
-	@TypeConverter
-	fun dateToLong(date: Date) = date.time
+    @TypeConverter
+    fun longToDate(value: Long) = Date(value)
 
     @TypeConverter
-	fun genderToString(value: Gender) = value.toString()
+    fun dateToLong(date: Date) = date.time
 
     @TypeConverter
-	fun stringToGender(value: String) = Gender.valueOf(value)
+    fun genderToString(value: Gender) = value.toString()
 
     @TypeConverter
-	fun userTypeToString(value: UserType) = value.toString()
+    fun stringToGender(value: String) = Gender.valueOf(value)
 
     @TypeConverter
-	fun stringToUserType(value: String) = UserType.valueOf(value)
+    fun userTypeToString(value: UserType) = value.toString()
+
+    @TypeConverter
+    fun stringToUserType(value: String) = UserType.valueOf(value)
+
+    @TypeConverter
+    fun eventStatusToString(value: EventStatus) = value.toString()
+
+    @TypeConverter
+    fun stringToEventStatus(value: String) = EventStatus.valueOf(value)
 }

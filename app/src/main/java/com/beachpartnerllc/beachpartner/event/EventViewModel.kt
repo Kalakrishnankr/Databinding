@@ -4,6 +4,7 @@ import android.text.format.DateFormat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
+import com.beachpartnerllc.beachpartner.etc.common.truncateTime
 import com.beachpartnerllc.beachpartner.etc.common.zip
 import com.beachpartnerllc.beachpartner.etc.model.rest.RequestState
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
@@ -15,7 +16,7 @@ import javax.inject.Inject
  * @created on 18 Sep 2018 at 12:31 PM
  */
 class EventViewModel @Inject constructor(private val repo: EventRepository) : ViewModel() {
-	private val eventDate = MutableLiveData<Date>()
+	val eventDate = MutableLiveData<Date>()
 	private val repoResult = map(eventDate) { repo.eventsOf(it, 30) }
 	val events = switchMap(repoResult) { it.pagedList }!!
 	val networkState = switchMap(repoResult) { it.networkState }!!
@@ -42,4 +43,8 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
 	}
 	
 	fun refresh() = repoResult.value?.refresh?.invoke()
+
+	init {
+		eventDate.value = Calendar.getInstance().time.truncateTime()
+	}
 }

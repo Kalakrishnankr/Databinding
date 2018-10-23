@@ -39,6 +39,12 @@ fun <T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
 	return mediator
 }
 
+inline fun <reified T> mutableLiveDataOf(value: T): MutableLiveData<T> {
+	val liveData = MutableLiveData<T>()
+	liveData.value = value
+	return liveData
+}
+
 /********          View Components          **************/
 inline fun <reified T : RecyclerView.ViewHolder> ViewGroup.create(createHolder: (View) -> T, @LayoutRes res: Int): T {
 	val inflater = LayoutInflater.from(context)
