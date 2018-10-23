@@ -36,7 +36,7 @@
 		<activity
 			android:name=".home.HomeActivity"
 			android:theme="@style/AppTheme.NoActionBar"
-			android:windowSoftInputMode="adjustPan">
+			android:windowSoftInputMode="adjustResize">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
