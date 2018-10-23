@@ -33,8 +33,11 @@
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.FullScreen"/>
 
-		<activity android:name=".home.HomeActivity"
-			android:theme="@style/AppTheme.NoActionBar">
+		<activity
+			android:name=".home.HomeActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar"
+			android:windowSoftInputMode="adjustPan">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
