@@ -15,6 +15,7 @@ import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.ImageFilePath
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
+import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class CoachProfileFragment : BaseFragment() {
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = inflater.bind(R.layout.fragment_coach_profile, container)
 		binding.tabs.setupWithViewPager(binding.pager)
-		val fragments = arrayListOf(BasicInfoFragment(), MoreInfoFragment())
+		val fragments = arrayListOf(BasicInfoFragment(), CoachMoreInfoFragment())
 		binding.adapter = ViewPagerAdapter(childFragmentManager, fragments,
 			resources.getStringArray(R.array.profile_titles).asList())
 		binding.handler = this
@@ -63,12 +64,16 @@ class CoachProfileFragment : BaseFragment() {
 				val img = data.extras!!.get("data") as Bitmap
 				val uri = ImageFilePath.getImageUri(context, img)
 				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, uri))
-				vm.uploadImageToS3(ImageFilePath.getPath(context, uri), extension)
+				vm.uploadCoachImageToS3(ImageFilePath.getPath(context, uri), extension)
 					.observe(viewLifecycleOwner, Observer { })
             } else {
 				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, data.data))
-				vm.uploadImageToS3(ImageFilePath.getPath(context, data.data), extension)
-					.observe(viewLifecycleOwner, Observer { })
+				vm.uploadCoachImageToS3(ImageFilePath.getPath(context, data.data), extension)
+					.observe(viewLifecycleOwner, Observer { it ->
+						if (it.isSuccess()) {
+							Toast.makeText(context, getString(R.string.profile_update_success), Toast.LENGTH_LONG).show()
+						}
+					})
 			}
 		}
 	}
@@ -108,7 +113,11 @@ class CoachProfileFragment : BaseFragment() {
 			}
 			R.id.action_save -> {
 				vm.editable(false)
-				vm.updateCoach()
+				vm.updateCoach().observe(viewLifecycleOwner, Observer { it ->
+					if (it.isSuccess()) {
+						vm.profile.value!!.firstName
+					}
+				})
 				return true
 			}
 		}

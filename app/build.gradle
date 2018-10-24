@@ -16,7 +16,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "Finder"
-        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

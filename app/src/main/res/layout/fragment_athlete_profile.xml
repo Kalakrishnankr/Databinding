@@ -79,6 +79,7 @@
 				android:layout_marginTop="145dp"
 				android:onClick="@{()->handler.uploadImage()}"
 				app:imageUrl="@{vm.athlete.avatarUrl}"
+				app:isRound="@{true}"
 				app:layout_constraintBottom_toBottomOf="@+id/containerFL"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"
@@ -139,6 +140,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:src="@drawable/ic_share_video"
+					android:onClick="@{()-> handler.shareVideo()}"
 					app:fab_label="Video"
 					app:fab_size="normal"/>
 			</com.beachpartnerllc.beachpartner.etc.common.FloatingActionMenu>

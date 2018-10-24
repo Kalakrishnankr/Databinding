@@ -222,6 +222,7 @@ class AuthViewModel @Inject constructor(
         if (it.isSuccess()) {
             Timber.e("Success")
         }
+        it
     }!!
 
     fun updateCoach() = map(repo.update(coach.value!!)) {
@@ -229,9 +230,10 @@ class AuthViewModel @Inject constructor(
         if (it.isSuccess()) {
             Timber.e("Success")
         }
+        it
     }!!
-
-    fun uploadImageToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
+    
+    fun uploadAthleteImageToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
         if (it.isSuccess()) {
             val user = athlete.value
             user!!.avatarUrl = it.data
@@ -241,6 +243,19 @@ class AuthViewModel @Inject constructor(
             imageUploadProgress.value = it.code
             imgAvailable.value = true
         }
+    }!!
+    
+    fun uploadCoachImageToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
+        if (it.isSuccess()) {
+            val user = coach.value
+            user!!.avatarUrl = it.data
+            coach.value = user
+            imgAvailable.value = false
+        } else {
+            imageUploadProgress.value = it.code
+            imgAvailable.value = true
+        }
+        it
     }!!
 
     fun uploadVideoToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {

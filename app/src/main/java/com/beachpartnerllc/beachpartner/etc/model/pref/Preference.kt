@@ -3,6 +3,7 @@ package com.beachpartnerllc.beachpartner.etc.model.pref
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.beachpartnerllc.beachpartner.user.profile.Session
+import com.beachpartnerllc.beachpartner.user.profile.UserType
 import javax.inject.Singleton
 
 /**
@@ -20,11 +21,14 @@ class Preference(private val pref: SharedPreferences) {
 
 	val isLoggedIn: Boolean
 		get () = pref.getBoolean(PREF_IS_LOGGED_IN, false)
-
+	
+	val userType: String?
+		get() = pref.getString(PREF_USER_TYPE, UserType.ATHLETE.toString())
+	
 	fun clear() {
 		pref.edit().clear().apply()
 	}
-
+	
 	fun setSession(session: Session) {
 		val profile = session.profile
 		pref.edit {
