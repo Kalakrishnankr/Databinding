@@ -24,12 +24,12 @@ class CoachProfileFragment : BaseFragment() {
 	private lateinit var binding: CoachProfileBinding
 	@Inject lateinit var factory: ViewModelProvider.Factory
 	private lateinit var vm: AuthViewModel
-
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setHasOptionsMenu(true)
 	}
-
+	
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = inflater.bind(R.layout.fragment_coach_profile, container)
 		binding.tabs.setupWithViewPager(binding.pager)
@@ -39,7 +39,7 @@ class CoachProfileFragment : BaseFragment() {
 		binding.handler = this
 		return binding.root
 	}
-
+	
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
 		vm = getViewModel(factory)
@@ -50,13 +50,13 @@ class CoachProfileFragment : BaseFragment() {
 		vm.profileValidate.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
 		binding.setLifecycleOwner(viewLifecycleOwner)
 	}
-
-
+	
+	
 	fun uploadImage() {
 		if (!hasPermissions(context, permissions)) requestPermissions(permissions, 21)
 		else startActivityForResult(pickImageIntent(), PICK_IMAGE_REQUEST)
 	}
-
+	
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 		if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
@@ -66,18 +66,14 @@ class CoachProfileFragment : BaseFragment() {
 				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, uri))
 				vm.uploadCoachImageToS3(ImageFilePath.getPath(context, uri), extension)
 					.observe(viewLifecycleOwner, Observer { })
-            } else {
+			} else {
 				val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, data.data))
 				vm.uploadCoachImageToS3(ImageFilePath.getPath(context, data.data), extension)
-					.observe(viewLifecycleOwner, Observer { it ->
-						if (it.isSuccess()) {
-							Toast.makeText(context, getString(R.string.profile_update_success), Toast.LENGTH_LONG).show()
-						}
-					})
+					.observe(viewLifecycleOwner, Observer { })
 			}
 		}
 	}
-
+	
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
 		when (requestCode) {
 			CAMERA_PERMISSION -> {
@@ -91,7 +87,7 @@ class CoachProfileFragment : BaseFragment() {
 			else -> return
 		}
 	}
-
+	
 	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
 		menu!!.clear()
 		val homeActivity = activity as HomeActivity
@@ -101,10 +97,10 @@ class CoachProfileFragment : BaseFragment() {
 			menu.findItem(R.id.action_save).isEnabled = vm.profileValidate.value == true
 		} else
 			homeActivity.supportActionBar!!.title = getString(R.string.my_profile)
-
+		
 		super.onCreateOptionsMenu(menu, inflater)
 	}
-
+	
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 		when (item!!.itemId) {
 			R.id.action_discard -> {
