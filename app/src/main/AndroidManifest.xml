@@ -37,7 +37,7 @@
 			android:name=".home.HomeActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.NoActionBar"
-			android:windowSoftInputMode="adjustPan">
+			android:windowSoftInputMode="stateHidden|adjustPan">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
