@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.amazonaws.mobile.client.AWSMobileClient
@@ -17,6 +16,7 @@ import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
 import com.beachpartnerllc.beachpartner.etc.common.ImageFilePath
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
+import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.auth.AuthViewModel
 import javax.inject.Inject
@@ -163,7 +163,11 @@ class AthleteProfileFragment : BaseFragment() {
 			R.id.action_save -> {
 				vm.editable(false)
 				vm.isTopFinishesSet.value = true
-				vm.updateAthlete().observe(this, Observer { })
+				vm.updateAthlete().observe(this, Observer { it ->
+					if (it.isSuccess()) {
+						vm.profile.value!!.firstName
+					}
+				})
 				return true
 			}
 		}
