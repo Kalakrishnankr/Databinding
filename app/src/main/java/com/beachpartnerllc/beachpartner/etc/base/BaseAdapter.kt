@@ -19,7 +19,8 @@ open class BaseAdapter<T, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(
 
     override fun getItemCount() = items.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = parent.bind(construct, layoutRes)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        parent.bind(construct, layoutRes)
 
     override fun onBindViewHolder(holder: BaseViewHolder<T, B>, position: Int) {
         holder.bindTo(items[position])
@@ -38,8 +39,13 @@ open class BaseAdapter<T, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(
         return item
     }
 
-    fun updateItems(newItems: List<T>?, itemSame: (T, T) -> Boolean, contentSame: (T, T) -> Boolean) {
-        val diffResult = DiffUtil.calculateDiff(DiffCalc(this.items, newItems!!, itemSame, contentSame))
+    fun updateItems(
+        newItems: List<T>?,
+        itemSame: (T, T) -> Boolean,
+        contentSame: (T, T) -> Boolean
+    ) {
+        val diffResult =
+            DiffUtil.calculateDiff(DiffCalc(this.items, newItems!!, itemSame, contentSame))
         diffResult.dispatchUpdatesTo(this)
         items = newItems
     }
@@ -48,7 +54,8 @@ open class BaseAdapter<T, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(
         private val oldItem: List<T>,
         private val newItems: List<T>,
         private val itemSame: (T, T) -> Boolean,
-        private val contentSame: (T, T) -> Boolean) : DiffUtil.Callback() {
+        private val contentSame: (T, T) -> Boolean
+    ) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return itemSame.invoke(oldItem[oldItemPosition], newItems[newItemPosition])
         }

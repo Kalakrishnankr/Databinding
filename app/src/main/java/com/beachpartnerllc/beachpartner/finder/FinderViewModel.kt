@@ -1,7 +1,7 @@
 package com.beachpartnerllc.beachpartner.finder
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.*
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
@@ -16,9 +16,11 @@ import javax.inject.Inject
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 17 Sep 2018 at 4:05 PM
  */
-class FinderViewModel @Inject constructor(
+class FinderViewModel
+@Inject constructor(
     private val repo: FinderRepository,
-    private val authRepo: AuthRepository) : ViewModel() {
+    private val authRepo: AuthRepository
+) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
 
@@ -106,7 +108,7 @@ class FinderViewModel @Inject constructor(
         it
     }!!
 
-    fun getProfiles() = map(repo.getStripProfile()) {
+    fun getBlueBpProfiles() = map(repo.getStripProfile()) {
         loading.value = it.isLoading()
         if (it.isSuccess()) {
             bpprofileList = it.data!!

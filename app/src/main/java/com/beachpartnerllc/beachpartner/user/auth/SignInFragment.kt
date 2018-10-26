@@ -19,12 +19,17 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SignInFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: SignInFragmentBinding
     private lateinit var vm: AuthViewModel
     private lateinit var disposable: Disposable
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_in, container, false)
         return binding.root
     }
@@ -37,11 +42,13 @@ class SignInFragment : BaseFragment() {
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         val email = RxTextView.afterTextChangeEvents(binding.emailET).skip(vm.signInSkipInitCount())
-        val password = RxTextView.afterTextChangeEvents(binding.passwordET).skip(vm.signInSkipInitCount())
-        disposable = Observable.combineLatest(listOf(email, password)) { vm.signInValidate.value = true }
-                .doOnError { Timber.e(it) }
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+        val password =
+            RxTextView.afterTextChangeEvents(binding.passwordET).skip(vm.signInSkipInitCount())
+        disposable =
+                Observable.combineLatest(listOf(email, password)) { vm.signInValidate.value = true }
+                    .doOnError { Timber.e(it) }
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
     }
 
     fun onSignIn() {

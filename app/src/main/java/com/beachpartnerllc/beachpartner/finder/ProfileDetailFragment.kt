@@ -21,10 +21,15 @@ import javax.inject.Inject
  * @created on 01 Oct 2018 at 11:54 AM
  */
 class ProfileDetailFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: ProfileDetailFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_finder_card_detail, container)
         binding.handler = this
         return binding.root

@@ -12,4 +12,5 @@ data class Coach(
     var programsOffered: String? = null,
     var division: String? = null,
     var funding: String? = null,
-    var sharingAthletes: String? = null) : Profile()
+    var sharingAthletes: String? = null
+) : Profile()

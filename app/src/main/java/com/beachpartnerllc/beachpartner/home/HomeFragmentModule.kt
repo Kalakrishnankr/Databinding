@@ -42,7 +42,7 @@ interface HomeFragmentModule {
     fun contributeCardFragment(): CardFragment
 
     @ContributesAndroidInjector
-    fun contributeStripFragment(): StripFragment
+    fun contributeStripFragment(): BlueBpStripFragment
 
     @ContributesAndroidInjector
     fun contributeProfileDetailedInfoFragment(): ProfileDetailFragment

@@ -26,12 +26,17 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SignUpFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var vm: AuthViewModel
     private lateinit var binding: SignUpFragmentBinding
     private lateinit var disposable: Disposable
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
         binding.handler = this
         return binding.root
@@ -46,13 +51,18 @@ class SignUpFragment : BaseFragment() {
 
         loadStates()
 
-        val firstName = RxTextView.afterTextChangeEvents(binding.firstNameET).skip(vm.signUpSkipInitCount())
-        val lastName = RxTextView.afterTextChangeEvents(binding.lastNameET).skip(vm.signUpSkipInitCount())
+        val firstName =
+            RxTextView.afterTextChangeEvents(binding.firstNameET).skip(vm.signUpSkipInitCount())
+        val lastName =
+            RxTextView.afterTextChangeEvents(binding.lastNameET).skip(vm.signUpSkipInitCount())
         val state = RxAdapterView.itemSelections(binding.stateACS).skip(vm.signUpSkipInitCount())
         val gender = RxRadioGroup.checkedChanges(binding.genderRG).skip(vm.signUpSkipInitCount())
-        val userType = RxRadioGroup.checkedChanges(binding.userTypeRG).skip(vm.signUpSkipInitCount())
+        val userType =
+            RxRadioGroup.checkedChanges(binding.userTypeRG).skip(vm.signUpSkipInitCount())
         val observables = listOf(firstName, lastName, state, gender, userType)
-        disposable = Observable.combineLatest(observables) { readInput(it); vm.signUpValidate.value = true }
+        disposable = Observable.combineLatest(observables) {
+            readInput(it); vm.signUpValidate.value = true
+        }
             .doOnError { Timber.e(it) }
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe()
@@ -64,7 +74,8 @@ class SignUpFragment : BaseFragment() {
                 binding.stateACS.adapter = ArrayAdapter(
                     context!!,
                     android.R.layout.simple_dropdown_item_1line,
-                    it.data?.map { it.stateName }!!)
+                    it.data?.map { it.stateName }!!
+                )
             }
         })
     }
@@ -73,8 +84,10 @@ class SignUpFragment : BaseFragment() {
         val profile = vm.profile.value!!
         val statePosition = inputs[2].toString().toInt()
         if (statePosition > -1) vm.selectedStatePosition.value = statePosition
-        val gender = binding.genderRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as Gender
-        val userType = binding.userTypeRG.findViewById<RadioButton>(inputs[4].toString().toInt()).tag as UserType
+        val gender =
+            binding.genderRG.findViewById<RadioButton>(inputs[3].toString().toInt()).tag as Gender
+        val userType =
+            binding.userTypeRG.findViewById<RadioButton>(inputs[4].toString().toInt()).tag as UserType
         if (userType != profile.userType) profile.dob = null
         profile.gender = gender
         profile.userType = userType

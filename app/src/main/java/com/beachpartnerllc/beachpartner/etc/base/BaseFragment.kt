@@ -20,7 +20,12 @@ import com.beachpartnerllc.beachpartner.etc.di.Injectable
 abstract class BaseFragment : Fragment(), Injectable {
 
     fun hasPermissions(context: Context?, permissions: Array<String>): Boolean {
-        return permissions.map { ActivityCompat.checkSelfPermission(context!!, it) != PackageManager.PERMISSION_GRANTED }.contains(false)
+        return permissions.map {
+            ActivityCompat.checkSelfPermission(
+                context!!,
+                it
+            ) != PackageManager.PERMISSION_GRANTED
+        }.contains(false)
     }
 
     fun pickImageIntent(): Intent {
@@ -29,7 +34,10 @@ abstract class BaseFragment : Fragment(), Injectable {
         val imageIntent2 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val intentList = arrayListOf(imageIntent1, imageIntent2)
         val chooserIntent: Intent
-        chooserIntent = Intent.createChooser(intentList.removeAt(intentList.size - 1), getString(R.string.max_size_image))
+        chooserIntent = Intent.createChooser(
+            intentList.removeAt(intentList.size - 1),
+            getString(R.string.max_size_image)
+        )
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toTypedArray<Parcelable>())
         return chooserIntent
     }
@@ -47,7 +55,10 @@ abstract class BaseFragment : Fragment(), Injectable {
         videoIntent2.type = "video/*"
         val intentList = arrayListOf(videoIntent1, videoIntent2)
         val chooserIntent: Intent
-        chooserIntent = Intent.createChooser(intentList.removeAt(intentList.size - 1), getString(R.string.max_size_video))
+        chooserIntent = Intent.createChooser(
+            intentList.removeAt(intentList.size - 1),
+            getString(R.string.max_size_video)
+        )
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toTypedArray<Parcelable>())
         return chooserIntent
     }

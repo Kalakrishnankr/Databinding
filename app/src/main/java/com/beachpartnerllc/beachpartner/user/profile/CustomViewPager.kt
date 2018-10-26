@@ -25,7 +25,10 @@ class CustomViewPager : ViewPager {
             return
         }
         var height = 0
-        mCurrentView!!.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+        mCurrentView!!.measure(
+            widthMeasureSpec,
+            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+        )
         val h = mCurrentView!!.measuredHeight
         if (h > height) height = h
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)

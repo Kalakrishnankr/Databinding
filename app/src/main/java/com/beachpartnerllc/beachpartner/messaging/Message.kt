@@ -12,11 +12,12 @@ import com.google.firebase.Timestamp
  * @created on 01 Oct 2018 at 5:10 PM
  */
 class Message : BaseObservable() {
-	@get: Bindable var content: String? by bindable(null, BR.content)
-	var sentAt: Timestamp? = null
-	var senderId: Int? = null
-	
-	fun displayTime(): String? = if (sentAt != null) {
-		DateFormat.format("h:mm a", sentAt!!.toDate()).toString()
-	} else null
+    @get: Bindable
+    var content: String? by bindable(null, BR.content)
+    var sentAt: Timestamp? = null
+    var senderId: Int? = null
+
+    fun displayTime(): String? = if (sentAt != null) {
+        DateFormat.format("h:mm a", sentAt!!.toDate()).toString()
+    } else null
 }

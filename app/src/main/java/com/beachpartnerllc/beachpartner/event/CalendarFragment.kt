@@ -15,13 +15,17 @@ import com.beachpartnerllc.beachpartner.etc.common.bind
  * @created on 17 Sep 2018 at 3:42 PM
  */
 class CalendarFragment : Fragment() {
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		val binding: CalendarBinding = inflater.bind(R.layout.fragment_calendar, container)
-		binding.adapter = ViewPagerAdapter(
-			childFragmentManager,
-			arrayListOf(MasterCalendarFragment(), MasterCalendarFragment()),
-			arrayListOf("Master Calendar", "My Calendar")
-		)
-		return binding.root
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding: CalendarBinding = inflater.bind(R.layout.fragment_calendar, container)
+        binding.adapter = ViewPagerAdapter(
+            childFragmentManager,
+            arrayListOf(MasterCalendarFragment(), MasterCalendarFragment()),
+            arrayListOf("Master Calendar", "My Calendar")
+        )
+        return binding.root
+    }
 }

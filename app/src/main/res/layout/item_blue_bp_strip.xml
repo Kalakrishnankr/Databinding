@@ -12,6 +12,8 @@
 		android:layout_height="@dimen/dimen_65dp"
 		android:contentDescription="@null"
 		android:padding="@dimen/dimen_5dp"
+		app:isRound="@{true}"
+		app:placeHolder="@{@drawable/default_icon}"
 		app:imageUrl="@{item.avatarUrl}"
 		tools:src="@tools:sample/avatars"/>
 </layout>

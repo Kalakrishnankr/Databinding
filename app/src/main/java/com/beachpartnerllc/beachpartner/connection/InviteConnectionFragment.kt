@@ -17,7 +17,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.home.HomeActivity
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.*
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -27,11 +27,13 @@ import javax.inject.Inject
  * @created on 21 Sep 2018 at 3:28 PM
  */
 class InviteConnectionFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: InviteConnectionBinding
     private lateinit var vm: ConnectionViewModel
     private lateinit var potentialAdapter: BaseAdapter<Profile, PotentialItemBinding, PotentialViewHolder>
-    private var connectionsAdapter: BaseAdapter<Profile, ConnectionsItemBinding, ConnectionsViewHolder>? = null
+    private var connectionsAdapter: BaseAdapter<Profile, ConnectionsItemBinding, ConnectionsViewHolder>? =
+        null
     private var connections: ArrayList<Profile>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,11 @@ class InviteConnectionFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_invite_connection, container)
         return binding.root
     }
@@ -50,7 +56,8 @@ class InviteConnectionFragment : BaseFragment() {
         binding.vm = vm
         binding.setLifecycleOwner(viewLifecycleOwner)
 
-        potentialAdapter = BaseAdapter(ArrayList(), R.layout.item_potential_partrner, ::PotentialViewHolder)
+        potentialAdapter =
+                BaseAdapter(ArrayList(), R.layout.item_potential_partrner, ::PotentialViewHolder)
         binding.potentialAdapter = potentialAdapter
 
         vm.connections.observe(viewLifecycleOwner, Observer {
@@ -59,7 +66,8 @@ class InviteConnectionFragment : BaseFragment() {
                 connectionsAdapter = BaseAdapter(
                     connections!!,
                     R.layout.item_connections,
-                    ::ConnectionsViewHolder)
+                    ::ConnectionsViewHolder
+                )
                 binding.connectionsAdapter = connectionsAdapter
             }
         })

@@ -18,14 +18,14 @@ import java.util.concurrent.TimeUnit
  */
 @GlideModule
 class GlideModule : AppGlideModule() {
-	override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-		val client = OkHttpClient.Builder()
-			.readTimeout(15, TimeUnit.SECONDS)
-			.connectTimeout(15, TimeUnit.SECONDS)
-			.build()
-		
-		val factory = OkHttpUrlLoader.Factory(client)
-		
-		glide.registry.replace(GlideUrl::class.java, InputStream::class.java, factory)
-	}
+    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+        val client = OkHttpClient.Builder()
+            .readTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .build()
+
+        val factory = OkHttpUrlLoader.Factory(client)
+
+        glide.registry.replace(GlideUrl::class.java, InputStream::class.java, factory)
+    }
 }

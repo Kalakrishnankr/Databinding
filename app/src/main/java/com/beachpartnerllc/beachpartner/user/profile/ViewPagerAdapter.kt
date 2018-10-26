@@ -13,7 +13,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 class ViewPagerAdapter(
     fm: FragmentManager,
     private val items: List<Fragment>,
-    private val titles: List<String>? = null) : FragmentPagerAdapter(fm) {
+    private val titles: List<String>? = null
+) : FragmentPagerAdapter(fm) {
 
     private var mCurrentPosition = -1
 

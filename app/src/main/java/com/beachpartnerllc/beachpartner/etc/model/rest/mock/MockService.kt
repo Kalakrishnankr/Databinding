@@ -25,20 +25,23 @@ import java.util.*
  * @created on 05 Dec 2017 at 7:07 PM
  */
 class MockService(
-	private val delegate: BehaviorDelegate<ApiService>,
-	private val serializer: Gson,
-	private val app: Application) : ApiService {
+    private val delegate: BehaviorDelegate<ApiService>,
+    private val serializer: Gson,
+    private val app: Application
+) : ApiService {
 
     override fun getStates(): LiveData<ApiResponse<List<State>>> {
         val data = stringFromFile("get_state")
-        val response: List<State> = serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
+        val response: List<State> =
+            serializer.fromJson(data, object : TypeToken<List<State>>() {}.type)
         return delegate.returningResponse(response).getStates()
     }
 
     override fun signIn(auth: Auth): Call<Resource<Session>> {
         val filePath = if ((0..1).random() == 0) "login_200_ok" else "login_422_invalid_credentials"
         val data = stringFromFile(filePath)
-        val response: Resource<Session> = serializer.fromJson(data, object : TypeToken<Resource<Session>>() {}.type)
+        val response: Resource<Session> =
+            serializer.fromJson(data, object : TypeToken<Resource<Session>>() {}.type)
         return delegate.returningResponse(response).signIn(auth)
     }
 
@@ -52,7 +55,8 @@ class MockService(
 
     override fun getEvent(date: Date, limit: Int, index: Int): Call<Resource<List<Event>>> {
         val data = stringFromFile("get_events")
-        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        val response: List<Event> =
+            serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
         return delegate.returningResponse(Resource.success(response)).getEvent(date, limit, index)
     }
 
@@ -64,7 +68,8 @@ class MockService(
 
     override fun getConnections(): LiveData<ApiResponse<List<Profile>>> {
         val data = stringFromFile("get_connections")
-        val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
+        val response: List<Profile> =
+            serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
         return delegate.returningResponse(response).getConnections()
     }
 
@@ -74,7 +79,8 @@ class MockService(
 
     override fun getStripProfile(): Call<Resource<List<Profile>>> {
         val data = stringFromFile("get_profiles")
-        val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
+        val response: List<Profile> =
+            serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
         return delegate.returningResponse(Resource.success(response)).getStripProfile()
     }
 
@@ -90,7 +96,8 @@ class MockService(
 
     override fun searchProfile(search: Search): Call<Resource<List<Profile>>> {
         val data = stringFromFile("get_profiles")
-        val response: List<Profile> = serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
+        val response: List<Profile> =
+            serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
         return delegate.returningResponse(Resource.success(response)).searchProfile(search)
     }
 

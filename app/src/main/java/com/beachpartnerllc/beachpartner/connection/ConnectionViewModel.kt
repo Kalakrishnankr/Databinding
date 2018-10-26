@@ -1,7 +1,7 @@
 package com.beachpartnerllc.beachpartner.connection
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.*
+import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.etc.common.mutableLiveDataOf
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
@@ -13,7 +13,8 @@ import javax.inject.Inject
  * @created on 25 Sep 2018 at 11:14 AM
  */
 class ConnectionViewModel @Inject constructor(
-    private val repo: ConnectionRepository) : ViewModel() {
+    private val repo: ConnectionRepository
+) : ViewModel() {
 
     private val refresh = MutableLiveData<Boolean>()
     val connections = switchMap(refresh) { repo.getConnections() }!!

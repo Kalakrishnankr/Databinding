@@ -5,5 +5,5 @@ package com.beachpartnerllc.beachpartner.messaging
  * @created on 03 Oct 2018 at 11:54 AM
  */
 interface HasId {
-	var id: String?
+    var id: String?
 }

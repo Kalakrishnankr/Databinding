@@ -12,7 +12,11 @@ import com.beachpartnerllc.beachpartner.R
  * @created on 16 Jun 2018 at 8:01 PM
  */
 class Home1Fragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_home_1, container, false)
     }
 }

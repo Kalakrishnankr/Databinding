@@ -19,7 +19,9 @@ class MessagingViewModel
 
     fun initChatForUser(args: MessageFragmentArgs): LiveData<Resource<Chat>> {
         with(args) {
-            chat = if (chatId != null) repo.getChat(chatId!!) else repo.getChatForCorrespondent(userId)
+            chat = if (chatId != null) repo.getChat(chatId!!) else repo.getChatForCorrespondent(
+                userId
+            )
         }
         return chat
     }

@@ -12,9 +12,9 @@ import androidx.room.Query
  */
 @Dao
 interface StateDao {
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun insertStates(crops: List<State>)
-	
-	@Query("SELECT * FROM state")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertStates(crops: List<State>)
+
+    @Query("SELECT * FROM state")
     fun getStates(): LiveData<List<State>>
 }

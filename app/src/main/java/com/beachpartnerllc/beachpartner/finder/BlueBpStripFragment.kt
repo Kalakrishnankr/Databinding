@@ -16,21 +16,24 @@ import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.user.profile.Profile
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import javax.inject.Inject
 
 /**
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 04 Oct 2018 at 1:09 PM
  */
-class StripFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+class BlueBpStripFragment : BaseFragment() {
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: StripFragmentBinding
     lateinit var vm: FinderViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = inflater.bind(R.layout.fragment_bpstrip_profiles, container)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = inflater.bind(R.layout.fragment_blue_bp_strip, container)
         return binding.root
     }
 
@@ -39,14 +42,16 @@ class StripFragment : BaseFragment() {
         vm = getViewModel(factory)
         binding.vm = vm
         binding.setLifecycleOwner(viewLifecycleOwner)
-        vm.getProfiles().observe(viewLifecycleOwner, Observer {
+        vm.getBlueBpProfiles().observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
-                binding.stripAdapter = BaseAdapter(it.data!!, R.layout.item_avatar, ::StripViewHolder)
+                binding.stripAdapter =
+                        BaseAdapter(it.data!!, R.layout.item_blue_bp_strip, ::StripViewHolder)
             }
         })
     }
 
-    class StripViewHolder(itemBinding: StripItemBinding) : BaseViewHolder<Profile, StripItemBinding>(itemBinding) {
+    class StripViewHolder(itemBinding: StripItemBinding) :
+        BaseViewHolder<Profile, StripItemBinding>(itemBinding) {
         init {
             itemBinding.itemIV.setOnClickListener {
 
@@ -55,9 +60,6 @@ class StripFragment : BaseFragment() {
 
         override fun bindTo(item: Profile) {
             itemBinding.item = item
-            Glide.with(itemView).load(item.avatarUrl).apply(RequestOptions.circleCropTransform().placeholder(R.drawable
-                .default_icon))
-                .into(itemBinding.itemIV)
         }
     }
 }

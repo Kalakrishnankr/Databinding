@@ -23,41 +23,47 @@ import javax.inject.Inject
  * @created on 01 Oct 2018 at 10:46 AM
  */
 class ChatFragment : BaseFragment() {
-	@Inject lateinit var factory: ViewModelProvider.Factory
-	private lateinit var binding: ChatBinding
-	private lateinit var adapter: BaseAdapter<Chat, ChatItemBinding, ViewHolder>
-	
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = inflater.bind(R.layout.fragment_chat, container)
-		return binding.root
-	}
-	
-	override fun onActivityCreated(savedInstanceState: Bundle?) {
-		super.onActivityCreated(savedInstanceState)
-		
-		val vm: MessagingViewModel = getViewModel(factory)
-		vm.getChats().observe(viewLifecycleOwner, Observer {
-			if (it.isSuccess()) {
-				adapter = BaseAdapter(it.data!!, R.layout.item_chat, ::ViewHolder)
-				binding.adapter = adapter
-			}
-		})
-	}
-	
-	inner class ViewHolder(itemBinding: ChatItemBinding) : BaseViewHolder<Chat, ChatItemBinding>(itemBinding) {
-		init {
-			itemBinding.root.setOnClickListener {
-				onChatItem(adapter.items[adapterPosition])
-			}
-		}
-		
-		override fun bindTo(item: Chat) {
-			itemBinding.item = item
-		}
-	}
-	
-	private fun onChatItem(chat: Chat) {
-		val direction = ChatFragmentDirections.actionMessage().setChatId(chat.id)
-		findNavController().navigate(direction)
-	}
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private lateinit var binding: ChatBinding
+    private lateinit var adapter: BaseAdapter<Chat, ChatItemBinding, ViewHolder>
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = inflater.bind(R.layout.fragment_chat, container)
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val vm: MessagingViewModel = getViewModel(factory)
+        vm.getChats().observe(viewLifecycleOwner, Observer {
+            if (it.isSuccess()) {
+                adapter = BaseAdapter(it.data!!, R.layout.item_chat, ::ViewHolder)
+                binding.adapter = adapter
+            }
+        })
+    }
+
+    inner class ViewHolder(itemBinding: ChatItemBinding) :
+        BaseViewHolder<Chat, ChatItemBinding>(itemBinding) {
+        init {
+            itemBinding.root.setOnClickListener {
+                onChatItem(adapter.items[adapterPosition])
+            }
+        }
+
+        override fun bindTo(item: Chat) {
+            itemBinding.item = item
+        }
+    }
+
+    private fun onChatItem(chat: Chat) {
+        val direction = ChatFragmentDirections.actionMessage().setChatId(chat.id)
+        findNavController().navigate(direction)
+    }
 }

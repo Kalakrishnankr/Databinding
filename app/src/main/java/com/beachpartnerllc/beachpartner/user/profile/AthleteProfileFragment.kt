@@ -1,6 +1,6 @@
 package com.beachpartnerllc.beachpartner.user.profile
 
-import android.app.Activity.*
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -24,10 +24,15 @@ import javax.inject.Inject
 
 class AthleteProfileFragment : BaseFragment() {
     private lateinit var binding: AthleteProfileBinding
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var vm: AuthViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_athlete_profile, container)
         binding.tabs.setupWithViewPager(binding.pager)
         val fragments = arrayListOf(BasicInfoFragment(), MoreInfoFragment())
@@ -44,8 +49,12 @@ class AthleteProfileFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         vm = getViewModel(factory)
         binding.vm = vm
-        vm.isProfileEdit.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
-        vm.profileValidate.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
+        vm.isProfileEdit.observe(
+            viewLifecycleOwner,
+            Observer { activity!!.invalidateOptionsMenu() })
+        vm.profileValidate.observe(
+            viewLifecycleOwner,
+            Observer { activity!!.invalidateOptionsMenu() })
         vm.imageUploadProgress.observe(viewLifecycleOwner, Observer { })
         vm.videoUploadProgress.observe(viewLifecycleOwner, Observer { })
         binding.setLifecycleOwner(viewLifecycleOwner)
@@ -70,7 +79,11 @@ class AthleteProfileFragment : BaseFragment() {
             intent.putExtra(Intent.EXTRA_STREAM, uri)
             intent.type = "image/*"
             startActivity(Intent.createChooser(intent, "Share image via..."))
-        } else Toast.makeText(context, getString(R.string.share_image_error), Toast.LENGTH_LONG).show()
+        } else Toast.makeText(
+            context,
+            getString(R.string.share_image_error),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     fun uploadImage() {
@@ -105,13 +118,21 @@ class AthleteProfileFragment : BaseFragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             CAMERA_PERMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     startActivityForResult(pickImageIntent(), PICK_IMAGE_REQUEST)
                 } else {
-                    Toast.makeText(context, getString(R.string.no_camera_permission), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.no_camera_permission),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 return
             }
@@ -119,7 +140,11 @@ class AthleteProfileFragment : BaseFragment() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     startActivityForResult(pickVideoIntent(), PICK_VIDEO_REQUEST)
                 } else {
-                    Toast.makeText(context, getString(R.string.no_camera_permission), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.no_camera_permission),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 return
             }

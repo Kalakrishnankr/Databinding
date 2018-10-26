@@ -5,7 +5,6 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="AthleteHomeFragmentBinding">
-		<!--<import type="com.beachpartnerllc.beachpartner.R"/>-->
 		<variable name="avatarAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 	</data>
 
@@ -22,6 +21,6 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:spaceOffset="@{@dimen/dimen_8dp}"
-			tools:listitem="@layout/item_avatar"/>
+			tools:listitem="@layout/item_blue_bp_strip" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

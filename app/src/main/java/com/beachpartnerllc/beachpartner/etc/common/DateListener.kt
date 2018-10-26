@@ -7,5 +7,5 @@ import java.util.*
  * @created on 18 Sep 2018 at 3:40 PM
  */
 interface DateListener {
-	fun onDateChanged(date: Date)
+    fun onDateChanged(date: Date)
 }

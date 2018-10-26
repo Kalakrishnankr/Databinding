@@ -25,6 +25,7 @@ class AwsServiceModule {
     }
 
     companion object {
-        const val URL_BUCKET = "https://s3.amazonaws.com/beachpartner-deployments-mobilehub-1720304644/"
+        const val URL_BUCKET =
+            "https://s3.amazonaws.com/beachpartner-deployments-mobilehub-1720304644/"
     }
 }

@@ -3,7 +3,10 @@
 	>
 	<data class="CardFragmentBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
-		<variable name="strip" type="com.beachpartnerllc.beachpartner.finder.StripFragment"/>
+
+        <variable
+            name="strip"
+            type="com.beachpartnerllc.beachpartner.finder.BlueBpStripFragment" />
 		<variable name="card" type="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"/>
 	</data>
 
@@ -13,7 +16,7 @@
 
 		<fragment
 			android:id="@+id/strip_fragment"
-			android:name="com.beachpartnerllc.beachpartner.finder.StripFragment"
+            android:name="com.beachpartnerllc.beachpartner.finder.BlueBpStripFragment"
 			android:layout_width="0dp"
 			android:layout_height="60dp"
 			app:layout_constraintLeft_toLeftOf="parent"

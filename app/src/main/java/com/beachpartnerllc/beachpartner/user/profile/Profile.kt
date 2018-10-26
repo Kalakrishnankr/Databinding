@@ -26,8 +26,10 @@ open class Profile(
     var avatarUrl: String? = null,
     var videoUrl: String? = null,
     var age: Int? = null,
-    var status: String? = null) {
-    @Ignore var dateOfBirth: Date? = null
+    var status: String? = null
+) {
+    @Ignore
+    var dateOfBirth: Date? = null
     val fullName: String? get() = "$firstName $lastName"
 
     fun isFirstNameValid() = firstName.isName()
@@ -41,7 +43,7 @@ open class Profile(
     fun isUserTypeValid() = userType != null
 
     fun isValid() = isFirstNameValid() && isLastNameValid() && isStateValid()
-        && isGenderValid() && isUserTypeValid()
+            && isGenderValid() && isUserTypeValid()
 
     fun isEmailValid() = email.isEmail()
 

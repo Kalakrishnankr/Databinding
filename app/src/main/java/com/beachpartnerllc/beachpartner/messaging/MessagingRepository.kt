@@ -16,7 +16,8 @@ import javax.inject.Inject
 class MessagingRepository
 @Inject constructor(
     private val db: FirebaseFirestore,
-    private val pref: Preference) {
+    private val pref: Preference
+) {
 
     fun getChats(): LiveData<Resource<List<Chat>>> {
         val state = MutableLiveData<Resource<List<Chat>>>()

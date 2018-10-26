@@ -19,7 +19,8 @@ import javax.inject.Singleton
 @Singleton
 class FinderRepository @Inject constructor(
     private val api: ApiService,
-    app: Application) : Repository(app) {
+    app: Application
+) : Repository(app) {
 
     fun searchProfile(search: Search): MutableLiveData<Resource<List<Profile>>> {
         val state = MutableLiveData<Resource<List<Profile>>>()
@@ -30,7 +31,10 @@ class FinderRepository @Inject constructor(
                 httpRequestFailed(call, t, state)
             }
 
-            override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
+            override fun onResponse(
+                call: Call<Resource<List<Profile>>?>,
+                response: Response<Resource<List<Profile>>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = response.body()
                 } else {
@@ -50,7 +54,10 @@ class FinderRepository @Inject constructor(
                 httpRequestFailed(call, t, state)
             }
 
-            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+            override fun onResponse(
+                call: Call<Resource<Profile>?>,
+                response: Response<Resource<Profile>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = response.body()
                 } else {
@@ -69,7 +76,10 @@ class FinderRepository @Inject constructor(
                 httpRequestFailed(call, t, state)
             }
 
-            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+            override fun onResponse(
+                call: Call<Resource<Profile>?>,
+                response: Response<Resource<Profile>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = response.body()
                 } else {
@@ -88,7 +98,10 @@ class FinderRepository @Inject constructor(
                 httpRequestFailed(call, t, state)
             }
 
-            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+            override fun onResponse(
+                call: Call<Resource<Profile>?>,
+                response: Response<Resource<Profile>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = response.body()
                 } else {
@@ -113,7 +126,8 @@ class FinderRepository @Inject constructor(
             }
 
             override fun onResponse(call: Call<Flag?>, response: Response<Flag?>) {
-                flag.value = if (response.code() == 200) Resource.success(response.body()) else Resource.error()
+                flag.value =
+                        if (response.code() == 200) Resource.success(response.body()) else Resource.error()
             }
         })
         return flag
@@ -127,7 +141,10 @@ class FinderRepository @Inject constructor(
                 httpRequestFailed(call, t, state)
             }
 
-            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+            override fun onResponse(
+                call: Call<Resource<Profile>?>,
+                response: Response<Resource<Profile>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = response.body()
                 } else {
@@ -146,7 +163,10 @@ class FinderRepository @Inject constructor(
                 httpRequestFailed(call, t, state)
             }
 
-            override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
+            override fun onResponse(
+                call: Call<Resource<List<Profile>>?>,
+                response: Response<Resource<List<Profile>>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = response.body()
                 } else {

@@ -8,15 +8,16 @@ import kotlin.reflect.KProperty
  * @created on 10 Oct 2018 at 5:45 PM
  */
 class BindableDelegate<in R : BaseObservable, T : Any?>(
-	private var value: T?,
-	private val bindingId: Int) {
-	operator fun getValue(receiver: R, property: KProperty<*>): T? = value
-	
-	operator fun setValue(receiver: R, property: KProperty<*>, value: T?) {
-		this.value = value
-		receiver.notifyPropertyChanged(bindingId)
-	}
+    private var value: T?,
+    private val bindingId: Int
+) {
+    operator fun getValue(receiver: R, property: KProperty<*>): T? = value
+
+    operator fun setValue(receiver: R, property: KProperty<*>, value: T?) {
+        this.value = value
+        receiver.notifyPropertyChanged(bindingId)
+    }
 }
 
 fun <R : BaseObservable, T : Any> bindable(value: T?, bindingId: Int): BindableDelegate<R, T> =
-	BindableDelegate(value, bindingId)
+    BindableDelegate(value, bindingId)

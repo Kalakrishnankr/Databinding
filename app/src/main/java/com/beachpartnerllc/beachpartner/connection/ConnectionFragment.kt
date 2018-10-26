@@ -25,7 +25,8 @@ import javax.inject.Inject
  * @created on 26 Sep 2018 at 4:16 PM
  */
 class ConnectionFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: ConnectionBinding
     private var adapter: BaseAdapter<Profile, ConnectionItemBinding, ConnectionViewHolder>? = null
     private var profiles: List<Profile>? = null
@@ -35,7 +36,11 @@ class ConnectionFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_connection, container)
         return binding.root
     }
@@ -49,7 +54,11 @@ class ConnectionFragment : BaseFragment() {
         vm.connections.observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
                 profiles = it.data!!
-                adapter = BaseAdapter(profiles!!.toMutableList(), R.layout.item_connection, ::ConnectionViewHolder)
+                adapter = BaseAdapter(
+                    profiles!!.toMutableList(),
+                    R.layout.item_connection,
+                    ::ConnectionViewHolder
+                )
                 binding.adapter = adapter
             }
         })
@@ -79,8 +88,8 @@ class ConnectionFragment : BaseFragment() {
         (activity as HomeActivity).searchMSV.closeSearch()
     }
 
-    inner class ConnectionViewHolder(itemBinding: ConnectionItemBinding)
-        : BaseViewHolder<Profile, ConnectionItemBinding>(itemBinding) {
+    inner class ConnectionViewHolder(itemBinding: ConnectionItemBinding) :
+        BaseViewHolder<Profile, ConnectionItemBinding>(itemBinding) {
         init {
             itemBinding.knobIV.setOnClickListener {
                 itemBinding.isOpen = !(itemBinding.isOpen ?: false)
