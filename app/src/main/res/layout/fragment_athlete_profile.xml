@@ -173,9 +173,10 @@
 			<TextView
 				android:id="@+id/username_tv"
 				android:layout_width="wrap_content"
-				android:layout_height="13dp"
+				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/dimen_8dp"
 				android:text='@{vm.profile.firstName != null?vm.profile.firstName+vm.profile.lastName:""}'
+				android:textSize="@{(vm.profile.firstName+vm.profile.lastName).length>25?@dimen/text_12sp:@dimen/text_14sp}"
 				app:layout_constraintEnd_toEndOf="@+id/profilePicIV"
 				app:layout_constraintStart_toStartOf="@+id/profilePicIV"
 				app:layout_constraintTop_toBottomOf="@+id/profilePicIV"
@@ -185,7 +186,7 @@
 				android:id="@+id/profile_designation"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/dimen_8dp"
+				android:layout_marginTop="@dimen/dimen_14dp"
 				android:drawableStart="@drawable/ic_athlete_indicator"
 				android:gravity="center"
 				android:text="@string/athlete"
