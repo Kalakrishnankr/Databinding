@@ -18,142 +18,142 @@ import javax.inject.Singleton
  */
 @Singleton
 class FinderRepository @Inject constructor(
-		private val api: ApiService,
-		app: Application) : Repository(app) {
+    private val api: ApiService,
+    app: Application) : Repository(app) {
 
-	fun searchProfile(search: Search): MutableLiveData<Resource<List<Profile>>> {
-		val state = MutableLiveData<Resource<List<Profile>>>()
-		state.value = Resource.loading()
-		api.searchProfile(search).enqueue(object :
-				Callback<Resource<List<Profile>>?> {
-			override fun onFailure(call: Call<Resource<List<Profile>>?>, t: Throwable) {
-				httpRequestFailed(call, t, state)
-			}
+    fun searchProfile(search: Search): MutableLiveData<Resource<List<Profile>>> {
+        val state = MutableLiveData<Resource<List<Profile>>>()
+        state.value = Resource.loading()
+        api.searchProfile(search).enqueue(object :
+            Callback<Resource<List<Profile>>?> {
+            override fun onFailure(call: Call<Resource<List<Profile>>?>, t: Throwable) {
+                httpRequestFailed(call, t, state)
+            }
 
-			override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
-				if (response.isSuccessful) {
-					state.value = response.body()
-				} else {
-					state.value = Resource.error(response)
-				}
-			}
+            override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
+                if (response.isSuccessful) {
+                    state.value = response.body()
+                } else {
+                    state.value = Resource.error(response)
+                }
+            }
 
-		})
-		return state
-	}
+        })
+        return state
+    }
 
-	fun likeUser(profile: Profile): MutableLiveData<Resource<Profile>> {
-		val state = MutableLiveData<Resource<Profile>>()
-		state.value = Resource.loading()
-		api.likeUser(profile.userId).enqueue(object : Callback<Resource<Profile>?> {
-			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
-				httpRequestFailed(call, t, state)
-			}
+    fun likeUser(profile: Profile): MutableLiveData<Resource<Profile>> {
+        val state = MutableLiveData<Resource<Profile>>()
+        state.value = Resource.loading()
+        api.likeUser(profile.userId).enqueue(object : Callback<Resource<Profile>?> {
+            override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+                httpRequestFailed(call, t, state)
+            }
 
-			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
-				if (response.isSuccessful) {
-					state.value = response.body()
-				} else {
-					state.value = Resource.error(response)
-				}
-			}
-		})
-		return state
-	}
+            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+                if (response.isSuccessful) {
+                    state.value = response.body()
+                } else {
+                    state.value = Resource.error(response)
+                }
+            }
+        })
+        return state
+    }
 
-	fun dislikeUser(profile: Profile): MutableLiveData<Resource<Profile>> {
-		val state = MutableLiveData<Resource<Profile>>()
-		state.value = Resource.loading()
-		api.dislikeUser(profile.userId).enqueue(object : Callback<Resource<Profile>?> {
-			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
-				httpRequestFailed(call, t, state)
-			}
+    fun dislikeUser(profile: Profile): MutableLiveData<Resource<Profile>> {
+        val state = MutableLiveData<Resource<Profile>>()
+        state.value = Resource.loading()
+        api.dislikeUser(profile.userId).enqueue(object : Callback<Resource<Profile>?> {
+            override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+                httpRequestFailed(call, t, state)
+            }
 
-			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
-				if (response.isSuccessful) {
-					state.value = response.body()
-				} else {
-					state.value = Resource.error(response)
-				}
-			}
-		})
-		return state
-	}
+            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+                if (response.isSuccessful) {
+                    state.value = response.body()
+                } else {
+                    state.value = Resource.error(response)
+                }
+            }
+        })
+        return state
+    }
 
-	fun highFiveUser(profile: Profile): MutableLiveData<Resource<Profile>> {
-		val state = MutableLiveData<Resource<Profile>>()
-		state.value = Resource.loading()
-		api.hiFiveUser(profile.userId).enqueue(object : Callback<Resource<Profile>?> {
-			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
-				httpRequestFailed(call, t, state)
-			}
+    fun highFiveUser(profile: Profile): MutableLiveData<Resource<Profile>> {
+        val state = MutableLiveData<Resource<Profile>>()
+        state.value = Resource.loading()
+        api.hiFiveUser(profile.userId).enqueue(object : Callback<Resource<Profile>?> {
+            override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+                httpRequestFailed(call, t, state)
+            }
 
-			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
-				if (response.isSuccessful) {
-					state.value = response.body()
-				} else {
-					state.value = Resource.error(response)
-				}
-			}
-		})
+            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+                if (response.isSuccessful) {
+                    state.value = response.body()
+                } else {
+                    state.value = Resource.error(response)
+                }
+            }
+        })
 
-		return state
-	}
+        return state
+    }
 
-	fun blockUser(profile: Profile): MutableLiveData<Resource<Flag>> {
-		val flag = MutableLiveData<Resource<Flag>>()
-		flag.value = Resource.loading()
-		val request = hashMapOf(
-				"flagUserId" to profile.userId,
-				"flagReason" to "Unknown"
-		)
-		api.blockUser(request).enqueue(object : Callback<Flag?> {
-			override fun onFailure(call: Call<Flag?>, t: Throwable) {
-				httpRequestFailed(call, t, flag)
-			}
+    fun blockUser(profile: Profile): MutableLiveData<Resource<Flag>> {
+        val flag = MutableLiveData<Resource<Flag>>()
+        flag.value = Resource.loading()
+        val request = hashMapOf(
+            "flagUserId" to profile.userId,
+            "flagReason" to "Unknown"
+        )
+        api.blockUser(request).enqueue(object : Callback<Flag?> {
+            override fun onFailure(call: Call<Flag?>, t: Throwable) {
+                httpRequestFailed(call, t, flag)
+            }
 
-			override fun onResponse(call: Call<Flag?>, response: Response<Flag?>) {
-				flag.value = if (response.code() == 200) Resource.success(response.body()) else Resource.error()
-			}
-		})
-		return flag
-	}
+            override fun onResponse(call: Call<Flag?>, response: Response<Flag?>) {
+                flag.value = if (response.code() == 200) Resource.success(response.body()) else Resource.error()
+            }
+        })
+        return flag
+    }
 
-	fun getProfile(userId: Int): MutableLiveData<Resource<Profile>> {
-		val state = MutableLiveData<Resource<Profile>>()
-		state.value = Resource.loading()
-		api.getProfile(userId).enqueue(object : Callback<Resource<Profile>?> {
-			override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
-				httpRequestFailed(call, t, state)
-			}
+    fun getProfile(userId: Int): MutableLiveData<Resource<Profile>> {
+        val state = MutableLiveData<Resource<Profile>>()
+        state.value = Resource.loading()
+        api.getProfile(userId).enqueue(object : Callback<Resource<Profile>?> {
+            override fun onFailure(call: Call<Resource<Profile>?>, t: Throwable) {
+                httpRequestFailed(call, t, state)
+            }
 
-			override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
-				if (response.isSuccessful) {
-					state.value = response.body()
-				} else {
-					state.value = Resource.error(response)
-				}
-			}
-		})
-		return state
-	}
+            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+                if (response.isSuccessful) {
+                    state.value = response.body()
+                } else {
+                    state.value = Resource.error(response)
+                }
+            }
+        })
+        return state
+    }
 
-	fun getStripProfile(): MutableLiveData<Resource<List<Profile>>> {
-		val state = MutableLiveData<Resource<List<Profile>>>()
-		state.value = Resource.loading()
-		api.getStripProfile().enqueue(object : Callback<Resource<List<Profile>>?> {
-			override fun onFailure(call: Call<Resource<List<Profile>>?>, t: Throwable) {
-				httpRequestFailed(call, t, state)
-			}
+    fun getStripProfile(): MutableLiveData<Resource<List<Profile>>> {
+        val state = MutableLiveData<Resource<List<Profile>>>()
+        state.value = Resource.loading()
+        api.getStripProfile().enqueue(object : Callback<Resource<List<Profile>>?> {
+            override fun onFailure(call: Call<Resource<List<Profile>>?>, t: Throwable) {
+                httpRequestFailed(call, t, state)
+            }
 
-			override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
-				if (response.isSuccessful) {
-					state.value = response.body()
-				} else {
-					state.value = Resource.error(response)
-				}
-			}
-		})
-		return state
-	}
+            override fun onResponse(call: Call<Resource<List<Profile>>?>, response: Response<Resource<List<Profile>>?>) {
+                if (response.isSuccessful) {
+                    state.value = response.body()
+                } else {
+                    state.value = Resource.error(response)
+                }
+            }
+        })
+        return state
+    }
 }

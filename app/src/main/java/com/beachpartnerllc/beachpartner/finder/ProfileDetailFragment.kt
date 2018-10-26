@@ -41,8 +41,8 @@ class ProfileDetailFragment : BaseFragment() {
             if (it.isSuccess()) {
                 vm.itemProfile = it.data!!
                 Glide.with(this).load(vm.itemProfile!!.avatarUrl)
-                        .apply(RequestOptions.placeholderOf(R.drawable.default_icon))
-                        .into(binding.avatarIMV)
+                    .apply(RequestOptions.placeholderOf(R.drawable.default_icon))
+                    .into(binding.avatarIMV)
             }
         })
     }

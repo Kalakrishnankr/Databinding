@@ -63,9 +63,9 @@ class ProfileListingAdapter(
             binding.profile = item
             binding.executePendingBindings()
             Glide.with(context)
-                    .load(item.avatarUrl)
-                    .apply(RequestOptions.placeholderOf(R.drawable.default_icon))
-                    .into(binding.avatarIV)
+                .load(item.avatarUrl)
+                .apply(RequestOptions.placeholderOf(R.drawable.default_icon))
+                .into(binding.avatarIV)
 
             binding.flagIMV.setOnClickListener {
                 callback.invoke(item)
@@ -98,10 +98,10 @@ class ProfileListingAdapter(
     }
 
     private fun setStateChangeListener(
-            loadingAVL: AVLoadingIndicatorView,
-            simpleExoplayer: SimpleExoPlayer?,
-            imageview: ImageView,
-            exoPlayer: SimpleExoPlayerView) {
+        loadingAVL: AVLoadingIndicatorView,
+        simpleExoplayer: SimpleExoPlayer?,
+        imageview: ImageView,
+        exoPlayer: SimpleExoPlayerView) {
         simpleExoplayer!!.addListener(object : Player.DefaultEventListener() {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 when (playbackState) {

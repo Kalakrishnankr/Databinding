@@ -3,7 +3,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/home_nav"
-	app:startDestination="@id/action_connection">
+	app:startDestination="@id/action_chat">
 
 	<fragment
 		android:id="@+id/action_home"
@@ -15,7 +15,10 @@
 		android:id="@+id/action_connection"
 		android:name="com.beachpartnerllc.beachpartner.connection.ConnectionFragment"
 		android:label="@string/connections"
-		tools:layout="@layout/fragment_connection"/>
+		tools:layout="@layout/fragment_connection">
+		<action android:id="@+id/action_message"
+			app:destination="@id/messageFragment"/>
+	</fragment>
 
 	<fragment
 		android:id="@+id/action_bp"
@@ -60,9 +63,31 @@
 			app:destination="@id/masterCalendarFragment"/>
 	</fragment>
 
+	<fragment
+		android:id="@+id/action_chat"
+		android:name="com.beachpartnerllc.beachpartner.messaging.ChatFragment"
+		android:label="@string/messaging"
+		tools:layout="@layout/fragment_chat">
+
+		<action
+			android:id="@+id/action_message"
+			app:destination="@+id/messageFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim">
+			<argument android:name="user_id"
+				android:defaultValue="-1"/>
+		</action>
+	</fragment>
+
 	<action
 		android:id="@+id/action_event"
-		app:destination="@id/EventFragment"/>
+		app:destination="@id/EventFragment"
+		app:enterAnim="@anim/nav_default_enter_anim"
+		app:exitAnim="@anim/nav_default_exit_anim"
+		app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+		app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
 	<fragment
 		android:id="@+id/masterCalendarFragment"
@@ -81,7 +106,11 @@
 			app:argType="integer"/>
 
 		<action android:id="@+id/action_invite"
-			app:destination="@id/connectionsFragment"/>
+			app:destination="@id/connectionsFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 	</fragment>
 
 	<fragment
@@ -93,10 +122,27 @@
 	<fragment
 		android:id="@+id/athleteProfileFragment"
 		android:name="com.beachpartnerllc.beachpartner.user.profile.AthleteProfileFragment"
-		android:label="AthleteProfileFragment"/>
+		android:label="AthleteProfileFragment"
+		tools:layout="@layout/fragment_athlete_profile"/>
 
 	<fragment
 		android:id="@+id/coachProfileFragment"
 		android:name="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"
-		android:label="CoachProfileFragment"/>
+		android:label="CoachProfileFragment"
+		tools:layout="@layout/fragment_coach_profile"/>
+
+	<fragment
+		android:id="@+id/messageFragment"
+		android:name="com.beachpartnerllc.beachpartner.messaging.MessageFragment"
+		android:label="MessageFragment"
+		tools:layout="@layout/fragment_message">
+		<argument
+			android:name="user_id"
+			android:defaultValue="-1"
+			app:argType="integer"/>
+		<argument android:name="chat_id"
+			android:defaultValue="@null"
+			app:argType="string"
+			app:nullable="true"/>
+	</fragment>
 </navigation>

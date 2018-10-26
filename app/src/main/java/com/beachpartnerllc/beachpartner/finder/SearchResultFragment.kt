@@ -50,10 +50,10 @@ class SearchResultFragment : BaseFragment() {
     private fun alertFlagged(profile: Profile) {
         val builder = AlertDialog.Builder(context!!)
         builder.setTitle("${getString(R.string.flag_title)} ${profile.firstName} ${profile.lastName} ?")
-                .setMessage(R.string.flag_message)
-                .setCancelable(true)
-                .setPositiveButton(getString(R.string.yes)) { _, _ -> block(profile) }
-                .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
+            .setMessage(R.string.flag_message)
+            .setCancelable(true)
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> block(profile) }
+            .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
         val alert = builder.create()
         alert.show()
     }

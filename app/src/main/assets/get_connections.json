@@ -9,19 +9,19 @@
   },
   {
     "user_id": 2,
-    "first_name": "Markéta",
-    "last_name": "Sluková",
-    "user_type": "COACH",
-    "gender": "MALE",
-    "avatar_url": "https://imgix.ranker.com/user_node_img/3404/68067708/original/mark-ta-slukov-people-in-sports-photo-u2?w=650&q=50&fm=jpg&fit=crop&crop=faces"
-  },
-  {
-    "user_id": 3,
     "first_name": "Kerri Walsh",
     "last_name": "Jennings",
     "user_type": "COACH",
     "gender": "MALE",
     "avatar_url": "http://upl.stack.com/wp-content/uploads/2014/06/Kerri-Walsh-Jennings.jpg"
+  },
+  {
+    "user_id": 3,
+    "first_name": "Markéta",
+    "last_name": "Sluková",
+    "user_type": "COACH",
+    "gender": "MALE",
+    "avatar_url": "https://imgix.ranker.com/user_node_img/3404/68067708/original/mark-ta-slukov-people-in-sports-photo-u2?w=650&q=50&fm=jpg&fit=crop&crop=faces"
   },
   {
     "user_id": 4,
@@ -70,5 +70,13 @@
     "user_type": "COACH",
     "gender": "MALE",
     "avatar_url": "https://imgix.ranker.com/user_node_img/50033/1000645279/original/victoria-faye-kj-and-oslash-lberg-people-in-sports-photo-u1?w=650&q=60&fm=jpg&fit=crop&crop=faces%22"
+  },
+  {
+    "user_id": 10,
+    "first_name": "Nicole",
+    "last_name": "Branagh",
+    "user_type": "COACH",
+    "gender": "FEMALE",
+    "avatar_url": "http://www.pointuboosters.com/wordpress/wp-content/uploads/2014/10/nicole.branagh.beach_.jpg"
   }
 ]

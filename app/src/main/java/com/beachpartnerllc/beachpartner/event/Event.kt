@@ -11,19 +11,19 @@ import java.util.*
  */
 @Entity(tableName = "events")
 data class Event(
-	@PrimaryKey val eventId: Int,
-	val title: String,
-	val location: String,
-	val venue: String,
-	val admin: String,
-	@ColumnInfo(name = "team_size") val teamSize: String,
-	@ColumnInfo(name = "event_start_date") val eventStartDate: Date,
-	@ColumnInfo(name = "event_end_date") val eventEndDate: Date,
-	@ColumnInfo(name = "reg_start_date") val regStartDate: Date,
-	@ColumnInfo(name = "reg_end_date") val regEndDate: Date,
-	val status: EventStatus
+    @PrimaryKey val eventId: Int,
+    val title: String,
+    val location: String,
+    val venue: String,
+    val admin: String,
+    @ColumnInfo(name = "team_size") val teamSize: String,
+    @ColumnInfo(name = "event_start_date") val eventStartDate: Date,
+    @ColumnInfo(name = "event_end_date") val eventEndDate: Date,
+    @ColumnInfo(name = "reg_start_date") val regStartDate: Date,
+    @ColumnInfo(name = "reg_end_date") val regEndDate: Date,
+    val status: EventStatus
 )
 
 enum class EventStatus {
-	REGISTERED, INVITATION_SENT, REGISTRATION_PENDING
+    REGISTERED, INVITATION_SENT, REGISTRATION_PENDING
 }

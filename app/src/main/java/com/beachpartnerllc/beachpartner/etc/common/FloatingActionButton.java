@@ -414,6 +414,14 @@ public class FloatingActionButton extends ImageButton {
 		}
 	}
 	
+	private float calculateCenterX() {
+		return (float) (getMeasuredWidth() / 2);
+	}
+	
+	private float calculateCenterY() {
+		return (float) (getMeasuredHeight() / 2);
+	}
+	
 	void setColors(int colorNormal, int colorPressed, int colorRipple) {
 		mColorNormal = colorNormal;
 		mColorPressed = colorPressed;
@@ -431,14 +439,6 @@ public class FloatingActionButton extends ImageButton {
 			ripple.setHotspot(calculateCenterX(), calculateCenterY());
 			ripple.setVisible(true, true);
 		}
-	}
-	
-	private float calculateCenterX() {
-		return (float) (getMeasuredWidth() / 2);
-	}
-	
-	private float calculateCenterY() {
-		return (float) (getMeasuredHeight() / 2);
 	}
 	
 	@Override
@@ -472,21 +472,12 @@ public class FloatingActionButton extends ImageButton {
 		return width;
 	}
 	
-	private int getCircleSize() {
-		return getResources().getDimensionPixelSize(mFabSize == SIZE_NORMAL
-		    ? R.dimen.fab_size_normal : R.dimen.fab_size_mini);
-	}
-	
 	int calculateShadowWidth() {
 		return hasShadow() ? getShadowX() * 2 : 0;
 	}
 	
 	private int getShadowX() {
 		return mShadowRadius + Math.abs(mShadowXOffset);
-	}
-	
-	public boolean hasShadow() {
-		return !mUsingElevation && mShowShadow;
 	}
 	
 	private int calculateMeasuredHeight() {
@@ -640,6 +631,15 @@ public class FloatingActionButton extends ImageButton {
 		);
 		
 		setBackgroundCompat(layerDrawable);
+	}
+	
+	private int getCircleSize() {
+		return getResources().getDimensionPixelSize(mFabSize == SIZE_NORMAL
+		    ? R.dimen.fab_size_normal : R.dimen.fab_size_mini);
+	}
+	
+	public boolean hasShadow() {
+		return !mUsingElevation && mShowShadow;
 	}
 	
 	protected Drawable getIconDrawable() {

@@ -17,8 +17,8 @@ import javax.inject.Inject
  * @created on 17 Sep 2018 at 4:05 PM
  */
 class FinderViewModel @Inject constructor(
-        private val repo: FinderRepository,
-        private val authRepo: AuthRepository) : ViewModel() {
+    private val repo: FinderRepository,
+    private val authRepo: AuthRepository) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
 

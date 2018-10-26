@@ -56,8 +56,8 @@ class StripFragment : BaseFragment() {
         override fun bindTo(item: Profile) {
             itemBinding.item = item
             Glide.with(itemView).load(item.avatarUrl).apply(RequestOptions.circleCropTransform().placeholder(R.drawable
-                    .default_icon))
-                    .into(itemBinding.itemIV)
+                .default_icon))
+                .into(itemBinding.itemIV)
         }
     }
 }

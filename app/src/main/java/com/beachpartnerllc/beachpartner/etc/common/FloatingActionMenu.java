@@ -524,10 +524,6 @@ public class FloatingActionMenu extends ViewGroup {
 		}
 	}
 	
-	public boolean isOpened() {
-		return mMenuOpened;
-	}
-	
 	public void open(final boolean animate) {
 		if (!isOpened()) {
 			if (isBackgroundEnabled()) {
@@ -582,6 +578,10 @@ public class FloatingActionMenu extends ViewGroup {
 				}
 			}, ++counter * mAnimationDelayPerItem);
 		}
+	}
+	
+	public boolean isOpened() {
+		return mMenuOpened;
 	}
 	
 	public void close(final boolean animate) {

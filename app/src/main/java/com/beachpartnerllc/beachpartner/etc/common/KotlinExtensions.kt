@@ -14,6 +14,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
+import com.beachpartnerllc.beachpartner.messaging.HasId
+import com.google.firebase.firestore.DocumentSnapshot
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,9 +42,9 @@ fun <T> zip(vararg observables: LiveData<T>): MediatorLiveData<T> {
 }
 
 inline fun <reified T> mutableLiveDataOf(value: T): MutableLiveData<T> {
-	val liveData = MutableLiveData<T>()
-	liveData.value = value
-	return liveData
+    val liveData = MutableLiveData<T>()
+    liveData.value = value
+    return liveData
 }
 
 /********          View Components          **************/
@@ -90,4 +92,10 @@ fun CharSequence?.isName() = this != null && this.trim().matches("[a-z A-Z]+".to
 fun Date.truncateTime(): Date {
 	val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 	return formatter.parse(formatter.format(this))
+}
+
+inline fun <reified T : HasId> DocumentSnapshot.toObjectWithId(): T {
+	val model = this.toObject(T::class.java)!!
+	model.id = this.id
+	return model
 }

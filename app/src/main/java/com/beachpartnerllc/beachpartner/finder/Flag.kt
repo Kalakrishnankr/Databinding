@@ -5,6 +5,6 @@ package com.beachpartnerllc.beachpartner.finder
  * @created on 28 Sep 2018 at 1:57 PM
  */
 data class Flag(
-        val message: String?,
-        val status: String?
+    val message: String?,
+    val status: String?
 )

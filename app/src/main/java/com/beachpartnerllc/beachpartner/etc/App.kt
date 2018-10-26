@@ -4,7 +4,6 @@ import android.app.Activity
 import androidx.multidex.MultiDexApplication
 import com.beachpartnerllc.beachpartner.BuildConfig
 import com.beachpartnerllc.beachpartner.etc.di.AppInjector
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import timber.log.Timber
@@ -16,7 +15,7 @@ import javax.inject.Inject
  */
 
 class App : MultiDexApplication(), HasActivityInjector {
-    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    @Inject lateinit var injector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
@@ -28,10 +27,7 @@ class App : MultiDexApplication(), HasActivityInjector {
         } else {
             // TODO: Plant a production tree for crash analytics
         }
-
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return dispatchingAndroidInjector
-    }
+    override fun activityInjector() = injector
 }

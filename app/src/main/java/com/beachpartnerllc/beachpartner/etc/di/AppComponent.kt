@@ -4,6 +4,7 @@ import android.app.Application
 import com.beachpartnerllc.beachpartner.etc.App
 import com.beachpartnerllc.beachpartner.etc.model.aws.AwsServiceModule
 import com.beachpartnerllc.beachpartner.etc.model.db.DatabaseModule
+import com.beachpartnerllc.beachpartner.etc.model.db.FirestoreDatabaseModule
 import com.beachpartnerllc.beachpartner.etc.model.pref.SharedPreferenceModule
 import com.beachpartnerllc.beachpartner.etc.model.rest.mock.MockServiceModule
 import dagger.BindsInstance
@@ -17,6 +18,7 @@ import javax.inject.Singleton
     ViewModelModule::class,
     ActivityModule::class,
 	DatabaseModule::class,
+	FirestoreDatabaseModule::class,
     MockServiceModule::class,
     SharedPreferenceModule::class,
     AwsServiceModule::class

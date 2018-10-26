@@ -39,9 +39,9 @@ class SearchFragment : BaseFragment() {
         vm.getStates().observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
                 binding.stateACS.adapter = ArrayAdapter(
-                        context!!,
-                        android.R.layout.simple_dropdown_item_1line,
-                        it.data?.map { state -> state.stateName }!!)
+                    context!!,
+                    android.R.layout.simple_dropdown_item_1line,
+                    it.data?.map { state -> state.stateName }!!)
             }
         })
     }

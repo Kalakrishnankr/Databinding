@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.ConnectionBinding
 import com.beachpartnerllc.beachpartner.databinding.ConnectionItemBinding
@@ -78,11 +79,18 @@ class ConnectionFragment : BaseFragment() {
         (activity as HomeActivity).searchMSV.closeSearch()
     }
 
-    class ConnectionViewHolder(itemBinding: ConnectionItemBinding)
+    inner class ConnectionViewHolder(itemBinding: ConnectionItemBinding)
         : BaseViewHolder<Profile, ConnectionItemBinding>(itemBinding) {
         init {
             itemBinding.knobIV.setOnClickListener {
                 itemBinding.isOpen = !(itemBinding.isOpen ?: false)
+            }
+
+            itemBinding.messageTV.setOnClickListener {
+                with(adapter!!.items[adapterPosition]) {
+                    val direction = ConnectionFragmentDirections.ActionMessage().setUserId(userId)
+                    findNavController().navigate(direction)
+                }
             }
         }
 

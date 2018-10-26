@@ -18,190 +18,190 @@
 		tools:background="@drawable/art_volleyball_various_360dp">
 
 		<ImageView
-				android:id="@+id/logoIV"
-				android:layout_width="wrap_content"
+			android:id="@+id/logoIV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			android:contentDescription="@null"
+			android:src="@drawable/art_beach_various_86dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+
+		<View
+			android:id="@+id/bgView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginStart="24dp"
+			android:layout_marginLeft="24dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginEnd="24dp"
+			android:layout_marginRight="24dp"
+			android:background="@drawable/draw_rect_e4e4e4_r13"
+			app:layout_constraintBottom_toBottomOf="@id/bottomGuide"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/logoIV"/>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/emailTIL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="30dp"
+			android:layout_marginEnd="24dp"
+			android:enabled="@{!vm.loading}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isEmailValid() ? @string/invalid_email : null}"
+			app:layout_constraintEnd_toEndOf="@id/bgView"
+			app:layout_constraintStart_toStartOf="@id/bgView"
+			app:layout_constraintTop_toTopOf="@id/bgView">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/emailET"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="24dp"
-				android:contentDescription="@null"
-				android:src="@drawable/art_beach_various_86dp"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+				android:hint="@string/email"
+				android:inputType="textEmailAddress"
+				android:text="@={vm.profile.email}"
+				android:textColor="@color/blue_2f3e87"
+				android:textSize="@dimen/text_size_regular"
+				tools:text="alicia@florricks.com"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-			<View
-				android:id="@+id/bgView"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_marginStart="24dp"
-				android:layout_marginLeft="24dp"
-				android:layout_marginTop="24dp"
-				android:layout_marginEnd="24dp"
-				android:layout_marginRight="24dp"
-				android:background="@drawable/draw_rect_e4e4e4_r13"
-				app:layout_constraintBottom_toBottomOf="@id/bottomGuide"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/logoIV"/>
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/mobileTIL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:enabled="@{!vm.loading}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isMobileValid() ? @string/invalid_mobile : null}"
+			app:layout_constraintEnd_toEndOf="@id/emailTIL"
+			app:layout_constraintStart_toStartOf="@id/emailTIL"
+			app:layout_constraintTop_toBottomOf="@id/emailTIL">
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/emailTIL"
-				android:layout_width="0dp"
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/mobileET"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="24dp"
-				android:layout_marginTop="30dp"
-				android:layout_marginEnd="24dp"
-				android:enabled="@{!vm.loading}"
-				android:textColorHint="@color/grey_f6f6f6"
-				app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isEmailValid() ? @string/invalid_email : null}"
-				app:layout_constraintEnd_toEndOf="@id/bgView"
-				app:layout_constraintStart_toStartOf="@id/bgView"
-				app:layout_constraintTop_toTopOf="@id/bgView">
+				android:hint="@string/mobile_number"
+				android:inputType="phone"
+				android:text="@={vm.profile.mobile}"
+				android:textColor="@color/blue_2f3e87"
+				android:textSize="@dimen/text_size_regular"
+				tools:text="+21-84849596"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/emailET"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/email"
-					android:inputType="textEmailAddress"
-					android:text="@={vm.profile.email}"
-					android:textColor="@color/blue_2f3e87"
-					android:textSize="@dimen/text_size_regular"
-					tools:text="alicia@florricks.com"/>
-			</com.google.android.material.textfield.TextInputLayout>
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/passwordTIL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:enabled="@{!vm.loading}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isPasswordValid() ? @string/invalid_password : null}"
+			app:layout_constraintEnd_toEndOf="@id/emailTIL"
+			app:layout_constraintStart_toStartOf="@id/emailTIL"
+			app:layout_constraintTop_toBottomOf="@id/mobileTIL"
+			app:passwordToggleEnabled="true"
+			app:passwordToggleTint="@color/colorAccent">
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/mobileTIL"
-				android:layout_width="0dp"
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/passwordET"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:enabled="@{!vm.loading}"
-				android:textColorHint="@color/grey_f6f6f6"
-				app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isMobileValid() ? @string/invalid_mobile : null}"
-				app:layout_constraintEnd_toEndOf="@id/emailTIL"
-				app:layout_constraintStart_toStartOf="@id/emailTIL"
-				app:layout_constraintTop_toBottomOf="@id/emailTIL">
+				android:hint="@string/password"
+				android:inputType="textPassword"
+				android:text="@={vm.profile.password}"
+				android:textColor="@color/blue_2f3e87"
+				android:textSize="@dimen/text_size_regular"
+				tools:text="alicia@#florrick"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/mobileET"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/mobile_number"
-					android:inputType="phone"
-					android:text="@={vm.profile.mobile}"
-					android:textColor="@color/blue_2f3e87"
-					android:textSize="@dimen/text_size_regular"
-					tools:text="+21-84849596"/>
-			</com.google.android.material.textfield.TextInputLayout>
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/dobTIL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:enabled="@{!vm.loading}"
+			android:textColorHint="@color/grey_f6f6f6"
+			app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isDobValid() ? @string/invalid_dob : null}"
+			app:layout_constraintEnd_toEndOf="@id/emailTIL"
+			app:layout_constraintStart_toStartOf="@id/emailTIL"
+			app:layout_constraintTop_toBottomOf="@id/passwordTIL">
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/passwordTIL"
-				android:layout_width="0dp"
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/dobET"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:enabled="@{!vm.loading}"
-				android:textColorHint="@color/grey_f6f6f6"
-				app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isPasswordValid() ? @string/invalid_password : null}"
-				app:layout_constraintEnd_toEndOf="@id/emailTIL"
-				app:layout_constraintStart_toStartOf="@id/emailTIL"
-				app:layout_constraintTop_toBottomOf="@id/mobileTIL"
-				app:passwordToggleEnabled="true"
-				app:passwordToggleTint="@color/colorAccent">
+				android:drawableEnd="@drawable/ic_date_range_blue_24dp"
+				android:hint="@string/date_of_birth"
+				android:inputType="date"
+				android:paddingStart="@dimen/thin"
+				android:paddingEnd="@dimen/thick"
+				android:text="@={vm.profile.dob}"
+				android:textColor="@color/blue_2f3e87"
+				android:textSize="@dimen/text_size_regular"
+				app:onDrawableEndClick="@{()-> handler.onDobPicker()}"
+				tools:text="01/09/1973"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/passwordET"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/password"
-					android:inputType="textPassword"
-					android:text="@={vm.profile.password}"
-					android:textColor="@color/blue_2f3e87"
-					android:textSize="@dimen/text_size_regular"
-					tools:text="alicia@#florrick"/>
-			</com.google.android.material.textfield.TextInputLayout>
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/submitBtn"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="26dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginEnd="26dp"
+			android:alpha="@{vm.signUp2Validate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid2 ? 1.0f : 0.5f}"
+			android:background="@drawable/draw_rect_gradient_001443_2b3990"
+			android:enabled="@{vm.signUp2Validate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid2}"
+			android:onClick="@{()->handler.register()}"
+			android:text="@string/register"
+			android:textAllCaps="false"
+			android:textColor="@color/grey_e4e4e4"
+			app:layout_constraintEnd_toEndOf="@id/bgView"
+			app:layout_constraintStart_toStartOf="@id/bgView"
+			app:layout_constraintTop_toBottomOf="@id/dobTIL"/>
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/dobTIL"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:enabled="@{!vm.loading}"
-				android:textColorHint="@color/grey_f6f6f6"
-				app:error="@{vm.signUp2Validate &amp;&amp; !vm.profile.isDobValid() ? @string/invalid_dob : null}"
-				app:layout_constraintEnd_toEndOf="@id/emailTIL"
-				app:layout_constraintStart_toStartOf="@id/emailTIL"
-				app:layout_constraintTop_toBottomOf="@id/passwordTIL">
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/standard"
+			app:isLoading="@{vm.loading}"
+			app:layout_constraintBottom_toBottomOf="@id/submitBtn"
+			app:layout_constraintEnd_toEndOf="@id/submitBtn"
+			app:layout_constraintTop_toTopOf="@id/submitBtn"/>
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/dobET"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:drawableEnd="@drawable/ic_date_range_blue_24dp"
-					android:hint="@string/date_of_birth"
-					android:inputType="date"
-					android:paddingStart="@dimen/thin"
-					android:paddingEnd="@dimen/thick"
-					android:text="@={vm.profile.dob}"
-					android:textColor="@color/blue_2f3e87"
-					android:textSize="@dimen/text_size_regular"
-					app:onDrawableEndClick="@{()-> handler.onDobPicker()}"
-					tools:text="01/09/1973"/>
-			</com.google.android.material.textfield.TextInputLayout>
+		<TextView
+			android:id="@+id/loginLabel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:fontFamily="@font/sf_medium"
+			android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
+			android:padding="@dimen/narrow"
+			android:text="@string/already_have_account_login"
+			android:textColor="@color/grey_aee4e4e4"
+			android:textSize="@dimen/text_size_small"
+			app:end="@{31}"
+			app:foregroundColorSpan="@{@color/blue_ae12235b}"
+			app:layout_constraintEnd_toEndOf="@id/submitBtn"
+			app:layout_constraintStart_toStartOf="@id/submitBtn"
+			app:layout_constraintTop_toBottomOf="@id/submitBtn"
+			app:start="@{25}"/>
 
-			<com.google.android.material.button.MaterialButton
-				android:id="@+id/submitBtn"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="26dp"
-				android:layout_marginTop="24dp"
-				android:layout_marginEnd="26dp"
-				android:alpha="@{vm.signUp2Validate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid2 ? 1.0f : 0.5f}"
-				android:background="@drawable/draw_rect_gradient_001443_2b3990"
-				android:enabled="@{vm.signUp2Validate &amp;&amp; !vm.loading &amp;&amp; vm.profile.valid2}"
-				android:onClick="@{()->handler.register()}"
-				android:text="@string/register"
-				android:textAllCaps="false"
-				android:textColor="@color/grey_e4e4e4"
-				app:layout_constraintEnd_toEndOf="@id/bgView"
-				app:layout_constraintStart_toStartOf="@id/bgView"
-				app:layout_constraintTop_toBottomOf="@id/dobTIL"/>
-
-			<com.wang.avi.AVLoadingIndicatorView
-				android:id="@+id/loaderLIV"
-				style="@style/LoadingIndicatorSmall"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/standard"
-				app:isLoading="@{vm.loading}"
-				app:layout_constraintBottom_toBottomOf="@id/submitBtn"
-				app:layout_constraintEnd_toEndOf="@id/submitBtn"
-				app:layout_constraintTop_toTopOf="@id/submitBtn"/>
-
-			<TextView
-				android:id="@+id/loginLabel"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp"
-				android:fontFamily="@font/sf_medium"
-				android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_sign_in)}"
-				android:padding="@dimen/narrow"
-				android:text="@string/already_have_account_login"
-				android:textColor="@color/grey_aee4e4e4"
-				android:textSize="@dimen/text_size_small"
-				app:end="@{31}"
-				app:foregroundColorSpan="@{@color/blue_ae12235b}"
-				app:layout_constraintEnd_toEndOf="@id/submitBtn"
-				app:layout_constraintStart_toStartOf="@id/submitBtn"
-				app:layout_constraintTop_toBottomOf="@id/submitBtn"
-				app:start="@{25}"/>
-
-			<View
-				android:id="@+id/bottomGuide"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_marginTop="28dp"
-				app:layout_constraintEnd_toEndOf="@id/bgView"
-				app:layout_constraintStart_toStartOf="@id/bgView"
-				app:layout_constraintTop_toBottomOf="@id/loginLabel"/>
+		<View
+			android:id="@+id/bottomGuide"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="28dp"
+			app:layout_constraintEnd_toEndOf="@id/bgView"
+			app:layout_constraintStart_toStartOf="@id/bgView"
+			app:layout_constraintTop_toBottomOf="@id/loginLabel"/>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
