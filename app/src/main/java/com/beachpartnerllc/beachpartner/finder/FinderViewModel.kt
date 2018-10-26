@@ -1,7 +1,7 @@
 package com.beachpartnerllc.beachpartner.finder
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
+import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
@@ -108,7 +108,7 @@ class FinderViewModel
         it
     }!!
 
-    fun getBlueBpProfiles() = map(repo.getStripProfile()) {
+    fun getBlueBpProfiles() = map(repo.getBlueBpProfile()) {
         loading.value = it.isLoading()
         if (it.isSuccess()) {
             bpprofileList = it.data!!

@@ -77,11 +77,11 @@ class MockService(
         return delegate.returningResponse(Resource.success(null)).sendInvitation(invitees)
     }
 
-    override fun getStripProfile(): Call<Resource<List<Profile>>> {
-        val data = stringFromFile("get_profiles")
+    override fun getBlueBpProfile(): Call<Resource<List<Profile>>> {
+        val data = stringFromFile("get_connections")
         val response: List<Profile> =
             serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
-        return delegate.returningResponse(Resource.success(response)).getStripProfile()
+        return delegate.returningResponse(Resource.success(response)).getBlueBpProfile()
     }
 
     override fun getProfile(userId: Int): Call<Resource<Profile>> {

@@ -68,7 +68,7 @@ interface ApiService {
     fun getProfile(userId: Int): Call<Resource<Profile>>
 
     @GET("user/search")
-    fun getStripProfile(): Call<Resource<List<Profile>>>
+    fun getBlueBpProfile(): Call<Resource<List<Profile>>>
 
     companion object {
         const val URL_BASE = "http://10.0.2.2:5000/"

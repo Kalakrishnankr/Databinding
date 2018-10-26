@@ -23,8 +23,7 @@ import javax.inject.Inject
  * @created on 04 Oct 2018 at 1:09 PM
  */
 class BlueBpStripFragment : BaseFragment() {
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
+    @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: StripFragmentBinding
     lateinit var vm: FinderViewModel
 
@@ -45,7 +44,7 @@ class BlueBpStripFragment : BaseFragment() {
         vm.getBlueBpProfiles().observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
                 binding.stripAdapter =
-                        BaseAdapter(it.data!!, R.layout.item_blue_bp_strip, ::StripViewHolder)
+                    BaseAdapter(it.data!!, R.layout.item_blue_bp_strip, ::StripViewHolder)
             }
         })
     }

@@ -3,10 +3,12 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
 	<data class="StripFragmentBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
 		<variable name="stripAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 	</data>
+
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
@@ -20,7 +22,7 @@
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			tools:listitem="@layout/item_blue_bp_strip" />
-
+			app:layout_constraintTop_toTopOf="parent"
+			tools:listitem="@layout/item_blue_bp_strip"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
