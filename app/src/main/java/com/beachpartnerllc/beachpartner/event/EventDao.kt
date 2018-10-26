@@ -14,18 +14,18 @@ import java.util.*
  */
 @Dao
 interface EventDao {
-	@Query("SELECT * from events WHERE :eventDate BETWEEN event_start_date AND event_end_date")
-	fun eventsByDate(eventDate: Date): DataSource.Factory<Int, Event>
-	
-	@Query("DELETE FROM events WHERE :eventDate BETWEEN event_start_date AND event_end_date")
-	fun deleteByDate(eventDate: Date)
-	
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun insert(items: List<Event>)
-	
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun insert(items: Event)
-	
-	@Query("SELECT * FROM events WHERE eventId = :eventId")
-	fun getEvent(eventId: Int): LiveData<Event>
+    @Query("SELECT * from events WHERE :eventDate BETWEEN event_start_date AND event_end_date")
+    fun eventsByDate(eventDate: Date): DataSource.Factory<Int, Event>
+
+    @Query("DELETE FROM events WHERE :eventDate BETWEEN event_start_date AND event_end_date")
+    fun deleteByDate(eventDate: Date)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(items: List<Event>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(items: Event)
+
+    @Query("SELECT * FROM events WHERE eventId = :eventId")
+    fun getEvent(eventId: Int): LiveData<Event>
 }

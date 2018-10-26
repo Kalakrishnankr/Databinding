@@ -21,7 +21,8 @@ import javax.inject.Inject
 
 class CoachProfileFragment : BaseFragment() {
     private lateinit var binding: CoachProfileBinding
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var vm: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,12 +30,18 @@ class CoachProfileFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_coach_profile, container)
         binding.tabs.setupWithViewPager(binding.pager)
         val fragments = arrayListOf(BasicInfoFragment(), MoreInfoFragment())
-        binding.adapter = ViewPagerAdapter(childFragmentManager, fragments,
-            resources.getStringArray(R.array.profile_titles).asList())
+        binding.adapter = ViewPagerAdapter(
+            childFragmentManager, fragments,
+            resources.getStringArray(R.array.profile_titles).asList()
+        )
         binding.handler = this
         return binding.root
     }
@@ -46,7 +53,9 @@ class CoachProfileFragment : BaseFragment() {
         vm.isProfileEdit.observe(viewLifecycleOwner, Observer {
             activity!!.invalidateOptionsMenu()
         })
-        vm.profileValidate.observe(viewLifecycleOwner, Observer { activity!!.invalidateOptionsMenu() })
+        vm.profileValidate.observe(
+            viewLifecycleOwner,
+            Observer { activity!!.invalidateOptionsMenu() })
         binding.setLifecycleOwner(viewLifecycleOwner)
     }
 
@@ -66,20 +75,29 @@ class CoachProfileFragment : BaseFragment() {
                 vm.uploadImageToS3(ImageFilePath.getPath(context, uri), extension)
                     .observe(viewLifecycleOwner, Observer { })
             } else {
-                val extension = ImageFilePath.getExtension(ImageFilePath.getPath(context, data.data))
+                val extension =
+                    ImageFilePath.getExtension(ImageFilePath.getPath(context, data.data))
                 vm.uploadImageToS3(ImageFilePath.getPath(context, data.data), extension)
                     .observe(viewLifecycleOwner, Observer { })
             }
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             CAMERA_PERMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     startActivityForResult(pickImageIntent(), PICK_IMAGE_REQUEST)
                 } else {
-                    Toast.makeText(context, getString(R.string.no_camera_permission), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.no_camera_permission),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 return
             }

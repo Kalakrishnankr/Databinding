@@ -35,7 +35,8 @@ import com.wang.avi.AVLoadingIndicatorView
 class ProfileListingAdapter(
     context: Context,
     private val callback: (Profile) -> Unit,
-    private val call: (Profile) -> Unit) : ArrayAdapter<Profile>(context, 0) {
+    private val call: (Profile) -> Unit
+) : ArrayAdapter<Profile>(context, 0) {
 
     private lateinit var binding: ProfileItemBinding
 
@@ -59,7 +60,12 @@ class ProfileListingAdapter(
     }
 
     class ViewHolder(private val binding: ProfileItemBinding) {
-        fun bind(item: Profile, context: Context, callback: (Profile) -> Unit, call: (Profile) -> Unit): View {
+        fun bind(
+            item: Profile,
+            context: Context,
+            callback: (Profile) -> Unit,
+            call: (Profile) -> Unit
+        ): View {
             binding.profile = item
             binding.executePendingBindings()
             Glide.with(context)
@@ -77,7 +83,12 @@ class ProfileListingAdapter(
         }
     }
 
-    fun setVideoUrl(pgbar: AVLoadingIndicatorView, imageview: ImageView, exoPlayer: SimpleExoPlayerView, url: Any?) {
+    fun setVideoUrl(
+        pgbar: AVLoadingIndicatorView,
+        imageview: ImageView,
+        exoPlayer: SimpleExoPlayerView,
+        url: Any?
+    ) {
         pgbar.visibility = View.VISIBLE
         if (url == null) return
         val simpleExoplayer: SimpleExoPlayer
@@ -101,7 +112,8 @@ class ProfileListingAdapter(
         loadingAVL: AVLoadingIndicatorView,
         simpleExoplayer: SimpleExoPlayer?,
         imageview: ImageView,
-        exoPlayer: SimpleExoPlayerView) {
+        exoPlayer: SimpleExoPlayerView
+    ) {
         simpleExoplayer!!.addListener(object : Player.DefaultEventListener() {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 when (playbackState) {

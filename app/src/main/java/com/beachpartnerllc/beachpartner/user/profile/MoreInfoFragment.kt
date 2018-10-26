@@ -23,10 +23,13 @@ import javax.inject.Inject
 class MoreInfoFragment : BaseFragment() {
     private lateinit var binding: MoreInfoBinding
     private lateinit var vm: AuthViewModel
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_more_info, container)
         return binding.root
     }
@@ -51,13 +54,15 @@ class MoreInfoFragment : BaseFragment() {
 
     fun addTopFinish(topFinish: String? = null) {
         val inflater = LayoutInflater.from(context)
-        val binding: TopFinishesBinding = inflater.bind(R.layout.item_top_finishes, this.binding.topFinishesLL)
+        val binding: TopFinishesBinding =
+            inflater.bind(R.layout.item_top_finishes, this.binding.topFinishesLL)
         binding.handler = this
         binding.vm = vm
         binding.topFinishesAET.setText(topFinish)
         this.binding.topFinishesLL.addView(binding.root)
         this.binding.topFinishesLL.invalidate()
-        this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1).requestFocus()
+        this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1)
+            .requestFocus()
         binding.setLifecycleOwner(viewLifecycleOwner)
         vm.addTopFinish()
     }

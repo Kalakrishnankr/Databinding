@@ -13,14 +13,14 @@ import javax.inject.Singleton
  */
 @Module
 class FirestoreDatabaseModule {
-	@Singleton
-	@Provides
-	fun firestoreProvider(): FirebaseFirestore {
-		val firestore = FirebaseFirestore.getInstance()
-		val settings = FirebaseFirestoreSettings.Builder()
-			.setTimestampsInSnapshotsEnabled(true)
-			.build()
-		firestore.firestoreSettings = settings
-		return firestore
-	}
+    @Singleton
+    @Provides
+    fun firestoreProvider(): FirebaseFirestore {
+        val firestore = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setTimestampsInSnapshotsEnabled(true)
+            .build()
+        firestore.firestoreSettings = settings
+        return firestore
+    }
 }

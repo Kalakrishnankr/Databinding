@@ -15,15 +15,19 @@ import com.beachpartnerllc.beachpartner.user.state.StateDao
  * @created on 04 Dec 2017 at 3:24 PM
  */
 @TypeConverters(Converters::class)
-@Database(entities = [State::class, Event::class, Profile::class], version = 1, exportSchema = false)
+@Database(
+    entities = [State::class, Event::class, Profile::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
-	abstract fun state(): StateDao
+    abstract fun state(): StateDao
 
     abstract fun event(): EventDao
 
     abstract fun connection(): ConnectionDao
-	
-	companion object {
-		const val DATABASE_NAME = "bp.db"
-	}
+
+    companion object {
+        const val DATABASE_NAME = "bp.db"
+    }
 }

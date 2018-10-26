@@ -21,10 +21,15 @@ import javax.inject.Inject
  * @created on 11 Sep 2018 at 1:01 PM
  */
 class SearchFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: SearchFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_search, container)
         return binding.root
     }
@@ -41,7 +46,8 @@ class SearchFragment : BaseFragment() {
                 binding.stateACS.adapter = ArrayAdapter(
                     context!!,
                     android.R.layout.simple_dropdown_item_1line,
-                    it.data?.map { state -> state.stateName }!!)
+                    it.data?.map { state -> state.stateName }!!
+                )
             }
         })
     }

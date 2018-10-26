@@ -12,16 +12,16 @@ import javax.inject.Singleton
  */
 @Module
 class DatabaseModule {
-	@Singleton
-	@Provides
-	fun roomProvider(app: Application): AppDatabase {
-		// TODO: swap out in memory database implementation for production
-		/*return Room.databaseBuilder(app, AppDatabase::class.java, AppDatabase.DATABASE_NAME)
-				.fallbackToDestructiveMigration()
-				.build()*/
-		
-		return Room.inMemoryDatabaseBuilder(app, AppDatabase::class.java)
-			.fallbackToDestructiveMigration()
-			.build()
-	}
+    @Singleton
+    @Provides
+    fun roomProvider(app: Application): AppDatabase {
+        // TODO: swap out in memory database implementation for production
+        /*return Room.databaseBuilder(app, AppDatabase::class.java, AppDatabase.DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build()*/
+
+        return Room.inMemoryDatabaseBuilder(app, AppDatabase::class.java)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 }

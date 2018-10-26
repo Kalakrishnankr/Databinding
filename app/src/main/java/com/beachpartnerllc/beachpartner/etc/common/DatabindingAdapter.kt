@@ -74,7 +74,12 @@ fun setImageUrl(imageView: ImageView, url: String?, isRound: Boolean?, placehold
 }
 
 @BindingAdapter("foregroundColorSpan", "start", "end", requireAll = false)
-fun setForegroundColorSpan(view: TextView, color: Int, start: Int = 0, end: Int = view.text.length - 1) {
+fun setForegroundColorSpan(
+    view: TextView,
+    color: Int,
+    start: Int = 0,
+    end: Int = view.text.length - 1
+) {
     val spanBuilder = SpannableStringBuilder(view.text)
     spanBuilder.setSpan(ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     view.text = spanBuilder
@@ -111,7 +116,8 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
             if (event.action == MotionEvent.ACTION_DOWN) {
                 if (view.compoundDrawables[DRAWABLE_RIGHT] == null) return@setOnTouchListener false
                 else if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -
-                        padding)) {
+                            padding)
+                ) {
                     listener.onDrawableEnd()
                     return@setOnTouchListener true
                 }
@@ -178,7 +184,8 @@ fun compactCalendarListener(view: CompactCalendarView, listener: DateListener) {
     view.setListener(object : CompactCalendarView.CompactCalendarViewListener {
         override fun onDayClick(dateClicked: Date) = listener.onDateChanged(dateClicked)
 
-        override fun onMonthScroll(firstDayOfNewMonth: Date) = listener.onDateChanged(firstDayOfNewMonth)
+        override fun onMonthScroll(firstDayOfNewMonth: Date) =
+            listener.onDateChanged(firstDayOfNewMonth)
     })
 }
 
@@ -240,10 +247,12 @@ fun setItemView(view: Spinner, itemView: Int) {
 @BindingAdapter("url", "listener", requireAll = false)
 fun setImageUrl(view: PlayerView, url: Any?, listener: PlayerStateChangeListener) {
     val uri: Uri? = if (url is String) Uri.parse(url as String?) else url as Uri?
-    val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(DefaultBandwidthMeter()))
+    val trackSelector =
+        DefaultTrackSelector(AdaptiveTrackSelection.Factory(DefaultBandwidthMeter()))
     val player: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(view.context, trackSelector)
     val dataSourceFactory = DefaultDataSourceFactory(view.context, "ua")
-    val mediaSource = ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
+    val mediaSource =
+        ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
     player.prepare(mediaSource)
     player.apply {
         volume = 0f

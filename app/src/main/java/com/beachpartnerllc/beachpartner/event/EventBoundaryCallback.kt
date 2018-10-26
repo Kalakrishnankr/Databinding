@@ -36,64 +36,71 @@ import java.util.concurrent.Executor
  * rate limiting using the PagingRequestHelper class.
  */
 class EventBoundaryCallback(
-	private val eventDate: Date,
-	private val api: ApiService,
-	private val handleResponse: (Date, Resource<List<Event>>?) -> Unit,
-	private val ioExecutor: Executor,
-	private val networkPageSize: Int)
-	: PagedList.BoundaryCallback<Event>() {
-	
-	val helper = PagingRequestHelper(ioExecutor)
-	val networkState = helper.createStatusLiveData<Event>()
-	
-	/**
-	 * Database returned 0 items. We should query the backend for more items.
-	 */
-	@MainThread
-	override fun onZeroItemsLoaded() {
-		helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) {
-			api.getEvent(
-				date = eventDate,
-				limit = networkPageSize)
-				.enqueue(createWebserviceCallback(it))
-		}
-	}
-	
-	/**
-	 * User reached to the end of the list.
-	 */
-	@MainThread
-	override fun onItemAtEndLoaded(itemAtEnd: Event) {
-		/*helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
-			api.getEvent(eventDate, networkPageSize)
-					.enqueue(createWebserviceCallback(it))
-		}*/
-	}
-	
-	/**
-	 * every time it gets new items, boundary callback simply inserts them into the database and
-	 * paging library takes care of refreshing the list if necessary.
-	 */
-	private fun insertItemsIntoDb(response: Response<Resource<List<Event>>>, it: PagingRequestHelper.Request.Callback) {
-		ioExecutor.execute {
-			handleResponse(eventDate, response.body())
-			it.recordSuccess()
-		}
-	}
-	
-	override fun onItemAtFrontLoaded(itemAtFront: Event) {
-		// ignored, since we only ever append to what's in the DB
-	}
-	
-	private fun createWebserviceCallback(it: PagingRequestHelper.Request.Callback): Callback<Resource<List<Event>>> {
-		return object : Callback<Resource<List<Event>>> {
-			override fun onFailure(call: Call<Resource<List<Event>>>, t: Throwable) {
-				it.recordFailure(t)
-			}
-			
-			override fun onResponse(call: Call<Resource<List<Event>>>, response: Response<Resource<List<Event>>>) {
-				insertItemsIntoDb(response, it)
-			}
-		}
-	}
+    private val eventDate: Date,
+    private val api: ApiService,
+    private val handleResponse: (Date, Resource<List<Event>>?) -> Unit,
+    private val ioExecutor: Executor,
+    private val networkPageSize: Int
+) : PagedList.BoundaryCallback<Event>() {
+
+    val helper = PagingRequestHelper(ioExecutor)
+    val networkState = helper.createStatusLiveData<Event>()
+
+    /**
+     * Database returned 0 items. We should query the backend for more items.
+     */
+    @MainThread
+    override fun onZeroItemsLoaded() {
+        helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) {
+            api.getEvent(
+                date = eventDate,
+                limit = networkPageSize
+            )
+                .enqueue(createWebserviceCallback(it))
+        }
+    }
+
+    /**
+     * User reached to the end of the list.
+     */
+    @MainThread
+    override fun onItemAtEndLoaded(itemAtEnd: Event) {
+        /*helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
+            api.getEvent(eventDate, networkPageSize)
+                    .enqueue(createWebserviceCallback(it))
+        }*/
+    }
+
+    /**
+     * every time it gets new items, boundary callback simply inserts them into the database and
+     * paging library takes care of refreshing the list if necessary.
+     */
+    private fun insertItemsIntoDb(
+        response: Response<Resource<List<Event>>>,
+        it: PagingRequestHelper.Request.Callback
+    ) {
+        ioExecutor.execute {
+            handleResponse(eventDate, response.body())
+            it.recordSuccess()
+        }
+    }
+
+    override fun onItemAtFrontLoaded(itemAtFront: Event) {
+        // ignored, since we only ever append to what's in the DB
+    }
+
+    private fun createWebserviceCallback(it: PagingRequestHelper.Request.Callback): Callback<Resource<List<Event>>> {
+        return object : Callback<Resource<List<Event>>> {
+            override fun onFailure(call: Call<Resource<List<Event>>>, t: Throwable) {
+                it.recordFailure(t)
+            }
+
+            override fun onResponse(
+                call: Call<Resource<List<Event>>>,
+                response: Response<Resource<List<Event>>>
+            ) {
+                insertItemsIntoDb(response, it)
+            }
+        }
+    }
 }

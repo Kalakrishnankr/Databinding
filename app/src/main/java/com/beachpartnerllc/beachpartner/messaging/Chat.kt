@@ -9,7 +9,12 @@ import com.google.firebase.firestore.Exclude
 data class Chat(
     @set:Exclude @get:Exclude override var id: String? = null,
     val members: List<Int>? = null,
-    val recent: Message? = null) : HasId {
-    @set:Exclude @get:Exclude var avatarUrl: String? = null
-    @set:Exclude @get:Exclude var title: String? = null
+    val recent: Message? = null
+) : HasId {
+    @set:Exclude
+    @get:Exclude
+    var avatarUrl: String? = null
+    @set:Exclude
+    @get:Exclude
+    var title: String? = null
 }

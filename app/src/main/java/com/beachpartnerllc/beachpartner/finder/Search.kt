@@ -14,7 +14,8 @@ data class Search(
     var gender: Gender? = null,
     var isCoach: Boolean = false,
     var isMaleActive: Boolean = false,
-    var isFemaleActive: Boolean = false) {
+    var isFemaleActive: Boolean = false
+) {
 
     fun getGenderStatus() = when {
         isMaleActive && isFemaleActive -> "BOTH"

@@ -2,7 +2,7 @@ package com.beachpartnerllc.beachpartner.user.auth
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.*
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.etc.common.SingleLiveEvent
@@ -10,7 +10,8 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.RequestState
 import com.beachpartnerllc.beachpartner.etc.model.rest.isError
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
-import com.beachpartnerllc.beachpartner.user.auth.AuthState.*
+import com.beachpartnerllc.beachpartner.user.auth.AuthState.AUTHENTICATED
+import com.beachpartnerllc.beachpartner.user.auth.AuthState.REGISTERED
 import com.beachpartnerllc.beachpartner.user.profile.Athlete
 import com.beachpartnerllc.beachpartner.user.profile.Coach
 import com.beachpartnerllc.beachpartner.user.profile.Gender
@@ -26,7 +27,8 @@ import javax.inject.Inject
  */
 class AuthViewModel @Inject constructor(
     private val repo: AuthRepository,
-    private val app: Application) : ViewModel() {
+    private val app: Application
+) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
     val loginLoading = MutableLiveData<Boolean>()
@@ -231,27 +233,29 @@ class AuthViewModel @Inject constructor(
         }
     }!!
 
-    fun uploadImageToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
-        if (it.isSuccess()) {
-            val user = athlete.value
-            user!!.avatarUrl = it.data
-            athlete.value = user
-            imgAvailable.value = false
-        } else {
-            imageUploadProgress.value = it.code
-            imgAvailable.value = true
-        }
-    }!!
+    fun uploadImageToS3(path: String, extension: String) =
+        map(repo.uploadFileToS3(path, extension)) {
+            if (it.isSuccess()) {
+                val user = athlete.value
+                user!!.avatarUrl = it.data
+                athlete.value = user
+                imgAvailable.value = false
+            } else {
+                imageUploadProgress.value = it.code
+                imgAvailable.value = true
+            }
+        }!!
 
-    fun uploadVideoToS3(path: String, extension: String) = map(repo.uploadFileToS3(path, extension)) {
-        if (it.isSuccess()) {
-            val user = athlete.value
-            user!!.video = it.data
-            athlete.value = user
-        } else {
-            videoUploadProgress.value = it.code
-        }
-    }!!
+    fun uploadVideoToS3(path: String, extension: String) =
+        map(repo.uploadFileToS3(path, extension)) {
+            if (it.isSuccess()) {
+                val user = athlete.value
+                user!!.video = it.data
+                athlete.value = user
+            } else {
+                videoUploadProgress.value = it.code
+            }
+        }!!
 
     init {
         auth.value = Auth()

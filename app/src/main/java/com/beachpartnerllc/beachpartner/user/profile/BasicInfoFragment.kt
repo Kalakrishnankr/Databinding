@@ -29,12 +29,17 @@ import javax.inject.Inject
 
 
 class BasicInfoFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: BasicInfoBinding
     private lateinit var vm: AuthViewModel
     private lateinit var disposable: Disposable
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_basic_info, container)
         return binding.root
     }
@@ -46,27 +51,35 @@ class BasicInfoFragment : BaseFragment() {
         vm = getViewModel(factory)
         binding.vm = vm
         binding.setLifecycleOwner(viewLifecycleOwner)
-        binding.adapter = ArrayAdapter(context, R.layout.simple_spinner_item_1line, resources.getStringArray(R.array.gender))
+        binding.adapter = ArrayAdapter(
+            context,
+            R.layout.simple_spinner_item_1line,
+            resources.getStringArray(R.array.gender)
+        )
         binding.handler = this
         vm.getStates().observe(viewLifecycleOwner, Observer { it ->
             if (it.isSuccess()) {
                 binding.spinnerState.adapter = ArrayAdapter(
                     context!!,
                     R.layout.simple_spinner_item_1line,
-                    it.data?.map { it.stateName }!!)
+                    it.data?.map { it.stateName }!!
+                )
             }
         })
         vm.selectedStatePosition.observe(this, Observer {
             it?.let { vm.setGender(it) }
         })
 
-        val firstName = RxTextView.afterTextChangeEvents(binding.editFname).map { it.editable()?.isName() }
+        val firstName =
+            RxTextView.afterTextChangeEvents(binding.editFname).map { it.editable()?.isName() }
         firstName.subscribe { it -> binding.firstNameError = it != true }
 
-        val lastName = RxTextView.afterTextChangeEvents(binding.editLname).map { it.editable()?.isName() }
+        val lastName =
+            RxTextView.afterTextChangeEvents(binding.editLname).map { it.editable()?.isName() }
         lastName.subscribe { it -> binding.lastNameError = it != true }
 
-        val mobile = RxTextView.afterTextChangeEvents(binding.editMobile).map { it.editable()?.isMobile() }
+        val mobile =
+            RxTextView.afterTextChangeEvents(binding.editMobile).map { it.editable()?.isMobile() }
         mobile.subscribe { it -> binding.mobileError = it != true }
         val observables = listOf(firstName, lastName, mobile)
 
@@ -85,13 +98,18 @@ class BasicInfoFragment : BaseFragment() {
         val cal = Calendar.getInstance()
         val dp = DatePicker(context, null, R.style.DatePickerStyle)
         dp.calendarViewShown = false
-        dp.maxDate = cal.timeInMillis - if (profile.isAthlete()) 157784630000 else 568024668000 // 5 years or 18 years
+        dp.maxDate = cal.timeInMillis -
+                if (profile.isAthlete()) 157784630000 else 568024668000 // 5 years or 18 years
         dp.init(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH], null)
         val dialog = AlertDialog.Builder(context!!)
             .setCustomTitle(layoutInflater.inflate(R.layout.dialog_title, null, false))
             .setPositiveButton(R.string.okay) { _, _ ->
-                binding.editDob.setText(getString(R.string.format_dob, dp.month + 1, dp
-                    .dayOfMonth, dp.year))
+                binding.editDob.setText(
+                    getString(
+                        R.string.format_dob, dp.month + 1, dp
+                            .dayOfMonth, dp.year
+                    )
+                )
             }
             .setNegativeButton(R.string.cancel, null)
             .create()

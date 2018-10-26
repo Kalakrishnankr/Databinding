@@ -20,43 +20,43 @@ import javax.inject.Singleton
  */
 @Module
 class ApiServiceModule {
-	@Provides
-	@Singleton
-	fun okHttpCacheProvider(app: Application): Cache {
-		val cacheSize = 50 * 1024 * 1024L // 50 MiB
-		return Cache(app.cacheDir, cacheSize)
-	}
-	
-	@Provides
-	@Singleton
-	fun serializerProvider(): Gson {
-		return GsonBuilder()
-			.setDateFormat("yyyy-MM-dd")
-			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-			.create()
-	}
-	
-	@Provides
-	@Singleton
-	fun okHttpClientProvider(cache: Cache, pref: Preference, app: Application): OkHttpClient {
-		val logger = HttpLoggingInterceptor()
-		logger.level = HttpLoggingInterceptor.Level.BODY
-		return OkHttpClient.Builder()
-			.cache(cache)
-			.addInterceptor(HeaderInterceptor(app, pref))
-			.addInterceptor(logger)
-			.build()
-	}
-	
-	@Provides
-	@Singleton
-	fun retrofitProvider(serializer: Gson, okHttpClient: OkHttpClient): ApiService {
-		return Retrofit.Builder()
-			.addConverterFactory(GsonConverterFactory.create(serializer))
-			.addCallAdapterFactory(LiveDataCallAdapterFactory())
-			.baseUrl(ApiService.URL_BASE)
-			.client(okHttpClient)
-			.build()
-			.create(ApiService::class.java)
-	}
+    @Provides
+    @Singleton
+    fun okHttpCacheProvider(app: Application): Cache {
+        val cacheSize = 50 * 1024 * 1024L // 50 MiB
+        return Cache(app.cacheDir, cacheSize)
+    }
+
+    @Provides
+    @Singleton
+    fun serializerProvider(): Gson {
+        return GsonBuilder()
+            .setDateFormat("yyyy-MM-dd")
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create()
+    }
+
+    @Provides
+    @Singleton
+    fun okHttpClientProvider(cache: Cache, pref: Preference, app: Application): OkHttpClient {
+        val logger = HttpLoggingInterceptor()
+        logger.level = HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder()
+            .cache(cache)
+            .addInterceptor(HeaderInterceptor(app, pref))
+            .addInterceptor(logger)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun retrofitProvider(serializer: Gson, okHttpClient: OkHttpClient): ApiService {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(serializer))
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .baseUrl(ApiService.URL_BASE)
+            .client(okHttpClient)
+            .build()
+            .create(ApiService::class.java)
+    }
 }

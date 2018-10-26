@@ -39,14 +39,15 @@ class AuthRepository @Inject constructor(
     private val pref: Preference,
     private val exec: AppExecutors,
     private val transfer: TransferUtility,
-    app: Application) : Repository(app) {
+    app: Application
+) : Repository(app) {
 
     fun getStateList() = object : NetworkBoundResource<List<State>, List<State>>(exec) {
-	    override fun saveCallResult(item: List<State>) = db.state().insertStates(item)
+        override fun saveCallResult(item: List<State>) = db.state().insertStates(item)
 
         override fun shouldFetch(data: List<State>?) = data == null || data.isEmpty()
 
-	    override fun loadFromDb() = db.state().getStates()
+        override fun loadFromDb() = db.state().getStates()
 
         override fun createCall() = api.getStates()
 
@@ -59,9 +60,13 @@ class AuthRepository @Inject constructor(
         val state = MutableLiveData<Resource<Profile>>()
         state.value = Resource.loading()
         api.register(profile).enqueue(object : Callback<Resource<Any>?> {
-            override fun onFailure(call: Call<Resource<Any>?>, t: Throwable) = httpRequestFailed(call, t, state)
+            override fun onFailure(call: Call<Resource<Any>?>, t: Throwable) =
+                httpRequestFailed(call, t, state)
 
-            override fun onResponse(call: Call<Resource<Any>?>, response: Response<Resource<Any>?>) {
+            override fun onResponse(
+                call: Call<Resource<Any>?>,
+                response: Response<Resource<Any>?>
+            ) {
                 if (response.isSuccessful) {
                     state.value = Resource.success(profile)
                 } else {
@@ -77,9 +82,13 @@ class AuthRepository @Inject constructor(
         val state = MutableLiveData<Resource<Session>>()
         state.value = Resource.loading()
         api.signIn(auth).enqueue(object : Callback<Resource<Session>?> {
-            override fun onFailure(call: Call<Resource<Session>?>, t: Throwable) = httpRequestFailed(call, t, state)
+            override fun onFailure(call: Call<Resource<Session>?>, t: Throwable) =
+                httpRequestFailed(call, t, state)
 
-            override fun onResponse(call: Call<Resource<Session>?>, response: Response<Resource<Session>?>) {
+            override fun onResponse(
+                call: Call<Resource<Session>?>,
+                response: Response<Resource<Session>?>
+            ) {
                 if (response.isSuccessful) {
                     val body = response.body()!!
                     if (body.code == HTTP_OK) pref.setSession(body.data!!)
@@ -101,7 +110,10 @@ class AuthRepository @Inject constructor(
                 state.value = Resource.error()
             }
 
-            override fun onResponse(call: Call<Resource<Profile>?>, response: Response<Resource<Profile>?>) {
+            override fun onResponse(
+                call: Call<Resource<Profile>?>,
+                response: Response<Resource<Profile>?>
+            ) {
                 when (response.code()) {
                     HTTP_CREATED -> {
                         state.value = Resource.success(profile)

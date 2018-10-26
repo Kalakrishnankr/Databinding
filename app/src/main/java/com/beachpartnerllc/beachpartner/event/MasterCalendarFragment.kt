@@ -20,10 +20,15 @@ import javax.inject.Inject
  * @created on 17 Sep 2018 at 4:38 PM
  */
 class MasterCalendarFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: MasterCalendarBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_master_calendar, container)
         binding.adapter = EventAdapter(::onEvent)
         return binding.root

@@ -20,10 +20,15 @@ import javax.inject.Inject
  * @created on 12 Sep 2018 at 12:29 PM
  */
 class PostRegistrationFragment : DialogFragment(), Injectable {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var vm: AuthViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         vm = getViewModel(factory)
 
         val layoutRes = arguments?.getInt(ARG_LAYOUT_RES_ID) ?: R.layout.fragment_post_registration
@@ -48,7 +53,8 @@ class PostRegistrationFragment : DialogFragment(), Injectable {
 
         fun newInstance(never: Boolean = true): PostRegistrationFragment {
             val fragment = PostRegistrationFragment()
-            val resId = if (never) R.layout.fragment_email_unreceived else R.layout.fragment_post_registration
+            val resId =
+                if (never) R.layout.fragment_email_unreceived else R.layout.fragment_post_registration
             fragment.arguments = bundleOf(ARG_LAYOUT_RES_ID to resId)
             return fragment
         }

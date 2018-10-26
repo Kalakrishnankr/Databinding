@@ -23,11 +23,16 @@ import javax.inject.Inject
  * @created on 14 Sep 2018 at 2:18 PM
  */
 class SearchResultFragment : BaseFragment() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: SearchResultFragment2Binding
     private lateinit var vm: FinderViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_search_result, container)
         return binding.root
     }

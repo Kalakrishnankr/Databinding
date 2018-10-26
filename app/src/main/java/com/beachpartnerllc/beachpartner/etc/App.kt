@@ -15,7 +15,8 @@ import javax.inject.Inject
  */
 
 class App : MultiDexApplication(), HasActivityInjector {
-    @Inject lateinit var injector: DispatchingAndroidInjector<Activity>
+    @Inject
+    lateinit var injector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()

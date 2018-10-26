@@ -9,9 +9,9 @@ import com.beachpartnerllc.beachpartner.user.profile.Profile
 
 @Dao
 interface ConnectionDao {
-	@Query("SELECT * FROM connections")
-	fun getConnections(): LiveData<List<Profile>>
-	
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun insert(items: List<Profile>)
+    @Query("SELECT * FROM connections")
+    fun getConnections(): LiveData<List<Profile>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(items: List<Profile>)
 }

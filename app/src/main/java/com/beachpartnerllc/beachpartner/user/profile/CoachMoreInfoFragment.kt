@@ -17,10 +17,13 @@ import javax.inject.Inject
 class CoachMoreInfoFragment : BaseFragment() {
     private lateinit var binding: CoachMoreInfoBinding
     private lateinit var vm: AuthViewModel
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = inflater.bind(R.layout.fragment_coach_more_info, container)
         return binding.root
     }

@@ -20,7 +20,7 @@
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			tools:listitem="@layout/item_avatar"/>
+			tools:listitem="@layout/item_blue_bp_strip" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

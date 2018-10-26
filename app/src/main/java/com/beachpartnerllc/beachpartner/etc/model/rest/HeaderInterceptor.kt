@@ -11,22 +11,23 @@ import okhttp3.Response
  * @author Samuel Robert <samuel.robert@seqato.com>
  * @created on 30 Jan 2018 at 2:29 PM
  */
-class HeaderInterceptor(private val mApp: Application, private val mPref: Preference) : Interceptor {
+class HeaderInterceptor(private val mApp: Application, private val mPref: Preference) :
+    Interceptor {
     override fun intercept(chain: Interceptor.Chain?): Response {
         var request = chain?.request()!!
 
         request = request.newBuilder()
-                .addHeader(API_KEY, API_VALUE)
-                .build()
+            .addHeader(API_KEY, API_VALUE)
+            .build()
 
         request = if (request.header(ApiService.NO_AUTH) == null) {
             request.newBuilder()
-                    .addHeader(TOKEN_KEY, TOKEN_VALUE + mPref.sessionId!!)
-                    .build()
+                .addHeader(TOKEN_KEY, TOKEN_VALUE + mPref.sessionId!!)
+                .build()
         } else {
             request.newBuilder()
-                    .removeHeader(ApiService.NO_AUTH)
-                    .build()
+                .removeHeader(ApiService.NO_AUTH)
+                .build()
         }
 
         val response = chain.proceed(request)

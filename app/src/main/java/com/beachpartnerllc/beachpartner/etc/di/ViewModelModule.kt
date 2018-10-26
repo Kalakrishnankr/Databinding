@@ -13,20 +13,20 @@ import dagger.multibindings.IntoMap
 
 @Module
 interface ViewModelModule {
-	@Binds
-	@IntoMap
-	@ViewModelKey(AuthViewModel::class)
-	fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
-	
-	@Binds
-	@IntoMap
-	@ViewModelKey(EventViewModel::class)
-	fun bindEventViewModel(viewModel: EventViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(AuthViewModel::class)
+    fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
 
-	@Binds
-	@IntoMap
-	@ViewModelKey(ConnectionViewModel::class)
-	fun bindConnectionViewModel(viewModel: ConnectionViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(EventViewModel::class)
+    fun bindEventViewModel(viewModel: EventViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ConnectionViewModel::class)
+    fun bindConnectionViewModel(viewModel: ConnectionViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -39,5 +39,5 @@ interface ViewModelModule {
     fun bindMessagingViewModel(viewModel: MessagingViewModel): ViewModel
 
     @Binds
-	fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

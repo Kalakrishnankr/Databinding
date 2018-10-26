@@ -13,16 +13,18 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    AndroidSupportInjectionModule::class,
-    ViewModelModule::class,
-    ActivityModule::class,
-	DatabaseModule::class,
-	FirestoreDatabaseModule::class,
-    MockServiceModule::class,
-    SharedPreferenceModule::class,
-    AwsServiceModule::class
-])
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        ViewModelModule::class,
+        ActivityModule::class,
+        DatabaseModule::class,
+        FirestoreDatabaseModule::class,
+        MockServiceModule::class,
+        SharedPreferenceModule::class,
+        AwsServiceModule::class
+    ]
+)
 interface AppComponent {
     fun inject(app: App)
 
