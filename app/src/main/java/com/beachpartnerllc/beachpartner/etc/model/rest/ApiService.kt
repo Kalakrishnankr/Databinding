@@ -70,6 +70,9 @@ interface ApiService {
     @GET("user/search")
     fun getBlueBpProfile(): Call<Resource<List<Profile>>>
 
+    @GET("event/get-events-for-next")
+    fun getEventsForNext(time: Date): LiveData<ApiResponse<List<Event>>>
+
     companion object {
         const val URL_BASE = "http://10.0.2.2:5000/"
         const val NO_AUTH = "No-Auth"

@@ -2,8 +2,7 @@ package com.beachpartnerllc.beachpartner.event
 
 import android.text.format.DateFormat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.Transformations.switchMap
+import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.etc.common.truncateTime
 import com.beachpartnerllc.beachpartner.etc.common.zip
@@ -44,6 +43,12 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
     }
 
     fun refresh() = repoResult.value?.refresh?.invoke()
+
+    val touramentLoading = MutableLiveData<Boolean>()
+    fun upcomingTournaments() = map(repo.getEventsForNext(Calendar.MONTH, 1)) {
+        touramentLoading.value = it.isLoading()
+        it
+    }!!
 
     init {
         eventDate.value = Calendar.getInstance().time.truncateTime()

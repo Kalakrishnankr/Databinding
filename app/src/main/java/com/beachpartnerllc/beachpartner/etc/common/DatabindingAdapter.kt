@@ -16,10 +16,12 @@ import android.widget.TextView
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.beachpartnerllc.beachpartner.etc.common.OnCompoundDrawableClickListener.Companion.DRAWABLE_RIGHT
+import com.beachpartnerllc.beachpartner.etc.common.SnapHelperType.*
 import com.beachpartnerllc.beachpartner.finder.cardstackview.CardStackView
 import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection
 import com.beachpartnerllc.beachpartner.utils.DoubleTapListener
@@ -115,9 +117,7 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 if (view.compoundDrawables[DRAWABLE_RIGHT] == null) return@setOnTouchListener false
-                else if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -
-                            padding)
-                ) {
+                else if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width() - padding)) {
                     listener.onDrawableEnd()
                     return@setOnTouchListener true
                 }
@@ -137,6 +137,13 @@ fun setItemDecoration(view: RecyclerView, space: Float) {
     }
     val decorator = ItemSpaceDecoration(space.toInt(), spanCount)
     view.addItemDecoration(decorator)
+}
+
+@BindingAdapter("snapHelperType")
+fun snapHelper(view: RecyclerView, helperType: SnapHelperType) {
+    when (helperType) {
+        LINEAR -> LinearSnapHelper()
+    }.attachToRecyclerView(view)
 }
 
 @SuppressLint("ClickableViewAccessibility")

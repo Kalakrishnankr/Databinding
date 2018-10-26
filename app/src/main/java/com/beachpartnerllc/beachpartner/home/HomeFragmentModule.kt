@@ -5,6 +5,7 @@ import com.beachpartnerllc.beachpartner.connection.InviteConnectionFragment
 import com.beachpartnerllc.beachpartner.event.CalendarFragment
 import com.beachpartnerllc.beachpartner.event.EventFragment
 import com.beachpartnerllc.beachpartner.event.MasterCalendarFragment
+import com.beachpartnerllc.beachpartner.event.UpcomingTournamentFragment
 import com.beachpartnerllc.beachpartner.finder.*
 import com.beachpartnerllc.beachpartner.messaging.ChatFragment
 import com.beachpartnerllc.beachpartner.messaging.MessageFragment
@@ -67,4 +68,7 @@ interface HomeFragmentModule {
 
     @ContributesAndroidInjector
     fun contributeMessageFragment(): MessageFragment
+
+    @ContributesAndroidInjector
+    fun contributeUpcomingEventFragment(): UpcomingTournamentFragment
 }

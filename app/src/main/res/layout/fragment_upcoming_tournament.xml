@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="UpcomingTournamentBinding">
+		<import type="com.beachpartnerllc.beachpartner.etc.common.SnapHelperType"/>
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		tools:context=".event.UpcomingTournamentFragment">
+
+		<TextView
+			android:id="@+id/titleLabel"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:background="@color/blue_283873"
+			android:drawableEnd="@drawable/ic_arrow_right_white_24dp"
+			android:fontFamily="@font/sf_medium"
+			android:padding="@dimen/dimen_8dp"
+			android:text="@string/my_upcoming_tournaments"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/tournamentRV"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:adapter="@{adapter}"
+			android:orientation="horizontal"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/titleLabel"
+			app:snapHelperType="@{SnapHelperType.LINEAR}"
+			tools:listitem="@layout/item_upcoming_tournament"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

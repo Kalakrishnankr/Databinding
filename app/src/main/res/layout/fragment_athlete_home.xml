@@ -16,5 +16,12 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			tools:layout="@layout/fragment_blue_bp_strip"/>
+
+		<fragment
+			android:id="@+id/upcomingTournamentFragment"
+			android:name="com.beachpartnerllc.beachpartner.event.UpcomingTournamentFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:layout="@layout/fragment_upcoming_tournament"/>
 	</LinearLayout>
 </layout>

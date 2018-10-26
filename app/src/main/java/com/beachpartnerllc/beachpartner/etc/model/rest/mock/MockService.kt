@@ -66,6 +66,12 @@ class MockService(
         return delegate.returningResponse(response).getEvent(eventId)
     }
 
+    override fun getEventsForNext(time: Date): LiveData<ApiResponse<List<Event>>> {
+        val data = stringFromFile("get_events")
+        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        return delegate.returningResponse(response).getEventsForNext(time)
+    }
+
     override fun getConnections(): LiveData<ApiResponse<List<Profile>>> {
         val data = stringFromFile("get_connections")
         val response: List<Profile> =
