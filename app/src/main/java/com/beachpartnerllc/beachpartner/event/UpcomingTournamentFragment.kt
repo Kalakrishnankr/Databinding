@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.UpcomingTournamentBinding
 import com.beachpartnerllc.beachpartner.databinding.UpcomingTournamentItemBinding
@@ -16,11 +17,13 @@ import com.beachpartnerllc.beachpartner.etc.base.BaseViewHolder
 import com.beachpartnerllc.beachpartner.etc.common.bind
 import com.beachpartnerllc.beachpartner.etc.common.getViewModel
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
+import com.beachpartnerllc.beachpartner.home.AthleteHomeFragmentDirections
 import javax.inject.Inject
 
 class UpcomingTournamentFragment : BaseFragment() {
     @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: UpcomingTournamentBinding
+    private lateinit var adapter: BaseAdapter<Event, UpcomingTournamentItemBinding, ViewHolder>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +39,22 @@ class UpcomingTournamentFragment : BaseFragment() {
         val vm: EventViewModel = getViewModel(factory)
         vm.upcomingTournaments().observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
-                binding.adapter = BaseAdapter(it.data!!, R.layout.item_upcoming_tournament, ::ViewHolder)
+                adapter = BaseAdapter(it.data!!, R.layout.item_upcoming_tournament, ::ViewHolder)
+                binding.adapter = adapter
             }
         })
     }
 
-    class ViewHolder(itemBinding: UpcomingTournamentItemBinding) :
+    inner class ViewHolder(itemBinding: UpcomingTournamentItemBinding) :
         BaseViewHolder<Event, UpcomingTournamentItemBinding>(itemBinding) {
+        init {
+            itemBinding.root.setOnClickListener {
+                val eventId = adapter.items[adapterPosition].eventId
+                val direction = AthleteHomeFragmentDirections.actionEvent(eventId)
+                parentFragment?.findNavController()?.navigate(direction)
+            }
+        }
+
         override fun bindTo(item: Event) {
             itemBinding.item = item
         }

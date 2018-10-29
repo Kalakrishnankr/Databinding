@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.beachpartnerllc.beachpartner.HomeNavDirections
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.MasterCalendarBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseFragment
@@ -45,7 +44,7 @@ class MasterCalendarFragment : BaseFragment() {
     }
 
     private fun onEvent(event: Event) {
-        val action = HomeNavDirections.ActionEvent(event.eventId)
-        findNavController().navigate(action)
+        val direction = CalendarFragmentDirections.ActionEvent(event.eventId)
+        parentFragment?.findNavController()?.navigate(direction)
     }
 }

@@ -10,8 +10,16 @@
 		android:name="com.beachpartnerllc.beachpartner.home.AthleteHomeFragment"
 		android:label="@string/app_name"
 		tools:layout="@layout/fragment_athlete_home">
-		<action android:id="@+id/action_message"
+		<action
+			android:id="@+id/action_message"
 			app:destination="@id/messageFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+		<action
+			android:id="@+id/action_event"
+			app:destination="@id/EventFragment"
 			app:enterAnim="@anim/nav_default_enter_anim"
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -66,8 +74,8 @@
 		android:name="com.beachpartnerllc.beachpartner.event.CalendarFragment"
 		android:label="Calendar"
 		tools:layout="@layout/fragment_calendar">
-		<action android:id="@+id/action_master_calendar"
-			app:destination="@id/masterCalendarFragment"/>
+		<action android:id="@+id/action_event"
+			app:destination="@id/EventFragment"/>
 	</fragment>
 
 	<fragment
@@ -87,14 +95,6 @@
 				android:defaultValue="-1"/>
 		</action>
 	</fragment>
-
-	<action
-		android:id="@+id/action_event"
-		app:destination="@id/EventFragment"
-		app:enterAnim="@anim/nav_default_enter_anim"
-		app:exitAnim="@anim/nav_default_exit_anim"
-		app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-		app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
 	<fragment
 		android:id="@+id/masterCalendarFragment"

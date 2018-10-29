@@ -134,7 +134,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_master_calendar">
+                            <entry key="action_action_calendar_to_EventFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -186,11 +186,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="action_event">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
                   <entry key="action_home">
                     <value>
                       <LayoutPositions>
@@ -199,6 +194,15 @@
                             <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_message">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -256,8 +260,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="842" />
-                            <option name="y" value="357" />
+                            <option name="x" value="716" />
+                            <option name="y" value="23" />
                           </Point>
                         </option>
                       </LayoutPositions>
