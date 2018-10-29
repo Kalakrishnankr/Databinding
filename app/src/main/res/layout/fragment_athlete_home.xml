@@ -23,5 +23,12 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			tools:layout="@layout/fragment_upcoming_tournament"/>
+
+		<fragment
+			android:id="@+id/recentChatFragment"
+			android:name="com.beachpartnerllc.beachpartner.messaging.RecentChatFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:layout="@layout/fragment_recent_chat"/>
 	</LinearLayout>
 </layout>

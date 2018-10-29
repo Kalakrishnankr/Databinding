@@ -7,6 +7,7 @@ import com.beachpartnerllc.beachpartner.etc.model.pref.Preference
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Query.Direction.*
 import javax.inject.Inject
 
 /**
@@ -25,6 +26,7 @@ class MessagingRepository
 
         db.collection("chat")
             .whereArrayContains(Chat::members.name, getSelfId())
+            .orderBy(Chat::recent.name + "." + Message::sentAt.name, DESCENDING)
             .addSnapshotListener { snapshot, _ ->
                 val chats = arrayListOf<Chat>()
                 snapshot?.forEach {
@@ -44,7 +46,8 @@ class MessagingRepository
     fun getMessages(chatId: String): Query {
         return db.collection("chat")
             .document(chatId)
-            .collection("messages").orderBy(Message::sentAt.name, Query.Direction.DESCENDING)
+            .collection("messages")
+            .orderBy(Message::sentAt.name, DESCENDING)
     }
 
     fun getSelfId() = pref.userId
@@ -52,15 +55,13 @@ class MessagingRepository
     fun sendMessage(chatId: String, msg: Message) {
         val chat = db.collection("chat").document(chatId)
 
-        chat.collection("messages")
-            .add(msg).addOnSuccessListener { _ ->
-                val map = hashMapOf(
-                    Message::senderId.name to msg.senderId,
-                    Message::sentAt.name to msg.sentAt,
-                    Message::content.name to msg.content
-                )
-                chat.update(Chat::recent.name, map)
-            }
+        chat.collection("messages").add(msg)
+        val map = hashMapOf(
+            Message::senderId.name to msg.senderId,
+            Message::sentAt.name to msg.sentAt,
+            Message::content.name to msg.content
+        )
+        chat.update(Chat::recent.name, map)
     }
 
     fun getChatForCorrespondent(userId: Int): LiveData<Resource<Chat>> {

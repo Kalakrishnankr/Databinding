@@ -9,6 +9,7 @@ import com.beachpartnerllc.beachpartner.event.UpcomingTournamentFragment
 import com.beachpartnerllc.beachpartner.finder.*
 import com.beachpartnerllc.beachpartner.messaging.ChatFragment
 import com.beachpartnerllc.beachpartner.messaging.MessageFragment
+import com.beachpartnerllc.beachpartner.messaging.RecentChatFragment
 import com.beachpartnerllc.beachpartner.user.profile.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -71,4 +72,7 @@ interface HomeFragmentModule {
 
     @ContributesAndroidInjector
     fun contributeUpcomingEventFragment(): UpcomingTournamentFragment
+
+    @ContributesAndroidInjector
+    fun contributeRecentFragment(): RecentChatFragment
 }
