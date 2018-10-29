@@ -19,8 +19,7 @@ import javax.inject.Inject
  * @created on 17 Sep 2018 at 4:38 PM
  */
 class MasterCalendarFragment : BaseFragment() {
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
+    @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: MasterCalendarBinding
 
     override fun onCreateView(

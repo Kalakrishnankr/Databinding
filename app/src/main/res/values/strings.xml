@@ -113,4 +113,8 @@
 	<string name="search_connections">Search connections</string>
 	<string name="my_upcoming_tournaments">My Upcoming Tournaments</string>
 	<string name="messages">Messages</string>
+
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="tournament_request_sent">Tournament Requests Sent</string>
 </resources>

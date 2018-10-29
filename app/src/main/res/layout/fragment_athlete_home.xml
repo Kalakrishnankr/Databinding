@@ -8,6 +8,7 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:background="@color/grey_e6e6e6"
 		android:orientation="vertical"
 		tools:context=".finder.BlueBpStripFragment">
 		<fragment
@@ -30,5 +31,12 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			tools:layout="@layout/fragment_recent_chat"/>
+
+		<fragment
+			android:id="@+id/eventRequestFragment"
+			android:name="com.beachpartnerllc.beachpartner.event.EventRequestFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:layout="@layout/fragment_event_request"/>
 	</LinearLayout>
 </layout>
