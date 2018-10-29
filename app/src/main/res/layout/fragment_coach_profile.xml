@@ -8,7 +8,7 @@
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"/>
 	</data>
-	<ScrollView
+	<androidx.core.widget.NestedScrollView
 		android:id="@+id/scrollview_profile"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -21,11 +21,11 @@
 			<ImageView
 				android:id="@+id/bgView"
 				android:layout_width="0dp"
-				android:layout_height="200dp"
+				android:layout_height="250dp"
 				android:contentDescription="@null"
 				app:imageUrl="@{vm.coach.avatarUrl}"
 				app:isRound="@{false}"
-				app:layout_constraintBottom_toBottomOf="@+id/profileImgIV"
+				app:layout_constraintBottom_toTopOf="@+id/tabs"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
@@ -131,5 +131,5 @@
 			</com.beachpartnerllc.beachpartner.user.profile.CustomViewPager>
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
-	</ScrollView>
+	</androidx.core.widget.NestedScrollView>
 </layout>

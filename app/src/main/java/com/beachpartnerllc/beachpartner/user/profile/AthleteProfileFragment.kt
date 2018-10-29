@@ -69,7 +69,7 @@ class AthleteProfileFragment : BaseFragment() {
 			intent.putExtra(Intent.EXTRA_SUBJECT, "BeachPartner App")
 			intent.putExtra(Intent.EXTRA_STREAM, uri)
 			intent.type = "image/*"
-			startActivity(Intent.createChooser(intent, "Share image via..."))
+			startActivity(Intent.createChooser(intent, getString(R.string.share_image_via)))
 		} else Toast.makeText(context, getString(R.string.share_image_error), Toast.LENGTH_LONG).show()
 	}
 	
@@ -81,7 +81,7 @@ class AthleteProfileFragment : BaseFragment() {
 			intent.type = "text/html"
 			intent.putExtra(Intent.EXTRA_TEXT, "Hey view/download my BeachPartner video at :" + vm.athlete.value!!.video)
 			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-			startActivity(Intent.createChooser(intent, "Share video via"))
+			startActivity(Intent.createChooser(intent, getString(R.string.Share_video_via)))
 		} else Toast.makeText(context, getString(R.string.share_video_error), Toast.LENGTH_LONG).show()
 	}
 	
