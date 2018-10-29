@@ -111,7 +111,7 @@ class CoachProfileFragment : BaseFragment() {
 				vm.editable(false)
 				vm.updateCoach().observe(viewLifecycleOwner, Observer { it ->
 					if (it.isSuccess()) {
-						vm.profile.value!!.firstName
+						binding.nameTV.text = vm.profile.value!!.firstName + " " + vm.profile.value!!.lastName
 					}
 				})
 				return true

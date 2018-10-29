@@ -165,7 +165,7 @@ class AthleteProfileFragment : BaseFragment() {
 				vm.isTopFinishesSet.value = true
 				vm.updateAthlete().observe(this, Observer { it ->
 					if (it.isSuccess()) {
-						vm.profile.value!!.firstName
+						binding.usernameTv.text = vm.profile.value!!.firstName + " " + vm.profile.value!!.lastName
 					}
 				})
 				return true
