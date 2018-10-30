@@ -56,8 +56,8 @@ dependencies {
 
     // architectural components dependency
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha06'
-    implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha06'
+    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha07'
+    implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha07'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     implementation 'androidx.core:core-ktx:1.0.0'
     implementation "androidx.paging:paging-runtime:2.0.0"
@@ -115,9 +115,9 @@ dependencies {
 
     // testing dependency
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
-    androidTestImplementation 'androidx.test:rules:1.1.0-beta02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
 
 /*static def getBuildDateTime() {
