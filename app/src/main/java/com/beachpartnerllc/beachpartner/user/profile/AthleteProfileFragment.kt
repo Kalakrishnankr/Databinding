@@ -62,7 +62,7 @@ class AthleteProfileFragment : BaseFragment() {
 	}
 	
 	fun shareImage() {
-		if (binding.profilePicIV.drawable != null) {
+		if (vm.athlete.value!!.avatarUrl != null) {
 			val uri = ImageFilePath.getImageUri(context, vm.imageBitmap.value)
 			val intent = Intent(Intent.ACTION_SEND)
 			intent.putExtra(Intent.EXTRA_TEXT, "https://www.beachpartner.com/preregistration/")

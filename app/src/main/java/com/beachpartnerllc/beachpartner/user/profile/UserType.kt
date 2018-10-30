@@ -5,5 +5,7 @@ package com.beachpartnerllc.beachpartner.user.profile
  * @created on 17 Aug 2018 at 11:04 AM
  */
 enum class UserType {
-	ATHLETE, PARENT, COACH, DIRECTOR
+	ATHLETE, PARENT, COACH, DIRECTOR;
+	
+	fun isAthlete() = this == ATHLETE
 }

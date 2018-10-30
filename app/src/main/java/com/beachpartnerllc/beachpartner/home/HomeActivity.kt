@@ -12,7 +12,6 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
 import com.beachpartnerllc.beachpartner.etc.model.pref.Preference
-import com.beachpartnerllc.beachpartner.user.profile.UserType
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity() {
@@ -35,7 +34,7 @@ class HomeActivity : BaseActivity() {
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 		super.onCreateOptionsMenu(menu)
 		menuInflater.inflate(R.menu.extra_menu, menu)
-		if (preferences.userType == UserType.ATHLETE.toString()) {
+		if (preferences.userType!!.isAthlete()) {
 			menu!!.add(Menu.NONE, R.id.action_profile_athlete, 50, "Profile")
 		} else menu!!.add(Menu.NONE, R.id.action_profile_coach, 50, "Profile")
 		return true

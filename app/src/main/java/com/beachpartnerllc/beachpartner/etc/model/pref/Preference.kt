@@ -22,8 +22,8 @@ class Preference(private val pref: SharedPreferences) {
 	val isLoggedIn: Boolean
 		get () = pref.getBoolean(PREF_IS_LOGGED_IN, false)
 	
-	val userType: String?
-		get() = pref.getString(PREF_USER_TYPE, UserType.ATHLETE.toString())
+	val userType: UserType?
+		get() = UserType.valueOf(pref.getString(PREF_USER_TYPE, UserType.ATHLETE.toString()))
 	
 	fun clear() {
 		pref.edit().clear().apply()
