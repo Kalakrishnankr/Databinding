@@ -37,6 +37,8 @@ class UpcomingTournamentFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val vm: EventViewModel = getViewModel(factory)
+        binding.vm = vm
+        binding.setLifecycleOwner(viewLifecycleOwner)
         vm.upcomingTournaments().observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
                 adapter = BaseAdapter(it.data!!, R.layout.item_upcoming_tournament, ::ViewHolder)

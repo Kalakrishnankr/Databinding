@@ -31,6 +31,7 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
 
     val eventStatus = MutableLiveData<EventStatus>()
     val eventRequestList = switchMap(eventStatus) { repo.getEventsByStatus(it) }!!
+    val eventRequestLoading = map(eventRequestList) { it.isLoading() }
 
     fun showEventsOf(date: Date): Boolean {
         if (eventDate.value == date) {
@@ -47,10 +48,10 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
 
     fun refresh() = repoResult.value?.refresh?.invoke()
 
-    val touramentLoading = MutableLiveData<Boolean>()
+    val tournamentLoading = MutableLiveData<Boolean>()
 
     fun upcomingTournaments() = map(repo.getEventsForNext(Calendar.MONTH, 1)) {
-        touramentLoading.value = it.isLoading()
+        tournamentLoading.value = it.isLoading()
         it
     }!!
 

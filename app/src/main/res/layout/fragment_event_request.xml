@@ -71,5 +71,16 @@
 			app:snapHelperType="@{SnapHelperType.LINEAR}"
 			app:spaceOffset="@{@dimen/dimen_16dp}"
 			tools:listitem="@layout/item_event_request"/>
+
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:isLoading="@{vm.eventRequestLoading}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

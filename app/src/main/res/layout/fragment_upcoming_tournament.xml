@@ -3,6 +3,7 @@
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="UpcomingTournamentBinding">
 		<import type="com.beachpartnerllc.beachpartner.etc.common.SnapHelperType"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
 		<variable name="adapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -40,5 +41,16 @@
 			app:layout_constraintTop_toBottomOf="@id/titleLabel"
 			app:snapHelperType="@{SnapHelperType.LINEAR}"
 			tools:listitem="@layout/item_upcoming_tournament"/>
+
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:isLoading="@{vm.tournamentLoading}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/titleLabel"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
