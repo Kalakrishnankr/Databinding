@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text_size_title">18sp</dimen>
-    <dimen name="text_size_medium">16sp</dimen>
-    <dimen name="text_size_regular">14sp</dimen>
-    <dimen name="text_size_small">12sp</dimen>
+	<dimen name="text_size_title">18sp</dimen>
+	<dimen name="text_size_medium">16sp</dimen>
+	<dimen name="text_size_regular">14sp</dimen>
+	<dimen name="text_size_small">12sp</dimen>
 
-    <dimen name="thick">12dp</dimen>
-    <dimen name="narrow">8dp</dimen>
-    <dimen name="standard">16dp</dimen>
-    <dimen name="thin">4dp</dimen>
-    <dimen name="medium">24dp</dimen>
+	<dimen name="thick">12dp</dimen>
+	<dimen name="narrow">8dp</dimen>
+	<dimen name="standard">16dp</dimen>
+	<dimen name="thin">4dp</dimen>
+	<dimen name="medium">24dp</dimen>
 
 	<dimen name="dimen_2dp">2dp</dimen>
 	<dimen name="dimen_3dp">3dp</dimen>
@@ -60,4 +60,5 @@
 	<dimen name="dimen_17">17dp</dimen>
 
 	<dimen name="fast_scroll_overlay_text_size">100dp</dimen>
+	<dimen name="text_margin">16dp</dimen>
 </resources>

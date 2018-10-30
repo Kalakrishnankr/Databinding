@@ -22,7 +22,6 @@ import com.beachpartnerllc.beachpartner.user.state.State
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -229,8 +228,6 @@ class AuthViewModel @Inject constructor(
 		when {
 			it.isSuccess() -> {
 				val user = it.data
-				athlete.value = user as Athlete?
-				Timber.e("Success")
 				showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
 			}
 		}
@@ -242,7 +239,6 @@ class AuthViewModel @Inject constructor(
 		if (it.isSuccess()) {
 			val user = it.data
 			coach.value = user as Coach?
-			Timber.e("Success")
 			showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
 		}
 		it
