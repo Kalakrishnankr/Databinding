@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="AthleteHomeFragmentBinding">
-		<variable name="avatarAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
 	</data>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-
-		<androidx.recyclerview.widget.RecyclerView
-			android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:background="@color/grey_e6e6e6"
+		android:orientation="vertical"
+		tools:context=".finder.BlueBpStripFragment">
+		<fragment
+			android:id="@+id/blueBpFragment"
+			android:name="com.beachpartnerllc.beachpartner.finder.BlueBpStripFragment"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:adapter="@{avatarAdapter}"
-			android:orientation="horizontal"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:spaceOffset="@{@dimen/dimen_8dp}"
-			tools:listitem="@layout/item_blue_bp_strip" />
-	</androidx.constraintlayout.widget.ConstraintLayout>
+			tools:layout="@layout/fragment_blue_bp_strip"/>
+
+		<fragment
+			android:id="@+id/upcomingTournamentFragment"
+			android:name="com.beachpartnerllc.beachpartner.event.UpcomingTournamentFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:layout="@layout/fragment_upcoming_tournament"/>
+
+		<fragment
+			android:id="@+id/recentChatFragment"
+			android:name="com.beachpartnerllc.beachpartner.messaging.RecentChatFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:layout="@layout/fragment_recent_chat"/>
+
+		<fragment
+			android:id="@+id/eventRequestFragment"
+			android:name="com.beachpartnerllc.beachpartner.event.EventRequestFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:layout="@layout/fragment_event_request"/>
+	</LinearLayout>
 </layout>

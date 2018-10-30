@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="EventRequestItemBinding">
+		<variable name="item" type="com.beachpartnerllc.beachpartner.event.Event"/>
+	</data>
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:cardCornerRadius="@dimen/dimen_4dp"
+		app:cardUseCompatPadding="true"
+		app:contentPaddingBottom="@dimen/dimen_10dp"
+		app:contentPaddingLeft="@dimen/dimen_14dp"
+		app:contentPaddingTop="@dimen/dimen_16dp">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/titleTV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/dimen_8dp"
+				android:background="@drawable/draw_underline_dedede"
+				android:drawableStart="@drawable/ic_calendar_blue_3f58a1_24dp"
+				android:drawablePadding="@dimen/dimen_10dp"
+				android:gravity="center_vertical"
+				android:paddingTop="@dimen/dimen_18dp"
+				android:paddingBottom="@dimen/dimen_8dp"
+				android:text="@{item.eventStartDate}"
+				android:textColor="@color/grey_262626"
+				android:textSize="@dimen/text_15sp"
+				app:format="@{&quot;MM/ dd/ yyyy&quot;}"
+				tools:text="05/ 15/ 2018 | AVP Pacific Zonal Championships"/>
+
+			<TextView
+				android:id="@+id/venueTV"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/dimen_8dp"
+				android:background="@drawable/draw_underline_dedede"
+				android:gravity="center_vertical"
+				android:paddingStart="@dimen/dimen_24dp"
+				android:paddingTop="@dimen/dimen_8dp"
+				android:paddingEnd="0dp"
+				android:paddingBottom="@dimen/dimen_8dp"
+				android:text="@{item.venue}"
+				android:textColor="@color/grey_262626"
+				android:textSize="@dimen/text_15sp"
+				tools:text="Marti McLaurin, Liz Held"/>
+		</LinearLayout>
+	</androidx.cardview.widget.CardView>
+</layout>

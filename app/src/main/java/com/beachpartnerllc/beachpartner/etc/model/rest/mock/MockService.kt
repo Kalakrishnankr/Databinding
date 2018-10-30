@@ -6,6 +6,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.event.Event
+import com.beachpartnerllc.beachpartner.event.EventStatus
 import com.beachpartnerllc.beachpartner.finder.Flag
 import com.beachpartnerllc.beachpartner.finder.Search
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -66,6 +67,18 @@ class MockService(
         return delegate.returningResponse(response).getEvent(eventId)
     }
 
+    override fun getEventsForNext(time: Date): LiveData<ApiResponse<List<Event>>> {
+        val data = stringFromFile("get_events")
+        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        return delegate.returningResponse(response).getEventsForNext(time)
+    }
+
+    override fun getEvents(status: EventStatus): LiveData<ApiResponse<List<Event>>> {
+        val data = stringFromFile("get_events")
+        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        return delegate.returningResponse(response).getEvents(status)
+    }
+
     override fun getConnections(): LiveData<ApiResponse<List<Profile>>> {
         val data = stringFromFile("get_connections")
         val response: List<Profile> =
@@ -77,11 +90,11 @@ class MockService(
         return delegate.returningResponse(Resource.success(null)).sendInvitation(invitees)
     }
 
-    override fun getStripProfile(): Call<Resource<List<Profile>>> {
-        val data = stringFromFile("get_profiles")
+    override fun getBlueBpProfile(): Call<Resource<List<Profile>>> {
+        val data = stringFromFile("get_connections")
         val response: List<Profile> =
             serializer.fromJson(data, object : TypeToken<List<Profile>>() {}.type)
-        return delegate.returningResponse(Resource.success(response)).getStripProfile()
+        return delegate.returningResponse(Resource.success(response)).getBlueBpProfile()
     }
 
     override fun getProfile(userId: Int): Call<Resource<Profile>> {

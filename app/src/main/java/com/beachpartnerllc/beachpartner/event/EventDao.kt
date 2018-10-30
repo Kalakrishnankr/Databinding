@@ -28,4 +28,10 @@ interface EventDao {
 
     @Query("SELECT * FROM events WHERE eventId = :eventId")
     fun getEvent(eventId: Int): LiveData<Event>
+
+    @Query("SELECT * FROM events WHERE event_start_date BETWEEN :now AND :eventDate")
+    fun getEventsForNext(eventDate: Date, now: Date = Calendar.getInstance().time): LiveData<List<Event>>
+
+    @Query("SELECT * FROM events WHERE status = :request")
+    fun getEvents(request: EventStatus): LiveData<List<Event>>
 }

@@ -31,10 +31,7 @@
 	<string name="format_dob">%1$02d/%2$02d/%3$d</string>
 	<string name="select_dob">Select Date of Birth</string>
 	<string name="no_internet_connection">No internet connection</string>
-	<string name="item_offset_decoration">ItemOffsetDecoration</string>
-	<string name="home">Home</string>
 	<string name="connections">Connections</string>
-	<string name="oops_something_went_wrong">Oops something went wrong</string>
 	<string name="thank_you">Thank you</string>
 	<string name="for_registering">For Registering!</string>
 	<string name="hint_register">Thank you for registering. To complete registration,  please check your email inbox (up to
@@ -42,7 +39,6 @@
 	<string name="i_did_not_get_email">I never got the Email</string>
 	<string name="return_to_sign_in">Return to Sign In</string>
 	<string name="hint_i_did_not_get_email">Please Check your spam folder; email may take as long as 10 minutes to arrive. If after 10 minutes you have not received your email, please  contact us so we can help you.</string>
-	<string name="player">Player</string>
 
 	<string name="retry">Retry</string>
 	<string name="location">Location</string>
@@ -58,18 +54,15 @@
 	<string name="event_date_format">MMM dd, yyyy</string>
 	<string name="potential_partners">Potential Partners</string>
 	<string name="space_separator">%1$s %2$s</string>
-	<string name="invite_friend">Invite Friend</string>
 	<string name="block">Block</string>
 	<string name="message">Message</string>
 	<string name="notes">Notes</string>
 	<string name="format_age">Age: %d</string>
-	<string name="item_space_decoration">ItemSpaceDecoration</string>
 	<string name="event_details">Event Details</string>
 	<string name="master_calendar">Master Calendar</string>
 	<string name="messaging">Messaging</string>
 	<string name="type_a_message">Type a message</string>
 
-	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="finder_info_age">Select the age limit you are looking for.</string>
 	<string name="finder_info_location">Select the location in which you want to find a player.</string>
 	<string name="age_limit">Age Limit</string>
@@ -83,16 +76,8 @@
 	<string name="flag_title">Are you sure you want to Flag </string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
-	<string name="both">Both</string>
 	<string name="hyphen">-</string>
 
-	<string name="action_profile">Profile</string>
-	<string name="action_subscription">Subscription</string>
-	<string name="action_feedback">Feedback</string>
-	<string name="action_add_ons">Add ons</string>
-	<string name="action_settings">Settings</string>
-	<string name="action_help">Help</string>
-	<string name="action_logout">Logout</string>
 	<string name="editProfile">Edit Profile</string>
 	<string name="share">Share</string>
 	<string name="birth_date">Birth Date</string>
@@ -104,7 +89,6 @@
 	<string name="indoor_club_played_at">Indoor Club Played at</string>
 	<string name="sand_recruits_number">Sand Recruits Number</string>
 	<string name="college_beach">College (Beach)</string>
-	<string name="no_video_available">No Video available</string>
 	<string name="no_video">No video available for this profile</string>
 	<string name="no_camera_permission">Permission for using camera is not allowed</string>
 	<string name="max_size_image">Please upload an image(max size: 4MB)</string>
@@ -114,9 +98,6 @@
 	<string name="college_indoor">College (Indoor)</string>
 	<string name="my_profile">My Profile</string>
 	<string name="edit_profile">Edit Profile</string>
-	<string name="error_first_name">Please enter your first name</string>
-	<string name="error_last_name">Please enter your last name</string>
-	<string name="error_mobile">Please enter a valid mobile number</string>
 	<string name="college_coach">College Coach</string>
 	<string name="college_university">College/University</string>
 	<string name="description">Description</string>
@@ -135,5 +116,17 @@
     <string name="field_empty_error">This field cannot be empty</string>
     <string name="share_image_via">Share image via...</string>
     <string name="Share_video_via">Share video via</string>
-	<string name="profile">Profile</string>
+    <string name="profile">Profile</string>
+	<string name="my_upcoming_tournaments">My Upcoming Tournaments</string>
+	<string name="messages">Messages</string>
+	<string name="tournament_request_sent">Tournament Requests Sent</string>
+	<string name="tournament_request_received">Tournament Requests Received</string>
+
+	<string name="action_profile">Profile</string>
+	<string name="action_subscription">Subscription</string>
+	<string name="action_feedback">Feedback</string>
+	<string name="action_add_ons">Add ons</string>
+	<string name="action_settings">Settings</string>
+	<string name="action_help">Help</string>
+	<string name="action_logout">Logout</string>
 </resources>

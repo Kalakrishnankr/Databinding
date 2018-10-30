@@ -4,15 +4,12 @@ import android.app.Application
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.switchMap
+import androidx.lifecycle.Transformations.*
 import androidx.paging.LivePagedListBuilder
 import com.beachpartnerllc.beachpartner.etc.base.Repository
 import com.beachpartnerllc.beachpartner.etc.exec.AppExecutors
 import com.beachpartnerllc.beachpartner.etc.model.db.AppDatabase
-import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
-import com.beachpartnerllc.beachpartner.etc.model.rest.Listing
-import com.beachpartnerllc.beachpartner.etc.model.rest.NetworkBoundResource
-import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
+import com.beachpartnerllc.beachpartner.etc.model.rest.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -115,6 +112,38 @@ class EventRepository @Inject constructor(
         override fun loadFromDb() = db.event().getEvent(eventId)
 
         override fun createCall() = api.getEvent(eventId)
+
+        override fun onFetchFailed() {
+            createCall()
+        }
+    }.asLiveData()
+
+    fun getEventsForNext(field: Int, value: Int): LiveData<Resource<List<Event>>> {
+        val future = Calendar.getInstance()
+        future.add(field, value)
+        return object : NetworkBoundResource<List<Event>, List<Event>>(exec) {
+            override fun saveCallResult(item: List<Event>) = db.event().insert(item)
+
+            override fun shouldFetch(data: List<Event>?) = data?.isEmpty() ?: true
+
+            override fun loadFromDb(): LiveData<List<Event>> = db.event().getEventsForNext(future.time)
+
+            override fun createCall(): LiveData<ApiResponse<List<Event>>> = api.getEventsForNext(future.time)
+
+            override fun onFetchFailed() {
+                createCall()
+            }
+        }.asLiveData()
+    }
+
+    fun getEventsByStatus(status: EventStatus) = object : NetworkBoundResource<List<Event>, List<Event>>(exec) {
+        override fun saveCallResult(item: List<Event>) = db.event().insert(item)
+
+        override fun shouldFetch(data: List<Event>?) = data?.isEmpty() ?: true
+
+        override fun loadFromDb() = db.event().getEvents(status)
+
+        override fun createCall() = api.getEvents(status)
 
         override fun onFetchFailed() {
             createCall()

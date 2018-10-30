@@ -2,8 +2,7 @@ package com.beachpartnerllc.beachpartner.event
 
 import android.text.format.DateFormat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.Transformations.switchMap
+import androidx.lifecycle.Transformations.*
 import androidx.lifecycle.ViewModel
 import com.beachpartnerllc.beachpartner.etc.common.truncateTime
 import com.beachpartnerllc.beachpartner.etc.common.zip
@@ -30,6 +29,10 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
     val event = map(eventRes) { it.data }
     val isEventLoading = map(eventRes) { it.isLoading() }!!
 
+    val eventStatus = MutableLiveData<EventStatus>()
+    val eventRequestList = switchMap(eventStatus) { repo.getEventsByStatus(it) }!!
+    val eventRequestLoading = map(eventRequestList) { it.isLoading() }
+
     fun showEventsOf(date: Date): Boolean {
         if (eventDate.value == date) {
             return false
@@ -45,7 +48,20 @@ class EventViewModel @Inject constructor(private val repo: EventRepository) : Vi
 
     fun refresh() = repoResult.value?.refresh?.invoke()
 
+    val tournamentLoading = MutableLiveData<Boolean>()
+
+    fun upcomingTournaments() = map(repo.getEventsForNext(Calendar.MONTH, 1)) {
+        tournamentLoading.value = it.isLoading()
+        it
+    }!!
+
+    fun setEventStatus(request: EventStatus) {
+        if (request == eventStatus.value) return
+        eventStatus.value = request
+    }
+
     init {
         eventDate.value = Calendar.getInstance().time.truncateTime()
+        eventStatus.value = EventStatus.INVITATION_SENT
     }
 }

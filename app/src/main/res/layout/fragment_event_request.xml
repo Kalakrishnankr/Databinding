@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="EventRequestBinding">
+		<import type="com.beachpartnerllc.beachpartner.etc.common.SnapHelperType"/>
+		<import type="com.beachpartnerllc.beachpartner.event.EventStatus"/>
+
+		<variable name="adapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.event.EventViewModel"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		tools:context=".event.EventRequestFragment">
+
+		<TextView
+			android:id="@+id/titleTV"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:background="@color/blue_283873"
+			android:drawableEnd="@drawable/ic_arrow_right_white_24dp"
+			android:fontFamily="@font/sf_medium"
+			android:padding="@dimen/dimen_8dp"
+			android:text="@{vm.eventStatus.isSent() ? @string/tournament_request_sent : @string/tournament_request_received}"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_15sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="@string/tournament_request_sent"/>
+
+		<ImageView
+			android:id="@+id/sentTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/dimen_10dp"
+			android:contentDescription="@null"
+			android:onClick="@{()->vm.setEventStatus(EventStatus.INVITATION_SENT)}"
+			android:padding="@dimen/dimen_8dp"
+			android:src="@drawable/ic_sent_white_18dp"
+			app:layout_constraintBottom_toBottomOf="@id/titleTV"
+			app:layout_constraintEnd_toStartOf="@id/receivedTV"
+			app:layout_constraintTop_toTopOf="@id/titleTV"/>
+
+		<ImageView
+			android:id="@+id/receivedTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/dimen_36dp"
+			android:contentDescription="@null"
+			android:onClick="@{()->vm.setEventStatus(EventStatus.INVITATION_RECEIVED)}"
+			android:padding="@dimen/dimen_8dp"
+			android:src="@drawable/ic_sent_white_18dp"
+			app:layout_constraintBottom_toBottomOf="@id/titleTV"
+			app:layout_constraintEnd_toEndOf="@id/titleTV"
+			app:layout_constraintTop_toTopOf="@id/titleTV"/>
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/eventRV"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:adapter="@{adapter}"
+			android:orientation="horizontal"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/titleTV"
+			app:snapHelperType="@{SnapHelperType.LINEAR}"
+			app:spaceOffset="@{@dimen/dimen_16dp}"
+			tools:listitem="@layout/item_event_request"/>
+
+		<com.wang.avi.AVLoadingIndicatorView
+			android:id="@+id/loaderLIV"
+			style="@style/LoadingIndicatorSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:isLoading="@{vm.eventRequestLoading}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
