@@ -6,6 +6,7 @@ import com.beachpartnerllc.beachpartner.etc.model.rest.ApiResponse
 import com.beachpartnerllc.beachpartner.etc.model.rest.ApiService
 import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.event.Event
+import com.beachpartnerllc.beachpartner.event.EventStatus
 import com.beachpartnerllc.beachpartner.finder.Flag
 import com.beachpartnerllc.beachpartner.finder.Search
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -70,6 +71,12 @@ class MockService(
         val data = stringFromFile("get_events")
         val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
         return delegate.returningResponse(response).getEventsForNext(time)
+    }
+
+    override fun getEvents(status: EventStatus): LiveData<ApiResponse<List<Event>>> {
+        val data = stringFromFile("get_events")
+        val response: List<Event> = serializer.fromJson(data, object : TypeToken<List<Event>>() {}.type)
+        return delegate.returningResponse(response).getEvents(status)
     }
 
     override fun getConnections(): LiveData<ApiResponse<List<Profile>>> {

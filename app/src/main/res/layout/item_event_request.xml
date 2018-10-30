@@ -43,7 +43,7 @@
 				android:layout_marginStart="@dimen/dimen_8dp"
 				android:background="@drawable/draw_underline_dedede"
 				android:gravity="center_vertical"
-				android:paddingStart="@dimen/dimen_28dp"
+				android:paddingStart="@dimen/dimen_24dp"
 				android:paddingTop="@dimen/dimen_8dp"
 				android:paddingEnd="0dp"
 				android:paddingBottom="@dimen/dimen_8dp"

@@ -136,6 +136,20 @@ class EventRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun getEventsByStatus(status: EventStatus) = object : NetworkBoundResource<List<Event>, List<Event>>(exec) {
+        override fun saveCallResult(item: List<Event>) = db.event().insert(item)
+
+        override fun shouldFetch(data: List<Event>?) = data?.isEmpty() ?: true
+
+        override fun loadFromDb() = db.event().getEvents(status)
+
+        override fun createCall() = api.getEvents(status)
+
+        override fun onFetchFailed() {
+            createCall()
+        }
+    }.asLiveData()
+
     companion object {
         private const val DEFAULT_NETWORK_PAGE_SIZE = 30
     }

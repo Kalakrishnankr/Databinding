@@ -2,6 +2,7 @@ package com.beachpartnerllc.beachpartner.etc.model.rest
 
 import androidx.lifecycle.LiveData
 import com.beachpartnerllc.beachpartner.event.Event
+import com.beachpartnerllc.beachpartner.event.EventStatus
 import com.beachpartnerllc.beachpartner.finder.Flag
 import com.beachpartnerllc.beachpartner.finder.Search
 import com.beachpartnerllc.beachpartner.user.auth.Auth
@@ -72,6 +73,9 @@ interface ApiService {
 
     @GET("event/get-events-for-next")
     fun getEventsForNext(time: Date): LiveData<ApiResponse<List<Event>>>
+
+    @GET("event/get-events-by-status")
+    fun getEvents(status: EventStatus): LiveData<ApiResponse<List<Event>>>
 
     companion object {
         const val URL_BASE = "http://10.0.2.2:5000/"
