@@ -130,4 +130,9 @@
 	<string name="share_image_error">Please upload an image and then share it</string>
 	<string name="search">Search</string>
 	<string name="search_connections">Search connections</string>
+    <string name="profile_update_success">Successfully updated your details</string>
+    <string name="share_video_error">Please upload a video and then share it</string>
+    <string name="field_empty_error">This field cannot be empty</string>
+    <string name="share_image_via">Share image via...</string>
+    <string name="Share_video_via">Share video via</string>
 </resources>

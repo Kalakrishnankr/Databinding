@@ -8,7 +8,7 @@
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"/>
 	</data>
-	<ScrollView
+	<androidx.core.widget.NestedScrollView
 		android:id="@+id/scrollview_profile"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -21,10 +21,11 @@
 			<ImageView
 				android:id="@+id/bgView"
 				android:layout_width="0dp"
-				android:layout_height="200dp"
+				android:layout_height="250dp"
 				android:contentDescription="@null"
 				app:imageUrl="@{vm.coach.avatarUrl}"
-				app:layout_constraintBottom_toBottomOf="@+id/profileImgIV"
+				app:isRound="@{false}"
+				app:layout_constraintBottom_toTopOf="@+id/tabs"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
@@ -44,24 +45,42 @@
 				android:layout_width="100dp"
 				android:layout_height="100dp"
 				android:layout_marginStart="@dimen/dimen_8dp"
+				android:contentDescription="@null"
 				android:onClick="@{()->handler.uploadImage()}"
 				android:paddingTop="@dimen/dimen_8dp"
 				android:paddingBottom="@dimen/dimen_8dp"
 				app:imageUrl="@{vm.coach.avatarUrl}"
+				app:isRound="@{true}"
 				app:layout_constraintBottom_toBottomOf="@id/bgView"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
 				app:placeHolder="@{@drawable/ic_user_img}"/>
 
+			<ProgressBar
+				android:id="@+id/coachImgPB"
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:progress="@{vm.imageUploadProgress}"
+				app:goneUntil="@{!vm.imgAvailable}"
+				app:layout_constraintBottom_toBottomOf="@+id/profileImgIV"
+				app:layout_constraintEnd_toEndOf="@id/profileImgIV"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toStartOf="@id/profileImgIV"
+				app:layout_constraintTop_toTopOf="@id/profileImgIV"
+				app:layout_constraintVertical_bias="0.5"/>
+
 			<TextView
 				android:id="@+id/nameTV"
-				android:layout_width="wrap_content"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:text="@={vm.coach.firstName}"
+				android:text="@{vm.profile.firstName}"
 				android:textSize="@dimen/text_16sp"
+				android:ellipsize="marquee"
+				android:singleLine="true"
 				app:layout_constraintBottom_toBottomOf="@id/bgView"
 				app:layout_constraintStart_toEndOf="@id/profileImgIV"
 				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintEnd_toStartOf="@id/editTV"
 				tools:text="Antonio Levi"/>
 
 			<TextView
@@ -115,5 +134,5 @@
 			</com.beachpartnerllc.beachpartner.user.profile.CustomViewPager>
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
-	</ScrollView>
+	</androidx.core.widget.NestedScrollView>
 </layout>

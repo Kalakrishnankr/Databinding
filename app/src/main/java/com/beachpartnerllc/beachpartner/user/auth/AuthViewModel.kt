@@ -1,6 +1,9 @@
 package com.beachpartnerllc.beachpartner.user.auth
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.view.Gravity
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
@@ -17,7 +20,9 @@ import com.beachpartnerllc.beachpartner.user.profile.Coach
 import com.beachpartnerllc.beachpartner.user.profile.Gender
 import com.beachpartnerllc.beachpartner.user.profile.Profile
 import com.beachpartnerllc.beachpartner.user.state.State
-import timber.log.Timber
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import javax.inject.Inject
 
 
@@ -52,6 +57,7 @@ class AuthViewModel @Inject constructor(
     val imgAvailable = MutableLiveData<Boolean>()
     val imageUploadProgress = MutableLiveData<Int>()
     val videoUploadProgress = MutableLiveData<Int>()
+    val imageBitmap = MutableLiveData<Bitmap>()
 
     val stateList = MutableLiveData<List<State>>()
     val selectedStatePosition = object : MutableLiveData<Int>() {
@@ -221,29 +227,53 @@ class AuthViewModel @Inject constructor(
 
     fun updateAthlete() = map(repo.update(athlete.value!!)) {
         loading.value = it.status == RequestState.LOADING
-        if (it.isSuccess()) {
-            Timber.e("Success")
+        when {
+            it.isSuccess() -> {
+                val user = it.data
+                showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
+            }
         }
+        it
     }!!
 
     fun updateCoach() = map(repo.update(coach.value!!)) {
         loading.value = it.status == RequestState.LOADING
         if (it.isSuccess()) {
-            Timber.e("Success")
+            val user = it.data
+            coach.value = user as Coach?
+            showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
         }
+        it
     }!!
 
-    fun uploadImageToS3(path: String, extension: String) =
+    fun uploadAthleteImageToS3(path: String, extension: String) =
         map(repo.uploadFileToS3(path, extension)) {
             if (it.isSuccess()) {
                 val user = athlete.value
                 user!!.avatarUrl = it.data
+                getImageBitmap(it.data!!)
                 athlete.value = user
                 imgAvailable.value = false
+                showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
             } else {
                 imageUploadProgress.value = it.code
                 imgAvailable.value = true
             }
+        }!!
+
+    fun uploadCoachImageToS3(path: String, extension: String) =
+        map(repo.uploadFileToS3(path, extension)) {
+            if (it.isSuccess()) {
+                val user = coach.value
+                user!!.avatarUrl = it.data
+                coach.value = user
+                imgAvailable.value = false
+                showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
+            } else {
+                imageUploadProgress.value = it.code
+                imgAvailable.value = true
+            }
+            it
         }!!
 
     fun uploadVideoToS3(path: String, extension: String) =
@@ -252,10 +282,28 @@ class AuthViewModel @Inject constructor(
                 val user = athlete.value
                 user!!.video = it.data
                 athlete.value = user
+                showToast(app.getString(R.string.profile_update_success), Gravity.CENTER)
             } else {
                 videoUploadProgress.value = it.code
             }
         }!!
+
+    private fun getImageBitmap(url: String) {
+        Glide.with(app)
+            .asBitmap()
+            .load(url)
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    imageBitmap.value = resource
+                }
+            })
+    }
+
+    private fun showToast(text: String, gravity: Int) {
+        val toast = Toast.makeText(app, text, Toast.LENGTH_LONG)
+        toast.setGravity(gravity, 0, 0)
+        toast.show()
+    }
 
     init {
         auth.value = Auth()

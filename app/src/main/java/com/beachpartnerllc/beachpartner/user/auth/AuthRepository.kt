@@ -115,7 +115,7 @@ class AuthRepository @Inject constructor(
                 response: Response<Resource<Profile>?>
             ) {
                 when (response.code()) {
-                    HTTP_CREATED -> {
+                    HTTP_OK -> {
                         state.value = Resource.success(profile)
                     }
                 }

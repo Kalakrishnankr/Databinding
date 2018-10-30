@@ -5,9 +5,9 @@
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
 		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.BasicInfoFragment"/>
 		<variable name="adapter" type="android.widget.ArrayAdapter"/>
-		<variable name="firstNameError" type="Boolean"/>
-		<variable name="lastNameError" type="Boolean"/>
-		<variable name="mobileError" type="Boolean"/>
+		<variable name="firstNameError" type="String"/>
+		<variable name="lastNameError" type="String"/>
+		<variable name="mobileError" type="String"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -15,18 +15,8 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:background="@color/grey_efeff1"
 		tools:context=".user.profile.BasicInfoFragment">
-
-		<View
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_marginLeft="@dimen/dimen_13dp"
-			android:layout_marginRight="@dimen/dimen_13dp"
-			android:background="@color/grey_efeff1"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
 
 		<TextView
 			android:id="@+id/tv_fname_label"
@@ -34,7 +24,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:text="@string/first_name"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toStartOf="@+id/edit_fname"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
@@ -52,10 +42,10 @@
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:selection="@{vm.isProfileEdit()?vm.athlete.firstName.length:0}"
-			android:text="@={vm.athlete.firstName}"
+			android:text="@={vm.profile.firstName}"
 			android:textColor="@color/blue_263588"
-			android:textSize="@dimen/text_size_regular"
-			app:error="@{vm.isProfileEdit &amp;&amp; firstNameError ? @string/invalid_name : null}"
+			android:textSize="@dimen/text_16sp"
+			app:error="@{vm.isProfileEdit ? firstNameError : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_fname_label"
@@ -76,7 +66,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:text="@string/last_name"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toStartOf="@+id/edit_lname"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
@@ -93,10 +83,10 @@
 			android:maxLines="1"
 			android:paddingStart="@dimen/dimen_8dp"
 			android:paddingEnd="@dimen/dimen_8dp"
-			android:text="@={vm.athlete.lastName}"
+			android:text="@={vm.profile.lastName}"
 			android:textColor="@color/blue_263588"
-			android:textSize="@dimen/text_size_regular"
-			app:error="@{vm.isProfileEdit &amp;&amp; lastNameError ? @string/invalid_name : null}"
+			android:textSize="@dimen/text_16sp"
+			app:error="@{vm.isProfileEdit? lastNameError : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_lname_label"
@@ -117,7 +107,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:text="@string/gender"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toStartOf="@+id/edit_gender"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +122,6 @@
 			android:enabled="@{vm.isProfileEdit}"
 			android:selectedItemPosition="@={vm.selectedGenderPosition}"
 			android:textColor="@color/blue_263588"
-			android:textSize="@dimen/text_size_regular"
 			app:adapter="@{adapter}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
@@ -153,7 +142,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:text="@string/birth_date"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toStartOf="@+id/edit_dob"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +162,7 @@
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:text="@={vm.athlete.dob}"
 			android:textColor="@color/blue_263588"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_dob_label"
@@ -194,7 +183,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:text="@string/state"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toStartOf="@+id/spinner_state"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
@@ -229,7 +218,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="17dp"
 			android:text="@string/phone"
-			android:textSize="@dimen/text_size_regular"
+			android:textSize="@dimen/text_16sp"
 			app:layout_constraintEnd_toStartOf="@+id/edit_mobile"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
@@ -248,13 +237,14 @@
 			android:paddingEnd="@dimen/dimen_8dp"
 			android:text="@={vm.athlete.mobile}"
 			android:textColor="@color/blue_263588"
-			android:textSize="@dimen/text_size_regular"
-			app:error="@{vm.isProfileEdit &amp;&amp; mobileError ? @string/invalid_mobile : null}"
+			android:textSize="@dimen/text_16sp"
+			app:error="@{vm.isProfileEdit ? mobileError : null}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
 			app:layout_constraintTop_toBottomOf="@+id/bound_state"
 			tools:text="95822222321"/>
+
 		<View
 			android:id="@+id/bound_phone"
 			android:layout_width="match_parent"
@@ -262,5 +252,15 @@
 			android:layout_margin="@dimen/dimen_17"
 			android:background="@color/grey_A9A9A9"
 			app:layout_constraintTop_toBottomOf="@id/tv_phone_label"/>
+
+		<View
+			android:id="@+id/extra_view"
+			android:layout_width="0dp"
+			android:layout_height="50dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_efeff1"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/bound_phone"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

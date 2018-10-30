@@ -115,9 +115,7 @@ fun setOnDrawableEndClick(view: TextView, listener: OnCompoundDrawableClickListe
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 if (view.compoundDrawables[DRAWABLE_RIGHT] == null) return@setOnTouchListener false
-                else if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width() -
-                            padding)
-                ) {
+                else if (event.rawX >= (view.right - view.compoundDrawables[DRAWABLE_RIGHT].bounds.width() - padding)) {
                     listener.onDrawableEnd()
                     return@setOnTouchListener true
                 }
@@ -245,14 +243,12 @@ fun setItemView(view: Spinner, itemView: Int) {
 }
 
 @BindingAdapter("url", "listener", requireAll = false)
-fun setImageUrl(view: PlayerView, url: Any?, listener: PlayerStateChangeListener) {
+fun setVideoUrl(view: PlayerView, url: Any?, listener: PlayerStateChangeListener) {
     val uri: Uri? = if (url is String) Uri.parse(url as String?) else url as Uri?
-    val trackSelector =
-        DefaultTrackSelector(AdaptiveTrackSelection.Factory(DefaultBandwidthMeter()))
+    val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(DefaultBandwidthMeter()))
     val player: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(view.context, trackSelector)
     val dataSourceFactory = DefaultDataSourceFactory(view.context, "ua")
-    val mediaSource =
-        ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
+    val mediaSource = ExtractorMediaSource(uri, dataSourceFactory, DefaultExtractorsFactory(), null, null)
     player.prepare(mediaSource)
     player.apply {
         volume = 0f

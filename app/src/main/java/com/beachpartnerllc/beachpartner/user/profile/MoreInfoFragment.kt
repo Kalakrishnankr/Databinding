@@ -23,8 +23,7 @@ import javax.inject.Inject
 class MoreInfoFragment : BaseFragment() {
     private lateinit var binding: MoreInfoBinding
     private lateinit var vm: AuthViewModel
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
+    @Inject lateinit var factory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,8 +60,9 @@ class MoreInfoFragment : BaseFragment() {
         binding.topFinishesAET.setText(topFinish)
         this.binding.topFinishesLL.addView(binding.root)
         this.binding.topFinishesLL.invalidate()
+        this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1).requestFocus()
         this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1)
-            .requestFocus()
+            .animate().translationY(-10f)
         binding.setLifecycleOwner(viewLifecycleOwner)
         vm.addTopFinish()
     }
