@@ -26,7 +26,8 @@ class MoreInfoFragment : BaseFragment() {
     @Inject lateinit var factory: ViewModelProvider.Factory
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = inflater.bind(R.layout.fragment_more_info, container)
@@ -53,17 +54,17 @@ class MoreInfoFragment : BaseFragment() {
 
     fun addTopFinish(topFinish: String? = null) {
         val inflater = LayoutInflater.from(context)
-        val binding: TopFinishesBinding =
+        val itemBinding: TopFinishesBinding =
             inflater.bind(R.layout.item_top_finishes, this.binding.topFinishesLL)
-        binding.handler = this
-        binding.vm = vm
-        binding.topFinishesAET.setText(topFinish)
-        this.binding.topFinishesLL.addView(binding.root)
-        this.binding.topFinishesLL.invalidate()
-        this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1).requestFocus()
-        this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1)
-            .animate().translationY(-10f)
-        binding.setLifecycleOwner(viewLifecycleOwner)
+        itemBinding.handler = this
+        itemBinding.vm = vm
+        itemBinding.topFinishesAET.setText(topFinish)
+        binding.topFinishesLL.addView(itemBinding.root)
+        binding.topFinishesLL.invalidate()
+        val child = this.binding.topFinishesLL.getChildAt(this.binding.topFinishesLL.childCount - 1)
+        child.requestFocus()
+        child.animate().translationY(-10f)
+        itemBinding.setLifecycleOwner(viewLifecycleOwner)
         vm.addTopFinish()
     }
 

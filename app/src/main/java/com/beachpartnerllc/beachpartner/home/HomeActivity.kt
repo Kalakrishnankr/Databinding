@@ -13,11 +13,11 @@ import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.HomeActivityBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
 import com.beachpartnerllc.beachpartner.etc.model.pref.Preference
-import com.beachpartnerllc.beachpartner.user.profile.UserType
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity() {
-    @Inject lateinit var preferences: Preference
+    @Inject
+    lateinit var preferences: Preference
     private lateinit var binding: HomeActivityBinding
     private lateinit var navController: NavController
 
@@ -36,17 +36,16 @@ class HomeActivity : BaseActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.extra_menu, menu)
-        if (preferences.userType == UserType.ATHLETE.toString()) {
-            menu!!.add(Menu.NONE, R.id.action_profile_athlete, 50, "Profile")
-        } else menu!!.add(Menu.NONE, R.id.action_profile_coach, 50, "Profile")
+        val id =
+            if (preferences.userType!!.isAthlete()) R.id.action_profile_athlete
+            else R.id.action_profile_coach
+        menu!!.add(Menu.NONE, id, 50, getString(R.string.profile))
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item!!.itemId) {
-            R.id.action_discard -> false
-
-            R.id.action_save -> false
+            R.id.action_discard, R.id.action_save -> false
 
             else -> {
                 navController.navigate(item.itemId)
@@ -55,5 +54,5 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    override fun onSupportNavigateUp() = navController.navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.navFragment).navigateUp()
 }
