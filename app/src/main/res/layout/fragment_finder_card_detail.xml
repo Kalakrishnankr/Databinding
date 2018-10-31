@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="ProfileDetailFragmentBinding">
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="itemProfile" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.finder.ProfileDetailFragment"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.core.widget.NestedScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:id="@+id/avatarIMV"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dimen_300dp"
+					android:contentDescription="@null"
+					android:scaleType="centerCrop"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+
+				<View
+					android:id="@+id/titlebgVI"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dimen_70dp"
+					android:background="@drawable/overlay_card"
+					app:layout_constraintBottom_toBottomOf="@+id/avatarIMV"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintStart_toStartOf="parent"/>
+
+				<TextView
+					android:id="@+id/nameTV"
+					android:layout_width="wrap_content"
+					android:layout_height="0dp"
+					android:layout_marginStart="@dimen/dimen_10dp"
+					android:layout_marginTop="@dimen/dimen_10dp"
+					android:contentDescription="@null"
+					android:text="@{vm.itemProfile.firstName+' '+ vm.itemProfile.lastName+`,`+ vm.itemProfile.age}"
+					android:textColor="@color/white"
+					android:textSize="20sp"
+					android:textStyle="bold"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/titlebgVI"/>
+
+				<TextView
+					android:id="@+id/usertypeTV"
+					android:layout_width="wrap_content"
+					android:layout_height="0dp"
+					android:layout_marginStart="@dimen/dimen_10dp"
+					android:layout_marginTop="@dimen/dimen_5dp"
+					android:contentDescription="@null"
+					android:text="@{vm.itemProfile.userType.name()}"
+					android:textColor="@color/white"
+					android:textSize="18sp"
+					app:layout_constraintBottom_toBottomOf="@+id/titlebgVI"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/nameTV"/>
+
+				<ImageView
+					android:id="@+id/upIM"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:contentDescription="@null"
+					android:onClick="@{()-> handler.backStack()}"
+					android:padding="@dimen/dimen_10dp"
+					android:src="@drawable/icon_uparrow"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/titlebgVI"/>
+
+
+				<!--Folding Cell Layout start here-->
+				<androidx.cardview.widget.CardView
+					android:id="@+id/foldingCV"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginRight="10dp"
+					app:cardCornerRadius="@dimen/dimen_5dp"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintStart_toStartOf="@id/titlebgVI"
+					app:layout_constraintTop_toBottomOf="@+id/titlebgVI">
+
+					<com.ramotion.foldingcell.FoldingCell
+						android:id="@+id/foldingFC"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="gone">
+
+							<TextView
+								android:id="@+id/topOneTV"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:contentDescription="@null"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintStart_toStartOf="parent"/>
+
+							<TextView
+								android:id="@+id/topTwoTV"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:contentDescription="@null"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/topOneTV"/>
+
+							<TextView
+								android:id="@+id/topThreeTV"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:contentDescription="@null"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/topTwoTV"/>
+
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:padding="@dimen/dimen_5dp">
+
+							<ImageView
+								android:id="@+id/badgeIMV"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:contentDescription="@null"
+								android:src="@drawable/ic_badge"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
+
+							<TextView
+								android:id="@+id/badgeInfoTV"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:contentDescription="@null"
+								android:text="@string/top_finishes"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/badgeIMV"/>
+
+						</androidx.constraintlayout.widget.ConstraintLayout>
+					</com.ramotion.foldingcell.FoldingCell>
+
+
+				</androidx.cardview.widget.CardView>
+
+				<!--Folding Cell Layout end here-->
+				<View
+					android:id="@+id/horizontalLineVI"
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginTop="10dp"
+					android:background="@color/blue_0b1d56"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/foldingCV"/>
+
+
+				<View
+					android:id="@+id/calbuttonbgVI"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/horizontalLineVI"/>
+
+				<ImageView
+					android:id="@+id/leftArrowIMV"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="50dp"
+					android:contentDescription="@null"
+					android:src="@drawable/left_arrow"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintStart_toStartOf="@id/calbuttonbgVI"
+					app:layout_constraintTop_toTopOf="@+id/calbuttonbgVI"/>
+
+				<ImageView
+					android:id="@+id/rightArrowIMV"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="50dp"
+					android:contentDescription="@null"
+					android:src="@drawable/right_arrow"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/calbuttonbgVI"/>
+
+				<TextView
+					android:id="@+id/monthTV"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:contentDescription="@null"
+					android:textColor="@color/blue_0b1d56"
+					android:textStyle="bold"
+					app:layout_constraintLeft_toRightOf="@+id/leftArrowIMV"
+					app:layout_constraintRight_toLeftOf="@+id/rightArrowIMV"
+					app:layout_constraintTop_toBottomOf="@+id/calbuttonbgVI"
+					tools:text="JANUARY"/>
+
+				<com.github.sundeepk.compactcalendarview.CompactCalendarView
+					xmlns:app="http://schemas.android.com/apk/res-auto"
+					android:id="@+id/calendarCCV"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/dimen_20dp"
+					app:compactCalendarBackgroundColor="#fff"
+					app:compactCalendarCurrentDayBackgroundColor="@android:color/transparent"
+					app:compactCalendarCurrentDayIndicatorStyle="fill_large_indicator"
+					app:compactCalendarCurrentDayTextColor="#fff"
+					app:compactCalendarCurrentSelectedDayBackgroundColor="@color/blue_900a19e1"
+					app:compactCalendarCurrentSelectedDayTextColor="#fff"
+					app:compactCalendarEventIndicatorStyle="small_indicator"
+					app:compactCalendarOtherMonthDaysTextColor="#534c4c"
+					app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
+					app:compactCalendarTargetHeight="250dp"
+					app:compactCalendarTextColor="#534c4c"
+					app:compactCalendarTextSize="@dimen/text_10sp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintStart_toStartOf="@id/calbuttonbgVI"
+					app:layout_constraintTop_toBottomOf="@+id/monthTV"/>
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		</androidx.core.widget.NestedScrollView>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="RecentChatItemBinding">
+		<variable name="item" type="com.beachpartnerllc.beachpartner.messaging.Chat"/>
+	</data>
+	<androidx.cardview.widget.CardView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingStart="@dimen/dimen_12dp"
+			android:paddingTop="@dimen/dimen_10dp"
+			android:paddingEnd="@dimen/dimen_12dp"
+			android:paddingBottom="@dimen/dimen_10dp">
+			<ImageView
+				android:id="@+id/avatarIV"
+				android:layout_width="56dp"
+				android:layout_height="56dp"
+				android:contentDescription="@null"
+				app:imageUrl="@{item.avatarUrl}"
+				app:isRound="@{true}"
+				app:layout_constraintEnd_toEndOf="@id/nameTV"
+				app:layout_constraintStart_toStartOf="@id/nameTV"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:src="@tools:sample/avatars"/>
+
+			<TextView
+				android:id="@+id/nameTV"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/dimen_10dp"
+				android:fontFamily="@font/sf_medium"
+				android:text="@{item.title}"
+				android:textAppearance="?attr/textAppearanceListItem"
+				android:textColor="@color/blue_283873"
+				android:textSize="@dimen/text_12sp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/avatarIV"
+				tools:text="@tools:sample/full_names"/>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.cardview.widget.CardView>
+</layout>

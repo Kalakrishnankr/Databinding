@@ -5,5 +5,5 @@ package com.beachpartnerllc.beachpartner.etc.base
  * @created on 17 Aug 2018 at 3:12 PM
  */
 interface BaseErrorEvent {
-	fun getErrorResources(): Int
+    fun getErrorResources(): Int
 }

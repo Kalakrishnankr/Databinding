@@ -17,21 +17,21 @@ import javax.inject.Singleton
  */
 @Singleton
 open class AppExecutors(
-	val diskIO: Executor,
-	val networkIO: Executor,
-	val mainThread: Executor
+    val diskIO: Executor,
+    val networkIO: Executor,
+    val mainThread: Executor
 ) {
-	@Inject
-	constructor() : this(
-		Executors.newSingleThreadExecutor(),
-		Executors.newFixedThreadPool(3),
-		MainThreadExecutor()
-	)
-	
-	private class MainThreadExecutor : Executor {
-		private val mainThreadHandler = Handler(Looper.getMainLooper())
-		override fun execute(command: Runnable) {
-			mainThreadHandler.post(command)
-		}
-	}
+    @Inject
+    constructor() : this(
+        Executors.newSingleThreadExecutor(),
+        Executors.newFixedThreadPool(3),
+        MainThreadExecutor()
+    )
+
+    private class MainThreadExecutor : Executor {
+        private val mainThreadHandler = Handler(Looper.getMainLooper())
+        override fun execute(command: Runnable) {
+            mainThreadHandler.post(command)
+        }
+    }
 }

@@ -9,12 +9,13 @@ import androidx.fragment.app.FragmentPagerAdapter
  * @created on 17 Sep 2018 at 4:42 PM
  */
 class ViewPagerAdapter(
-	fm: FragmentManager,
-	private val items: ArrayList<Fragment>,
-	private val titles: ArrayList<String>? = null) : FragmentPagerAdapter(fm) {
-	override fun getItem(position: Int) = items[position]
-	
-	override fun getCount() = items.size
-	
-	override fun getPageTitle(position: Int) = titles?.get(position)
+    fm: FragmentManager,
+    private val items: ArrayList<Fragment>,
+    private val titles: ArrayList<String>? = null
+) : FragmentPagerAdapter(fm) {
+    override fun getItem(position: Int) = items[position]
+
+    override fun getCount() = items.size
+
+    override fun getPageTitle(position: Int) = titles?.get(position)
 }

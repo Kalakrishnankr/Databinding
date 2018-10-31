@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="MessageFromBinding">
+		<variable name="item" type="com.beachpartnerllc.beachpartner.messaging.Message"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bubble_white"
+		android:paddingStart="@dimen/dimen_8dp"
+		android:paddingTop="@dimen/dimen_16dp"
+		android:paddingEnd="@dimen/dimen_8dp"
+		android:paddingBottom="@dimen/dimen_4dp">
+
+		<TextView
+			android:id="@+id/contentTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:autoLink="all"
+			android:maxEms="14"
+			android:minWidth="@dimen/dimen_64dp"
+			android:text="@{item.content}"
+			android:textColor="@color/grey_030303"
+			android:textSize="@dimen/text_16sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Hello"/>
+
+		<TextView
+			android:id="@+id/timeTV"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			android:text="@{item.displayTime()}"
+			android:textColor="@color/grey_777777"
+			android:textSize="@dimen/text_12sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/contentTV"
+			tools:text="@tools:sample/date/hhmm"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

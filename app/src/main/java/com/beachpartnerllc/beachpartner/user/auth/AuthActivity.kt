@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation.*
+import androidx.navigation.Navigation.findNavController
 import com.beachpartnerllc.beachpartner.R
 import com.beachpartnerllc.beachpartner.databinding.MainBinding
 import com.beachpartnerllc.beachpartner.etc.base.BaseActivity
@@ -15,7 +15,8 @@ import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity() {
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {

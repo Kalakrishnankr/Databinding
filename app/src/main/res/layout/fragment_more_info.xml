@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data class="MoreInfoBinding">
+		<import type="android.view.View"/>
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.user.auth.AuthViewModel"/>
+		<variable name="handler" type="com.beachpartnerllc.beachpartner.user.profile.MoreInfoFragment"/>
+		<variable name="R" type="com.beachpartnerllc.beachpartner.R"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".user.profile.MoreInfoFragment">
+
+		<View android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginLeft="@dimen/dimen_13dp"
+			android:layout_marginRight="@dimen/dimen_13dp"
+			android:background="@color/grey_efeff1"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+
+		<TextView
+			android:id="@+id/tv_experience_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="17dp"
+			android:text="@string/experience_level"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/spinner_experience"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/spinner_experience"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:entries="@array/experience"
+			android:selectedItemPosition="@={vm.selectedExperiencePosition}"
+			app:itemView="@{handler.getItemView()}"
+			app:layout_constraintBaseline_toBaselineOf="@id/tv_experience_label"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_experience_label"/>
+
+		<View
+			android:id="@+id/bound_experience"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_experience_label"/>
+
+		<TextView
+			android:id="@+id/tv_preference_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:text="@string/court_side_preference"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/spinner_preference"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_experience"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/spinner_preference"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:entries="@array/courtPreference"
+			android:selectedItemPosition="@={vm.selectedPreferencePosition}"
+			app:itemView="@{handler.getItemView()}"
+			app:layout_constraintBaseline_toBaselineOf="@id/tv_preference_label"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_preference_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_experience"/>
+
+		<View
+			android:id="@+id/bound_preference"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_preference_label"/>
+
+		<TextView
+			android:id="@+id/tv_position_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:text="@string/position"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/spinner_position"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_preference"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/spinner_position"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:entries="@array/position"
+			android:selectedItemPosition="@={vm.selectedPosPosition}"
+			app:itemView="@{handler.getItemView()}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_position_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_preference"/>
+
+		<View
+			android:id="@+id/bound_position"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_position_label"/>
+
+		<TextView
+			android:id="@+id/tv_height_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:text="@string/height"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/spinner_height"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_position"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/spinner_height"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:entries="@array/height"
+			android:selectedItemPosition="@={vm.selectedHeightPosition}"
+			app:itemView="@{handler.getItemView()}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_height_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_position"/>
+
+		<View
+			android:id="@+id/bound_height"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_height_label"/>
+
+		<TextView
+			android:id="@+id/tv_travel_willingness_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:text="@string/willingness_to_travel"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/spinner_travel_willingness"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_height"/>
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/spinner_travel_willingness"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:entries="@array/distance"
+			android:selectedItemPosition="@={vm.selectedDistancePosition}"
+			app:itemView="@{handler.getItemView()}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_travel_willingness_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_height"/>
+
+		<View
+			android:id="@+id/bound_travel_willingness"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_travel_willingness_label"/>
+
+		<TextView
+			android:id="@+id/tv_highschool_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:layout_weight="1"
+			android:gravity="center_vertical"
+			android:text="@string/high_school_attended"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/edit_highschool"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_travel_willingness"/>
+
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_highschool"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.highSchool}"
+			android:textColor="@color/blue_263588"
+			android:fontFamily="@font/sf_regular"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_highschool_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_travel_willingness"
+			tools:text="adad"/>
+
+		<View
+			android:id="@+id/bound_highschool"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_highschool_label"/>
+
+		<TextView
+			android:id="@+id/tv_indoor_club_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:layout_weight="1"
+			android:gravity="center_vertical"
+			android:text="@string/indoor_club_played_at"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/edit_highschool"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_highschool"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_indoor_club"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.indoorClub}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_indoor_club_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_highschool"
+			tools:text="asdasd"/>
+
+		<View
+			android:id="@+id/bound_indoor_club"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_indoor_club_label"/>
+
+		<TextView
+			android:id="@+id/tv_college_beach_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:layout_weight="1"
+			android:gravity="center_vertical"
+			android:text="@string/college_beach"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/edit_college_beach"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_indoor_club"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_college_beach"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.collegeBeach}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_college_beach_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_indoor_club"
+			tools:text="asdasd"/>
+
+		<View
+			android:id="@+id/bound_college_beach"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_college_beach_label"/>
+
+		<TextView
+			android:id="@+id/tv_colleg_indoor_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:layout_weight="1"
+			android:gravity="center_vertical"
+			android:text="@string/college_indoor"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/edit_college_beach"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_college_beach"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_college_indoor"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.collegeIndoor}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_colleg_indoor_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_college_beach"
+			tools:text="asdasd"/>
+
+		<View
+			android:id="@+id/bound_college_indoor"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_colleg_indoor_label"/>
+
+		<TextView
+			android:id="@+id/tv_sand_recruits_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:gravity="center_vertical"
+			android:text="@string/sand_recruits_number"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/edit_sand_recruits"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_college_indoor"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_sand_recruits"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.sandRecruitsNo}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_sand_recruits_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_college_indoor"
+			tools:text="asdasd"/>
+
+		<View
+			android:id="@+id/bound_sand_recruits"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_sand_recruits_label"/>
+
+		<TextView
+			android:id="@+id/tv_top_finishes_label"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:gravity="center_vertical"
+			android:text="@string/top_finishes"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toStartOf="@+id/edit_top_finishes1"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_sand_recruits"/>
+
+		<androidx.appcompat.widget.AppCompatEditText
+			android:id="@+id/edit_top_finishes1"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@drawable/text_field"
+			android:drawableEnd="@{vm.isProfileEdit() &amp;&amp; vm.topFinishesCount &lt; 2?@drawable/ic_add_15dp:null}"
+			android:enabled="@{vm.isProfileEdit}"
+			android:inputType="textCapWords"
+			android:maxLines="1"
+			android:paddingStart="@dimen/dimen_8dp"
+			android:paddingEnd="@dimen/dimen_8dp"
+			android:text="@={vm.athlete.topFinishes[0]}"
+			android:textColor="@color/blue_263588"
+			android:textSize="@dimen/text_size_medium"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/tv_top_finishes_label"
+			app:layout_constraintTop_toBottomOf="@id/bound_sand_recruits"
+			app:onDrawableEndClick="@{()-> handler.addTopFinish(``)}"
+			tools:text="top finish"/>
+
+		<View
+			android:id="@+id/bound_top_finishes1"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="@dimen/dimen_17"
+			android:background="@color/grey_A9A9A9"
+			app:layout_constraintTop_toBottomOf="@+id/tv_top_finishes_label"/>
+
+		<LinearLayout
+			android:id="@+id/topFinishesLL"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:animateLayoutChanges="true"
+			android:orientation="vertical"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/bound_top_finishes1">
+
+		</LinearLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,6 +9,6 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "state")
 data class State(
-	@PrimaryKey val stateId: Int,
-	val stateName: String
+    @PrimaryKey val stateId: Int,
+    val stateName: String
 )

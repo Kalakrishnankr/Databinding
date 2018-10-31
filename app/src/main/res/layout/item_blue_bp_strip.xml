@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+	<!--suppress AndroidUnknownAttribute -->
+	<data class="StripItemBinding">
+		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
+		<variable name="item" type="com.beachpartnerllc.beachpartner.user.profile.Profile"/>
+	</data>
+	<ImageView
+		android:id="@+id/itemIV"
+		android:layout_width="@dimen/dimen_65dp"
+		android:layout_height="@dimen/dimen_65dp"
+		android:contentDescription="@null"
+		android:padding="@dimen/dimen_5dp"
+		app:isRound="@{true}"
+		app:placeHolder="@{@drawable/default_icon}"
+		app:imageUrl="@{item.avatarUrl}"
+		tools:src="@tools:sample/avatars"/>
+</layout>

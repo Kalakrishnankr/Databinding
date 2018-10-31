@@ -9,31 +9,92 @@
 		android:id="@+id/action_home"
 		android:name="com.beachpartnerllc.beachpartner.home.AthleteHomeFragment"
 		android:label="@string/app_name"
-		tools:layout="@layout/fragment_athlete_home"/>
+		tools:layout="@layout/fragment_athlete_home">
+		<action
+			android:id="@+id/action_message"
+			app:destination="@id/messageFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+		<action
+			android:id="@+id/action_event"
+			app:destination="@id/EventFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+	</fragment>
 
 	<fragment
 		android:id="@+id/action_connection"
 		android:name="com.beachpartnerllc.beachpartner.connection.ConnectionFragment"
 		android:label="@string/connections"
-		tools:layout="@layout/fragment_connection"/>
+		tools:layout="@layout/fragment_connection">
+		<action android:id="@+id/action_message"
+			app:destination="@id/messageFragment"/>
+	</fragment>
 
 	<fragment
 		android:id="@+id/action_bp"
-		android:name="com.beachpartnerllc.beachpartner.home.Home2Fragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.SearchFragment"
 		android:label="@string/app_name"
-		tools:layout="@layout/fragment_home_2"/>
+		tools:layout="@layout/fragment_search">
+		<action android:id="@+id/action_finderTocard"
+			app:destination="@id/cardFragment"/>
+	</fragment>
 
-	<fragment android:id="@+id/action_calendar"
+	<fragment
+		android:id="@+id/searchResultFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.SearchResultFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_search_result">
+		<action android:id="@+id/action_profile_details"
+			app:destination="@+id/profileDetailFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/profileDetailFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.ProfileDetailFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_finder_card_detail">
+		<argument
+			android:name="id"
+			app:argType="integer"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/cardFragment"
+		android:name="com.beachpartnerllc.beachpartner.finder.CardFragment"
+		android:label="@string/app_name"
+		tools:layout="@layout/fragment_playcard"/>
+
+	<fragment
+		android:id="@+id/action_calendar"
 		android:name="com.beachpartnerllc.beachpartner.event.CalendarFragment"
 		android:label="Calendar"
 		tools:layout="@layout/fragment_calendar">
-		<action android:id="@+id/action_master_calendar"
-			app:destination="@id/masterCalendarFragment"/>
+		<action android:id="@+id/action_event"
+			app:destination="@id/EventFragment"/>
 	</fragment>
 
-	<action
-		android:id="@+id/action_event"
-		app:destination="@id/EventFragment"/>
+	<fragment
+		android:id="@+id/action_chat"
+		android:name="com.beachpartnerllc.beachpartner.messaging.ChatFragment"
+		android:label="@string/messaging"
+		tools:layout="@layout/fragment_chat">
+
+		<action
+			android:id="@+id/action_message"
+			app:destination="@+id/messageFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim">
+			<argument android:name="user_id"
+				android:defaultValue="-1"/>
+		</action>
+	</fragment>
 
 	<fragment
 		android:id="@+id/masterCalendarFragment"
@@ -52,11 +113,43 @@
 			app:argType="integer"/>
 
 		<action android:id="@+id/action_invite"
-			app:destination="@id/connectionsFragment"/>
+			app:destination="@id/connectionsFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 	</fragment>
 
-	<fragment android:id="@+id/connectionsFragment"
+	<fragment
+		android:id="@+id/connectionsFragment"
 		android:name="com.beachpartnerllc.beachpartner.connection.InviteConnectionFragment"
 		android:label="Invite Partner"
 		tools:layout="@layout/fragment_invite_connection"/>
+
+	<fragment
+		android:id="@+id/action_profile_athlete"
+		android:name="com.beachpartnerllc.beachpartner.user.profile.AthleteProfileFragment"
+		android:label="AthleteProfileFragment"
+		tools:layout="@layout/fragment_athlete_profile"/>
+
+	<fragment
+		android:id="@+id/action_profile_coach"
+		android:name="com.beachpartnerllc.beachpartner.user.profile.CoachProfileFragment"
+		android:label="CoachProfileFragment"
+		tools:layout="@layout/fragment_coach_profile"/>
+
+	<fragment
+		android:id="@+id/messageFragment"
+		android:name="com.beachpartnerllc.beachpartner.messaging.MessageFragment"
+		android:label="MessageFragment"
+		tools:layout="@layout/fragment_message">
+		<argument
+			android:name="user_id"
+			android:defaultValue="-1"
+			app:argType="integer"/>
+		<argument android:name="chat_id"
+			android:defaultValue="@null"
+			app:argType="string"
+			app:nullable="true"/>
+	</fragment>
 </navigation>
