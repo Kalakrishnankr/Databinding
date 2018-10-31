@@ -1,8 +1,11 @@
 package com.beachpartnerllc.beachpartner.finder
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.*
+import androidx.lifecycle.Transformations.map
+import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
+import com.beachpartnerllc.beachpartner.etc.model.rest.Resource
 import com.beachpartnerllc.beachpartner.etc.model.rest.isLoading
 import com.beachpartnerllc.beachpartner.etc.model.rest.isSuccess
 import com.beachpartnerllc.beachpartner.finder.cardstackview.SwipeDirection
@@ -108,13 +111,14 @@ class FinderViewModel
         it
     }!!
 
-    fun getBlueBpProfiles() = map(repo.getBlueBpProfile()) {
-        loading.value = it.isLoading()
-        if (it.isSuccess()) {
-            bpprofileList = it.data!!
-        }
-        it
-    }!!
+    private val blueBpTrigger = MutableLiveData<Boolean>()
+    private val blueBpProfiles = switchMap(blueBpTrigger) { repo.getBlueBpProfile() }!!
+    val blueBpLoading = map(blueBpProfiles) { it.isLoading() }
+
+    fun loadBlueBpProfiles(): LiveData<Resource<List<Profile>>> {
+        if (blueBpProfiles.value?.isSuccess() != true) blueBpTrigger.value = true
+        return blueBpProfiles
+    }
 
     init {
         search.value = Search()

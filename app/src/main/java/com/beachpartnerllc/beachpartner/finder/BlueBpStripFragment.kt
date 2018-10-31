@@ -41,15 +41,14 @@ class BlueBpStripFragment : BaseFragment() {
         vm = getViewModel(factory)
         binding.vm = vm
         binding.setLifecycleOwner(viewLifecycleOwner)
-        vm.getBlueBpProfiles().observe(viewLifecycleOwner, Observer {
+        vm.loadBlueBpProfiles().observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
-                binding.stripAdapter =
-                    BaseAdapter(it.data!!, R.layout.item_blue_bp_strip, ::StripViewHolder)
+                binding.adapter = BaseAdapter(it.data!!, R.layout.item_blue_bp_strip, ::ViewHolder)
             }
         })
     }
 
-    class StripViewHolder(itemBinding: StripItemBinding) :
+    class ViewHolder(itemBinding: StripItemBinding) :
         BaseViewHolder<Profile, StripItemBinding>(itemBinding) {
         init {
             itemBinding.itemIV.setOnClickListener {

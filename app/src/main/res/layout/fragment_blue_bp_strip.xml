@@ -6,7 +6,10 @@
 	<!--suppress AndroidUnknownAttribute -->
 	<data class="StripFragmentBinding">
 		<variable name="vm" type="com.beachpartnerllc.beachpartner.finder.FinderViewModel"/>
-		<variable name="stripAdapter" type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter"/>
+
+		<variable
+			name="adapter"
+			type="com.beachpartnerllc.beachpartner.etc.base.BaseAdapter" />
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +21,7 @@
 			android:id="@+id/profileRC"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:adapter="@{stripAdapter}"
+			android:adapter="@{adapter}"
 			android:orientation="horizontal"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +34,7 @@
 			style="@style/LoadingIndicatorSmall"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:isLoading="@{vm.loading}"
+			app:isLoading="@{vm.blueBpLoading}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
